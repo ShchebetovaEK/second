@@ -1,0 +1,160 @@
+package by.tms.project.model.entity;
+
+import java.time.LocalDate;
+
+public class Doctor extends User {
+
+    private Category category;
+    private Experience experience;
+    private Speciality speciality;
+
+    public Doctor() {
+    }
+
+    public Doctor(Category category, Experience experience, Speciality speciality) {
+        this.category = category;
+        this.experience = experience;
+        this.speciality = speciality;
+    }
+
+    public Doctor(long id, Role role, String login, String password, String firstName, String lastName,
+                  LocalDate dataBirthday, String address, String phoneNumber, String email, Category category, Experience experience, Speciality speciality) {
+        super(id, role, login, password, firstName, lastName, dataBirthday, address, phoneNumber, email);
+        this.category = category;
+        this.experience = experience;
+        this.speciality = speciality;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Experience getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Experience experience) {
+        this.experience = experience;
+    }
+
+    public Speciality getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(Speciality speciality) {
+        this.speciality = speciality;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Doctor doctor = (Doctor) o;
+
+        if (category != doctor.category) return false;
+        if (experience != doctor.experience) return false;
+        return speciality == doctor.speciality;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + category.hashCode();
+        result = 31 * result + experience.hashCode();
+        result = 31 * result + speciality.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Doctor{");
+        sb.append("category=").append(category);
+        sb.append(", experience=").append(experience);
+        sb.append(", speciality=").append(speciality);
+        sb.append('}');
+        return sb.toString();
+    }
+
+    public static class DoctorBuilder {
+        private Doctor doctor = new Doctor();
+
+        public DoctorBuilder() {
+        }
+
+        public DoctorBuilder setId(long id) {
+            doctor.setId(id);
+            return this;
+        }
+
+        public DoctorBuilder setRole(Role role) {
+            doctor.setRole(role);
+            return this;
+        }
+
+        public DoctorBuilder setLogin(String login) {
+            doctor.setLogin(login);
+            return this;
+        }
+
+        public DoctorBuilder setPassword(String password) {
+            doctor.setPassword(password);
+            return this;
+        }
+
+        public DoctorBuilder setFirstName(String firstName) {
+            doctor.setFirstName(firstName);
+            return this;
+        }
+
+        public DoctorBuilder setLastName(String lastName) {
+            doctor.setLastName(lastName);
+            return this;
+        }
+
+        public DoctorBuilder setDataBirthday(LocalDate dataBirthday) {
+            doctor.setDataBirthday(dataBirthday);
+            return this;
+        }
+
+        public DoctorBuilder setAddress(String address) {
+            doctor.setAddress(address);
+            return this;
+        }
+
+        public DoctorBuilder setPhoneNumber(String phoneNumber) {
+            doctor.setPhoneNumber(phoneNumber);
+            return this;
+        }
+
+        public DoctorBuilder setEmail(String email) {
+            doctor.setEmail(email);
+            return this;
+        }
+
+        public DoctorBuilder setCategory(Category category) {
+            doctor.setCategory(category);
+            return this;
+        }
+
+        public DoctorBuilder setExperience(Experience experience) {
+            doctor.setExperience(experience);
+            return this;
+        }
+
+        public DoctorBuilder setSpeciality(Speciality speciality) {
+            doctor.setSpeciality(speciality);
+            return this;
+        }
+
+        public Doctor buildDoctor() {
+            return doctor;
+        }
+    }
+
+}

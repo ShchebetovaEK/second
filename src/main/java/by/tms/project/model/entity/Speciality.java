@@ -1,0 +1,25 @@
+package by.tms.project.model.entity;
+
+public enum Speciality {
+    THERAPY,
+    PEDIATRICS,
+    SURGERY,
+    DENTISTRY,
+    NEUROLOGY,
+    CARDIOLOGY,
+    OTOLARYNGOLOGY,
+    OPHTHALMOLOGY,
+    GASTROENTEROLOGY,
+    PULMONOLOGY,
+    ALLERGOLOGY,
+    DERMATOLOGY,
+    GYNECOLOGY,
+    UROLOGY,
+    ONCOLOGY,
+    PSYCHIATRY,
+    IMMUNOLOGY,
+    ENDOCRINOLOGY,
+    NEPHROLOGY,
+    ORTHOPEDICS,
+    TRAUMATOLOGY
+}
