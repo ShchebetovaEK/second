@@ -4,7 +4,6 @@ import by.tms.project.exception.DaoException;
 import by.tms.project.model.connection.ConnectionPool;
 import by.tms.project.model.dao.ColumnName;
 import by.tms.project.model.dao.DoctorDao;
-import by.tms.project.model.dao.UserDao;
 import by.tms.project.model.entity.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,88 +55,97 @@ public class DoctorDaoImpl implements DoctorDao {
 
     @Override
     public List<Doctor> findAll() throws DaoException {
+      //todo
         return null;
     }
 
     @Override
     public Optional<Doctor> findById(Long id) throws DaoException {
+      //todo
         return Optional.empty();
     }
 
     @Override
     public boolean create(Doctor entity) throws DaoException {
+     //todo
         return false;
     }
 
     @Override
     public boolean update(Doctor entity) throws DaoException {
+        //todo
         return false;
     }
 
     @Override
     public boolean delete(Long entity) throws DaoException {
+        //todo
         return false;
     }
 
     @Override
     public boolean delete(Doctor entity) throws DaoException {
+       //todo
         return false;
     }
 
     @Override
-    public Optional<Doctor> findByCategory(Category category) throws DaoException {
-        Optional<Doctor> optionalDoctor = Optional.empty();
+    public List<Doctor> findByCategory(Category category) throws DaoException {
+        List<Doctor> doctorList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_DOCTORS_CATEGORY)) {
             preparedStatement.setString(1, String.valueOf(category));
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalDoctor = Optional.of(getDoctorInfo(resultSet));
+                    Doctor doctor = getDoctorInfo(resultSet);
+                    doctorList.add(doctor);
                 }
             }
         } catch (SQLException e) {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return optionalDoctor;
+        return doctorList;
     }
 
 
 
     @Override
-    public Optional<Doctor> findByExperience(Experience experience) throws DaoException {
-        Optional<Doctor> optionalDoctor = Optional.empty();
+    public List<Doctor> findByExperience(Experience experience) throws DaoException {
+       List<Doctor> doctorList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_DOCTORS_EXPERIENCE)) {
             preparedStatement.setString(1, String.valueOf(experience));
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalDoctor = Optional.of(getDoctorInfo(resultSet));
+                    Doctor doctor =getDoctorInfo(resultSet);
+                    doctorList.add(doctor);
                 }
             }
         } catch (SQLException e) {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return optionalDoctor;
+        return doctorList;
     }
 
     @Override
-    public Optional<Doctor> findBySpeciality(Speciality speciality) throws DaoException {
-        Optional<Doctor> optionalDoctor = Optional.empty();
+    public List<Doctor> findBySpeciality(Speciality speciality) throws DaoException {
+        List<Doctor> doctorList =new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_DOCTORS_SPECIALITY)) {
             preparedStatement.setString(1, String.valueOf(speciality));
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalDoctor = Optional.of(getDoctorInfo(resultSet));
+                    Doctor doctor = getDoctorInfo(resultSet);
+                    doctorList.add(doctor);
                 }
             }
         } catch (SQLException e) {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return optionalDoctor;
+        return doctorList;
     }
 
     public Doctor getDoctorInfo(ResultSet resultSet) throws SQLException {

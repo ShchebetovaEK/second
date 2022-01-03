@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,87 +58,96 @@ public class PatientDaoImpl implements PatientDao {
 
     @Override
     public List<Patient> findAll() throws DaoException {
+     //todo
         return null;
     }
 
     @Override
     public Optional<Patient> findById(Long id) throws DaoException {
+      //todo
         return Optional.empty();
     }
 
     @Override
     public boolean create(Patient entity) throws DaoException {
+       //todo
         return false;
     }
 
     @Override
     public boolean update(Patient entity) throws DaoException {
-        return false;
+      //todo
+         return false;
     }
 
     @Override
     public boolean delete(Long entity) throws DaoException {
-        return false;
+      // todo
+    return false;
     }
 
     @Override
     public boolean delete(Patient entity) throws DaoException {
+      //todo
         return false;
     }
 
     @Override
-    public Optional<Patient> findByInsurance(Boolean insurance) throws DaoException {
-        Optional<Patient> optionalPatient = Optional.empty();
+    public List<Patient> findByInsurance(Boolean insurance) throws DaoException {
+        List<Patient> patientList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_PATIENTS_BY_INSURANCE)) {
             preparedStatement.setBoolean(1, insurance);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalPatient = Optional.of(getPatientInfo(resultSet));
+                    Patient patient = getPatientInfo(resultSet);
+                    patientList.add(patient);
                 }
             }
         } catch (SQLException e) {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return optionalPatient;
+        return patientList;
     }
 
 
     @Override
-    public Optional<Patient> findByMinimumMoneyAccount(BigDecimal moneyAccount) throws DaoException {
-        Optional<Patient> optionalPatient = Optional.empty();
+    public List<Patient> findByMinimumMoneyAccount(BigDecimal moneyAccount) throws DaoException {
+        List<Patient> patientList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_PATIENTS_BY_MONEY_ACCOUNT)) {
             preparedStatement.setBigDecimal(1, moneyAccount);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalPatient = Optional.of(getPatientInfo(resultSet));
+                    Patient patient = getPatientInfo(resultSet);
+                    patientList.add(patient);
                 }
             }
         } catch (SQLException e) {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return optionalPatient;
+        return patientList;
     }
 
     @Override
-    public Optional<Patient> findByMaxDiscount(Integer discount) throws DaoException {
-        Optional<Patient> optionalPatient = Optional.empty();
+    public List<Patient> findByMaxDiscount(Integer discount) throws DaoException {
+        List<Patient> patientList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_PATIENTS_BY_DISCOUNT)) {
             preparedStatement.setInt(1, discount);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalPatient = Optional.of(getPatientInfo(resultSet));
+                    Patient patient = getPatientInfo(resultSet);
+                    patientList.add(patient);
                 }
             }
         } catch (SQLException e) {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return optionalPatient;
+        return patientList;
     }
 
     public Patient getPatientInfo(ResultSet resultSet) throws SQLException {

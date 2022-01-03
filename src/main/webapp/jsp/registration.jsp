@@ -10,7 +10,7 @@ email: <input type="email" value="email">
 <br/>
 password: <input type="password" value="password">
 <br/>
-<input type="button" value="registration">
+<input type="submit" value="registration">
 
 </body>
 </html>

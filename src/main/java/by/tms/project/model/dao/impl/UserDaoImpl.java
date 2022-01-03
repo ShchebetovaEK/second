@@ -6,8 +6,10 @@ import by.tms.project.model.dao.ColumnName;
 import by.tms.project.model.dao.UserDao;
 import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
+import by.tms.project.model.util.PasswordEncryptor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -100,27 +102,92 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> findById(Long id) throws DaoException {
-        return Optional.empty();
+        Optional<User> optionalUser = Optional.empty();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
+            preparedStatement.setLong(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    optionalUser = Optional.of(getUserInfo(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("", e);
+            throw new DaoException("", e);
+        }
+        return optionalUser;
     }
 
     @Override
     public boolean create(User entity) throws DaoException {
-        return false;
+        int result = 0;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_USER)) {
+            preparedStatement.setString(1, String.valueOf(entity.getRole()));
+            preparedStatement.setString(2, entity.getLogin());
+            preparedStatement.setString(3, entity.getPassword());
+            preparedStatement.setString(4, entity.getFirstName());
+            preparedStatement.setString(5, entity.getLastName());
+            preparedStatement.setDate(6, Date.valueOf(entity.getDataBirthday()));
+            preparedStatement.setString(7, entity.getAddress());
+            preparedStatement.setString(8, entity.getPhoneNumber());
+            preparedStatement.setString(9, entity.getEmail());
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("", e);
+            throw new DaoException("", e);
+        }
+        return result > 0;
     }
 
     @Override
     public boolean update(User entity) throws DaoException {
-        return false;
+        int result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER)) {
+            preparedStatement.setString(1, String.valueOf(entity.getRole()));
+            preparedStatement.setString(2, entity.getLogin());
+            preparedStatement.setString(3, entity.getPassword());
+            preparedStatement.setString(4, entity.getFirstName());
+            preparedStatement.setString(5, entity.getLastName());
+            preparedStatement.setDate(6, Date.valueOf(entity.getDataBirthday()));
+            preparedStatement.setString(7, entity.getAddress());
+            preparedStatement.setString(8, entity.getPhoneNumber());
+            preparedStatement.setString(9, entity.getEmail());
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("", e);
+            throw new DaoException("", e);
+        }
+        return result > 0;
     }
 
     @Override
-    public boolean delete(Long entity) throws DaoException {
-        return false;
+    public boolean delete(Long id) throws DaoException {
+        int result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_USER_BY_ID)) {
+            preparedStatement.setLong(1,id);
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("", e);
+            throw new DaoException("", e);
+        }
+        return result > 0;
     }
 
     @Override
     public boolean delete(User entity) throws DaoException {
-        return false;
+        int result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_USER_BY_ID)) {
+            preparedStatement.setLong(1,entity.getId());
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("", e);
+            throw new DaoException("", e);
+        }
+        return result > 0;
     }
 
     @Override
@@ -143,113 +210,119 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    public Optional<User> findByFirstName(String firstName) throws DaoException {
-        Optional<User> optionalUser = Optional.empty();
+    public List<User> findByFirstName(String firstName) throws DaoException {
+        List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_FIRST_NAME)) {
             preparedStatement.setString(1, firstName);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalUser = Optional.of(getUserInfo(resultSet));
+                    User user = getUserInfo(resultSet);
+                    userList.add(user);
                 }
             }
         } catch (SQLException e) {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return optionalUser;
+        return userList;
     }
 
     @Override
-    public Optional<User> findByLastName(String lastName) throws DaoException {
-        Optional<User> optionalUser = Optional.empty();
+    public List<User> findByLastName(String lastName) throws DaoException {
+        List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_LAST_NAME)) {
             preparedStatement.setString(1, lastName);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalUser = Optional.of(getUserInfo(resultSet));
+                    User user = getUserInfo(resultSet);
+                    userList.add(user);
                 }
             }
         } catch (SQLException e) {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return optionalUser;
+        return userList;
     }
 
     @Override
-    public Optional<User> findByRole(Role role) throws DaoException {
-        Optional<User> optionalUser = Optional.empty();
+    public List<User> findByRole(Role role) throws DaoException {
+        List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_BY_ROLE)) {
-            preparedStatement.setString(1, String.valueOf(Role.valueOf(String.valueOf(role))));
+            preparedStatement.setString(1, String.valueOf(role));
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalUser = Optional.of(getUserInfo(resultSet));
+                    User user = getUserInfo(resultSet);
+                    userList.add(user);
                 }
             }
         } catch (SQLException e) {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return optionalUser;
+        return userList;
     }
 
     @Override
-    public Optional<User> findByFirstNameAndRole(String firstName, Role role) throws DaoException {
-        Optional<User> optionalUser = Optional.empty();
+    public List<User> findByFirstNameAndRole(String firstName, Role role) throws DaoException {
+        List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_FIRST_NAME_AND_ROLE)) {
             preparedStatement.setString(1, firstName);
             preparedStatement.setString(2, String.valueOf(role));
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalUser = Optional.of(getUserInfo(resultSet));
+                    User user = getUserInfo(resultSet);
+                    userList.add(user);
                 }
             }
         } catch (SQLException e) {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return optionalUser;
+        return userList;
     }
 
     @Override
-    public Optional<User> findByLastNameAndRole(String lastName, Role role) throws DaoException {
-        Optional<User> optionalUser = Optional.empty();
+    public List<User> findByLastNameAndRole(String lastName, Role role) throws DaoException {
+        List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_LAST_NAME_AND_ROLE)) {
             preparedStatement.setString(1, lastName);
             preparedStatement.setString(2, String.valueOf(role));
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalUser = Optional.of(getUserInfo(resultSet));
+                    User user = getUserInfo(resultSet);
+                    userList.add(user);
                 }
             }
         } catch (SQLException e) {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return optionalUser;
+        return userList;
     }
 
     @Override
-    public Optional<User> findByDataBirthday(LocalDate dataBirthday) throws DaoException {
-        Optional<User> optionalUser = Optional.empty();
+    public List<User> findByDataBirthday(LocalDate dataBirthday) throws DaoException {
+        List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_DATA_BIRTHDAY)) {
             preparedStatement.setDate(1, Date.valueOf(dataBirthday));
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalUser = Optional.of(getUserInfo(resultSet));
+                    User user = getUserInfo(resultSet);
+                    userList.add(user);
                 }
             }
         } catch (SQLException e) {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return optionalUser;
+        return userList;
     }
 
     @Override
@@ -346,22 +419,55 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean setPassword(User user, String password) throws DaoException {
-        //todo
-        return false;
+        int result = 0;
+        try (Connection connection =ConnectionPool.getInstance().takeConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL_SET_PASSWORD)){
+            String resultPassword = PasswordEncryptor.encrypt(password);
+            preparedStatement.setString(1, resultPassword);
+            preparedStatement.setString(2, user.getLogin());
+            result = preparedStatement.executeUpdate();
+        }catch (SQLException e) {
+            logger.error("", e);
+            throw new DaoException("", e);
+        }
+        return result>0;
 
     }
 
     @Override
     public boolean checkOldPassword(User user, String oldPassword) throws DaoException {
-        //todo
-        return false;
+        boolean result = false;
+       try (Connection connection = ConnectionPool.getInstance().takeConnection();
+       PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_OLD_PASSWORD)){
+           preparedStatement.setLong(1, user.getId());
+            preparedStatement.setString(2, user.getLogin());
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                if (BCrypt.checkpw(oldPassword, resultSet.getString(ColumnName.USERS_PASSWORD))) {
+                    result = true;
+                }
+            }
+        } catch (SQLException e) {
+            logger.error(" ", e);
+            throw new DaoException(" ", e);
+        }return result;
     }
 
     @Override
     public boolean checkUserLogin(String login) throws DaoException {
-        //todo
-        return false;
-    }
+        boolean exist;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_LOGIN)){
+            preparedStatement.setString(1,login);
+            try(ResultSet resultSet =preparedStatement.executeQuery()){
+                exist = resultSet.next();
+            }
+        }catch (SQLException e) {
+        logger.error("", e);
+        throw new DaoException("", e);
+    } return exist;
+
+}
 
     public User getUserInfo(ResultSet resultSet) throws SQLException {
         return (new User.UserBuilder()

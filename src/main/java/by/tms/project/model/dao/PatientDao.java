@@ -4,13 +4,13 @@ import by.tms.project.exception.DaoException;
 import by.tms.project.model.entity.Patient;
 
 import java.math.BigDecimal;
-import java.util.Optional;
+import java.util.List;
 
 public interface PatientDao extends BaseDao<Long,Patient>{
 
-    Optional<Patient> findByInsurance(Boolean insurance) throws DaoException;
+    List<Patient> findByInsurance(Boolean insurance) throws DaoException;
 
-    Optional<Patient> findByMinimumMoneyAccount (BigDecimal moneyAccount) throws DaoException;
+    List<Patient> findByMinimumMoneyAccount (BigDecimal moneyAccount) throws DaoException;
 
-    Optional<Patient> findByMaxDiscount(Integer discount) throws DaoException;
+    List<Patient> findByMaxDiscount(Integer discount) throws DaoException;
 }

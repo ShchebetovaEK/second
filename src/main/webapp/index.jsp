@@ -2,12 +2,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>MC FORESTMED</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
+<h1><%= "Welcome to \"ForestMedClinic\" " %></h1>
+<p>Today <%= new java.util.Date() %></p>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<h3><%= "Please, input your login and password :" %></h3>
+<br/>
+login:  <input type="email" name="email">
+<br/>
+password   <input type="password" name="password" minlength="6">
+<input type="button" value="push">
+<br/>
+<a href="main-servlet">Hello Servlet</a>
 </body>
 </html>

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum CommandType {
- GO_TO_WELCOME(new GoToWelcome()),
+    GO_TO_WELCOME(new GoToWelcome()),
     DEFAULT(new GoToWelcome());
 
     private final Command command;

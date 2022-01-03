@@ -5,23 +5,24 @@ import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public interface UserDao extends BaseDao<Long, User> {
 
     public Optional<User> findByLogin(String login) throws DaoException;
 
-    public Optional<User> findByFirstName(String firstName) throws DaoException;
+    public List<User> findByFirstName(String firstName) throws DaoException;
 
-    public Optional<User> findByLastName(String lastName) throws DaoException;
+    public List<User> findByLastName(String lastName) throws DaoException;
 
-    public Optional<User> findByRole(Role role) throws DaoException;
+    public List<User> findByRole(Role role) throws DaoException;
 
-    public Optional<User> findByFirstNameAndRole(String firstName, Role role) throws DaoException;
+    public List<User> findByFirstNameAndRole(String firstName, Role role) throws DaoException;
 
-    public Optional<User> findByLastNameAndRole(String lastName, Role role) throws  DaoException;
+    public List<User> findByLastNameAndRole(String lastName, Role role) throws  DaoException;
 
-    public Optional<User> findByDataBirthday(LocalDate dataBirthday) throws DaoException;
+    public List<User> findByDataBirthday(LocalDate dataBirthday) throws DaoException;
 
     public Optional <User> findByEmail(String email) throws DaoException;
 
