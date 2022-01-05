@@ -1,5 +1,7 @@
 package by.tms.project.controller.command;
 
+import by.tms.project.controller.command.admin.GoToWelcome;
+
 import java.util.EnumMap;
 import java.util.Locale;
 

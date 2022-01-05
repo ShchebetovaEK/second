@@ -21,53 +21,89 @@ public class UserDaoImpl implements UserDao {
     private static final Logger logger = LogManager.getLogger();
     private static final String SQL_SELECT_ALL = """
             SELECT id,role,login,password,first_name,last_name,
-            data_birthday,address,phone_number,email  FROM users""";
+            data_birthday,address,phone_number,email  
+            FROM users""";
     private static final String SQL_SELECT_BY_ID = """ 
             SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email FROM users WHERE users.id =?""";
+            users.data_birthday,users.address,users.phone_number,users.email 
+            FROM users
+            WHERE users.id =?""";
     private static final String SQL_SELECT_BY_LOGIN = """
             SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email FROM users WHERE users.login =?""";
+            users.data_birthday,users.address,users.phone_number,users.email 
+            FROM users 
+            WHERE users.login =?""";
     private static final String SQL_SELECT_BY_FIRST_NAME = """
             SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email FROM users WHERE users.first_name=?""";
+            users.data_birthday,users.address,users.phone_number,users.email 
+            FROM users 
+            WHERE users.first_name=?""";
     private static final String SQL_SELECT_BY_LAST_NAME = """
             SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email FROM users WHERE users.last_name =?""";
+            users.data_birthday,users.address,users.phone_number,users.email 
+            FROM users 
+            WHERE users.last_name =?""";
     private static final String SQL_SELECT_BY_EMAIL = """
             SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email FROM users WHERE users.email =?""";
+            users.data_birthday,users.address,users.phone_number,users.email 
+            FROM users 
+            WHERE users.email =?""";
     private static final String SQL_SELECT_BY_DATA_BIRTHDAY = """
             SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email FROM users WHERE users.data_birthday =?
-            """;
+            users.data_birthday,users.address,users.phone_number,users.email 
+            FROM users 
+            WHERE users.data_birthday =?""";
     private static final String SQL_SELECT_BY_PHONE_NUMBER = """
             SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email FROM users WHERE users.phone_number=?""";
+            users.data_birthday,users.address,users.phone_number,users.email 
+            FROM users
+            WHERE users.phone_number=?""";
     private static final String SQL_SELECT_BY_FIRST_NAME_AND_ROLE = """
             SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email FROM users WHERE users.first_name =?  AND users.role=?""";
+            users.data_birthday,users.address,users.phone_number,users.email 
+            FROM users 
+            WHERE users.first_name =?  
+            AND users.role=?""";
     private static final String SQL_SELECT_BY_LAST_NAME_AND_ROLE = """
             SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email FROM users WHERE users.last_name =? AND users.role=?""";
+            users.data_birthday,users.address,users.phone_number,users.email 
+            FROM users 
+            WHERE users.last_name =? 
+            AND users.role=?""";
     private static final String SQL_SELECT_ALL_BY_ROLE = """
             SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email FROM users WHERE users.role =?""";
+            users.data_birthday,users.address,users.phone_number,users.email 
+            FROM users 
+            WHERE users.role =?""";
     private static final String SQL_SET_LOGIN = """
-            UPDATE users SET users.login=? WHERE users.id=?""";
+            UPDATE users 
+            SET users.login=? 
+            WHERE users.id=?""";
     private static final String SQL_SET_PASSWORD = """
-            UPDATE users SET users.password=? WHERE users.id=?""";
+            UPDATE users 
+            SET users.password=? 
+            WHERE users.id=?""";
     private static final String SQL_CREATE_USER = """
-            INSERT INTO users(id,role,login,password,first_name,last_name,data_birthday,address,phone_number,email) VALUES (?,?,?,?,?,?,?,?,?,?)""";
+            INSERT INTO users(id,role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email) 
+            VALUES (?,?,?,?,?,?,?,?,?,?)""";
     private static final String SQL_UPDATE_USER = """
-            UPDATE users SET users.role=?,users.login=?,users.password=?,users.first_name=?,
-            users.last_name=?,users.data_birthday=?,users.address=?,users.phone_number=?,users.email=? WHERE users.id=?""";
+            UPDATE users 
+            SET users.role=?,users.login=?,users.password=?,users.first_name=?,
+            users.last_name=?,users.data_birthday=?,users.address=?,users.phone_number=?,users.email=? 
+            WHERE users.id=?""";
     private static final String SQL_DELETE_USER_BY_ID = """
-            DELETE FROM users WHERE users.id =?""";
+            DELETE FROM users 
+            WHERE users.id =?""";
     private static final String SQL_CHECK_OLD_PASSWORD = """
-            SELECT users.password FROM users WHERE users.id=? AND users.login=?""";
+            SELECT users.password
+            FROM users 
+            WHERE users.id=? 
+            AND users.login=?""";
     private static final String SQL_BY_CURRENT_LOGIN = """
-            SELECT users.id,users.login FROM users WHERE users.login=?""";
+            SELECT users.id,users.login 
+            FROM users 
+            WHERE users.login=?""";
 
     private static UserDaoImpl instance;
 
@@ -137,7 +173,7 @@ public class UserDaoImpl implements UserDao {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return result > 0;
+        return (result > 0);
     }
 
     @Override
@@ -159,7 +195,7 @@ public class UserDaoImpl implements UserDao {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return result > 0;
+        return (result > 0);
     }
 
     @Override
@@ -173,7 +209,7 @@ public class UserDaoImpl implements UserDao {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return result > 0;
+        return (result > 0);
     }
 
     @Override
@@ -187,7 +223,7 @@ public class UserDaoImpl implements UserDao {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return result > 0;
+        return (result > 0);
     }
 
     @Override
@@ -344,7 +380,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> findByPhoneName(String phoneNumber) throws DaoException {
+    public Optional<User> findByPhoneNumber(String phoneNumber) throws DaoException {
         Optional<User> optionalUser = Optional.empty();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_PHONE_NUMBER)) {
@@ -397,7 +433,7 @@ public class UserDaoImpl implements UserDao {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return result > 0;
+        return (result > 0);
 
     }
 
@@ -413,7 +449,7 @@ public class UserDaoImpl implements UserDao {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return result > 0;
+        return (result > 0);
 
     }
 
@@ -430,7 +466,7 @@ public class UserDaoImpl implements UserDao {
             logger.error("", e);
             throw new DaoException("", e);
         }
-        return result>0;
+        return (result>0);
 
     }
 

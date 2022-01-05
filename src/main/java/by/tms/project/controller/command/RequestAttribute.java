@@ -1,6 +1,6 @@
 package by.tms.project.controller.command;
 
-public class RequestAttribute {
+public final class RequestAttribute {
 
     public static final String CURRENT_PAGE = "current_page";
     public static final String USER = "user";

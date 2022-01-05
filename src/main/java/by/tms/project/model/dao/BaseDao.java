@@ -8,17 +8,17 @@ import java.util.Optional;
 
 public interface BaseDao <K,T extends Entity>{
 
-    public List<T> findAll() throws DaoException;
+     List<T> findAll() throws DaoException;
 
-    public Optional<T> findById (K id) throws DaoException;
+     Optional<T> findById (K id) throws DaoException;
 
-    public  boolean create(T entity) throws DaoException;
+      boolean create(T entity) throws DaoException;
 
-    public  boolean update(T entity) throws DaoException;
+      boolean update(T entity) throws DaoException;
 
-    public  boolean delete(K entity) throws DaoException;
+      boolean delete(K entity) throws DaoException;
 
-    public  boolean delete(T entity) throws DaoException;
+      boolean delete(T entity) throws DaoException;
 
 
 

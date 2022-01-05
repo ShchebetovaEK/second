@@ -14,27 +14,29 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LogManager.getLogger();
-    private final UserDao userDao = UserDaoImpl.getInstance();
+    private UserDao userDao = UserDaoImpl.getInstance();
     private static UserServiceImpl instance;
 
-    private UserServiceImpl(){}
+    private UserServiceImpl() {
+    }
 
-    public static UserService getInstance(){
-        if(instance ==null){
-            instance =new UserServiceImpl();
+    public static UserServiceImpl getInstance() {
+        if (instance == null) {
+            instance = new UserServiceImpl();
         }
         return instance;
     }
 
+
     @Override
     public List<User> findAll() throws ServiceException {
-       List<User> userList;
-       try{
-           userList = userDao.findAll();
-       } catch (DaoException e) {
-           logger.error("",e);
-           throw new ServiceException("",e);
-       }
+        List<User> userList;
+        try {
+            userList = userDao.findAll();
+        } catch (DaoException e) {
+            logger.error("", e);
+            throw new ServiceException("", e);
+        }
         return userList;
     }
 
@@ -42,11 +44,39 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findByLogin(String login) throws ServiceException {
         Optional<User> optionalUser;
         try {
-            optionalUser =userDao.findByLogin(login);
+            optionalUser = userDao.findByLogin(login);
         } catch (DaoException e) {
-            logger.error("",e);
-            throw new ServiceException("",e);
+            logger.error("", e);
+            throw new ServiceException("", e);
         }
         return optionalUser;
     }
+
+    @Override
+    public boolean checkIfUserValidForRegistration(String login, String email) throws ServiceException {
+
+
+        return false;
+    }
+
+    @Override
+    public boolean registrationUser(String login, String password, String email) throws ServiceException {
+        return false;
+    }
+
+    @Override
+    public void sendMessageRegistrationOnUserEmail(String login, String email, String currentLocale) throws ServiceException {
+
+    }
+
+    @Override
+    public void setUserNewLogin(String login, String newLogin) throws ServiceException {
+
+    }
+
+    @Override
+    public void setUserNewPassword(String login, String newPassword) throws ServiceException {
+
+    }
+
 }

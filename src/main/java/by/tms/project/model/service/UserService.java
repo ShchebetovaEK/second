@@ -12,4 +12,18 @@ public interface UserService {
 
     Optional<User> findByLogin(String login) throws ServiceException;
 
+    boolean checkIfUserValidForRegistration(String login, String email) throws ServiceException;
+
+    boolean registrationUser(String login,String password,String email) throws ServiceException;
+
+    void sendMessageRegistrationOnUserEmail (String login,String  email, String currentLocale) throws ServiceException;
+
+    void setUserNewLogin (String login, String newLogin) throws ServiceException;
+
+    void setUserNewPassword(String login,String newPassword) throws ServiceException;
+
+
+
+
+
 }
