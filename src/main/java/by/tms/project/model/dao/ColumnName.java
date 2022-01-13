@@ -44,5 +44,4 @@ public final class ColumnName {
     private ColumnName(){
 
     }
-
 }

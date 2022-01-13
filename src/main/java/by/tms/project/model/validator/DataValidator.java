@@ -1,6 +1,6 @@
 package by.tms.project.model.validator;
 
-import by.tms.project.model.util.PropertyLoader;
+import by.tms.project.model.util.property.PropertyLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -39,6 +39,4 @@ public interface UserDao extends BaseDao<Long, User> {
      boolean checkOldPassword(User user, String oldPassword) throws DaoException;
 
      boolean checkUserLogin(String login) throws DaoException;
-
-
 }

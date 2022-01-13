@@ -6,14 +6,12 @@ import by.tms.project.model.dao.ColumnName;
 import by.tms.project.model.dao.PatientDao;
 import by.tms.project.model.entity.Patient;
 import by.tms.project.model.entity.Role;
+import by.tms.project.model.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +19,41 @@ import java.util.Optional;
 
 public class PatientDaoImpl implements PatientDao {
     private static final Logger logger = LogManager.getLogger();
+    private static final String SQL_SELECT_ALL_PATIENT = """
+            SELECT id,role,login,password,first_name,last_name,
+                   data_birthday,address,phone_number,email,
+                   category,experience,speciality
+            FROM users
+            INNER JOIN doctors on users.id = doctors.users_id
+            WHERE user.role =doctor""";
+    private static final String SQL_SELECT_PATIENTS_BY_ID = """
+            SELECT id,role,login,password,first_name,last_name,
+                   data_birthday,address,phone_number,email,
+                   category,experience,speciality
+            FROM users
+            INNER JOIN doctors on users.id = doctors.users_id
+            WHERE user.id =?""";
+
+    //todo
+    private static final String SQL_CREATE_PATIENT = """
+            INSERT INTO users(id,role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email) 
+            VALUES (?,?,?,?,?,?,?,?,?,?)
+            INSERT INTO doctors(category,experience,speciality)
+            VALUES (?,?,?)""";
+    //todo
+    private static final String SQL_UPDATE_PATIENT = """
+            UPDATE users 
+            SET users.role=?,users.login=?,users.password=?,users.first_name=?,
+            users.last_name=?,users.data_birthday=?,users.address=?,users.phone_number=?,users.email=? 
+            WHERE users.id=?""";
+
+    //todo
+    private static final String SQL_DELETE_PATIENT_BY_ID = """
+            DELETE FROM users 
+            WHERE users.id =?""";
+
+
     private static final String SQL_SELECT_PATIENTS_BY_INSURANCE = """
             SELECT id,role,login,password,first_name,last_name,
                    data_birthday,address,phone_number,email,
@@ -49,6 +82,10 @@ public class PatientDaoImpl implements PatientDao {
     private PatientDaoImpl() {
     }
 
+    /**
+     * Get instance
+     * @return instance.
+     */
     public static PatientDao getInstance() {
         if (instance == null) {
             instance = new PatientDaoImpl();
@@ -56,42 +93,159 @@ public class PatientDaoImpl implements PatientDao {
         return instance;
     }
 
+    /**
+     * find all patients.
+     * @return patientList.
+     * @throws DaoException
+     */
     @Override
     public List<Patient> findAll() throws DaoException {
-     //todo
-        return null;
+        List<Patient> patientList = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PATIENT)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Patient patient = getPatientInfo(resultSet);
+                patientList.add(patient);
+            }
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method findAll", e);
+            throw new DaoException("Failed at PatientDaoImpl at method findAll", e);
+        }
+        return patientList;
     }
 
+    /**
+     * find patient with same id.
+     * @param id
+     * @return optionalPatient.
+     * @throws DaoException
+     */
     @Override
     public Optional<Patient> findById(Long id) throws DaoException {
-      //todo
-        return Optional.empty();
+        Optional<Patient> optionalPatient = Optional.empty();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_PATIENTS_BY_ID)) {
+            preparedStatement.setLong(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    optionalPatient = Optional.of(getPatientInfo(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method findById", e);
+            throw new DaoException("Failed at PatientDaoImpl at method findById", e);
+        }
+        return optionalPatient;
     }
 
+    /**
+     * create patient.
+     * @param entity
+     * @return the boolean.
+     * @throws DaoException
+     */
     @Override
     public boolean create(Patient entity) throws DaoException {
-       //todo
-        return false;
-    }
+        int result = 0;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_PATIENT)) {
+            preparedStatement.setString(1, String.valueOf(entity.getRole()));
+            preparedStatement.setString(2, entity.getLogin());
+            preparedStatement.setString(3, entity.getPassword());
+            preparedStatement.setString(4, entity.getFirstName());
+            preparedStatement.setString(5, entity.getLastName());
+            preparedStatement.setDate(6, Date.valueOf(entity.getDataBirthday()));
+            preparedStatement.setString(7, entity.getAddress());
+            preparedStatement.setString(8, entity.getPhoneNumber());
+            preparedStatement.setString(9, entity.getEmail());
+            preparedStatement.setBoolean(10,entity.isInsurance());
+            preparedStatement.setBigDecimal(11,entity.getMoneyAccount());
+            preparedStatement.setInt(12,entity.getDiscount());
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method create", e);
+            throw new DaoException("Failed at PatientDaoImpl at method create", e);
+        }
+        return (result > 0); }
 
+    /**
+     * update patient.
+     * @param entity
+     * @return the boolean.
+     * @throws DaoException
+     */
     @Override
     public boolean update(Patient entity) throws DaoException {
-      //todo
-         return false;
+        int result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_PATIENT)) {
+            preparedStatement.setString(1, String.valueOf(entity.getRole()));
+            preparedStatement.setString(2, entity.getLogin());
+            preparedStatement.setString(3, entity.getPassword());
+            preparedStatement.setString(4, entity.getFirstName());
+            preparedStatement.setString(5, entity.getLastName());
+            preparedStatement.setDate(6, Date.valueOf(entity.getDataBirthday()));
+            preparedStatement.setString(7, entity.getAddress());
+            preparedStatement.setString(8, entity.getPhoneNumber());
+            preparedStatement.setString(9, entity.getEmail());
+            preparedStatement.setBoolean(10,entity.isInsurance());
+            preparedStatement.setBigDecimal(11,entity.getMoneyAccount());
+            preparedStatement.setInt(12,entity.getDiscount());
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method update", e);
+            throw new DaoException("Failed at PatientDaoImpl at method update", e);
+        }
+        return (result > 0);
     }
 
+    /**
+     * delete patient with same id.
+     * @param id
+     * @return the boolean.
+     * @throws DaoException
+     */
     @Override
-    public boolean delete(Long entity) throws DaoException {
-      // todo
-    return false;
+    public boolean delete(Long id) throws DaoException {
+        int result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_PATIENT_BY_ID)) {
+            preparedStatement.setLong(1, id);
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method delete", e);
+            throw new DaoException("Failed at PatientDaoImpl at method delete", e);
+        }
+        return (result > 0);
     }
 
+    /**
+     * delete patient.
+     * @param entity
+     * @return the boolean.
+     * @throws DaoException
+     */
     @Override
     public boolean delete(Patient entity) throws DaoException {
-      //todo
-        return false;
+        int result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_PATIENT_BY_ID)) {
+            preparedStatement.setLong(1, entity.getId());
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method delete entity", e);
+            throw new DaoException("Failed at PatientDaoImpl at method delete entity", e);
+        }
+        return (result > 0);
     }
 
+    /**
+     * find patient with insurance.
+     * @param insurance
+     * @return patientList.
+     * @throws DaoException
+     */
     @Override
     public List<Patient> findByInsurance(Boolean insurance) throws DaoException {
         List<Patient> patientList = new ArrayList<>();
@@ -111,7 +265,12 @@ public class PatientDaoImpl implements PatientDao {
         return patientList;
     }
 
-
+    /**
+     * find patient with minimum money in account.
+     * @param moneyAccount
+     * @return patientLIst.
+     * @throws DaoException
+     */
     @Override
     public List<Patient> findByMinimumMoneyAccount(BigDecimal moneyAccount) throws DaoException {
         List<Patient> patientList = new ArrayList<>();
@@ -131,6 +290,12 @@ public class PatientDaoImpl implements PatientDao {
         return patientList;
     }
 
+    /**
+     * Find patient with maxmimum discount.
+     * @param discount
+     * @return patientList.
+     * @throws DaoException
+     */
     @Override
     public List<Patient> findByMaxDiscount(Integer discount) throws DaoException {
         List<Patient> patientList = new ArrayList<>();

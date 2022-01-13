@@ -5,6 +5,11 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class ProxyConnection
+ */
 class ProxyConnection  implements Connection{
     private Connection connection;
 

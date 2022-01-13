@@ -20,6 +20,11 @@ import static by.tms.project.controller.command.PagePath.ERROR_500_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.CURRENT_PAGE;
 import static by.tms.project.controller.command.RequestParameter.COMMAND_TYPE;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class MainController
+ */
 @WebServlet(name = "mainServlet", value = "/main-servlet")
 public class MainController {
     private static final Logger logger = LogManager.getLogger();

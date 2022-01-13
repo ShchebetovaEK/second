@@ -11,6 +11,12 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * final class ConnectionPool
+ *
+ */
 public final class ConnectionPool {
     private static final Logger logger = LogManager.getLogger();
     private static final int DEFAULT_POOL_SIZE = 32;

@@ -6,7 +6,7 @@ import by.tms.project.model.dao.ColumnName;
 import by.tms.project.model.dao.UserDao;
 import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
-import by.tms.project.model.util.PasswordEncryptor;
+import by.tms.project.model.util.security.PasswordEncryptor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
@@ -17,6 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class UserDaoImpl.
+ */
 public class UserDaoImpl implements UserDao {
     private static final Logger logger = LogManager.getLogger();
     private static final String SQL_SELECT_ALL = """
@@ -117,25 +122,34 @@ public class UserDaoImpl implements UserDao {
         return instance;
     }
 
+    /**
+     * find all users.
+     * @return userList.
+     * @throws DaoException
+     */
     @Override
     public List<User> findAll() throws DaoException {
         List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    User user = getUserInfo(resultSet);
-                    userList.add(user);
-                }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = getUserInfo(resultSet);
+                userList.add(user);
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method findAll", e);
+            throw new DaoException("Failed at UserDaoImpl at method findAll", e);
         }
         return userList;
     }
 
-
+    /**
+     * find all users with same id.
+     * @param id
+     * @return optionalUser.
+     * @throws DaoException
+     */
     @Override
     public Optional<User> findById(Long id) throws DaoException {
         Optional<User> optionalUser = Optional.empty();
@@ -148,12 +162,17 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method findById", e);
+            throw new DaoException("Failed at UserDaoImpl at method findById", e);
         }
         return optionalUser;
     }
 
+    /** create user.
+     * @param entity
+     * @return the boolean.
+     * @throws DaoException
+     */
     @Override
     public boolean create(User entity) throws DaoException {
         int result = 0;
@@ -170,12 +189,17 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(9, entity.getEmail());
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method create", e);
+            throw new DaoException("Failed at UserDaoImpl at method create", e);
         }
         return (result > 0);
     }
 
+    /** update user
+     * @param entity
+     * @return the boolean.
+     * @throws DaoException
+     */
     @Override
     public boolean update(User entity) throws DaoException {
         int result;
@@ -192,40 +216,56 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(9, entity.getEmail());
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method update", e);
+            throw new DaoException("Failed at UserDaoImpl at method update", e);
         }
         return (result > 0);
     }
 
+    /** delete user with same login.
+     * @param id
+     * @return the boolean.
+     * @throws DaoException
+     */
     @Override
     public boolean delete(Long id) throws DaoException {
         int result;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_USER_BY_ID)) {
-            preparedStatement.setLong(1,id);
+            preparedStatement.setLong(1, id);
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method delete", e);
+            throw new DaoException("Failed at UserDaoImpl at method delete", e);
         }
         return (result > 0);
     }
 
+    /** delete user
+     * @param entity
+     * @return the boolean.
+     * @throws DaoException
+     */
     @Override
     public boolean delete(User entity) throws DaoException {
         int result;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_USER_BY_ID)) {
-            preparedStatement.setLong(1,entity.getId());
+            preparedStatement.setLong(1, entity.getId());
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method delete entity", e);
+            throw new DaoException("Failed at UserDaoImpl at method delete entity", e);
         }
         return (result > 0);
     }
 
+    /**
+     * find user with same login
+     * @param login
+     * @return optionalUser.
+     * @throws DaoException
+     */
     @Override
     public Optional<User> findByLogin(String login) throws DaoException {
         Optional<User> optionalUser = Optional.empty();
@@ -238,13 +278,17 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method findByLogin", e);
+            throw new DaoException("Failed at UserDaoImpl at method findByLogin", e);
         }
         return optionalUser;
     }
 
-
+    /** find user with same first name.
+     * @param firstName
+     * @return userList.
+     * @throws DaoException
+     */
     @Override
     public List<User> findByFirstName(String firstName) throws DaoException {
         List<User> userList = new ArrayList<>();
@@ -258,12 +302,17 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method findByFirstName", e);
+            throw new DaoException("Failed at UserDaoImpl at method findByFirstName", e);
         }
         return userList;
     }
 
+    /** find user with same last name.
+     * @param lastName
+     * @return userList.
+     * @throws DaoException
+     */
     @Override
     public List<User> findByLastName(String lastName) throws DaoException {
         List<User> userList = new ArrayList<>();
@@ -277,18 +326,23 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method findByLastName", e);
+            throw new DaoException("Failed at UserDaoImpl at method findByLastName", e);
         }
         return userList;
     }
 
+    /** find user with same role.
+     * @param role
+     * @return userList.
+     * @throws DaoException
+     */
     @Override
     public List<User> findByRole(Role role) throws DaoException {
         List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_BY_ROLE)) {
-            preparedStatement.setString(1, String.valueOf(role));
+            preparedStatement.setString(1, role.name());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     User user = getUserInfo(resultSet);
@@ -296,19 +350,25 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method findByRole", e);
+            throw new DaoException("Failed at UserDaoImpl at method findByRole", e);
         }
         return userList;
     }
 
+    /**find user with same first name and role.
+     * @param firstName
+     * @param role
+     * @return userList.
+     * @throws DaoException
+     */
     @Override
     public List<User> findByFirstNameAndRole(String firstName, Role role) throws DaoException {
         List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_FIRST_NAME_AND_ROLE)) {
             preparedStatement.setString(1, firstName);
-            preparedStatement.setString(2, String.valueOf(role));
+            preparedStatement.setString(2, role.name());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     User user = getUserInfo(resultSet);
@@ -316,19 +376,25 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method findByFirstNameAndRole", e);
+            throw new DaoException("Failed at UserDaoImpl at method findByFirstNameAndRole", e);
         }
         return userList;
     }
 
+    /** find user with same last name and role.
+     * @param lastName
+     * @param role
+     * @return userList.
+     * @throws DaoException
+     */
     @Override
     public List<User> findByLastNameAndRole(String lastName, Role role) throws DaoException {
         List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_LAST_NAME_AND_ROLE)) {
             preparedStatement.setString(1, lastName);
-            preparedStatement.setString(2, String.valueOf(role));
+            preparedStatement.setString(2, role.name());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     User user = getUserInfo(resultSet);
@@ -336,12 +402,17 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method findByLastNameAndRole", e);
+            throw new DaoException("Failed at UserDaoImpl at method findByLastNameAndRole", e);
         }
         return userList;
     }
 
+    /** find user with same date birthday.
+     * @param dataBirthday
+     * @return userList.
+     * @throws DaoException
+     */
     @Override
     public List<User> findByDataBirthday(LocalDate dataBirthday) throws DaoException {
         List<User> userList = new ArrayList<>();
@@ -355,12 +426,17 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method findByDataBirthday", e);
+            throw new DaoException("Failed at UserDaoImpl at method findByDataBirthday", e);
         }
         return userList;
     }
 
+    /** find user with same email.
+     * @param email
+     * @return userList.
+     * @throws DaoException
+     */
     @Override
     public Optional<User> findByEmail(String email) throws DaoException {
         Optional<User> optionalUser = Optional.empty();
@@ -373,12 +449,17 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method findByEmail", e);
+            throw new DaoException("Failed at UserDaoImpl at method findByEmail", e);
         }
         return optionalUser;
     }
 
+    /** find user witn same phone number.
+     * @param phoneNumber
+     * @return optionalList.
+     * @throws DaoException
+     */
     @Override
     public Optional<User> findByPhoneNumber(String phoneNumber) throws DaoException {
         Optional<User> optionalUser = Optional.empty();
@@ -391,12 +472,17 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method findByPhoneNumber", e);
+            throw new DaoException("Failed at UserDaoImpl at method findByPhoneNumber", e);
         }
         return optionalUser;
     }
 
+    /** exist user with same login.
+     * @param login
+     * @return the boolean.
+     * @throws DaoException
+     */
     @Override
     public boolean ifExistByLogin(String login) throws DaoException {
         int result = 0;
@@ -410,13 +496,18 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method ifExistByLogin", e);
+            throw new DaoException("Failed at UserDaoImpl at method ifExistByLogin", e);
         }
         return result > 0;
 
     }
 
+    /** exist user with same email.
+     * @param email
+     * @return the boolean.
+     * @throws DaoException
+     */
     @Override
     public boolean ifExistByEmail(String email) throws DaoException {
         int result = 0;
@@ -430,13 +521,18 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method ifExistByEmail", e);
+            throw new DaoException("Failed at UserDaoImpl at method ifExistByEmail", e);
         }
         return (result > 0);
-
     }
 
+    /** set  user login.
+     * @param user
+     * @param login
+     * @return the boolean.
+     * @throws DaoException
+     */
     @Override
     public boolean setLogin(User user, String login) throws DaoException {
         int result;
@@ -446,36 +542,48 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setLong(2, user.getId());
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at UserDaoImpl at method setLogin", e);
+            throw new DaoException("Failed at UserDaoImpl at method setLogin", e);
         }
         return (result > 0);
 
     }
 
+    /** set user password.
+     * @param user
+     * @param password
+     * @return the boolean.
+     * @throws DaoException
+     */
     @Override
     public boolean setPassword(User user, String password) throws DaoException {
         int result = 0;
-        try (Connection connection =ConnectionPool.getInstance().takeConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(SQL_SET_PASSWORD)){
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SET_PASSWORD)) {
             String resultPassword = PasswordEncryptor.encrypt(password);
             preparedStatement.setString(1, resultPassword);
             preparedStatement.setString(2, user.getLogin());
             result = preparedStatement.executeUpdate();
-        }catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+        } catch (SQLException e) {
+            logger.error("Failed at UserDaoImpl at method setPassword", e);
+            throw new DaoException("Failed at UserDaoImpl at method setPassword", e);
         }
-        return (result>0);
+        return (result > 0);
 
     }
 
+    /** check user old password.
+     * @param user
+     * @param oldPassword
+     * @return the boolean.
+     * @throws DaoException
+     */
     @Override
     public boolean checkOldPassword(User user, String oldPassword) throws DaoException {
         boolean result = false;
-       try (Connection connection = ConnectionPool.getInstance().takeConnection();
-       PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_OLD_PASSWORD)){
-           preparedStatement.setLong(1, user.getId());
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_OLD_PASSWORD)) {
+            preparedStatement.setLong(1, user.getId());
             preparedStatement.setString(2, user.getLogin());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
@@ -484,26 +592,33 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error(" ", e);
-            throw new DaoException(" ", e);
-        }return result;
+            logger.error("Failed at UserDaoImpl at method checkOldPassword", e);
+            throw new DaoException("Failed at UserDaoImpl at method checkOldPassword", e);
+        }
+        return result;
     }
 
+    /** chech user login.
+     * @param login
+     * @return the boolean.
+     * @throws DaoException
+     */
     @Override
     public boolean checkUserLogin(String login) throws DaoException {
         boolean exist;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_LOGIN)){
-            preparedStatement.setString(1,login);
-            try(ResultSet resultSet =preparedStatement.executeQuery()){
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_LOGIN)) {
+            preparedStatement.setString(1, login);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 exist = resultSet.next();
             }
-        }catch (SQLException e) {
-        logger.error("", e);
-        throw new DaoException("", e);
-    } return exist;
+        } catch (SQLException e) {
+            logger.error("Failed at UserDaoImpl at method checkUserLogin", e);
+            throw new DaoException("Failed at UserDaoImpl at method checkUserLogin", e);
+        }
+        return exist;
 
-}
+    }
 
     public User getUserInfo(ResultSet resultSet) throws SQLException {
         return (new User.UserBuilder()

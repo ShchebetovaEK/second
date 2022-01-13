@@ -1,5 +1,10 @@
 package by.tms.project.exception;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class Daoexception
+ */
 public class DaoException extends Exception{
     public DaoException() {
         super();

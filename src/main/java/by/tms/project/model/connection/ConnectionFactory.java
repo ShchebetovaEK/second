@@ -1,6 +1,6 @@
 package by.tms.project.model.connection;
 
-import by.tms.project.model.util.PropertyLoader;
+import by.tms.project.model.util.property.PropertyLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,6 +10,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * @author ShchbetovaEK
+ *
+ * class ConnectionFactory
+ */
 public class ConnectionFactory {
     private static final Logger logger = LogManager.getLogger();
     private static final Properties property;
@@ -39,6 +44,5 @@ public class ConnectionFactory {
     }
 
     private ConnectionFactory() {
-
     }
 }
