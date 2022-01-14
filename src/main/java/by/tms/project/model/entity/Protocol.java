@@ -2,12 +2,16 @@ package by.tms.project.model.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Protocol extends Entity{
     private long protocolId;
     private LocalDate protocolData;
     private Payer protocolPayer;
     private BigDecimal protocolCost;
+    private Doctor doctor;
+    private Patient patient;
+    private List<Capability> capabilityList;
 
     public Protocol() {
     }
@@ -51,6 +55,30 @@ public class Protocol extends Entity{
         this.protocolCost = protocolCost;
     }
 
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public List<Capability> getCapabilityList() {
+        return capabilityList;
+    }
+
+    public void setCapabilityList(List<Capability> capabilityList) {
+        this.capabilityList = capabilityList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,8 +88,11 @@ public class Protocol extends Entity{
 
         if (protocolId != protocol.protocolId) return false;
         if (!protocolData.equals(protocol.protocolData)) return false;
-        if (!protocolPayer.equals(protocol.protocolPayer)) return false;
-        return protocolCost.equals(protocol.protocolCost);
+        if (protocolPayer != protocol.protocolPayer) return false;
+        if (!protocolCost.equals(protocol.protocolCost)) return false;
+        if (!doctor.equals(protocol.doctor)) return false;
+        if (!patient.equals(protocol.patient)) return false;
+        return capabilityList.equals(protocol.capabilityList);
     }
 
     @Override
@@ -70,6 +101,9 @@ public class Protocol extends Entity{
         result = 31 * result + protocolData.hashCode();
         result = 31 * result + protocolPayer.hashCode();
         result = 31 * result + protocolCost.hashCode();
+        result = 31 * result + doctor.hashCode();
+        result = 31 * result + patient.hashCode();
+        result = 31 * result + capabilityList.hashCode();
         return result;
     }
 
@@ -78,8 +112,11 @@ public class Protocol extends Entity{
         final StringBuilder sb = new StringBuilder("Protocol{");
         sb.append("protocolId=").append(protocolId);
         sb.append(", protocolData=").append(protocolData);
-        sb.append(", protocolPayer='").append(protocolPayer).append('\'');
+        sb.append(", protocolPayer=").append(protocolPayer);
         sb.append(", protocolCost=").append(protocolCost);
+        sb.append(", doctor=").append(doctor);
+        sb.append(", patient=").append(patient);
+        sb.append(", capabilityList=").append(capabilityList);
         sb.append('}');
         return sb.toString();
     }
@@ -108,6 +145,8 @@ public class Protocol extends Entity{
             protocol.setProtocolCost(protocolCost);
             return this;
         }
+
+        //todo
 
         public Protocol buildProtocol() {
             return protocol;

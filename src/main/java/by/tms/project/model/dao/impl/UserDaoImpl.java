@@ -100,6 +100,12 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_DELETE_USER_BY_ID = """
             DELETE FROM users 
             WHERE users.id =?""";
+    private static final String SQL_CHECK_BY_LOGIN_PASSWORD = """ 
+            SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
+            users.data_birthday,users.address,users.phone_number,users.email 
+            FROM users
+            WHERE users.login =?
+            AND  users.password =? """;
     private static final String SQL_CHECK_OLD_PASSWORD = """
             SELECT users.password
             FROM users 
@@ -258,6 +264,22 @@ public class UserDaoImpl implements UserDao {
             throw new DaoException("Failed at UserDaoImpl at method delete entity", e);
         }
         return (result > 0);
+    }
+
+    @Override
+    public boolean findByLoginAndPassword(String login, String password) throws DaoException {
+        int result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_BY_LOGIN_PASSWORD)) {
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2,password);
+             result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Failed at UserDaoImpl at method findByLoginAndPassword", e);
+            throw new DaoException("Failed at UserDaoImpl at method findByLoginAndPassword", e);
+        }
+        return (result>0);
+
     }
 
     /**

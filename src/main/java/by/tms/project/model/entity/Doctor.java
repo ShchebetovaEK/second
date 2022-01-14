@@ -1,12 +1,14 @@
 package by.tms.project.model.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Doctor extends User {
 
     private Category category;
     private Experience experience;
     private Speciality speciality;
+    private List<Capability> capabilityList;
 
     public Doctor() {
     }
@@ -49,6 +51,14 @@ public class Doctor extends User {
         this.speciality = speciality;
     }
 
+    public List<Capability> getCapabilityList() {
+        return capabilityList;
+    }
+
+    public void setCapabilityList(List<Capability> capabilityList) {
+        this.capabilityList = capabilityList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,7 +69,8 @@ public class Doctor extends User {
 
         if (category != doctor.category) return false;
         if (experience != doctor.experience) return false;
-        return speciality == doctor.speciality;
+        if (speciality != doctor.speciality) return false;
+        return capabilityList.equals(doctor.capabilityList);
     }
 
     @Override
@@ -68,6 +79,7 @@ public class Doctor extends User {
         result = 31 * result + category.hashCode();
         result = 31 * result + experience.hashCode();
         result = 31 * result + speciality.hashCode();
+        result = 31 * result + capabilityList.hashCode();
         return result;
     }
 
@@ -77,6 +89,7 @@ public class Doctor extends User {
         sb.append("category=").append(category);
         sb.append(", experience=").append(experience);
         sb.append(", speciality=").append(speciality);
+        sb.append(", capabilityList=").append(capabilityList);
         sb.append('}');
         return sb.toString();
     }
@@ -151,6 +164,7 @@ public class Doctor extends User {
             doctor.setSpeciality(speciality);
             return this;
         }
+        //todo
 
         public Doctor buildDoctor() {
             return doctor;

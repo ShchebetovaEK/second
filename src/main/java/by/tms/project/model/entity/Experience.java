@@ -30,5 +30,7 @@ public enum Experience {
     TWENTY_SEVEN_YEARS,
     TWENTY_EIGHT_YEARS,
     TWENTY_NINE_YEARS,
-    THIRTY_YEARS
+    THIRTY_YEARS;
+
+    private Experience(){}
 }

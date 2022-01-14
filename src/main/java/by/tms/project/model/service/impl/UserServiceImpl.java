@@ -78,5 +78,4 @@ public class UserServiceImpl implements UserService {
     public void setUserNewPassword(String login, String newPassword) throws ServiceException {
 
     }
-
 }

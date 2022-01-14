@@ -6,7 +6,6 @@ public final class PagePath {
     public static final String ERROR_500_PAGE = "/error500.jsp";
     public static final String WELCOME = "/welcome.jsp";
 
-
     private PagePath(){
 
     }

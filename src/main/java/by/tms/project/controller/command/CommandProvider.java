@@ -8,20 +8,21 @@ import java.util.Locale;
 public class CommandProvider {
 
     private static CommandProvider instance;
-    private final EnumMap<CommandType,Command> commandEnumMap = new EnumMap<>(CommandType.class);
+    private final EnumMap<CommandType, Command> commandEnumMap = new EnumMap<>(CommandType.class);
 
-    private CommandProvider(){
-        commandEnumMap.put(CommandType.GO_TO_WELCOME,new GoToWelcome() );
+    private CommandProvider() {
+        commandEnumMap.put(CommandType.GO_TO_WELCOME, new GoToWelcome());
     }
 
-    public static CommandProvider getInstance(){
-        if(instance ==null){
+    public static CommandProvider getInstance() {
+        if (instance == null) {
             instance = new CommandProvider();
-        }return instance;
+        }
+        return instance;
     }
 
-    public Command takeCommand(String commandName){
-        if (commandName ==null){
+    public Command takeCommand(String commandName) {
+        if (commandName == null) {
             return commandEnumMap.get(CommandType.GO_TO_WELCOME);
 
         }
@@ -29,7 +30,7 @@ public class CommandProvider {
         try {
             commandType = CommandType.valueOf(commandName.toUpperCase(Locale.ROOT));
 
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             commandType = CommandType.GO_TO_WELCOME;
 
         }
