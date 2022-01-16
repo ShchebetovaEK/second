@@ -41,11 +41,11 @@ public class SignUpAuthCommand implements Command {
                 User user = optionalUser.get();
 
         }
-            else {
-                request.setAttribute(AUT,Boolean.FALSE);
-            }
-            router.setPage(WELCOME);
-            router.setRedirect(REdirect);
+//            else {
+//                request.setAttribute(AUT,Boolean.FALSE);
+//            }
+//            router.setPage(WELCOME);
+//            router.setRedirect(REdirect);
         return router;
     } catch (ServiceException e) {
             logger.error("",e);
