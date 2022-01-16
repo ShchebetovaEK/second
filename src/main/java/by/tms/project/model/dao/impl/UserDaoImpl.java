@@ -38,6 +38,12 @@ public class UserDaoImpl implements UserDao {
             users.data_birthday,users.address,users.phone_number,users.email 
             FROM users 
             WHERE users.login =?""";
+    private static final String SQL_SELECT_BY_LOGIN_AND_PASSWORD= """
+            SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
+            users.data_birthday,users.address,users.phone_number,users.email 
+            FROM users 
+            WHERE users.login =? 
+            AND users.password = ?""";
     private static final String SQL_SELECT_BY_FIRST_NAME = """
             SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
             users.data_birthday,users.address,users.phone_number,users.email 
@@ -266,20 +272,38 @@ public class UserDaoImpl implements UserDao {
         return (result > 0);
     }
 
+//    @Override
+//    public boolean findByLoginAndPassword(String login, String password) throws DaoException {
+//        int result;
+//        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+//             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_BY_LOGIN_PASSWORD)) {
+//            preparedStatement.setString(1, login);
+//            preparedStatement.setString(2,password);
+//             result = preparedStatement.executeUpdate();
+//        } catch (SQLException e) {
+//            logger.error("Failed at UserDaoImpl at method findByLoginAndPassword", e);
+//            throw new DaoException("Failed at UserDaoImpl at method findByLoginAndPassword", e);
+//        }
+//        return (result>0);
+//
+//    }
+
     @Override
-    public boolean findByLoginAndPassword(String login, String password) throws DaoException {
-        int result;
+    public Optional<User> findByLoginAndPassword(String login, String password) throws DaoException {
+        Optional<User> optionalUser = Optional.empty();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_BY_LOGIN_PASSWORD)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_LOGIN_AND_PASSWORD)) {
             preparedStatement.setString(1, login);
-            preparedStatement.setString(2,password);
-             result = preparedStatement.executeUpdate();
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    optionalUser = Optional.of(getUserInfo(resultSet));
+                }
+            }
         } catch (SQLException e) {
             logger.error("Failed at UserDaoImpl at method findByLoginAndPassword", e);
             throw new DaoException("Failed at UserDaoImpl at method findByLoginAndPassword", e);
         }
-        return (result>0);
-
+        return optionalUser;
     }
 
     /**

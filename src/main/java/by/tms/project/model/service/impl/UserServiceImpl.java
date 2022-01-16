@@ -6,6 +6,9 @@ import by.tms.project.model.dao.UserDao;
 import by.tms.project.model.dao.impl.UserDaoImpl;
 import by.tms.project.model.entity.User;
 import by.tms.project.model.service.UserService;
+import by.tms.project.model.util.security.PasswordEncryptor;
+import by.tms.project.model.validator.DataValidator;
+import by.tms.project.model.validator.LogInValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,6 +41,20 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("", e);
         }
         return userList;
+    }
+
+    @Override
+    public Optional<User> findUserByLoginAndPassword(String login, String password) throws ServiceException {
+        Optional<User> optionalUser = Optional.empty();
+        try{
+            if (DataValidator.getInstance().isLoginValid(login) && DataValidator.getInstance().isPasswordValid(password)){
+                String passwordSalt = PasswordEncryptor.encrypt(password);
+                optionalUser = userDao.findByLoginAndPassword(login,passwordSalt);
+            }
+        } catch (DaoException e){
+            logger.error("",e);
+            throw  new ServiceException ("",e);
+        } return optionalUser;
     }
 
     @Override

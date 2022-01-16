@@ -10,6 +10,8 @@ public interface UserService {
 
     List<User> findAll() throws ServiceException;
 
+    Optional<User> findUserByLoginAndPassword(String login, String password) throws ServiceException;
+
     Optional<User> findByLogin(String login) throws ServiceException;
 
     boolean checkIfUserValidForRegistration(String login, String email) throws ServiceException;
