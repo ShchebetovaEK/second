@@ -73,5 +73,4 @@ public final class DataValidator {
     public boolean isPhoneNumberValid(String phoneNumber) {
         return phoneNumber != null && phoneNumber.matches(PHONE_NUMBER_REGEX);
     }
-
 }

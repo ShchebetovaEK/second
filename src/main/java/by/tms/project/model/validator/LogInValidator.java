@@ -36,6 +36,4 @@ public final class LogInValidator {
         }
         return count ==0 ;
     }
-
-
 }

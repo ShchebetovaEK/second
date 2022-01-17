@@ -154,4 +154,35 @@ public class UserServiceImpl implements UserService {
         }
         return result;
     }
+
+    @Override
+    public boolean updateFirstNameById(long id, String firstName) throws ServiceException {
+        // TODO: 17.01.2022
+        return true;
+    }
+
+    @Override
+    public boolean updateLastNameById(long id, String lastName) throws ServiceException {
+        return false;
+    }
+
+    @Override
+    public boolean updatePhoneNumberById(long id, String phoneNumber) throws ServiceException {
+        return false;
+    }
+
+    @Override
+    public boolean updateAddressById(long id, String address) throws ServiceException {
+        return false;
+    }
+
+    @Override
+    public boolean updateEmailById(long id, String email) throws ServiceException {
+        return false;
+    }
+
+    @Override
+    public boolean updateDataBirthdayById(long id, String email) throws ServiceException {
+        return false;
+    }
 }

@@ -28,6 +28,19 @@ public interface UserService {
     void setUserNewPassword(String login, String newPassword) throws ServiceException;
 
     boolean registerNewUser(Map<String, String> userCheck) throws ServiceException;
+
+    boolean updateFirstNameById(long id, String firstName) throws ServiceException;
+
+    boolean updateLastNameById(long id, String lastName) throws ServiceException;
+
+    boolean updatePhoneNumberById(long id, String phoneNumber) throws ServiceException;
+
+    boolean updateAddressById(long id, String address) throws ServiceException;
+
+    boolean  updateEmailById(long id, String email) throws ServiceException;
+
+    boolean  updateDataBirthdayById(long id, String email) throws ServiceException;
+
 }
 
 
