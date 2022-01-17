@@ -24,7 +24,7 @@ import static by.tms.project.controller.command.Router.RouterType.REDIRECT;
 
 public class AuthenticationCommand implements Command {
     public static final Logger logger = LogManager.getLogger();
-    private static final UserService userService = UserServiceImpl.getInstance();
+    private  UserService userService = UserServiceImpl.getInstance();
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {

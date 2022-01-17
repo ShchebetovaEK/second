@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import static by.tms.project.controller.command.PagePath.MAIN_PAGE;
 
 public class GotoMainCommand implements Command {
+
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
