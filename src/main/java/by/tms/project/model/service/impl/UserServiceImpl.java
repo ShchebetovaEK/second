@@ -9,7 +9,6 @@ import by.tms.project.model.entity.User;
 import by.tms.project.model.service.UserService;
 import by.tms.project.model.util.security.PasswordEncryptor;
 import by.tms.project.model.validator.DataValidator;
-import by.tms.project.model.validator.LogInValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

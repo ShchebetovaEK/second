@@ -31,26 +31,32 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public List<Patient> findAll() throws ServiceException {
-        return null;
+        // TODO: 17.01.2022
+          return null;
     }
 
     @Override
     public Optional<Patient> findPatientByLogin(String login) throws ServiceException {
-        return Optional.empty();
+
+        // TODO: 17.01.2022
+          return Optional.empty();
     }
 
     @Override
     public BigDecimal takePatientMoneyAccount(String login) throws ServiceException {
+        // TODO: 17.01.2022
         return null;
     }
 
     @Override
     public boolean createPatient(Patient patient, HttpServletRequest request) throws ServiceException {
+        // TODO: 17.01.2022
         return false;
     }
 
     @Override
     public boolean toUpBalance(String login, BigDecimal sumForUp, HttpSession session) throws ServiceException {
+        // TODO: 17.01.2022
         return false;
 
     }

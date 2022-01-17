@@ -55,7 +55,7 @@ public class Router {
     /**
      * Set redirect.
      */
-    public void setRedirect() {
+    public void setRouterType(Router.RouterType routerType) {
         this.type = Router.RouterType.REDIRECT;
     }
 
