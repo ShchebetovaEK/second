@@ -666,6 +666,13 @@ public class UserDaoImpl implements UserDao {
 
     }
 
+    /**
+     * find user with same login and password.
+     * @param login
+     * @param passwordSalt
+     * @return optionalList.
+     * @throws DaoException
+     */
     @Override
     public Optional<User> findUserByLoginAndPassword(String login, String passwordSalt) throws DaoException {
         Optional<User> optionalUser = Optional.empty();
