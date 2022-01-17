@@ -12,6 +12,7 @@ public final class RequestAttribute {
     public static final String AUTHENTICATION = "authentication";
 
 
+
     private RequestAttribute() {
     }
 }
