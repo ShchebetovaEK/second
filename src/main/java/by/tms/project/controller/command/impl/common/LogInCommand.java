@@ -1,4 +1,4 @@
-package by.tms.project.controller.command.impl;
+package by.tms.project.controller.command.impl.common;
 
 import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.Router;
