@@ -11,6 +11,13 @@ public final class RequestAttribute {
     public static final String SESSION_LOCALE = "locale";
     public static final String AUTHENTICATION = "authentication";
 
+    public static final String FIRST_NAME_CHANGE = "first_name_change";
+    public static final String LAST_NAME_CHANGE = "last_name_change";
+    public static final String DATA_BIRTHDAY_CHANGE ="data_birthday_change";
+    public static final String ADDRESS_CHANGE = "address_change";
+    public static final String PHONE_NUMBER_CHANGE="phone_number_change";
+    public static final String EMAIL_CHANGE = "email_change";
+
 
     private RequestAttribute() {
     }

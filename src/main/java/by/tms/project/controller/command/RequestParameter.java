@@ -40,6 +40,7 @@ public final class RequestParameter {
 
     public static final String TYPE = "type";
     public static final String VALUE = "value";
+    public static final String EMPTY = "";
     public static final String EMPTY_STRING = "";
 
 }
