@@ -38,6 +38,8 @@ public final class RequestParameter {
     public static final String COMMAND_TYPE = "commandType";
     public static final String CONFIRMED_PASSWORD = "confirmedPassword";
 
+    public static final String TYPE = "type";
+    public static final String VALUE = "value";
     public static final String EMPTY_STRING = "";
 
 }
