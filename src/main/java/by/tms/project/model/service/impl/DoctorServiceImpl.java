@@ -32,26 +32,31 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public List<Doctor> findAll() throws ServiceException {
+        // TODO: 17.01.2022
         return null;
     }
 
     @Override
     public Optional<Doctor> findDoctorByLogin(String login) throws ServiceException {
+        // TODO: 17.01.2022
         return Optional.empty();
     }
 
     @Override
     public List<Doctor> findDoctorByCategory(Category category) throws ServiceException {
+        // TODO: 17.01.2022
         return null;
     }
 
     @Override
     public List<Doctor> findDoctorByExperience(Experience experience) throws ServiceException {
+        // TODO: 17.01.2022
         return null;
     }
 
     @Override
     public List<Doctor> findDoctorBySpeciality(Speciality speciality) throws ServiceException {
+        // TODO: 17.01.2022
         return null;
     }
 }
