@@ -36,53 +36,81 @@ public class UserServiceImpl implements UserService {
         return instance;
     }
 
-
+    /**
+     * find all user.
+     *
+     * @return userList.
+     * @throws ServiceException
+     */
     @Override
     public List<User> findAll() throws ServiceException {
         List<User> userList;
         try {
             userList = userDao.findAll();
         } catch (DaoException e) {
-            logger.error("", e);
-            throw new ServiceException("", e);
+            logger.error("Failed at UserServiceImpl at method findAll", e);
+            throw new ServiceException("Failed at UserServiceImpl at method findAll", e);
         }
         return userList;
     }
 
+    /**
+     * find user by login and password.
+     *
+     * @param login
+     * @param password
+     * @return optionalUser.
+     * @throws ServiceException
+     */
     @Override
     public Optional<User> findUserByLoginAndPassword(String login, String password) throws ServiceException {
         Optional<User> optionalUser = Optional.empty();
-        try{
-            if (UserValidator.getInstance().isLoginValid(login) && UserValidator.getInstance().isPasswordValid(password)){
+        try {
+            if (UserValidator.getInstance().isLoginValid(login) && UserValidator.getInstance().isPasswordValid(password)) {
                 String passwordSalt = PasswordEncryptor.encrypt(password);
-                optionalUser = userDao.findByLoginAndPassword(login,passwordSalt);
+                optionalUser = userDao.findByLoginAndPassword(login, passwordSalt);
             }
-        } catch (DaoException e){
-            logger.error("",e);
-            throw  new ServiceException ("",e);
-        } return optionalUser;
+        } catch (DaoException e) {
+            logger.error("Failed at UserServiceImpl at method findUserByLoginAndPassword", e);
+            throw new ServiceException("Failed at UserServiceImpl at method findUserByLoginAndPassword", e);
+        }
+        return optionalUser;
     }
 
+    /**
+     * find user by login.
+     *
+     * @param login
+     * @return optionalUser.
+     * @throws ServiceException
+     */
     @Override
     public Optional<User> findByLogin(String login) throws ServiceException {
         Optional<User> optionalUser;
         try {
             optionalUser = userDao.findByLogin(login);
         } catch (DaoException e) {
-            logger.error("", e);
-            throw new ServiceException("", e);
+            logger.error("Failed at UserServiceImpl at method findByLogin", e);
+            throw new ServiceException("Failed at UserServiceImpl at method findByLogin", e);
         }
         return optionalUser;
     }
 
+    /**
+     * find user by id.
+     *
+     * @param id
+     * @return optionalUser.
+     * @throws ServiceException
+     */
     @Override
     public Optional<User> findUserById(long id) throws ServiceException {
         Optional<User> optionalUser;
         try {
             optionalUser = userDao.findById(id);
         } catch (DaoException e) {
-            logger.error("", e);
-            throw new ServiceException("", e);
+            logger.error("Failed at UserServiceImpl at method findUserById", e);
+            throw new ServiceException("Failed at UserServiceImpl at method findUserById", e);
         }
         return optionalUser;
     }
@@ -155,69 +183,117 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    /**
+     * update user's first name by id.
+     *
+     * @param id
+     * @param firstName
+     * @return the boolean.
+     * @throws ServiceException
+     */
     @Override
     public boolean updateFirstNameById(long id, String firstName) throws ServiceException {
-        try{
+        try {
             return UserValidator.getInstance().isFirstNameValid(firstName)
                     && userDao.updateFirstNameById(id, firstName);
         } catch (DaoException e) {
-            logger.error("",e);
-            throw new ServiceException("",e);
+            logger.error("Failed at UserServiceImpl at method updateFirstNameById", e);
+            throw new ServiceException("Failed at UserServiceImpl at method updateFirstNameById", e);
         }
     }
 
+    /**
+     * update user's last name by id.
+     *
+     * @param id
+     * @param lastName
+     * @return the boolean.
+     * @throws ServiceException
+     */
     @Override
     public boolean updateLastNameById(long id, String lastName) throws ServiceException {
-        try{
+        try {
             return UserValidator.getInstance().isLastNameValid(lastName)
-                    && userDao.updateLastNameById(id,lastName);
+                    && userDao.updateLastNameById(id, lastName);
         } catch (DaoException e) {
-            logger.error("",e);
-            throw new ServiceException("",e);
+            logger.error("Failed at UserServiceImpl at method updateLastNameById", e);
+            throw new ServiceException("Failed at UserServiceImpl at method updateLastNameById", e);
         }
     }
 
+    /**
+     * update user's phoneNumber by id.
+     *
+     * @param id
+     * @param phoneNumber
+     * @return the boolean.
+     * @throws ServiceException
+     */
     @Override
     public boolean updatePhoneNumberById(long id, String phoneNumber) throws ServiceException {
-        try{
+        try {
             return UserValidator.getInstance().isLastNameValid(phoneNumber)
-                    && userDao.updateLastNameById(id,phoneNumber);
+                    && userDao.updateLastNameById(id, phoneNumber);
         } catch (DaoException e) {
-            logger.error("",e);
-            throw new ServiceException("",e);
+            logger.error("Failed at UserServiceImpl at method updatePhoneNumberById", e);
+            throw new ServiceException("Failed at UserServiceImpl at method updatePhoneNumberById", e);
         }
     }
 
+    /**
+     * update user's address by id.
+     *
+     * @param id
+     * @param address
+     * @return the boolean.
+     * @throws ServiceException
+     */
     @Override
     public boolean updateAddressById(long id, String address) throws ServiceException {
-        try{
+        try {
             return UserValidator.getInstance().isLastNameValid(address)
-                    && userDao.updateLastNameById(id,address);
+                    && userDao.updateLastNameById(id, address);
         } catch (DaoException e) {
-            logger.error("",e);
-            throw new ServiceException("",e);
+            logger.error("Failed at UserServiceImpl at method updateAddressById", e);
+            throw new ServiceException("Failed at UserServiceImpl at method updateAddressById", e);
         }
     }
 
+    /**
+     * update user's address by id.
+     *
+     * @param id
+     * @param email
+     * @return the boolean.
+     * @throws ServiceException
+     */
     @Override
     public boolean updateEmailById(long id, String email) throws ServiceException {
-        try{
+        try {
             return UserValidator.getInstance().isLastNameValid(email)
-                    && userDao.updateLastNameById(id,email);
+                    && userDao.updateLastNameById(id, email);
         } catch (DaoException e) {
-            logger.error("",e);
-            throw new ServiceException("",e);
+            logger.error("Failed at UserServiceImpl at method updateEmailById", e);
+            throw new ServiceException("Failed at UserServiceImpl at method updateEmailById", e);
         }
     }
 
+    /**
+     * update user's dataBirthday by id.
+     *
+     * @param id
+     * @param dataBirthday
+     * @return the boolean.
+     * @throws ServiceException
+     */
     @Override
     public boolean updateDataBirthdayById(long id, String dataBirthday) throws ServiceException {
-        try{
+        try {
             return UserValidator.getInstance().isLastNameValid(dataBirthday)
-                    && userDao.updateLastNameById(id,dataBirthday);
+                    && userDao.updateLastNameById(id, dataBirthday);
         } catch (DaoException e) {
-            logger.error("",e);
-            throw new ServiceException("",e);
+            logger.error("Failed at UserServiceImpl at method updateDataBirthdayById", e);
+            throw new ServiceException("Failed at UserServiceImpl at method updateDataBirthdayById", e);
         }
     }
 }
