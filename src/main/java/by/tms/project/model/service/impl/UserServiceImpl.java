@@ -18,6 +18,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LogManager.getLogger();
     private UserDao userDao = UserDaoImpl.getInstance();
+
     private static UserServiceImpl instance;
 
     private UserServiceImpl() {
