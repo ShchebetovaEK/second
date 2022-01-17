@@ -668,7 +668,21 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> findUserByLoginAndPassword(String login, String passwordSalt) throws DaoException {
-        return Optional.empty();
+        Optional<User> optionalUser = Optional.empty();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_PHONE_NUMBER)) {
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2, passwordSalt);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    optionalUser = Optional.of(getUserInfo(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Failed at UserDaoImpl at method findUserByLoginAndPassword", e);
+            throw new DaoException("Failed at UserDaoImpl at method findUserByLoginAndPassword", e);
+        }
+        return optionalUser;
     }
 
     public User getUserInfo(ResultSet resultSet) throws SQLException {
