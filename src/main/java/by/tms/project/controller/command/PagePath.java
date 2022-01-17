@@ -7,6 +7,11 @@ public final class PagePath {
     public static final String WELCOME = "/jsp/welcome.jsp";
     public static final  String MAIN_PAGE ="/jsp/main.jsp";
 
+    public static final String REGISTRATION_PAGE = "/jsp/main/registration.jsp";
+    public static final String USER_MANAGER_PAGE = "/jsp/navigation/admin/user_management.jsp";
+    public static final String ACCOUNT_DETAILS_PAGE = "/jsp/navigation/account_creation_details.jsp";
+
+
     private PagePath(){
 
     }
