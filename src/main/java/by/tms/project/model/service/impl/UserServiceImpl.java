@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
@@ -71,29 +72,46 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findUserById(long id) throws ServiceException {
+        Optional<User> optionalUser;
+        try {
+            optionalUser = userDao.findById(id);
+        } catch (DaoException e) {
+            logger.error("", e);
+            throw new ServiceException("", e);
+        }
+        return optionalUser;
+    }
+
+    @Override
     public boolean checkIfUserValidForRegistration(String login, String email) throws ServiceException {
-
-
+        // TODO: 17.01.2022  
         return false;
     }
 
     @Override
     public boolean registrationUser(String login, String password, String email) throws ServiceException {
+        // TODO: 17.01.2022  
         return false;
     }
 
     @Override
     public void sendMessageRegistrationOnUserEmail(String login, String email, String currentLocale) throws ServiceException {
-
+// TODO: 17.01.2022  
     }
 
     @Override
     public void setUserNewLogin(String login, String newLogin) throws ServiceException {
-
+        // TODO: 17.01.2022  
     }
 
     @Override
     public void setUserNewPassword(String login, String newPassword) throws ServiceException {
+        // TODO: 17.01.2022  
+    }
 
+    @Override
+    public boolean registerNewUser(Map<String, String> userCheck) throws ServiceException {
+        return false;
     }
 }
