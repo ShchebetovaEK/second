@@ -4,17 +4,22 @@ import by.tms.project.exception.DaoException;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.dao.UserDao;
 import by.tms.project.model.dao.impl.UserDaoImpl;
+import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
 import by.tms.project.model.service.UserService;
 import by.tms.project.model.util.security.PasswordEncryptor;
 import by.tms.project.model.validator.DataValidator;
 import by.tms.project.model.validator.LogInValidator;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import static by.tms.project.controller.command.RequestParameter.*;
+import static java.lang.Boolean.parseBoolean;
 
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LogManager.getLogger();
@@ -112,6 +117,42 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registerNewUser(Map<String, String> userCheck) throws ServiceException {
-        return false;
+        boolean result = false;
+        String login = userCheck.get(LOGIN);
+        String password = userCheck.get(PASSWORD);
+        String confirmPassword = userCheck.get(CONFIRM_PASSWORD);
+        String firstName = userCheck.get(FIRST_NAME);
+        String lastName = userCheck.get(LAST_NAME);
+        String DataBirthday = userCheck.get(DATA_BIRTHDAY);
+        String address = userCheck.get(ADDRESS);
+        String phoneNumber = userCheck.get(PHONE_NUMBER);
+        String email = userCheck.get(EMAIL);
+        String roleStr = userCheck.get(ROLE);
+
+        try {
+            String loginCheck = DataValidator.getInstance().isLoginValid(login)
+                    ? (!userDao.ifExistByLogin(login) ? TRUE : NOT_VALID_LOGIN) : INVALID_LOGIN;
+            String passwordCheck = DataValidator.getInstance().isPasswordValid(password)
+                    ? (password.equals(confirmPassword) ? TRUE : PASSWORD_MISMATCH) : INVALID_PASSWORD;
+            String emailCheck = DataValidator.getInstance().isEmailValid(email)
+                    ? (!userDao.ifExistByEmail(email) ? TRUE : NOT_VALID_EMAIL) : INVALID_EMAIL;
+//            String phoneNumberCheck = DataValidator.getInstance().isPhoneNumberValid(phoneNumber)
+//                    ? (!userDao.ifExistByEmail())
+
+            result = parseBoolean(loginCheck) && parseBoolean(passwordCheck)
+                    && parseBoolean(emailCheck);
+
+            if (result) {
+                Role role = roleStr != null ? Role.valueOf(roleStr.toUpperCase()) : Role.PATIENT;
+//todo
+
+            }
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, " ", e);
+            throw new ServiceException(" ", e);
+
+
+        }
+        return result;
     }
 }
