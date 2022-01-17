@@ -666,6 +666,11 @@ public class UserDaoImpl implements UserDao {
 
     }
 
+    @Override
+    public Optional<User> findUserByLoginAndPassword(String login, String passwordSalt) throws DaoException {
+        return Optional.empty();
+    }
+
     public User getUserInfo(ResultSet resultSet) throws SQLException {
         return (new User.UserBuilder()
                 .setId(resultSet.getLong(ColumnName.USERS_ID))
