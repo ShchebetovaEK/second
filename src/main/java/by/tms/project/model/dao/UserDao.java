@@ -1,6 +1,7 @@
 package by.tms.project.model.dao;
 
 import by.tms.project.exception.DaoException;
+import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
 
@@ -43,4 +44,17 @@ public interface UserDao extends BaseDao<Long, User> {
      boolean checkUserLogin(String login) throws DaoException;
 
      Optional<User> findUserByLoginAndPassword(String login, String passwordSalt)  throws DaoException;
+
+     boolean updateFirstNameById(long id, String firstName) throws DaoException;
+
+     boolean updateLastNameById(long id, String lastName) throws DaoException;
+
+     boolean updatePhoneNumberById(long id, String phoneNumber) throws DaoException;
+
+     boolean updateAddressById(long id, String address) throws DaoException;
+
+     boolean  updateEmailById(long id, String email) throws DaoException;
+
+     boolean  updateDataBirthdayById(long id, String dataBirthday) throws DaoException;
+
 }

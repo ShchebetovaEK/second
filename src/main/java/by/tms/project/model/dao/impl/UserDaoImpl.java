@@ -19,7 +19,7 @@ import java.util.Optional;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class UserDaoImpl.
  */
 public class UserDaoImpl implements UserDao {
@@ -38,7 +38,7 @@ public class UserDaoImpl implements UserDao {
             users.data_birthday,users.address,users.phone_number,users.email 
             FROM users 
             WHERE users.login =?""";
-    private static final String SQL_SELECT_BY_LOGIN_AND_PASSWORD= """
+    private static final String SQL_SELECT_BY_LOGIN_AND_PASSWORD = """
             SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
             users.data_birthday,users.address,users.phone_number,users.email 
             FROM users 
@@ -108,7 +108,7 @@ public class UserDaoImpl implements UserDao {
             WHERE users.id =?""";
     private static final String SQL_CHECK_BY_LOGIN_PASSWORD = """ 
             SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email 
+            users.data_birthday,users.address,users.phone_number,users.email
             FROM users
             WHERE users.login =?
             AND  users.password =? """;
@@ -121,6 +121,31 @@ public class UserDaoImpl implements UserDao {
             SELECT users.id,users.login 
             FROM users 
             WHERE users.login=?""";
+
+    private static final String SQL_UPDATE_USER_FIRST_NAME = """
+            UPDATE users 
+            SET first_name 
+            WHERE id =?""";
+    private static final String SQL_UPDATE_USER_LAST_NAME = """
+            UPDATE users 
+            SET last_name 
+            WHERE id =?""";
+    private static final String SQL_UPDATE_USER_EMAIL = """
+            UPDATE users 
+            SET email 
+            WHERE id =?""";
+    private static final String SQL_UPDATE_USER_ADDRESS = """
+            UPDATE users 
+            SET address
+            WHERE id =?""";
+    private static final String SQL_UPDATE_USER_PHONE_NUMBER = """
+            UPDATE users 
+            SET phone_number 
+            WHERE id =?""";
+    private static final String SQL_UPDATE_USER_DATA_BIRTHDAY = """
+            UPDATE users 
+            SET data_birthday 
+            WHERE id =?""";
 
     private static UserDaoImpl instance;
 
@@ -136,6 +161,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * find all users.
+     *
      * @return userList.
      * @throws DaoException
      */
@@ -158,6 +184,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * find all users with same id.
+     *
      * @param id
      * @return optionalUser.
      * @throws DaoException
@@ -180,7 +207,9 @@ public class UserDaoImpl implements UserDao {
         return optionalUser;
     }
 
-    /** create user.
+    /**
+     * create user.
+     *
      * @param entity
      * @return the boolean.
      * @throws DaoException
@@ -207,7 +236,9 @@ public class UserDaoImpl implements UserDao {
         return (result > 0);
     }
 
-    /** update user
+    /**
+     * update user
+     *
      * @param entity
      * @return the boolean.
      * @throws DaoException
@@ -234,7 +265,9 @@ public class UserDaoImpl implements UserDao {
         return (result > 0);
     }
 
-    /** delete user with same login.
+    /**
+     * delete user with same login.
+     *
      * @param id
      * @return the boolean.
      * @throws DaoException
@@ -253,7 +286,9 @@ public class UserDaoImpl implements UserDao {
         return (result > 0);
     }
 
-    /** delete user
+    /**
+     * delete user
+     *
      * @param entity
      * @return the boolean.
      * @throws DaoException
@@ -272,22 +307,13 @@ public class UserDaoImpl implements UserDao {
         return (result > 0);
     }
 
-//    @Override
-//    public boolean findByLoginAndPassword(String login, String password) throws DaoException {
-//        int result;
-//        try (Connection connection = ConnectionPool.getInstance().takeConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_BY_LOGIN_PASSWORD)) {
-//            preparedStatement.setString(1, login);
-//            preparedStatement.setString(2,password);
-//             result = preparedStatement.executeUpdate();
-//        } catch (SQLException e) {
-//            logger.error("Failed at UserDaoImpl at method findByLoginAndPassword", e);
-//            throw new DaoException("Failed at UserDaoImpl at method findByLoginAndPassword", e);
-//        }
-//        return (result>0);
-//
-//    }
-
+    /**
+     * find user with same login and password.
+     * @param login
+     * @param password
+     * @return optionalList.
+     * @throws DaoException
+     */
     @Override
     public Optional<User> findByLoginAndPassword(String login, String password) throws DaoException {
         Optional<User> optionalUser = Optional.empty();
@@ -308,6 +334,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * find user with same login
+     *
      * @param login
      * @return optionalUser.
      * @throws DaoException
@@ -330,7 +357,9 @@ public class UserDaoImpl implements UserDao {
         return optionalUser;
     }
 
-    /** find user with same first name.
+    /**
+     * find user with same first name.
+     *
      * @param firstName
      * @return userList.
      * @throws DaoException
@@ -354,7 +383,9 @@ public class UserDaoImpl implements UserDao {
         return userList;
     }
 
-    /** find user with same last name.
+    /**
+     * find user with same last name.
+     *
      * @param lastName
      * @return userList.
      * @throws DaoException
@@ -378,7 +409,9 @@ public class UserDaoImpl implements UserDao {
         return userList;
     }
 
-    /** find user with same role.
+    /**
+     * find user with same role.
+     *
      * @param role
      * @return userList.
      * @throws DaoException
@@ -402,7 +435,9 @@ public class UserDaoImpl implements UserDao {
         return userList;
     }
 
-    /**find user with same first name and role.
+    /**
+     * find user with same first name and role.
+     *
      * @param firstName
      * @param role
      * @return userList.
@@ -428,7 +463,9 @@ public class UserDaoImpl implements UserDao {
         return userList;
     }
 
-    /** find user with same last name and role.
+    /**
+     * find user with same last name and role.
+     *
      * @param lastName
      * @param role
      * @return userList.
@@ -454,7 +491,9 @@ public class UserDaoImpl implements UserDao {
         return userList;
     }
 
-    /** find user with same date birthday.
+    /**
+     * find user with same date birthday.
+     *
      * @param dataBirthday
      * @return userList.
      * @throws DaoException
@@ -478,7 +517,9 @@ public class UserDaoImpl implements UserDao {
         return userList;
     }
 
-    /** find user with same email.
+    /**
+     * find user with same email.
+     *
      * @param email
      * @return userList.
      * @throws DaoException
@@ -501,7 +542,9 @@ public class UserDaoImpl implements UserDao {
         return optionalUser;
     }
 
-    /** find user witn same phone number.
+    /**
+     * find user witn same phone number.
+     *
      * @param phoneNumber
      * @return optionalList.
      * @throws DaoException
@@ -524,7 +567,9 @@ public class UserDaoImpl implements UserDao {
         return optionalUser;
     }
 
-    /** exist user with same login.
+    /**
+     * exist user with same login.
+     *
      * @param login
      * @return the boolean.
      * @throws DaoException
@@ -549,7 +594,9 @@ public class UserDaoImpl implements UserDao {
 
     }
 
-    /** exist user with same email.
+    /**
+     * exist user with same email.
+     *
      * @param email
      * @return the boolean.
      * @throws DaoException
@@ -573,7 +620,9 @@ public class UserDaoImpl implements UserDao {
         return (result > 0);
     }
 
-    /** set  user login.
+    /**
+     * set  user login.
+     *
      * @param user
      * @param login
      * @return the boolean.
@@ -595,7 +644,9 @@ public class UserDaoImpl implements UserDao {
 
     }
 
-    /** set user password.
+    /**
+     * set user password.
+     *
      * @param user
      * @param password
      * @return the boolean.
@@ -618,7 +669,9 @@ public class UserDaoImpl implements UserDao {
 
     }
 
-    /** check user old password.
+    /**
+     * check user old password.
+     *
      * @param user
      * @param oldPassword
      * @return the boolean.
@@ -644,7 +697,9 @@ public class UserDaoImpl implements UserDao {
         return result;
     }
 
-    /** chech user login.
+    /**
+     * chech user login.
+     *
      * @param login
      * @return the boolean.
      * @throws DaoException
@@ -668,6 +723,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * find user with same login and password.
+     *
      * @param login
      * @param passwordSalt
      * @return optionalList.
@@ -692,6 +748,145 @@ public class UserDaoImpl implements UserDao {
         return optionalUser;
     }
 
+    /**
+     *  change  user's last name by same id.
+     * @param id
+     * @param firstName
+     * @return the boolean.
+     * @throws DaoException
+     */
+    @Override
+    public boolean updateFirstNameById(long id, String firstName) throws DaoException {
+        boolean result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER_FIRST_NAME)) {
+            preparedStatement.setString(1, firstName);
+            preparedStatement.setLong(2, id);
+            result = preparedStatement.executeUpdate() == 1;
+
+        } catch (SQLException e) {
+            logger.error("Failed at UserDaoImpl at method updateFirstNameById", e);
+            throw new DaoException("Failed at UserDaoImpl at method updateFirstNameById", e);
+        }
+        return result;
+    }
+
+    /**
+     * change  user's last name by same id.
+     * @param id
+     * @param lastName
+     * @return the boolean.
+     * @throws DaoException
+     */
+    @Override
+    public boolean updateLastNameById(long id, String lastName) throws DaoException {
+        boolean result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER_LAST_NAME)) {
+            preparedStatement.setString(1, lastName);
+            preparedStatement.setLong(2, id);
+            result = preparedStatement.executeUpdate() == 1;
+
+        } catch (SQLException e) {
+            logger.error("Failed at UserDaoImpl at method updateLastNameById", e);
+            throw new DaoException("Failed at UserDaoImpl at method updateLastNameById", e);
+        }
+        return result;
+    }
+
+    /**
+     * change  user's phone number by same id.
+     * @param id
+     * @param phoneNumber
+     * @return the boolean.
+     * @throws DaoException
+     */
+    @Override
+    public boolean updatePhoneNumberById(long id, String phoneNumber) throws DaoException {
+        boolean result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER_PHONE_NUMBER)) {
+            preparedStatement.setString(1, phoneNumber);
+            preparedStatement.setLong(2, id);
+            result = preparedStatement.executeUpdate() == 1;
+
+        } catch (SQLException e) {
+            logger.error("Failed at UserDaoImpl at method updatePhoneNumberById", e);
+            throw new DaoException("Failed at UserDaoImpl at method updatePhoneNumberById", e);
+        }
+        return result;
+    }
+
+    /**
+     * change  user's address by same id.
+     * @param id
+     * @param address
+     * @return the boolean.
+     * @throws DaoException
+     */
+    @Override
+    public boolean updateAddressById(long id, String address) throws DaoException {
+        boolean result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER_ADDRESS)) {
+            preparedStatement.setString(1, address);
+            preparedStatement.setLong(2, id);
+            result = preparedStatement.executeUpdate() == 1;
+
+        } catch (SQLException e) {
+            logger.error("Failed at UserDaoImpl at method updateAddressById", e);
+            throw new DaoException("Failed at UserDaoImpl at method updateAddressById", e);
+        }
+        return result;
+    }
+
+    /**
+     * change  user's email by same id.
+     * @param id
+     * @param email
+     * @return the boolean.
+     * @throws DaoException
+     */
+    @Override
+    public boolean updateEmailById(long id, String email) throws DaoException {
+        boolean result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER_EMAIL)) {
+            preparedStatement.setString(1, email);
+            preparedStatement.setLong(2, id);
+            result = preparedStatement.executeUpdate() == 1;
+
+        } catch (SQLException e) {
+            logger.error("Failed at UserDaoImpl at method updateEmailById", e);
+            throw new DaoException("Failed at UserDaoImpl at method updateEmailById", e);
+        }
+        return result;
+    }
+
+    /**
+     * change  user's dataBirthday by same id.
+     * @param id
+     * @param dataBirthday
+     * @return the boolean.
+     * @throws DaoException
+     */
+    @Override
+    public boolean updateDataBirthdayById(long id, String dataBirthday) throws DaoException {
+        boolean result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER_DATA_BIRTHDAY)) {
+            preparedStatement.setString(1, dataBirthday);
+            preparedStatement.setLong(2, id);
+            result = preparedStatement.executeUpdate() == 1;
+
+        } catch (SQLException e) {
+            logger.error("Failed at UserDaoImpl at method updateDataBirthdayById", e);
+            throw new DaoException("Failed at UserDaoImpl at method updateDataBirthdayById", e);
+        }
+        return result;
+    }
+
+
     public User getUserInfo(ResultSet resultSet) throws SQLException {
         return (new User.UserBuilder()
                 .setId(resultSet.getLong(ColumnName.USERS_ID))
@@ -706,4 +901,5 @@ public class UserDaoImpl implements UserDao {
                 .setEmail(resultSet.getString(ColumnName.USERS_EMAIL))
                 .buildUser());
     }
+
 }

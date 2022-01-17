@@ -28,7 +28,7 @@ public  final class AdminValidator {
     }
 
     public boolean isCreateProtocolFormValid(Map<String, String> formData, HttpSession session){
-        DataValidator dataValidator = DataValidator.getInstance();
+        UserValidator dataValidator = UserValidator.getInstance();
         int count = 0;
         resetIncorrectCreateProtocol(session);
         String login = formData.get(LOGIN);

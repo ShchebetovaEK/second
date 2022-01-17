@@ -8,7 +8,7 @@ import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
 import by.tms.project.model.service.UserService;
 import by.tms.project.model.util.security.PasswordEncryptor;
-import by.tms.project.model.validator.DataValidator;
+import by.tms.project.model.validator.UserValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findUserByLoginAndPassword(String login, String password) throws ServiceException {
         Optional<User> optionalUser = Optional.empty();
         try{
-            if (DataValidator.getInstance().isLoginValid(login) && DataValidator.getInstance().isPasswordValid(password)){
+            if (UserValidator.getInstance().isLoginValid(login) && UserValidator.getInstance().isPasswordValid(password)){
                 String passwordSalt = PasswordEncryptor.encrypt(password);
                 optionalUser = userDao.findByLoginAndPassword(login,passwordSalt);
             }
@@ -129,11 +129,11 @@ public class UserServiceImpl implements UserService {
         String roleStr = userCheck.get(ROLE);
 
         try {
-            String loginCheck = DataValidator.getInstance().isLoginValid(login)
+            String loginCheck = UserValidator.getInstance().isLoginValid(login)
                     ? (!userDao.ifExistByLogin(login) ? TRUE : NOT_VALID_LOGIN) : INVALID_LOGIN;
-            String passwordCheck = DataValidator.getInstance().isPasswordValid(password)
+            String passwordCheck = UserValidator.getInstance().isPasswordValid(password)
                     ? (password.equals(confirmPassword) ? TRUE : PASSWORD_MISMATCH) : INVALID_PASSWORD;
-            String emailCheck = DataValidator.getInstance().isEmailValid(email)
+            String emailCheck = UserValidator.getInstance().isEmailValid(email)
                     ? (!userDao.ifExistByEmail(email) ? TRUE : NOT_VALID_EMAIL) : INVALID_EMAIL;
 //            String phoneNumberCheck = DataValidator.getInstance().isPhoneNumberValid(phoneNumber)
 //                    ? (!userDao.ifExistByEmail())
@@ -157,32 +157,67 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updateFirstNameById(long id, String firstName) throws ServiceException {
-        // TODO: 17.01.2022
-        return true;
+        try{
+            return UserValidator.getInstance().isFirstNameValid(firstName)
+                    && userDao.updateFirstNameById(id, firstName);
+        } catch (DaoException e) {
+            logger.error("",e);
+            throw new ServiceException("",e);
+        }
     }
 
     @Override
     public boolean updateLastNameById(long id, String lastName) throws ServiceException {
-        return false;
+        try{
+            return UserValidator.getInstance().isLastNameValid(lastName)
+                    && userDao.updateLastNameById(id,lastName);
+        } catch (DaoException e) {
+            logger.error("",e);
+            throw new ServiceException("",e);
+        }
     }
 
     @Override
     public boolean updatePhoneNumberById(long id, String phoneNumber) throws ServiceException {
-        return false;
+        try{
+            return UserValidator.getInstance().isLastNameValid(phoneNumber)
+                    && userDao.updateLastNameById(id,phoneNumber);
+        } catch (DaoException e) {
+            logger.error("",e);
+            throw new ServiceException("",e);
+        }
     }
 
     @Override
     public boolean updateAddressById(long id, String address) throws ServiceException {
-        return false;
+        try{
+            return UserValidator.getInstance().isLastNameValid(address)
+                    && userDao.updateLastNameById(id,address);
+        } catch (DaoException e) {
+            logger.error("",e);
+            throw new ServiceException("",e);
+        }
     }
 
     @Override
     public boolean updateEmailById(long id, String email) throws ServiceException {
-        return false;
+        try{
+            return UserValidator.getInstance().isLastNameValid(email)
+                    && userDao.updateLastNameById(id,email);
+        } catch (DaoException e) {
+            logger.error("",e);
+            throw new ServiceException("",e);
+        }
     }
 
     @Override
-    public boolean updateDataBirthdayById(long id, String email) throws ServiceException {
-        return false;
+    public boolean updateDataBirthdayById(long id, String dataBirthday) throws ServiceException {
+        try{
+            return UserValidator.getInstance().isLastNameValid(dataBirthday)
+                    && userDao.updateLastNameById(id,dataBirthday);
+        } catch (DaoException e) {
+            logger.error("",e);
+            throw new ServiceException("",e);
+        }
     }
 }

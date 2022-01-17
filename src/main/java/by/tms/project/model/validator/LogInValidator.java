@@ -11,7 +11,7 @@ import static by.tms.project.controller.command.MessageAttributeValue.MESSAGE_LO
 import static by.tms.project.controller.command.RequestParameter.*;
 
 public final class LogInValidator {
-    private static final DataValidator DATA_VALIDATOR = DataValidator.getInstance();
+    private static final UserValidator DATA_VALIDATOR = UserValidator.getInstance();
     private static final String PROPERTY_PATH = "message.properties";
     private static final Properties property = PropertyLoader.getProperty(PROPERTY_PATH);
     private static LogInValidator instance;

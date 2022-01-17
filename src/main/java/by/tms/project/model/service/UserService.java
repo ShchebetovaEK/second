@@ -39,7 +39,7 @@ public interface UserService {
 
     boolean  updateEmailById(long id, String email) throws ServiceException;
 
-    boolean  updateDataBirthdayById(long id, String email) throws ServiceException;
+    boolean  updateDataBirthdayById(long id, String dataBirthday) throws ServiceException;
 
 }
 
