@@ -42,5 +42,3 @@ public interface UserService {
     boolean  updateDataBirthdayById(long id, String dataBirthday) throws ServiceException;
 
 }
-
-

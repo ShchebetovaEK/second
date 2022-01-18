@@ -20,5 +20,4 @@ public interface PatientService {
     boolean createPatient(Patient patient, HttpServletRequest request) throws ServiceException;
 
     boolean toUpBalance(String login, BigDecimal sumForUp, HttpSession session) throws ServiceException;
-
 }

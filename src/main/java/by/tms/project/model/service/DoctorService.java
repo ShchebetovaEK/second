@@ -17,5 +17,4 @@ public interface DoctorService {
     List<Doctor> findDoctorByExperience(Experience experience) throws ServiceException;
 
     List<Doctor> findDoctorBySpeciality(Speciality speciality) throws ServiceException;
-
 }

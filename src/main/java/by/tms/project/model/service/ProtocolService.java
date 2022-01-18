@@ -8,6 +8,4 @@ import java.util.List;
 public interface ProtocolService {
 
     List<Protocol> findAll() throws ServiceException;
-
-
 }

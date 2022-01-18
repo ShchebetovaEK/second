@@ -27,10 +27,7 @@ public class ChangeUserPersonalCommand implements Command {
         User user = (User)session.getAttribute(SESSION_USER);
         String type = request.getParameter(TYPE);
         String value = request.getParameter(VALUE);
-//        return router;
-//    }
-//}
-//
+
        try {
             type = type != null ? type : EMPTY;
             boolean result = switch (type) {
@@ -66,9 +63,8 @@ public class ChangeUserPersonalCommand implements Command {
                     yield changePersonalData;
                 }
                 default -> {
-                    boolean changePersonalData = userService.updateDataBirthdayById(user.getId(), value);
-                    request.setAttribute(DATA_BIRTHDAY_CHANGE, changePersonalData);
-                    yield changePersonalData;
+                    logger.log(Level.WARN, "Unexpected value: " + type);
+                    yield false;
                 }
             };
             return router;
