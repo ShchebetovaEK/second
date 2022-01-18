@@ -1,6 +1,7 @@
 package by.tms.project.controller.command;
 
 import by.tms.project.controller.command.impl.common.*;
+import by.tms.project.controller.command.impl.user.ChangeUserPersonalCommand;
 import by.tms.project.model.entity.Role;
 
 import java.util.ArrayList;
@@ -14,7 +15,8 @@ public enum CommandType {
     REGISTRATION_PAGE(new GoToRegistrationCommand()),
     AUTHENTICATION_PAGE(new AuthenticationCommand()),
     LOG_IN_PAGE(new LogInCommand()),
-    CHANGE_LOCALE(new ChangeLocaleCommand());
+    CHANGE_LOCALE(new ChangeLocaleCommand()),
+    CHANGE_USER_PERSONAL_DATA(new ChangeUserPersonalCommand());
 
     private final Command command;
     private final List<Role> roleList;
