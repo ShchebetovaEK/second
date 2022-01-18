@@ -654,7 +654,7 @@ public class UserDaoImpl implements UserDao {
      */
     @Override
     public boolean setPassword(User user, String password) throws DaoException {
-        int result = 0;
+        int result;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SET_PASSWORD)) {
             String resultPassword = PasswordEncryptor.encrypt(password);

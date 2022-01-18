@@ -15,7 +15,7 @@ import java.util.Properties;
  *
  * class ConnectionFactory
  */
-public class ConnectionFactory {
+ class ConnectionFactory {
     private static final Logger logger = LogManager.getLogger();
     private static final Properties property;
     private static final String DATABASE_URL;
@@ -28,7 +28,8 @@ public class ConnectionFactory {
             Driver mysqlDriver = new com.mysql.cj.jdbc.Driver();
             DriverManager.registerDriver(mysqlDriver);
         }catch (SQLException e){
-            logger.error("Driver don't have registration ",e);
+            logger.fatal("Driver don't have registration ",e);
+
         }
         DATABASE_URL = property.getProperty(DATABASE_URL_PROP);
     }
@@ -39,7 +40,7 @@ public class ConnectionFactory {
      * @return the connection
      * @throws SQLException the SQL exception
      */
-    public static Connection getConnection() throws SQLException {
+     static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DATABASE_URL,property);
     }
 

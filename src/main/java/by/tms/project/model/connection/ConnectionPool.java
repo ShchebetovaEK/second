@@ -19,12 +19,13 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public final class ConnectionPool {
     private static final Logger logger = LogManager.getLogger();
-    private static final int DEFAULT_POOL_SIZE = 32;
+    private static final int DEFAULT_POOL_SIZE = 8;
     private static final AtomicBoolean instanceCreated = new AtomicBoolean(false);
     private static final ReentrantLock lock = new ReentrantLock();
+    private static ConnectionPool instance;
     private final BlockingQueue<ProxyConnection> freeConnections;
     private final BlockingQueue<ProxyConnection> usingConnections;
-    private static ConnectionPool instance;
+
 
     private ConnectionPool(){
         freeConnections = new LinkedBlockingDeque<>(DEFAULT_POOL_SIZE);
@@ -36,9 +37,10 @@ public final class ConnectionPool {
                 freeConnections.offer(connection);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Connection is not create.", e);
+            //log error "Connection is not create.", e);
         }
         if(freeConnections.isEmpty()){
+            //log+fatal
             throw new RuntimeException("Connection pool is empty.");
         }
     }

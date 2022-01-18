@@ -78,7 +78,7 @@ public class MainController {
      * @throws IOException      Signals that an I/O exception has occurred.
      */
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, CommandException {
-        HttpSession session = request.getSession();
+
         Router router;
         Optional<CommandType> commandTypeOpt = (Optional<CommandType>) request.getAttribute(COMMAND_TYPE);
         CommandType commandType = commandTypeOpt.get();
@@ -88,7 +88,7 @@ public class MainController {
         if(pagePath.contains(request.getContextPath())){
             pagePath = pagePath.substring(request.getContextPath().length());
         }
-        session.setAttribute(CURRENT_PAGE, pagePath);
+        request.getSession().setAttribute(CURRENT_PAGE, pagePath);
         switch(router.getType()) {
             case REDIRECT:
                 response.sendRedirect(router.getPage());

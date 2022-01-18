@@ -61,9 +61,6 @@ public class Router {
 
     public enum RouterType {
         FORWARD,
-        REDIRECT;
-
-        RouterType() {
-        }
+        REDIRECT
     }
 }
