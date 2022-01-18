@@ -1,6 +1,6 @@
 package by.tms.project.controller.command;
 
-import by.tms.project.controller.command.impl.common.GoToWelcomeCommand;
+import by.tms.project.controller.command.impl.move.GoToWelcomeCommand;
 
 import java.util.EnumMap;
 import java.util.Locale;

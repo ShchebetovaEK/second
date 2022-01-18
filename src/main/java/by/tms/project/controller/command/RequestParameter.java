@@ -2,6 +2,7 @@ package by.tms.project.controller.command;
 
 public final class RequestParameter {
     public static final String COMMAND = "command";
+    public static final String ROLE = "role";
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
      public static final String CONFIRM_PASSWORD = "confirm_password";
@@ -11,7 +12,7 @@ public final class RequestParameter {
     public static final String ADDRESS = "address";
     public static final String PHONE_NUMBER = "phone_number";
     public static final String EMAIL = "email";
-    public static final String ROLE = "role";
+
     public static final String TRUE = "true";
 
     public static final String PASSWORD_MISMATCH = "password_mismatch";

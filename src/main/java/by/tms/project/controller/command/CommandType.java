@@ -1,6 +1,9 @@
 package by.tms.project.controller.command;
 
 import by.tms.project.controller.command.impl.common.*;
+import by.tms.project.controller.command.impl.move.GoToRegistrationCommand;
+import by.tms.project.controller.command.impl.move.GoToWelcomeCommand;
+import by.tms.project.controller.command.impl.move.GotoMainCommand;
 import by.tms.project.controller.command.impl.user.ChangeUserPersonalCommand;
 import by.tms.project.model.entity.Role;
 

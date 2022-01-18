@@ -4,6 +4,7 @@ public final class RequestAttribute {
 
     public static final String CURRENT_PAGE = "current_page";
     public static final String USER = "user";
+    public static final String USER_LIST = "users";
     public static final String LOGIN ="login";
     public static final String PASSWORD = "password";
 
@@ -11,7 +12,7 @@ public final class RequestAttribute {
     public static final String SESSION_DOCTOR = "doctor";
     public static final String SESSION_PATIENT = "patient";
 
-
+    public static final String REGISTRATION = "registration";
     public static final String SESSION_LOCALE = "locale";
     public static final String AUTHENTICATION = "authentication";
     public static final String WRONG_COMMAND = "wrong_command";

@@ -9,7 +9,7 @@ public final class PagePath {
 
     public static final String REGISTRATION_PAGE = "/jsp/main/registration.jsp";
     public static final String USER_MANAGER_PAGE = "/jsp/navigation/admin/user_management.jsp";
-    public static final String ACCOUNT_DETAILS_PAGE = "/jsp/navigation/account_creation_details.jsp";
+    public static final String ACCOUNT_PAGE = "/jsp/navigation/account_creation_details.jsp";
     public static final  String AUTHENTICATION_PAGE= "/jsp/main/authentication.jsp";
     public static final String ERROR_400_PAGE = "/jsp/error/error400.jsp";
 
