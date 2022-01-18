@@ -1,6 +1,6 @@
 package by.tms.project.controller.command;
 
-import by.tms.project.controller.command.impl.common.GoToWelcome;
+import by.tms.project.controller.command.impl.common.GoToWelcomeCommand;
 
 import java.util.EnumMap;
 import java.util.Locale;
@@ -11,7 +11,7 @@ public class CommandProvider {
     private final EnumMap<CommandType, Command> commandEnumMap = new EnumMap<>(CommandType.class);
 
     private CommandProvider() {
-        commandEnumMap.put(CommandType.GO_TO_WELCOME, new GoToWelcome());
+        commandEnumMap.put(CommandType.GO_TO_WELCOME, new GoToWelcomeCommand());
     }
 
     public static CommandProvider getInstance() {

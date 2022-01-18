@@ -1,14 +1,20 @@
 package by.tms.project.controller.command;
 
-import by.tms.project.controller.command.impl.common.GoToWelcome;
+import by.tms.project.controller.command.impl.common.*;
 import by.tms.project.model.entity.Role;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static by.tms.project.model.entity.Role.*;
+
 public enum CommandType {
-    GO_TO_WELCOME(new GoToWelcome()),
-    DEFAULT(new GoToWelcome());
+    GO_TO_WELCOME(new GoToWelcomeCommand(), List.of(ADMIN, PATIENT,DOCTOR)),
+    GO_TO_MAIN(new GotoMainCommand()),
+    REGISTRATION_PAGE(new GoToRegistrationCommand()),
+    AUTHENTICATION_PAGE(new AuthenticationCommand()),
+    LOG_IN_PAGE(new LogInCommand()),
+    CHANGE_LOCALE(new ChangeLocaleCommand());
 
     private final Command command;
     private final List<Role> roleList;
