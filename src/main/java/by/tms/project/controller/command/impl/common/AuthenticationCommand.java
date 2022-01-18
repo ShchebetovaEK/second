@@ -16,16 +16,20 @@ import org.apache.logging.log4j.Logger;
 import java.util.Optional;
 
 import static by.tms.project.controller.command.PagePath.MAIN_PAGE;
-import static by.tms.project.controller.command.RequestAttribute.AUTHENTICATION;
-import static by.tms.project.controller.command.RequestAttribute.SESSION_USER;
+import static by.tms.project.controller.command.RequestAttribute.*;
 import static by.tms.project.controller.command.RequestParameter.LOGIN;
 import static by.tms.project.controller.command.RequestParameter.PASSWORD;
 import static by.tms.project.controller.command.Router.RouterType.REDIRECT;
 
 public class AuthenticationCommand implements Command {
     public static final Logger logger = LogManager.getLogger();
-    private  UserService userService = UserServiceImpl.getInstance();
+    private UserService userService = UserServiceImpl.getInstance();
 
+
+    // TODO: 18.01.2022
+    /**
+     * уточнить! разность ENTITY
+     */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
@@ -36,19 +40,30 @@ public class AuthenticationCommand implements Command {
             Optional<User> optionalUser = userService.findUserByLoginAndPassword(login, password);
             if (optionalUser.isPresent()) {
                 User user = optionalUser.get();
-                if (user.getRole() == Role.ADMIN) {
-                    session.setAttribute(SESSION_USER, user);
-                    request.setAttribute(AUTHENTICATION, Boolean.TRUE);
-                } else {
-                    request.setAttribute(AUTHENTICATION, Boolean.FALSE);
+                switch (user.getRole()) {
+                    case ADMIN -> {
+                        session.setAttribute(SESSION_USER, user);
+                        request.setAttribute(AUTHENTICATION, Boolean.TRUE);
+                    }
+                    case DOCTOR -> {
+                        session.setAttribute(SESSION_DOCTOR, user);
+                        request.setAttribute(AUTHENTICATION, Boolean.TRUE);
+                    }
+                    case PATIENT -> {
+                        session.setAttribute(SESSION_PATIENT, user);
+                        request.setAttribute(AUTHENTICATION, Boolean.TRUE);
+                    }
+                    default -> {
+                        request.setAttribute(MAIN_PAGE,Boolean.FALSE);
+                    }
                 }
             }
-                router.setPage(MAIN_PAGE);
-                router.setRouterType(REDIRECT);
-                return router;
+            router.setPage(MAIN_PAGE);
+            router.setRouterType(REDIRECT);
+            return router;
         } catch (ServiceException e) {
             logger.error("", e);
             throw new CommandException("", e);
         }
-     }
+    }
 }

@@ -8,6 +8,10 @@ public final class RequestAttribute {
     public static final String PASSWORD = "password";
 
     public static final String SESSION_USER = "user";
+    public static final String SESSION_DOCTOR = "doctor";
+    public static final String SESSION_PATIENT = "patient";
+
+
     public static final String SESSION_LOCALE = "locale";
     public static final String AUTHENTICATION = "authentication";
 

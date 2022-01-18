@@ -1,6 +1,6 @@
 package by.tms.project.controller.command;
 
-import by.tms.project.controller.command.impl.admin.GoToWelcome;
+import by.tms.project.controller.command.impl.common.GoToWelcome;
 import by.tms.project.model.entity.Role;
 
 import java.util.ArrayList;
