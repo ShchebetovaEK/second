@@ -40,7 +40,7 @@ public class RegistrationCommand implements Command {
         try {
             boolean registration = userService.registerNewUser(checkData);
             String currentPage =(String) request.getSession().getAttribute(CURRENT_PAGE);
-            String USER_MANAGEMENT_PAGE;
+
             if (currentPage.equals(USER_MANAGER_PAGE)) {
                 request.setAttribute(USER_LIST, userService.findAll());
                 router.setPage(USER_MANAGER_PAGE);
