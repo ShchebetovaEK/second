@@ -8,6 +8,16 @@ public final class RequestAttribute {
     public static final String LOGIN ="login";
     public static final String PASSWORD = "password";
 
+    public static final String VALID_ROLE = "valid_role";
+    public static final String VALID_LOGIN = "valid_login";
+    public static final String VALID_PASSWORD = "valid_password";
+    public static final String VALID_FIRST_NAME = "valid_first_name";
+    public static final String VALID_LAST_NAME = "valid_last_name";
+    public static final String VALID_DATA_BIRTHDAY = "valid_data_birthday";
+    public static final String VALID__ADDRESS = "valid_address";
+    public static final String VALID_PHONE_NUMBER = "valid_phone_number";
+    public static final String VALID_EMAIL = "valid_email";
+
     public static final String SESSION_USER = "user";
     public static final String SESSION_DOCTOR = "doctor";
     public static final String SESSION_PATIENT = "patient";

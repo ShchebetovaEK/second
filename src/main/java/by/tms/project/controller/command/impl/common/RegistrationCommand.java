@@ -39,7 +39,7 @@ public class RegistrationCommand implements Command {
         checkData.put(ROLE, request.getParameter(ROLE));
         try {
             boolean registration = userService.registerNewUser(checkData);
-            String currentPage =(String) request.getSession().getAttribute(CURRENT_PAGE);
+            String currentPage = (String) request.getSession().getAttribute(CURRENT_PAGE);
 
             if (currentPage.equals(USER_MANAGER_PAGE)) {
                 request.setAttribute(USER_LIST, userService.findAll());
@@ -51,14 +51,23 @@ public class RegistrationCommand implements Command {
                     router.setPage(REGISTRATION_PAGE);
                 }
             }
-            if(!registration){
+            if (!registration) {
+                for (String key : checkData.keySet()) {
+                    String validation = checkData.get(key);
+                    if (Boolean.parseBoolean(validation)){
+                        switch (key){
+                            case LOGIN -> request.setAttribute(VALID_LOGIN,request.getParameter(LOGIN));
+
+                        }
+                    }
+                }
 
             }
-            request.setAttribute(REGISTRATION,registration);
+            request.setAttribute(REGISTRATION, registration);
             return router;
-        } catch (ServiceException e){
-            logger.error("",e);
-            throw new CommandException("",e);
+        } catch (ServiceException e) {
+            logger.error("", e);
+            throw new CommandException("", e);
         }
     }
 }
