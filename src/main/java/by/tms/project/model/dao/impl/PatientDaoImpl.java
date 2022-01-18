@@ -62,6 +62,8 @@ public class PatientDaoImpl implements PatientDao {
             INNER JOIN patients on users.id = patients.users_id
             WHERE patients.insurance =?
             """;
+    //todo
+
     private static final String SQL_SELECT_PATIENTS_BY_MONEY_ACCOUNT = """
             SELECT id,role,login,password,first_name,last_name,
                    data_birthday,address,phone_number,email,
@@ -69,6 +71,8 @@ public class PatientDaoImpl implements PatientDao {
             FROM users
             INNER JOIN patients on users.id = patients.users_id
             WHERE patients.money_account =?""";
+
+    //todo
     private static final String SQL_SELECT_PATIENTS_BY_DISCOUNT = """
             SELECT id,role,login,password,first_name,last_name,
                    data_birthday,address,phone_number,email,

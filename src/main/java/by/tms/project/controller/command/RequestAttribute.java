@@ -14,6 +14,8 @@ public final class RequestAttribute {
 
     public static final String SESSION_LOCALE = "locale";
     public static final String AUTHENTICATION = "authentication";
+    public static final String WRONG_COMMAND = "wrong_command";
+
 
     public static final String FIRST_NAME_CHANGE = "first_name_change";
     public static final String LAST_NAME_CHANGE = "last_name_change";
