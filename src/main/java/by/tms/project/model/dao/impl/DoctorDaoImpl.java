@@ -49,7 +49,14 @@ public class DoctorDaoImpl implements DoctorDao {
     private static final String SQL_DELETE_DOCTOR_BY_ID = """
             DELETE FROM users 
             WHERE users.id =?""";
-
+//todo
+    private static final String SQL_SELECT_DOCTORS_BY_LOGIN = """
+            SELECT id,role,login,password,first_name,last_name,
+                   data_birthday,address,phone_number,email,
+                   category,experience,speciality
+            FROM users
+            INNER JOIN doctors on users.id = doctors.users_id
+            WHERE doctors.category =?""";
 
     private static final String SQL_SELECT_DOCTORS_CATEGORY = """
             SELECT id,role,login,password,first_name,last_name,
@@ -324,6 +331,30 @@ public class DoctorDaoImpl implements DoctorDao {
             throw new DaoException("Failed at DoctorDaoImpl at method findBySpeciality", e);
         }
         return doctorList;
+    }
+
+    /**
+     * find doctor with same login
+     * @param login
+     * @return
+     * @throws DaoException
+     */
+    @Override
+    public Optional<Doctor> findDoctorByLogin(String login) throws DaoException {
+        Optional<Doctor> optionalDoctor = Optional.empty();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_DOCTORS_BY_LOGIN)) {
+            preparedStatement.setString(1, login);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    optionalDoctor = Optional.of(getDoctorInfo(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Failed at DoctorDaoImpl at method findDoctorByLogin", e);
+            throw new DaoException("Failed at DoctorDaoImpl at method findDoctorByLogin", e);
+        }
+        return optionalDoctor;
     }
 
     public Doctor getDoctorInfo(ResultSet resultSet) throws SQLException {

@@ -1,8 +1,10 @@
 package by.tms.project.model.service.impl;
 
+import by.tms.project.exception.DaoException;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.dao.PatientDao;
 import by.tms.project.model.dao.impl.PatientDaoImpl;
+import by.tms.project.model.entity.Doctor;
 import by.tms.project.model.entity.Patient;
 import by.tms.project.model.service.PatientService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,19 +30,41 @@ public class PatientServiceImpl implements PatientService {
         return instance;
     }
 
-
+    /**
+     * find all patient.
+     * @return patientList.
+     * @throws ServiceException
+     */
     @Override
     public List<Patient> findAll() throws ServiceException {
-        // TODO: 17.01.2022
-          return null;
+        List<Patient> patientList;
+        try {
+            patientList = patientDao.findAll();
+        } catch (DaoException e) {
+            logger.error("Failed at PatientServiceImpl at method findAll", e);
+            throw new ServiceException("Failed at PatientServiceImpl at method findAll", e);
+        }
+        return patientList;
     }
 
+    /**
+     * find patient by login.
+     * @param login
+     * @return optionalPatient.
+     * @throws ServiceException
+     */
     @Override
     public Optional<Patient> findPatientByLogin(String login) throws ServiceException {
-
-        // TODO: 17.01.2022
-          return Optional.empty();
+        Optional<Patient> optionalPatient;
+        try {
+            optionalPatient = patientDao.findPatientByLogin(login);
+        } catch (DaoException e) {
+            logger.error("Failed at PatientServiceImpl at method findPatientByLogin", e);
+            throw new ServiceException("Failed at PatientServiceImpl at method findPatientByLogin", e);
+        }
+        return optionalPatient;
     }
+
 
     @Override
     public BigDecimal takePatientMoneyAccount(String login) throws ServiceException {

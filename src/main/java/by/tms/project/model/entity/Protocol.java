@@ -146,7 +146,6 @@ public class Protocol extends Entity{
             return this;
         }
 
-        //todo
 
         public Protocol buildProtocol() {
             return protocol;

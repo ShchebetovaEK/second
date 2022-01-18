@@ -1,12 +1,10 @@
 package by.tms.project.model.dao;
 
 import by.tms.project.exception.DaoException;
-import by.tms.project.model.entity.Category;
-import by.tms.project.model.entity.Doctor;
-import by.tms.project.model.entity.Experience;
-import by.tms.project.model.entity.Speciality;
+import by.tms.project.model.entity.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DoctorDao extends BaseDao<Long, Doctor>{
 
@@ -15,6 +13,8 @@ public interface DoctorDao extends BaseDao<Long, Doctor>{
     List<Doctor> findByExperience(Experience experience) throws DaoException;
 
     List<Doctor> findBySpeciality (Speciality speciality) throws DaoException;
+
+    Optional<Doctor> findDoctorByLogin(String login) throws DaoException;
 
 
 

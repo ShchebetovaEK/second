@@ -4,6 +4,7 @@ import by.tms.project.exception.DaoException;
 import by.tms.project.model.connection.ConnectionPool;
 import by.tms.project.model.dao.ColumnName;
 import by.tms.project.model.dao.PatientDao;
+import by.tms.project.model.entity.Doctor;
 import by.tms.project.model.entity.Patient;
 import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
@@ -53,7 +54,6 @@ public class PatientDaoImpl implements PatientDao {
             DELETE FROM users 
             WHERE users.id =?""";
 
-
     private static final String SQL_SELECT_PATIENTS_BY_INSURANCE = """
             SELECT id,role,login,password,first_name,last_name,
                    data_birthday,address,phone_number,email,
@@ -76,6 +76,15 @@ public class PatientDaoImpl implements PatientDao {
             FROM users
             INNER JOIN patients on users.id = patients.users_id
             WHERE patients.discount =?""";
+
+   //todo
+    private static final String SQL_SELECT_PATIENT_BY_LOGIN = """
+            SELECT id,role,login,password,first_name,last_name,
+                   data_birthday,address,phone_number,email,
+                   category,experience,speciality
+            FROM users
+            INNER JOIN patients on users.id = doctors.users_id
+            WHERE user.login=?""";
 
     private static PatientDaoImpl instance;
 
@@ -313,6 +322,30 @@ public class PatientDaoImpl implements PatientDao {
             throw new DaoException("", e);
         }
         return patientList;
+    }
+
+    /**
+     * find patient with same login.
+     * @param login
+     * @return optionalpatient.
+     * @throws DaoException
+     */
+    @Override
+    public Optional<Patient> findPatientByLogin(String login) throws DaoException {
+        Optional<Patient> optionalPatient = Optional.empty();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_PATIENT_BY_LOGIN)) {
+            preparedStatement.setString(1, login);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    optionalPatient = Optional.of(getPatientInfo(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method findPatientByLogin", e);
+            throw new DaoException("Failed at PatientDaoImpl at method findPatientByLogin", e);
+        }
+        return optionalPatient;
     }
 
     public Patient getPatientInfo(ResultSet resultSet) throws SQLException {

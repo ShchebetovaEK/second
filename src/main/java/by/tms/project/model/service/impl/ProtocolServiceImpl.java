@@ -1,5 +1,6 @@
 package by.tms.project.model.service.impl;
 
+import by.tms.project.exception.DaoException;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.dao.ProtocolDao;
 import by.tms.project.model.dao.impl.ProtocolDaoImpl;
@@ -27,7 +28,14 @@ public class ProtocolServiceImpl implements ProtocolService {
 
     @Override
     public List<Protocol> findAll() throws ServiceException {
-        return null;
+        List<Protocol> protocolList;
+        try {
+            protocolList = protocolDao.findAll();
+        } catch (DaoException e) {
+            logger.error("Failed at ProtocolServiceImpl at method findAll", e);
+            throw new ServiceException("Failed at ProtocolServiceImpl at method findAll", e);
+        }
+        return protocolList;
     }
 }
 

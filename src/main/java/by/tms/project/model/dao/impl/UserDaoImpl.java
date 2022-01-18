@@ -901,5 +901,4 @@ public class UserDaoImpl implements UserDao {
                 .setEmail(resultSet.getString(ColumnName.USERS_EMAIL))
                 .buildUser());
     }
-
 }
