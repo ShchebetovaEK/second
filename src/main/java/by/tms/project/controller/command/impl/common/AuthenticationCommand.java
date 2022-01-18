@@ -4,7 +4,6 @@ import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
 import by.tms.project.exception.ServiceException;
-import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
 import by.tms.project.model.service.UserService;
 import by.tms.project.model.service.impl.UserServiceImpl;
@@ -25,11 +24,6 @@ public class AuthenticationCommand implements Command {
     public static final Logger logger = LogManager.getLogger();
     private UserService userService = UserServiceImpl.getInstance();
 
-
-    // TODO: 18.01.2022
-    /**
-     * уточнить! разность ENTITY
-     */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
@@ -54,7 +48,7 @@ public class AuthenticationCommand implements Command {
                         request.setAttribute(AUTHENTICATION, Boolean.TRUE);
                     }
                     default -> {
-                        request.setAttribute(MAIN_PAGE,Boolean.FALSE);
+                        request.setAttribute(MAIN_PAGE, Boolean.FALSE);
                     }
                 }
             }

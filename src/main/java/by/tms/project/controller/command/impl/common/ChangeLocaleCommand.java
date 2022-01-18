@@ -15,7 +15,6 @@ import static by.tms.project.controller.command.RequestAttribute.SESSION_LOCALE;
 public class ChangeLocaleCommand implements Command {
   public static final Logger logger = LogManager.getLogger();
 
-
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();

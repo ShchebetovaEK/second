@@ -4,5 +4,4 @@ public enum Category {
     FIRST,
     SECOND,
     HIGH
-
 }
