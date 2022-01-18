@@ -37,11 +37,12 @@ public final class ConnectionPool {
                 freeConnections.offer(connection);
             }
         } catch (SQLException e) {
-            //log error "Connection is not create.", e);
+            logger.error("Connection is not create.", e);
+
         }
         if(freeConnections.isEmpty()){
-            //log+fatal
-            throw new RuntimeException("Connection pool is empty.");
+          logger.fatal("");
+            throw new ExceptionInInitializerError("Connection pool is empty.");
         }
     }
 

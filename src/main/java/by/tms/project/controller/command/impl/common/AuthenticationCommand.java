@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
+import static by.tms.project.controller.command.PagePath.AUTHENTICATION_PAGE;
 import static by.tms.project.controller.command.PagePath.MAIN_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.*;
 import static by.tms.project.controller.command.RequestParameter.LOGIN;
@@ -37,11 +38,11 @@ public class AuthenticationCommand implements Command {
                 switch (user.getRole()) {
                     case ADMIN -> {
                         session.setAttribute(SESSION_USER, user);
-                        request.setAttribute(AUTHENTICATION, Boolean.TRUE);
+                        request.setAttribute(AUTHENTICATION_PAGE, Boolean.TRUE);
                     }
                     case DOCTOR -> {
                         session.setAttribute(SESSION_DOCTOR, user);
-                        request.setAttribute(AUTHENTICATION, Boolean.TRUE);
+                        request.setAttribute(AUTHENTICATION_PAGE, Boolean.TRUE);
                     }
                     case PATIENT -> {
                         session.setAttribute(SESSION_PATIENT, user);
