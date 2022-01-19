@@ -18,6 +18,24 @@ class ProxyConnection  implements Connection{
     }
 
     @Override
+    public void close() throws SQLException {
+        if(! this.getAutoCommit()){
+            this.setAutoCommit(true);
+        }
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        connectionPool.releaseConnection(this);
+    }
+
+    /**
+     * Really close.
+     *
+     * @throws SQLException the sql exception
+     */
+    void realClose() throws SQLException {
+        connection.close();
+    }
+
+    @Override
     public Statement createStatement() throws SQLException {
         return connection.createStatement();
     }
@@ -55,24 +73,6 @@ class ProxyConnection  implements Connection{
     @Override
     public void rollback() throws SQLException {
         connection.rollback();
-    }
-
-    @Override
-    public void close() throws SQLException {
-        if(! this.getAutoCommit()){
-            this.setAutoCommit(true);
-        }
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        connectionPool.releaseConnection(this);
-    }
-
-    /**
-     * Really close.
-     *
-     * @throws SQLException the sql exception
-     */
-    void realClose() throws SQLException {
-        connection.close();
     }
 
     @Override
@@ -331,4 +331,3 @@ class ProxyConnection  implements Connection{
         return connection.isWrapperFor(iface);
     }
 }
-

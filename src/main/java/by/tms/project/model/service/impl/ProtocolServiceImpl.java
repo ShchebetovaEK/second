@@ -9,6 +9,7 @@ import by.tms.project.model.service.ProtocolService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class ProtocolServiceImpl implements ProtocolService {
@@ -16,16 +17,22 @@ public class ProtocolServiceImpl implements ProtocolService {
     private ProtocolDao protocolDao = ProtocolDaoImpl.getInstance();
     private static ProtocolServiceImpl instance;
 
-    private ProtocolServiceImpl(){}
+    private ProtocolServiceImpl() {
+    }
 
-    public static ProtocolServiceImpl getInstance( ){
-        if(instance == null){
+    public static ProtocolServiceImpl getInstance() {
+        if (instance == null) {
             instance = new ProtocolServiceImpl();
         }
         return instance;
     }
 
-
+    /**
+     * find all protocols.
+     *
+     * @return protocolList.
+     * @throws ServiceException
+     */
     @Override
     public List<Protocol> findAll() throws ServiceException {
         List<Protocol> protocolList;
@@ -37,5 +44,58 @@ public class ProtocolServiceImpl implements ProtocolService {
         }
         return protocolList;
     }
-}
 
+    /**
+     * find all protocol by data.
+     *
+     * @return protocolList.
+     * @throws ServiceException
+     */
+    @Override
+    public List<Protocol> findByData(LocalDate protocolData) throws ServiceException {
+        List<Protocol> protocolList;
+        try {
+            protocolList = protocolDao.findByData(protocolData);
+        } catch (DaoException e) {
+            logger.error("Failed at ProtocolServiceImpl at method findByData", e);
+            throw new ServiceException("Failed at ProtocolServiceImpl at method findByData", e);
+        }
+        return protocolList;
+    }
+
+    /**
+     * find all protocol by patient.
+     *
+     * @return protocolList.
+     * @throws ServiceException
+     */
+    @Override
+    public List<Protocol> findByPatient() throws ServiceException {
+        List<Protocol> protocolList;
+        try {
+            protocolList = protocolDao.findByPatient();
+        } catch (DaoException e) {
+            logger.error("Failed at ProtocolServiceImpl at method findByPatient", e);
+            throw new ServiceException("Failed at ProtocolServiceImpl at method findByPatient", e);
+        }
+        return protocolList;
+    }
+
+    /**
+     * find all protocol by doctor.
+     *
+     * @return protocolList.
+     * @throws ServiceException
+     */
+    @Override
+    public List<Protocol> findByDoctor() throws ServiceException {
+        List<Protocol> protocolList;
+        try {
+            protocolList = protocolDao.findByDoctor();
+        } catch (DaoException e) {
+            logger.error("Failed at ProtocolServiceImpl at method findByDoctor", e);
+            throw new ServiceException("Failed at ProtocolServiceImpl at method findByDoctor", e);
+        }
+        return protocolList;
+    }
+}

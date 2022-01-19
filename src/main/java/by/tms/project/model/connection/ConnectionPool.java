@@ -2,6 +2,7 @@ package by.tms.project.model.connection;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -125,6 +126,7 @@ public final class ConnectionPool {
                 DriverManager.deregisterDriver(driver);
             } catch (SQLException e) {
                 logger.error("There are some problems with deregister driver",e);
+                //exception
             }
         });
     }

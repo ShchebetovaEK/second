@@ -1,13 +1,8 @@
 package by.tms.project.model.validator;
 
-public class LocaleValidator {
+import by.tms.project.exception.ValidatorException;
 
-    private static final String ENGLISH_LOCALE = "en_US";
-    private static final String RUSSIAN_LOCALE = "ru_RU";
+public interface LocaleValidator {
 
-    private LocaleValidator(){}
-
-    public static boolean isLocaleExist(String locale){
-        return locale!= null&& locale.matches(ENGLISH_LOCALE + "|" + RUSSIAN_LOCALE);
-    }
+    boolean isLocaleExist(String locale) throws ValidatorException;
 }

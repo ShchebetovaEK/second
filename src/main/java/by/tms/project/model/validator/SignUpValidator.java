@@ -3,6 +3,7 @@ package by.tms.project.model.validator;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.User;
 import by.tms.project.model.util.property.PropertyLoader;
+import by.tms.project.model.validator.impl.UserValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 

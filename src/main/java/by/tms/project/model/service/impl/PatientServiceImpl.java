@@ -65,17 +65,52 @@ public class PatientServiceImpl implements PatientService {
         return optionalPatient;
     }
 
-
+    /**
+     * find patient by insurance.
+     * @param insurance
+     * @return patientList.
+     * @throws ServiceException
+     */
     @Override
-    public BigDecimal takePatientMoneyAccount(String login) throws ServiceException {
-        // TODO: 17.01.2022
-        return null;
+    public List<Patient> findByInsurance(Boolean insurance) throws ServiceException {
+        List<Patient> patientList;
+        try {
+            patientList = patientDao.findByInsurance(insurance);
+        } catch (DaoException e) {
+            logger.error("Failed at PatientServiceImpl at method findByInsurance", e);
+            throw new ServiceException("Failed at PatientServiceImpl at method findByInsurance", e);
+        }
+        return patientList;
     }
 
     @Override
-    public boolean createPatient(Patient patient, HttpServletRequest request) throws ServiceException {
-        // TODO: 17.01.2022
-        return false;
+    public List<Patient> findByMinimumMoneyAccount(BigDecimal moneyAccount) throws ServiceException {
+        List<Patient> patientList;
+        try {
+            patientList = patientDao.findByMinimumMoneyAccount(moneyAccount);
+        } catch (DaoException e) {
+            logger.error("Failed at PatientServiceImpl at method findByMinimumMoneyAccount", e);
+            throw new ServiceException("Failed at PatientServiceImpl at method findByMinimumMoneyAccount", e);
+        }
+        return patientList;
+    }
+
+    /**
+     * find patient with max discount.
+     * @param discount
+     * @return patientList.
+     * @throws ServiceException
+     */
+    @Override
+    public List<Patient> findByMaxDiscount(Integer discount) throws ServiceException {
+        List<Patient> patientList;
+        try {
+            patientList = patientDao.findByMaxDiscount(discount);
+        } catch (DaoException e) {
+            logger.error("Failed at PatientServiceImpl at method findByMaxDiscount", e);
+            throw new ServiceException("Failed at PatientServiceImpl at method findByMaxDiscount", e);
+        }
+        return patientList;
     }
 
     @Override

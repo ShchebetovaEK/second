@@ -1,4 +1,4 @@
-package by.tms.project.model.validator;
+package by.tms.project.model.validator.impl;
 
 import by.tms.project.model.util.property.PropertyLoader;
 import org.apache.logging.log4j.LogManager;
@@ -50,6 +50,7 @@ public final class UserValidator {
      * @param login the login
      * @return the boolean
      */
+
     public boolean isLoginValid(String login) {
         return login != null && login.matches(LOGIN_REGEX);
     }
@@ -60,6 +61,7 @@ public final class UserValidator {
      * @param password the password
      * @return the boolean
      */
+
     public boolean isPasswordValid(String password) {
         return password != null && password.matches(PASSWORD_REGEX);
     }
@@ -70,6 +72,7 @@ public final class UserValidator {
      * @param firstName
      * @return the boolean.
      */
+
     public boolean isFirstNameValid(String firstName) {
         return firstName != null && firstName.matches(FIRST_NAME_REGEX);
     }
@@ -80,6 +83,7 @@ public final class UserValidator {
      * @param lastName
      * @return the boolean.
      */
+
     public boolean isLastNameValid(String lastName) {
         return lastName != null && lastName.matches(LAST_NAME_REGEX);
     }
@@ -90,6 +94,7 @@ public final class UserValidator {
      * @param dataBirthday
      * @return the boolean.
      */
+
     public boolean isDataBirthdayValid(String dataBirthday) {
         return dataBirthday != null && dataBirthday.matches(DATABIRTHDAY_REGEX);
     }
@@ -100,6 +105,7 @@ public final class UserValidator {
      * @param lastName
      * @return the boolean.
      */
+
     public boolean isAddressValid(String lastName) {
         return lastName != null && lastName.matches(ADDRESS_REGEX);
     }
@@ -110,6 +116,7 @@ public final class UserValidator {
      * @param email the email
      * @return the boolean
      */
+
     public boolean isEmailValid(String email) {
         return email != null && email.matches(EMAIL_REGEX);
     }
@@ -120,6 +127,7 @@ public final class UserValidator {
      * @param phoneNumber the phone number
      * @return the boolean
      */
+
     public boolean isPhoneNumberValid(String phoneNumber) {
         return phoneNumber != null && phoneNumber.matches(PHONE_NUMBER_REGEX);
     }
@@ -129,6 +137,7 @@ public final class UserValidator {
      * @param userData
      * @return
      */
+
     public boolean checkUserData(Map<String, String> userData) {
         boolean isValid = true;
         if (!isLoginValid(userData.get(LOGIN))) {
@@ -142,6 +151,7 @@ public final class UserValidator {
         isValid = checkUserPersonalData(userData) && isValid;
         return isValid;
     }
+
 
     public boolean checkUserPersonalData(Map<String, String> userData) {
         boolean isValid = true;

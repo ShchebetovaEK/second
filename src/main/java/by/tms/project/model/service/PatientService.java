@@ -1,5 +1,6 @@
 package by.tms.project.model.service;
 
+import by.tms.project.exception.DaoException;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.Patient;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,9 +16,11 @@ public interface PatientService {
 
     Optional<Patient> findPatientByLogin(String login) throws ServiceException;
 
-    BigDecimal takePatientMoneyAccount(String login) throws ServiceException;
+    List<Patient> findByInsurance(Boolean insurance) throws ServiceException;
 
-    boolean createPatient(Patient patient, HttpServletRequest request) throws ServiceException;
+    List<Patient> findByMinimumMoneyAccount(BigDecimal moneyAccount) throws ServiceException;
+
+    List<Patient> findByMaxDiscount(Integer discount) throws ServiceException;
 
     boolean toUpBalance(String login, BigDecimal sumForUp, HttpSession session) throws ServiceException;
 }

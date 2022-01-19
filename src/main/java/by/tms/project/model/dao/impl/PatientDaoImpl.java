@@ -70,7 +70,7 @@ public class PatientDaoImpl implements PatientDao {
                    insurance,money_account,discount
             FROM users
             INNER JOIN patients on users.id = patients.users_id
-            WHERE patients.money_account =?""";
+            WHERE patients.money_account =? BETWEEN  20 """;
 
     //todo
     private static final String SQL_SELECT_PATIENTS_BY_DISCOUNT = """

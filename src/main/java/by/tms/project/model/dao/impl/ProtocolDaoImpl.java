@@ -19,10 +19,33 @@ import java.util.List;
 public class ProtocolDaoImpl implements ProtocolDao {
     private static final Logger logger = LogManager.getLogger();
     private static final String SQL_SELECT_ALL_PROTOCOL = """
-            SELECT 
-            FROM protocols
-            INNER JOIN patients on users.id = patients.users_id
-            WHERE patients.discount =?""";
+             SELECT protocols.protocol_id, protocols.protocol_data,
+             protocols.protocol_payer,protocols.protocol_cost,
+             FROM protocols
+             INNER JOIN patients on users.id = patients.users_id
+             INNER JOIN doctors on users.id = doctors.users_id
+             """;
+    private static final String SQL_SELECT_ALL_PROTOCOL_BY_DATA = """
+             SELECT protocols.protocol_id, protocols.protocol_data,
+             protocols.protocol_payer,protocols.protocol_cost,
+             FROM protocols
+             INNER JOIN patients on users.id = patients.users_id
+             INNER JOIN doctors on users.id = doctors.users_id
+             WHERE protocols.protocol_data=? """;
+    private static final String SQL_SELECT_ALL_PROTOCOL_BY_PATIENT = """
+             SELECT protocols.protocol_id, protocols.protocol_data,
+             protocols.protocol_payer,protocols.protocol_cost,
+             FROM protocols
+             INNER JOIN patients on users.id = patients.users_id
+             INNER JOIN doctors on users.id = doctors.users_id
+             WHERE user.id =?""";
+    private static final String SQL_SELECT_ALL_PROTOCOL_BY_DOCTOR = """
+             SELECT protocols.protocol_id, protocols.protocol_data,
+              protocols.protocol_payer,protocols.protocol_cost,
+             FROM protocols
+             INNER JOIN patients on users.id = patients.users_id
+             INNER JOIN doctors on users.id = doctors.users_id
+             WHERE user.id =?""";
     private static ProtocolDaoImpl instance;
 
     private ProtocolDaoImpl() {
@@ -30,6 +53,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
 
     /**
      * Get instance
+     *
      * @return instance.
      */
     public static ProtocolDao getInstance() {
@@ -41,6 +65,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
 
     /**
      * find all protocol.
+     *
      * @return protocolList.
      * @throws DaoException
      */
@@ -57,6 +82,71 @@ public class ProtocolDaoImpl implements ProtocolDao {
         } catch (SQLException e) {
             logger.error("Failed at PatientDaoImpl at method findAll", e);
             throw new DaoException("Failed at PatientDaoImpl at method findAll", e);
+        }
+        return protocolList;
+    }
+
+    /**
+     * find all protocol with same data
+     * @return protocolList.
+     * @throws DaoException
+     */
+    @Override
+    public List<Protocol> findByData(LocalDate protocolData) throws DaoException {
+        List<Protocol> protocolList = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PROTOCOL_BY_DATA)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Protocol protocol = getProtocolInfo(resultSet);
+                protocolList.add(protocol);
+            }
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method findByData", e);
+            throw new DaoException("Failed at PatientDaoImpl at method findByData", e);
+        }
+        return protocolList;    }
+
+    /**
+     * find all protocol same patient.
+     * @return protocolList.
+     * @throws DaoException
+     */
+    @Override
+    public List<Protocol> findByPatient() throws DaoException {
+        List<Protocol> protocolList = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PROTOCOL_BY_PATIENT)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Protocol protocol = getProtocolInfo(resultSet);
+                protocolList.add(protocol);
+            }
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method findByPatient", e);
+            throw new DaoException("Failed at PatientDaoImpl at method findByPatient", e);
+        }
+        return protocolList;
+    }
+
+    /**
+     * find all protocol same doctor.
+     * @return protocolList.
+     * @throws DaoException
+     */
+    @Override
+    public List<Protocol> findByDoctor() throws DaoException {
+        List<Protocol> protocolList = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PROTOCOL_BY_DOCTOR)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Protocol protocol = getProtocolInfo(resultSet);
+                protocolList.add(protocol);
+            }
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method findByDoctor", e);
+            throw new DaoException("Failed at PatientDaoImpl at method findByDoctor", e);
         }
         return protocolList;
     }
