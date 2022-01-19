@@ -1,4 +1,4 @@
-package by.tms.project.model.validator;
+package by.tms.project.model.validator.not;
 
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.User;

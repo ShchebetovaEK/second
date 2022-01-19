@@ -80,8 +80,8 @@ public class ProtocolDaoImpl implements ProtocolDao {
                 protocolList.add(protocol);
             }
         } catch (SQLException e) {
-            logger.error("Failed at PatientDaoImpl at method findAll", e);
-            throw new DaoException("Failed at PatientDaoImpl at method findAll", e);
+            logger.error("Failed at ProtocolDaoImpl at method findAll", e);
+            throw new DaoException("Failed at ProtocolDaoImpl at method findAll", e);
         }
         return protocolList;
     }
@@ -102,8 +102,8 @@ public class ProtocolDaoImpl implements ProtocolDao {
                 protocolList.add(protocol);
             }
         } catch (SQLException e) {
-            logger.error("Failed at PatientDaoImpl at method findByData", e);
-            throw new DaoException("Failed at PatientDaoImpl at method findByData", e);
+            logger.error("Failed at ProtocolDaoImpl at method findByData", e);
+            throw new DaoException("Failed at ProtocolDaoImpl at method findByData", e);
         }
         return protocolList;    }
 
@@ -123,8 +123,8 @@ public class ProtocolDaoImpl implements ProtocolDao {
                 protocolList.add(protocol);
             }
         } catch (SQLException e) {
-            logger.error("Failed at PatientDaoImpl at method findByPatient", e);
-            throw new DaoException("Failed at PatientDaoImpl at method findByPatient", e);
+            logger.error("Failed at ProtocolDaoImpl at method findByPatient", e);
+            throw new DaoException("Failed at ProtocolDaoImpl at method findByPatient", e);
         }
         return protocolList;
     }
