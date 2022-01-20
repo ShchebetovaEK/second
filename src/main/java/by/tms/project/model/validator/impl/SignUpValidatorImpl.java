@@ -1,9 +1,8 @@
-package by.tms.project.model.validator.not;
+package by.tms.project.model.validator.impl;
 
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.User;
 import by.tms.project.model.util.property.PropertyLoader;
-import by.tms.project.model.validator.impl.UserValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -13,18 +12,18 @@ import static by.tms.project.controller.command.MessageAttributeName.*;
 import static by.tms.project.controller.command.MessageAttributeValue.*;
 import static by.tms.project.controller.command.RequestParameter.*;
 
-public class SignUpValidator {
-    private static final UserValidator DATA_VALIDATOR = UserValidator.getInstance();
+public class SignUpValidatorImpl {
+    private static final UserValidatorImpl DATA_VALIDATOR = UserValidatorImpl.getInstance();
     private static final String PROPERTY_PATH = "message.properties";
     private static final Properties property = PropertyLoader.getProperty(PROPERTY_PATH);
-    private static SignUpValidator instance;
+    private static SignUpValidatorImpl instance;
 
-    private SignUpValidator() {
+    private SignUpValidatorImpl() {
     }
 
-    public static SignUpValidator getInstance() {
+    public static SignUpValidatorImpl getInstance() {
         if (instance == null) {
-            instance = new SignUpValidator();
+            instance = new SignUpValidatorImpl();
         }
 
         return instance;

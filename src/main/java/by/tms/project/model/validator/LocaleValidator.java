@@ -1,4 +1,4 @@
-package by.tms.project.model.validator.impl;
+package by.tms.project.model.validator;
 
 public final class LocaleValidator {
 

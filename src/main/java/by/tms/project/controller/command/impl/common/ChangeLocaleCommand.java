@@ -3,7 +3,7 @@ package by.tms.project.controller.command.impl.common;
 import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
-import by.tms.project.model.validator.impl.LocaleValidator;
+import by.tms.project.model.validator.LocaleValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;

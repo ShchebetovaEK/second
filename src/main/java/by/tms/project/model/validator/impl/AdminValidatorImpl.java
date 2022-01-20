@@ -1,7 +1,7 @@
-package by.tms.project.model.validator.not;
+package by.tms.project.model.validator.impl;
 
 import by.tms.project.model.util.property.PropertyLoader;
-import by.tms.project.model.validator.impl.UserValidator;
+import by.tms.project.model.validator.Validation;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.Map;
@@ -11,25 +11,25 @@ import static by.tms.project.controller.command.MessageAttributeName.INCORRECT_C
 import static by.tms.project.controller.command.RequestParameter.EMPTY_STRING;
 import static by.tms.project.controller.command.RequestParameter.LOGIN;
 
-public  final class AdminValidator {
+public class AdminValidatorImpl  implements Validation {
 
     private static final String PROPERTY_PATH = "message.properties";
     private static final Properties property = PropertyLoader.getProperty(PROPERTY_PATH);
-    private static AdminValidator instance;
+    private static AdminValidatorImpl instance;
 
-    private AdminValidator(){
+    private AdminValidatorImpl(){
 
     }
 
-    public static AdminValidator getInstance(){
+    public static AdminValidatorImpl getInstance(){
         if(instance == null){
-            instance = new AdminValidator();
+            instance = new AdminValidatorImpl();
         }
         return instance;
     }
 
     public boolean isCreateProtocolFormValid(Map<String, String> formData, HttpSession session){
-        UserValidator dataValidator = UserValidator.getInstance();
+        UserValidatorImpl dataValidator = UserValidatorImpl.getInstance();
         int count = 0;
         resetIncorrectCreateProtocol(session);
         String login = formData.get(LOGIN);
