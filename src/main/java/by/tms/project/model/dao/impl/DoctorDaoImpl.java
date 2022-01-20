@@ -111,7 +111,7 @@ public class DoctorDaoImpl implements DoctorDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_DOCTORS)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Doctor doctor = getDoctorInfo(resultSet);
+                Doctor doctor = takeDoctorInfo(resultSet);
                 doctorList.add(doctor);
             }
         } catch (SQLException e) {
@@ -137,7 +137,7 @@ public class DoctorDaoImpl implements DoctorDao {
             preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalDoctor = Optional.of(getDoctorInfo(resultSet));
+                    optionalDoctor = Optional.of(takeDoctorInfo(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -269,7 +269,7 @@ public class DoctorDaoImpl implements DoctorDao {
             preparedStatement.setString(1, String.valueOf(category));
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    Doctor doctor = getDoctorInfo(resultSet);
+                    Doctor doctor = takeDoctorInfo(resultSet);
                     doctorList.add(doctor);
                 }
             }
@@ -296,7 +296,7 @@ public class DoctorDaoImpl implements DoctorDao {
             preparedStatement.setString(1, String.valueOf(experience));
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    Doctor doctor = getDoctorInfo(resultSet);
+                    Doctor doctor = takeDoctorInfo(resultSet);
                     doctorList.add(doctor);
                 }
             }
@@ -322,7 +322,7 @@ public class DoctorDaoImpl implements DoctorDao {
             preparedStatement.setString(1, String.valueOf(speciality));
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    Doctor doctor = getDoctorInfo(resultSet);
+                    Doctor doctor = takeDoctorInfo(resultSet);
                     doctorList.add(doctor);
                 }
             }
@@ -347,7 +347,7 @@ public class DoctorDaoImpl implements DoctorDao {
             preparedStatement.setString(1, login);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalDoctor = Optional.of(getDoctorInfo(resultSet));
+                    optionalDoctor = Optional.of(takeDoctorInfo(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -357,7 +357,7 @@ public class DoctorDaoImpl implements DoctorDao {
         return optionalDoctor;
     }
 
-    public Doctor getDoctorInfo(ResultSet resultSet) throws SQLException {
+    public Doctor takeDoctorInfo(ResultSet resultSet) throws SQLException {
         return (new Doctor.DoctorBuilder()
                 .setId(resultSet.getLong(ColumnName.USERS_ID))
                 .setRole(Role.valueOf(resultSet.getString(ColumnName.USERS_ROLE)))

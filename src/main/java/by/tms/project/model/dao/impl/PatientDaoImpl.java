@@ -4,10 +4,8 @@ import by.tms.project.exception.DaoException;
 import by.tms.project.model.connection.ConnectionPool;
 import by.tms.project.model.dao.ColumnName;
 import by.tms.project.model.dao.PatientDao;
-import by.tms.project.model.entity.Doctor;
 import by.tms.project.model.entity.Patient;
 import by.tms.project.model.entity.Role;
-import by.tms.project.model.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -118,7 +116,7 @@ public class PatientDaoImpl implements PatientDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PATIENT)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Patient patient = getPatientInfo(resultSet);
+                Patient patient = takePatientInfo(resultSet);
                 patientList.add(patient);
             }
         } catch (SQLException e) {
@@ -142,7 +140,7 @@ public class PatientDaoImpl implements PatientDao {
             preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalPatient = Optional.of(getPatientInfo(resultSet));
+                    optionalPatient = Optional.of(takePatientInfo(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -267,7 +265,7 @@ public class PatientDaoImpl implements PatientDao {
             preparedStatement.setBoolean(1, insurance);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    Patient patient = getPatientInfo(resultSet);
+                    Patient patient = takePatientInfo(resultSet);
                     patientList.add(patient);
                 }
             }
@@ -292,7 +290,7 @@ public class PatientDaoImpl implements PatientDao {
             preparedStatement.setBigDecimal(1, moneyAccount);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    Patient patient = getPatientInfo(resultSet);
+                    Patient patient = takePatientInfo(resultSet);
                     patientList.add(patient);
                 }
             }
@@ -317,7 +315,7 @@ public class PatientDaoImpl implements PatientDao {
             preparedStatement.setInt(1, discount);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    Patient patient = getPatientInfo(resultSet);
+                    Patient patient = takePatientInfo(resultSet);
                     patientList.add(patient);
                 }
             }
@@ -342,7 +340,7 @@ public class PatientDaoImpl implements PatientDao {
             preparedStatement.setString(1, login);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalPatient = Optional.of(getPatientInfo(resultSet));
+                    optionalPatient = Optional.of(takePatientInfo(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -352,7 +350,7 @@ public class PatientDaoImpl implements PatientDao {
         return optionalPatient;
     }
 
-    public Patient getPatientInfo(ResultSet resultSet) throws SQLException {
+    public Patient takePatientInfo(ResultSet resultSet) throws SQLException {
         return (new Patient.PatientBuilder()
                 .setId(resultSet.getLong(ColumnName.USERS_ID))
                 .setRole(Role.valueOf(resultSet.getString(ColumnName.USERS_ROLE)))

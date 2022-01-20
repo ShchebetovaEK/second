@@ -172,7 +172,7 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                User user = getUserInfo(resultSet);
+                User user = takeUserInfo(resultSet);
                 userList.add(user);
             }
         } catch (SQLException e) {
@@ -197,7 +197,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalUser = Optional.of(getUserInfo(resultSet));
+                    optionalUser = Optional.of(takeUserInfo(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -322,7 +322,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, login);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalUser = Optional.of(getUserInfo(resultSet));
+                    optionalUser = Optional.of(takeUserInfo(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -347,7 +347,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, login);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalUser = Optional.of(getUserInfo(resultSet));
+                    optionalUser = Optional.of(takeUserInfo(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -372,7 +372,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, firstName);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    User user = getUserInfo(resultSet);
+                    User user = takeUserInfo(resultSet);
                     userList.add(user);
                 }
             }
@@ -398,7 +398,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, lastName);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    User user = getUserInfo(resultSet);
+                    User user = takeUserInfo(resultSet);
                     userList.add(user);
                 }
             }
@@ -424,7 +424,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, role.name());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    User user = getUserInfo(resultSet);
+                    User user = takeUserInfo(resultSet);
                     userList.add(user);
                 }
             }
@@ -452,7 +452,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(2, role.name());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    User user = getUserInfo(resultSet);
+                    User user = takeUserInfo(resultSet);
                     userList.add(user);
                 }
             }
@@ -480,7 +480,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(2, role.name());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    User user = getUserInfo(resultSet);
+                    User user = takeUserInfo(resultSet);
                     userList.add(user);
                 }
             }
@@ -506,7 +506,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setDate(1, Date.valueOf(dataBirthday));
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    User user = getUserInfo(resultSet);
+                    User user = takeUserInfo(resultSet);
                     userList.add(user);
                 }
             }
@@ -532,7 +532,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, email);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalUser = Optional.of(getUserInfo(resultSet));
+                    optionalUser = Optional.of(takeUserInfo(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -557,7 +557,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, phoneNumber);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalUser = Optional.of(getUserInfo(resultSet));
+                    optionalUser = Optional.of(takeUserInfo(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -763,7 +763,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(2, passwordSalt);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    optionalUser = Optional.of(getUserInfo(resultSet));
+                    optionalUser = Optional.of(takeUserInfo(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -912,7 +912,7 @@ public class UserDaoImpl implements UserDao {
     }
 
 
-    public User getUserInfo(ResultSet resultSet) throws SQLException {
+    public User takeUserInfo(ResultSet resultSet) throws SQLException {
         return (new User.UserBuilder()
                 .setId(resultSet.getLong(ColumnName.USERS_ID))
                 .setRole(Role.valueOf(resultSet.getString(ColumnName.USERS_ROLE)))

@@ -76,7 +76,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PROTOCOL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Protocol protocol = getProtocolInfo(resultSet);
+                Protocol protocol = takeProtocolInfo(resultSet);
                 protocolList.add(protocol);
             }
         } catch (SQLException e) {
@@ -98,7 +98,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PROTOCOL_BY_DATA)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Protocol protocol = getProtocolInfo(resultSet);
+                Protocol protocol = takeProtocolInfo(resultSet);
                 protocolList.add(protocol);
             }
         } catch (SQLException e) {
@@ -119,7 +119,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PROTOCOL_BY_PATIENT)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Protocol protocol = getProtocolInfo(resultSet);
+                Protocol protocol = takeProtocolInfo(resultSet);
                 protocolList.add(protocol);
             }
         } catch (SQLException e) {
@@ -141,7 +141,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PROTOCOL_BY_DOCTOR)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Protocol protocol = getProtocolInfo(resultSet);
+                Protocol protocol = takeProtocolInfo(resultSet);
                 protocolList.add(protocol);
             }
         } catch (SQLException e) {
@@ -151,7 +151,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
         return protocolList;
     }
 
-    public Protocol getProtocolInfo(ResultSet resultSet) throws SQLException {
+    public Protocol takeProtocolInfo(ResultSet resultSet) throws SQLException {
         return (new Protocol.ProtocolBuilder()
                 .setProtocolId(resultSet.getLong(ColumnName.PROTOCOLS_PROTOCOL_ID))
                 .setProtocolData(LocalDate.parse(resultSet.getString(ColumnName.PROTOCOLS_PROTOCOL_DATA)))
