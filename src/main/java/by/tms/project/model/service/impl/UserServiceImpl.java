@@ -144,14 +144,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registerNewUser(Map<String, String> userCheck) throws ServiceException {
-        boolean result ;
+        boolean result;
         String login = userCheck.get(LOGIN);
         String password = userCheck.get(PASSWORD);
         String confirmPassword = userCheck.get(CONFIRM_PASSWORD);
-        String firstName = userCheck.get(FIRST_NAME);
-        String lastName = userCheck.get(LAST_NAME);
-        LocalDate DataBirthday = LocalDate.parse(userCheck.get(DATA_BIRTHDAY));
-        String address = userCheck.get(ADDRESS);
+//        String firstName = userCheck.get(FIRST_NAME);
+//        String lastName = userCheck.get(LAST_NAME);
+//        LocalDate DataBirthday = LocalDate.parse(userCheck.get(DATA_BIRTHDAY));
+//        String address = userCheck.get(ADDRESS);
         String phoneNumber = userCheck.get(PHONE_NUMBER);
         String email = userCheck.get(EMAIL);
         String roleStr = userCheck.get(ROLE);
@@ -161,27 +161,28 @@ public class UserServiceImpl implements UserService {
                     ? (!userDao.ifExistByLogin(login) ? TRUE : NOT_VALID_LOGIN) : INVALID_LOGIN;
             String passwordCheck = UserValidator.getInstance().isPasswordValid(password)
                     ? (password.equals(confirmPassword) ? TRUE : PASSWORD_MISMATCH) : INVALID_PASSWORD;
+
             String emailCheck = UserValidator.getInstance().isEmailValid(email)
                     ? (!userDao.ifExistByEmail(email) ? TRUE : NOT_VALID_EMAIL) : INVALID_EMAIL;
             String phoneNumberCheck = UserValidator.getInstance().isPhoneNumberValid(phoneNumber)
-                    ? (!userDao.ifExistByPhoneNumber(phoneNumber)? TRUE : NOT_VALID_PHONE_NUMBER) : INVALID_PHONE_NUMBER;
-
+                    ? (!userDao.ifExistByPhoneNumber(phoneNumber) ? TRUE : NOT_VALID_PHONE_NUMBER) : INVALID_PHONE_NUMBER;
             result = parseBoolean(loginCheck) && parseBoolean(passwordCheck)
                     && parseBoolean(emailCheck) && parseBoolean(phoneNumberCheck);
 
             if (result) {
-                Role role = roleStr != null ? Role.valueOf(roleStr.toUpperCase()) : Role.PATIENT;
-                User user = new User(login,password,firstName,lastName,DataBirthday,address,phoneNumber,email);
+                Role role = roleStr != null ? Role.valueOf(roleStr.toUpperCase()) : Role.CLIENT;
+//                User user = new User(login, password, firstName, lastName, DataBirthday, address, phoneNumber, email);
+                User user = new User(login, password, phoneNumber, email);
                 String passwordHash = PasswordEncryptor.encrypt(password);
                 userDao.create(user);
 
-            }else {
-                userCheck.remove(ROLE,roleStr);
-                userCheck.remove(CONFIRMED_PASSWORD,confirmPassword);
-                userCheck.replace(LOGIN,loginCheck);
-                userCheck.replace(PASSWORD,passwordCheck);
-                userCheck.replace(EMAIL,emailCheck);
-                userCheck.replace(PHONE_NUMBER,phoneNumberCheck);
+            } else {
+                userCheck.remove(ROLE, roleStr);
+                userCheck.remove(CONFIRMED_PASSWORD, confirmPassword);
+                userCheck.replace(LOGIN, loginCheck);
+                userCheck.replace(PASSWORD, passwordCheck);
+                userCheck.replace(EMAIL, emailCheck);
+                userCheck.replace(PHONE_NUMBER, phoneNumberCheck);
 
             }
         } catch (DaoException e) {
@@ -189,8 +190,8 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(" ", e);
 
 
-        }catch (IllegalArgumentException e ){
-            logger.error("",e);
+        } catch (IllegalArgumentException e) {
+            logger.error("", e);
             result = false;
         }
         return result;
