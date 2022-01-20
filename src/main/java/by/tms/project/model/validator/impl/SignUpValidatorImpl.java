@@ -12,7 +12,7 @@ import static by.tms.project.controller.command.MessageAttributeName.*;
 import static by.tms.project.controller.command.MessageAttributeValue.*;
 import static by.tms.project.controller.command.RequestParameter.*;
 
-public class SignUpValidatorImpl {
+public final class SignUpValidatorImpl {
     private static final UserValidatorImpl DATA_VALIDATOR = UserValidatorImpl.getInstance();
     private static final String PROPERTY_PATH = "message.properties";
     private static final Properties property = PropertyLoader.getProperty(PROPERTY_PATH);

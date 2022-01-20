@@ -12,7 +12,7 @@ import static by.tms.project.controller.command.RequestAttribute.LOGIN;
 import static by.tms.project.controller.command.RequestAttribute.PASSWORD;
 import static by.tms.project.controller.command.RequestParameter.*;
 
-public class UserValidatorImpl implements UserValidator {
+public  final class UserValidatorImpl implements UserValidator {
     private static final Logger logger = LogManager.getLogger();
     private static final String PROPERTY_PATH = "message.properties";
     private static final Properties property = PropertyLoader.getProperty(PROPERTY_PATH);

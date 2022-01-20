@@ -10,7 +10,7 @@ import static by.tms.project.controller.command.MessageAttributeName.INCORRECT_C
 import static by.tms.project.controller.command.RequestParameter.EMPTY_STRING;
 import static by.tms.project.controller.command.RequestParameter.LOGIN;
 
-public class AdminValidatorImpl {
+public final class AdminValidatorImpl {
 
     private static final String PROPERTY_PATH = "message.properties";
     private static final Properties property = PropertyLoader.getProperty(PROPERTY_PATH);
