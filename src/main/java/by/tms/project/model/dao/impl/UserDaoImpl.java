@@ -621,6 +621,31 @@ public class UserDaoImpl implements UserDao {
     }
 
     /**
+     * exist user with same phone number.
+     * @param phoneNumber
+     * @return the boolean.
+     * @throws DaoException
+     */
+    @Override
+    public boolean ifExistByPhoneNumber(String phoneNumber) throws DaoException {
+        int result = 0;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_PHONE_NUMBER)) {
+            preparedStatement.setString(1, phoneNumber);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                if (resultSet.getString(ColumnName.USERS_PHONE_NUMBER).equals(phoneNumber)) {
+                    result = 1;
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Failed at UserDaoImpl at method ifExistByPhoneNumber", e);
+            throw new DaoException("Failed at UserDaoImpl at method ifExistByPhoneNumber", e);
+        }
+        return (result > 0);
+    }
+
+    /**
      * set  user login.
      *
      * @param user

@@ -20,6 +20,8 @@ import static by.tms.project.controller.command.RequestAttribute.*;
 import static by.tms.project.controller.command.RequestParameter.LOGIN;
 import static by.tms.project.controller.command.RequestParameter.PASSWORD;
 import static by.tms.project.controller.command.Router.RouterType.REDIRECT;
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 public class AuthenticationCommand implements Command {
     public static final Logger logger = LogManager.getLogger();
@@ -38,27 +40,25 @@ public class AuthenticationCommand implements Command {
                 switch (user.getRole()) {
                     case ADMIN -> {
                         session.setAttribute(SESSION_USER, user);
-                        request.setAttribute(AUTHENTICATION_PAGE, Boolean.TRUE);
+                        request.setAttribute(AUTHENTICATION_PAGE, TRUE);
                     }
                     case DOCTOR -> {
                         session.setAttribute(SESSION_DOCTOR, user);
-                        request.setAttribute(AUTHENTICATION_PAGE, Boolean.TRUE);
+                        request.setAttribute(AUTHENTICATION_PAGE, TRUE);
                     }
                     case PATIENT -> {
                         session.setAttribute(SESSION_PATIENT, user);
-                        request.setAttribute(AUTHENTICATION, Boolean.TRUE);
+                        request.setAttribute(AUTHENTICATION, TRUE);
                     }
-                    default -> {
-                        request.setAttribute(MAIN_PAGE, Boolean.FALSE);
-                    }
+                    default -> request.setAttribute(MAIN_PAGE, FALSE);
                 }
             }
             router.setPage(MAIN_PAGE);
             router.setRouterType(REDIRECT);
             return router;
         } catch (ServiceException e) {
-            logger.error("", e);
-            throw new CommandException("", e);
+            logger.error("Failed at AuthenticationCommand", e);
+            throw new CommandException("Failed at AuthenticationCommand", e);
         }
     }
 }

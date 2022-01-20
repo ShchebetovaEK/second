@@ -18,6 +18,9 @@ public final class RequestAttribute {
     public static final String VALID_PHONE_NUMBER = "valid_phone_number";
     public static final String VALID_EMAIL = "valid_email";
 
+    public static final String INVALID_MESSAGE = "invalid_message";
+    public static final String NOT_UNIQUE_MESSAGE = "not_unique_message";
+
     public static final String SESSION_USER = "user";
     public static final String SESSION_DOCTOR = "doctor";
     public static final String SESSION_PATIENT = "patient";

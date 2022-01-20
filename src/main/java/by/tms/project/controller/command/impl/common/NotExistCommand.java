@@ -7,12 +7,13 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import static by.tms.project.controller.command.PagePath.ERROR_400_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.WRONG_COMMAND;
+import static java.lang.Boolean.TRUE;
 
 public class NotExistCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
        Router router = new Router();
-       request.setAttribute(WRONG_COMMAND,Boolean.TRUE);
+       request.setAttribute(WRONG_COMMAND,TRUE);
        router.setPage(ERROR_400_PAGE);
         return null;
     }

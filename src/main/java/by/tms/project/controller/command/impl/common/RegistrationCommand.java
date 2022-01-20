@@ -54,18 +54,31 @@ public class RegistrationCommand implements Command {
             if (!registration) {
                 for (String key : checkData.keySet()) {
                     String validation = checkData.get(key);
-                    if (Boolean.parseBoolean(validation)){
-                        switch (key){
-                            case LOGIN -> request.setAttribute(VALID_LOGIN,request.getParameter(LOGIN));
-
+                    if (Boolean.parseBoolean(validation)) {
+                        switch (key) {
+                            case LOGIN -> request.setAttribute(VALID_LOGIN, request.getParameter(LOGIN));
+                            case EMAIL -> request.setAttribute(VALID_EMAIL, request.getParameter(EMAIL));
+                            case PHONE_NUMBER -> request.setAttribute(VALID_PHONE_NUMBER, request.getParameter(PHONE_NUMBER));
                         }
+                    } else {
+                        switch (validation) {
+                            case INVALID_LOGIN -> request.setAttribute(INVALID_LOGIN, INVALID_MESSAGE);
+                            case NOT_VALID_LOGIN ->  request.setAttribute(INVALID_LOGIN, NOT_UNIQUE_MESSAGE);
+//                            case PASSWORD_MISMATCH -> request.setAttribute(INVALID_PASSPORT, PASSWORD_MISMATCH);
+                            case INVALID_EMAIL -> request.setAttribute(INVALID_EMAIL, INVALID_MESSAGE);
+                            case NOT_VALID_EMAIL  -> request.setAttribute(INVALID_EMAIL, NOT_UNIQUE_MESSAGE);
+                            case INVALID_PHONE_NUMBER  -> request.setAttribute(INVALID_PHONE_NUMBER, INVALID_MESSAGE);
+                            case NOT_VALID_PHONE_NUMBER -> request.setAttribute(INVALID_PHONE_NUMBER, NOT_UNIQUE_MESSAGE);
+                        }
+
+                        logger.debug("validation result" + key + "-" + validation);
                     }
                 }
-
             }
             request.setAttribute(REGISTRATION, registration);
             return router;
-        } catch (ServiceException e) {
+        } catch (
+                ServiceException e) {
             logger.error("", e);
             throw new CommandException("", e);
         }

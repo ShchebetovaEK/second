@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -143,13 +144,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registerNewUser(Map<String, String> userCheck) throws ServiceException {
-        boolean result = false;
+        boolean result ;
         String login = userCheck.get(LOGIN);
         String password = userCheck.get(PASSWORD);
         String confirmPassword = userCheck.get(CONFIRM_PASSWORD);
         String firstName = userCheck.get(FIRST_NAME);
         String lastName = userCheck.get(LAST_NAME);
-        String DataBirthday = userCheck.get(DATA_BIRTHDAY);
+        LocalDate DataBirthday = LocalDate.parse(userCheck.get(DATA_BIRTHDAY));
         String address = userCheck.get(ADDRESS);
         String phoneNumber = userCheck.get(PHONE_NUMBER);
         String email = userCheck.get(EMAIL);
@@ -162,15 +163,25 @@ public class UserServiceImpl implements UserService {
                     ? (password.equals(confirmPassword) ? TRUE : PASSWORD_MISMATCH) : INVALID_PASSWORD;
             String emailCheck = UserValidator.getInstance().isEmailValid(email)
                     ? (!userDao.ifExistByEmail(email) ? TRUE : NOT_VALID_EMAIL) : INVALID_EMAIL;
-//            String phoneNumberCheck = DataValidator.getInstance().isPhoneNumberValid(phoneNumber)
-//                    ? (!userDao.ifExistByEmail())
+            String phoneNumberCheck = UserValidator.getInstance().isPhoneNumberValid(phoneNumber)
+                    ? (!userDao.ifExistByPhoneNumber(phoneNumber)? TRUE : NOT_VALID_PHONE_NUMBER) : INVALID_PHONE_NUMBER;
 
             result = parseBoolean(loginCheck) && parseBoolean(passwordCheck)
-                    && parseBoolean(emailCheck);
+                    && parseBoolean(emailCheck) && parseBoolean(phoneNumberCheck);
 
             if (result) {
                 Role role = roleStr != null ? Role.valueOf(roleStr.toUpperCase()) : Role.PATIENT;
-//todo
+                User user = new User(login,password,firstName,lastName,DataBirthday,address,phoneNumber,email);
+                String passwordHash = PasswordEncryptor.encrypt(password);
+                userDao.create(user);
+
+            }else {
+                userCheck.remove(ROLE,roleStr);
+                userCheck.remove(CONFIRMED_PASSWORD,confirmPassword);
+                userCheck.replace(LOGIN,loginCheck);
+                userCheck.replace(PASSWORD,passwordCheck);
+                userCheck.replace(EMAIL,emailCheck);
+                userCheck.replace(PHONE_NUMBER,phoneNumberCheck);
 
             }
         } catch (DaoException e) {
@@ -178,6 +189,9 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(" ", e);
 
 
+        }catch (IllegalArgumentException e ){
+            logger.error("",e);
+            result = false;
         }
         return result;
     }

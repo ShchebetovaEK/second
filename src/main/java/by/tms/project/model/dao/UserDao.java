@@ -35,6 +35,8 @@ public interface UserDao extends BaseDao<Long, User> {
 
      boolean ifExistByEmail(String email) throws DaoException;
 
+     boolean ifExistByPhoneNumber(String phoneNumber) throws DaoException;
+
      boolean setLogin(User user, String login) throws DaoException;
 
      boolean setPassword(User user, String password) throws DaoException;

@@ -14,7 +14,6 @@ public final class RequestParameter {
     public static final String EMAIL = "email";
 
     public static final String TRUE = "true";
-
     public static final String PASSWORD_MISMATCH = "password_mismatch";
 
     public static final String INVALID_LOGIN = "invalidLogin";
