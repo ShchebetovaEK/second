@@ -17,9 +17,14 @@ public class User extends Entity {
     public User() {
     }
 
-    public User(String login, String password, String phoneNumber, String email) {
+    public User(Role role, String login, String password, String firstName, String lastName, LocalDate dataBirthday, String address, String phoneNumber, String email) {
+        this.role = role;
         this.login = login;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dataBirthday = dataBirthday;
+        this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
@@ -37,6 +42,7 @@ public class User extends Entity {
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
+
 
     public long getId() {
         return id;

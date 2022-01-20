@@ -39,18 +39,8 @@ public class RegistrationCommand implements Command {
         checkData.put(ROLE, request.getParameter(ROLE));
         try {
             boolean registration = userService.registerNewUser(checkData);
-            String currentPage = (String) request.getSession().getAttribute(CURRENT_PAGE);
+            router.setPage(registration ? ACCOUNT_PAGE : REGISTRATION_PAGE);
 
-            if (currentPage.equals(USER_MANAGER_PAGE)) {
-                request.setAttribute(USER_LIST, userService.findAll());
-                router.setPage(USER_MANAGER_PAGE);
-            } else {
-                if (registration) {
-                    router.setPage(ACCOUNT_PAGE);
-                } else {
-                    router.setPage(REGISTRATION_PAGE);
-                }
-            }
             if (!registration) {
                 for (String key : checkData.keySet()) {
                     String validation = checkData.get(key);
@@ -64,13 +54,11 @@ public class RegistrationCommand implements Command {
                         switch (validation) {
                             case INVALID_LOGIN -> request.setAttribute(INVALID_LOGIN, INVALID_MESSAGE);
                             case NOT_VALID_LOGIN ->  request.setAttribute(INVALID_LOGIN, NOT_UNIQUE_MESSAGE);
-//                            case PASSWORD_MISMATCH -> request.setAttribute(INVALID_PASSPORT, PASSWORD_MISMATCH);
                             case INVALID_EMAIL -> request.setAttribute(INVALID_EMAIL, INVALID_MESSAGE);
                             case NOT_VALID_EMAIL  -> request.setAttribute(INVALID_EMAIL, NOT_UNIQUE_MESSAGE);
                             case INVALID_PHONE_NUMBER  -> request.setAttribute(INVALID_PHONE_NUMBER, INVALID_MESSAGE);
                             case NOT_VALID_PHONE_NUMBER -> request.setAttribute(INVALID_PHONE_NUMBER, NOT_UNIQUE_MESSAGE);
                         }
-
                         logger.debug("validation result" + key + "-" + validation);
                     }
                 }
