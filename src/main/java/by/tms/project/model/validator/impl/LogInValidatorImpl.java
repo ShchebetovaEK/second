@@ -1,7 +1,6 @@
 package by.tms.project.model.validator.impl;
 
 import by.tms.project.model.util.property.PropertyLoader;
-import by.tms.project.model.validator.Validation;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Map;
@@ -11,7 +10,7 @@ import static by.tms.project.controller.command.MessageAttributeName.LOG_IN_ERRO
 import static by.tms.project.controller.command.MessageAttributeValue.MESSAGE_LOG_IN_ERROR;
 import static by.tms.project.controller.command.RequestParameter.*;
 
-public class LogInValidatorImpl implements Validation {
+public class LogInValidatorImpl {
     private static final UserValidatorImpl DATA_VALIDATOR = UserValidatorImpl.getInstance();
     private static final String PROPERTY_PATH = "message.properties";
     private static final Properties property = PropertyLoader.getProperty(PROPERTY_PATH);

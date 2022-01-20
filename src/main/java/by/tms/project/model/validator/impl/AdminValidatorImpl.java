@@ -1,7 +1,6 @@
 package by.tms.project.model.validator.impl;
 
 import by.tms.project.model.util.property.PropertyLoader;
-import by.tms.project.model.validator.Validation;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.Map;
@@ -11,7 +10,7 @@ import static by.tms.project.controller.command.MessageAttributeName.INCORRECT_C
 import static by.tms.project.controller.command.RequestParameter.EMPTY_STRING;
 import static by.tms.project.controller.command.RequestParameter.LOGIN;
 
-public class AdminValidatorImpl  implements Validation {
+public class AdminValidatorImpl {
 
     private static final String PROPERTY_PATH = "message.properties";
     private static final Properties property = PropertyLoader.getProperty(PROPERTY_PATH);
