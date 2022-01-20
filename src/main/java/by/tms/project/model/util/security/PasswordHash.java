@@ -12,6 +12,8 @@ import java.nio.charset.StandardCharsets;
  */
 public final class PasswordHash {
 
+    private PasswordHash (){}
+
     public static String encrypt(String  password) {
 
         String   passwordHash = Hashing.sha256()
@@ -21,4 +23,4 @@ public final class PasswordHash {
         return passwordHash;
     }
 
-}
+    }
