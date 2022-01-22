@@ -37,10 +37,8 @@ public class RegistrationCommand implements Command {
         checkData.put(PHONE_NUMBER, request.getParameter(PHONE_NUMBER));
         checkData.put(EMAIL, request.getParameter(EMAIL));
         checkData.put(ROLE, request.getParameter(ROLE));
-        try {
-            boolean registration = userService.registerNewUser(checkData);
+        try {            boolean registration = userService.registerNewUser(checkData);
             router.setPage(registration ? ACCOUNT_PAGE : REGISTRATION_PAGE);
-
             if (!registration) {
                 for (String key : checkData.keySet()) {
                     String validation = checkData.get(key);
