@@ -1,6 +1,5 @@
 package by.tms.project.model.entity;
-
-import java.time.LocalDate;
+import java.util.Date;
 
 public class User extends Entity {
     private long id;
@@ -9,7 +8,7 @@ public class User extends Entity {
     private String password;
     private String firstName;
     private String lastName;
-    private LocalDate dataBirthday;
+    private Date dataBirthday;
     private String address;
     private String phoneNumber;
     private String email;
@@ -17,7 +16,18 @@ public class User extends Entity {
     public User() {
     }
 
-    public User(Role role, String login, String password, String firstName, String lastName, LocalDate dataBirthday, String address, String phoneNumber, String email) {
+    public User(String login, String password, String firstName, String lastName, Date dataBirthday, String address, String phoneNumber, String email) {
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dataBirthday = dataBirthday;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+
+    public User(Role role, String login, String password, String firstName, String lastName, Date dataBirthday, String address, String phoneNumber, String email) {
         this.role = role;
         this.login = login;
         this.password = password;
@@ -30,7 +40,7 @@ public class User extends Entity {
     }
 
     public User(long id, Role role, String login, String password, String firstName, String lastName,
-                LocalDate dataBirthday, String address, String phoneNumber, String email) {
+                Date dataBirthday, String address, String phoneNumber, String email) {
         this.id = id;
         this.role = role;
         this.login = login;
@@ -42,7 +52,6 @@ public class User extends Entity {
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
-
 
     public long getId() {
         return id;
@@ -92,11 +101,11 @@ public class User extends Entity {
         this.lastName = lastName;
     }
 
-    public LocalDate getDataBirthday() {
+    public Date getDataBirthday() {
         return dataBirthday;
     }
 
-    public void setDataBirthday(LocalDate dataBirthday) {
+    public void setDataBirthday(Date dataBirthday) {
         this.dataBirthday = dataBirthday;
     }
 
@@ -212,7 +221,7 @@ public class User extends Entity {
             return this;
         }
 
-        public UserBuilder setDataBirthday(LocalDate dataBirthday) {
+        public UserBuilder setDataBirthday(Date dataBirthday) {
             user.setDataBirthday(dataBirthday);
             return this;
         }

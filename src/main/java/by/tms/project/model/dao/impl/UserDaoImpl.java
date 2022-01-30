@@ -12,9 +12,10 @@ import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -95,9 +96,10 @@ public class UserDaoImpl implements UserDao {
             SET users.password=? 
             WHERE users.id=?""";
     private static final String SQL_CREATE_USER = """
-            INSERT INTO users(id,role,login,password,first_name,last_name,
-            data_birthday,address,phone_number,email) 
-            VALUES (?,?,?,?,?,?,?,?,?,?)""";
+            INSERT INTO users(role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email)
+            VALUES (?,?,?,?,?,?,?,?,?)""";
+
     private static final String SQL_UPDATE_USER = """
             UPDATE users 
             SET users.role=?,users.login=?,users.password=?,users.first_name=?,
@@ -215,6 +217,7 @@ public class UserDaoImpl implements UserDao {
      * @throws DaoException
      */
     @Override
+    //todo
     public boolean create(User entity) throws DaoException {
         int result = 0;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
@@ -224,7 +227,8 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(3, entity.getPassword());
             preparedStatement.setString(4, entity.getFirstName());
             preparedStatement.setString(5, entity.getLastName());
-            preparedStatement.setDate(6, Date.valueOf(entity.getDataBirthday()));
+            Date dataBirthday = new Date(entity.getDataBirthday().getTime());//
+            preparedStatement.setDate(6, dataBirthday);
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());
@@ -253,7 +257,8 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(3, entity.getPassword());
             preparedStatement.setString(4, entity.getFirstName());
             preparedStatement.setString(5, entity.getLastName());
-            preparedStatement.setDate(6, Date.valueOf(entity.getDataBirthday()));
+            Date dataBirthday = new Date(entity.getDataBirthday().getTime());//
+            preparedStatement.setDate(6, dataBirthday);
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());
@@ -309,6 +314,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * find user with same login and password.
+     *
      * @param login
      * @param password
      * @return optionalList.
@@ -498,12 +504,13 @@ public class UserDaoImpl implements UserDao {
      * @return userList.
      * @throws DaoException
      */
-    @Override
-    public List<User> findByDataBirthday(LocalDate dataBirthday) throws DaoException {
+
+    public List<User> findByDataBirthday(Date dataBirthday) throws DaoException {
         List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_DATA_BIRTHDAY)) {
-            preparedStatement.setDate(1, Date.valueOf(dataBirthday));
+         //   Date dataBirthday = new Date(.getDataBirthday().getTime());//
+            preparedStatement.setDate(1, dataBirthday); //todo
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     User user = takeUserInfo(resultSet);
@@ -622,6 +629,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * exist user with same phone number.
+     *
      * @param phoneNumber
      * @return the boolean.
      * @throws DaoException
@@ -774,7 +782,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     /**
-     *  change  user's last name by same id.
+     * change  user's last name by same id.
+     *
      * @param id
      * @param firstName
      * @return the boolean.
@@ -798,6 +807,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * change  user's last name by same id.
+     *
      * @param id
      * @param lastName
      * @return the boolean.
@@ -821,6 +831,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * change  user's phone number by same id.
+     *
      * @param id
      * @param phoneNumber
      * @return the boolean.
@@ -844,6 +855,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * change  user's address by same id.
+     *
      * @param id
      * @param address
      * @return the boolean.
@@ -867,6 +879,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * change  user's email by same id.
+     *
      * @param id
      * @param email
      * @return the boolean.
@@ -890,6 +903,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * change  user's dataBirthday by same id.
+     *
      * @param id
      * @param dataBirthday
      * @return the boolean.
@@ -915,12 +929,12 @@ public class UserDaoImpl implements UserDao {
     public User takeUserInfo(ResultSet resultSet) throws SQLException {
         return (new User.UserBuilder()
                 .setId(resultSet.getLong(ColumnName.USERS_ID))
-                .setRole(Role.valueOf(resultSet.getString(ColumnName.USERS_ROLE)))
+                .setRole(Role.valueOf(resultSet.getString(ColumnName.USERS_ROLE).toUpperCase()))
                 .setLogin(resultSet.getString(ColumnName.USERS_LOGIN))
                 .setPassword(resultSet.getString(ColumnName.USERS_PASSWORD))
                 .setFirstName(resultSet.getString(ColumnName.USERS_FIRST_NAME))
                 .setLastName(resultSet.getString(ColumnName.USERS_LAST_NAME))
-                .setDataBirthday(LocalDate.parse(resultSet.getString(ColumnName.USERS_DATA_BIRTHDAY)))
+           //     .setDataBirthday(Date.parse(resultSet.getString(ColumnName.USERS_DATA_BIRTHDAY)))
                 .setAddress(resultSet.getString(ColumnName.USERS_ADDRESS))
                 .setPhoneNumber(resultSet.getString(ColumnName.USERS_PHONE_NUMBER))
                 .setEmail(resultSet.getString(ColumnName.USERS_EMAIL))

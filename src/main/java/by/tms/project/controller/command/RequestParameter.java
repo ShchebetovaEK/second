@@ -5,7 +5,7 @@ public final class RequestParameter {
     public static final String ROLE = "role";
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
-     public static final String CONFIRM_PASSWORD = "confirm_password";
+    public static final String CONFIRM_PASSWORD = "confirm_password";
     public static final String FIRST_NAME = "first_name";
     public static final String LAST_NAME = "last_name";
     public static final String DATA_BIRTHDAY = "data_birthday";
@@ -14,6 +14,7 @@ public final class RequestParameter {
     public static final String EMAIL = "email";
 
     public static final String TRUE = "true";
+    public static final String FALSE= "false";
     public static final String PASSWORD_MISMATCH = "password_mismatch";
 
     public static final String INVALID_LOGIN = "invalidLogin";
@@ -34,6 +35,14 @@ public final class RequestParameter {
     public static final String NOT_VALID_ADDRESS = "notValidAddress";
     public static final String NOT_VALID_PHONE_NUMBER = "notValidPhoneNumber";
     public static final String NOT_VALID_EMAIL = "notValidEmail";
+
+    public static final String INVALID_LOGIN_RESULT = "invalidLogin";
+    public static final String INVALID_PASSPORT_RESULT = "invalidPassport";
+    public static final String INVALID_EMAIL_RESULT = "invalidEmail";
+    public static final String INVALID_MOBILE_NUMBER_RESULT = "invalidMobileNumber";
+    public static final String NOT_UNIQUE_LOGIN_RESULT = "notUniqueLogin";
+    public static final String NOT_UNIQUE_EMAIL_RESULT = "notUniqueEmail";
+    public static final String NOT_UNIQUE_MOBILE_NUMBER_RESULT = "notUniqueMobileNumber";
 
     public static final String COMMAND_TYPE = "commandType";
     public static final String CONFIRMED_PASSWORD = "confirmedPassword";

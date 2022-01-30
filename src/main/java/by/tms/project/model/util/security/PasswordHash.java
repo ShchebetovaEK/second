@@ -6,21 +6,21 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * final class PasswordHash
- *
  */
 public final class PasswordHash {
 
-    private PasswordHash (){}
+    private PasswordHash() {
+    }
 
-    public static String encrypt(String  password) {
+    public static String encrypt(String password) {
 
-        String   passwordHash = Hashing.sha256()
+        String passwordHash = Hashing.sha256()
                 .hashString(password, StandardCharsets.UTF_8)
                 .toString();
 
         return passwordHash;
     }
 
-    }
+}

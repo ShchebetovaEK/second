@@ -10,14 +10,12 @@ import by.tms.project.model.service.UserService;
 import by.tms.project.model.util.security.PasswordEncryptor;
 import by.tms.project.model.util.security.PasswordHash;
 import by.tms.project.model.validator.impl.UserValidatorImpl;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.io.IOException;
+import java.time.Instant;
+import java.util.*;
 
 import static by.tms.project.controller.command.RequestParameter.*;
 import static java.lang.Boolean.parseBoolean;
@@ -145,50 +143,111 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registerNewUser(Map<String, String> userCheck) throws ServiceException {
+        // TODO
         boolean result;
+        Map<String, String> mapUserCheck = new HashMap<>();
         String login = userCheck.get(LOGIN);
         String password = userCheck.get(PASSWORD);
-        String confirmPassword = userCheck.get(CONFIRM_PASSWORD);
+//        String confirmPassword = userCheck.get(CONFIRM_PASSWORD);
         String firstName = userCheck.get(FIRST_NAME);
         String lastName = userCheck.get(LAST_NAME);
-        LocalDate dataBirthday = LocalDate.parse(userCheck.get(DATA_BIRTHDAY));
+        String strData = userCheck.get(DATA_BIRTHDAY);//"2011-11-11";//"userCheck.get(DATA_BIRTHDAY)";
+        Instant instant = Instant.parse(strData + "T00:00:00.00Z");
+        Date dataBirthday = Date.from(instant);
+        //   java.sql.Date dataBirthday = new java.sql.Date(today.getTime());//
         String address = userCheck.get(ADDRESS);
         String phoneNumber = userCheck.get(PHONE_NUMBER);
         String email = userCheck.get(EMAIL);
-        String roleStr = userCheck.get(ROLE);
+
+//        mapUserCheck.put(LOGIN,login);
+//        mapUserCheck.put(PASSWORD,password);
+//        mapUserCheck.put(FIRST_NAME,firstName);
+//        mapUserCheck.put(LAST_NAME,lastName);
+//        mapUserCheck.put(DATA_BIRTHDAY,strData);
+//        mapUserCheck.put(ADDRESS, address);
+//        mapUserCheck.put(PHONE_NUMBER,phoneNumber);
+//        mapUserCheck.put(EMAIL,email);
+
+
+
 
         try {
-            result = UserValidatorImpl.getInstance().checkUserData(userCheck);
+            String loginCheckResult = UserValidatorImpl.getInstance().isLoginValid(login)
+                    ? (!userDao.ifExistByLogin(login) ? TRUE : NOT_UNIQUE_LOGIN_RESULT)
+                    : INVALID_LOGIN_RESULT;
+            result = parseBoolean(loginCheckResult) ;
+
+//            boolean loginValid = UserValidatorImpl.getInstance().isLoginValid(login);
+//            boolean passwordValid = UserValidatorImpl.getInstance().isPasswordValid(password);
+//            boolean firstNameValid = UserValidatorImpl.getInstance().isFirstNameValid(firstName);
+//            boolean lastNameValid = UserValidatorImpl.getInstance().isLastNameValid(lastName);
+//            boolean strDateValid = UserValidatorImpl.getInstance().isDataBirthdayValid(strData);
+//            boolean addressValid = UserValidatorImpl.getInstance().isAddressValid(address);
+//            boolean phoneNumberValid = UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber);
+//            boolean emailValid = UserValidatorImpl.getInstance().isEmailValid(email);
+
+//            mapUserCheck = UserValidatorImpl.getInstance().checkUserData(userCheck);
+//           String phoneNumberResult = UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber) ? TRUE : FALSE;
+//            boolean phoneNumberCheckResult = UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber);
+//            boolean emailCheckResult = UserValidatorImpl.getInstance().isEmailValid(email);
+//            boolean result = parseBoolean(phoneNumberResult);
+//            boolean phoneRes = UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber);
+//
 
             if (result) {
-                Role role = roleStr != null ? Role.valueOf(roleStr.toUpperCase()) : Role.CLIENT;
-                User user = new User(role, login, password, firstName, lastName, dataBirthday, address, phoneNumber, email);
+
+                Role role = Role.PATIENT;
                 String passwordHash = PasswordHash.encrypt(password);
+                User user = new User(role, login, passwordHash, firstName, lastName, dataBirthday, address, phoneNumber, email);
                 userDao.create(user);
+//                return true;
+//            return  false;
+//                result = true;
 
-            } else {
-                userCheck.remove(ROLE, roleStr);
-                userCheck.remove(CONFIRMED_PASSWORD, confirmPassword);
-                userCheck.replace(LOGIN, login);
-                userCheck.replace(PASSWORD, password);
-                userCheck.replace(FIRST_NAME,firstName);
-                userCheck.replace(LAST_NAME,lastName);
-                userCheck.replace(DATA_BIRTHDAY, String.valueOf(dataBirthday));
-                userCheck.replace(ADDRESS,address);
-                userCheck.replace(PHONE_NUMBER, phoneNumber);
-                userCheck.replace(EMAIL, email);
-
+//            } else {
+//                logger.debug(" fallll");
             }
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, " ", e);
-            throw new ServiceException(" ", e);
 
-        } catch (IllegalArgumentException e) {
-            logger.error("", e);
-            result = false;
+        } catch (DaoException e) {
+            logger.error("Failed at UserServiceImpl at method registerNewUser", e);
+            throw new ServiceException("Failed at UserServiceImpl at method registerNewUser", e);
         }
-        return result;
+        catch (IllegalArgumentException e ){
+            logger.error("",e);
+            return false;
+        }
+        return true;
     }
+
+//    }
+//            String loginCheckResult = UserValidatorImpl.getInstance().isLoginValid(login)
+//                    ? (!userDao.ifExistByLogin(login) ? TRUE : NOT_UNIQUE_LOGIN_RESULT)
+//                    : INVALID_LOGIN_RESULT;
+//            String passwordCheckResult = UserValidatorImpl.getInstance().isPasswordValid(password)
+//                    ? (!password.equals(confirmPassword)? TRUE : PASSWORD_MISMATCH)
+//                    : INVALID_PASSPORT_RESULT;
+
+
+//            if(result){
+//                Role role = Role.PATIENT;
+//                String passwordHash = PasswordHash.encrypt(password);
+//                User user = new User(role,login,passwordHash,email,phoneNumber);
+//                userDao.create(user);
+//            }
+//                if (mapUserCheck.isEmpty()) {
+//                Role role = Role.PATIENT;
+//                String passwordHash = PasswordHash.encrypt(password);
+//                User user = new User(role,login, passwordHash, firstName, lastName, dataBirthday, address, phoneNumber, email);
+//                userDao.create(user);
+//            }
+
+//        } catch (DaoException e) {
+//            logger.log(Level.ERROR, " ", e);
+//            throw new ServiceException(" ", e);
+//
+//        }
+
+//    }
 
     /**
      * update user's first name by id.

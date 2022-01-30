@@ -30,7 +30,7 @@ public final class PropertyLoader {
         try {
             properties.load(ConnectionPool.class.getClassLoader().getResourceAsStream(path));
         } catch (IOException e) {
-            logger.info("Failed in method getProperty", e);
+            logger.error("Failed in method getProperty", e);
         }
         return properties;
     }

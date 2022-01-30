@@ -2,6 +2,7 @@ package by.tms.project.model.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Patient extends User {
 
@@ -18,9 +19,9 @@ public class Patient extends User {
         this.discount = discount;
     }
 
-    public Patient(long id, Role role, String login, String password, String firstName, String lastName,
-                   LocalDate dataBirthday, String address, String phoneNumber, String email, boolean insurance, BigDecimal moneyAccount, int discount) {
-        super(id, role, login, password, firstName, lastName, dataBirthday, address, phoneNumber, email);
+    public Patient(String login, String password, String firstName, String lastName, Date dataBirthday, String address,
+                   String phoneNumber, String email, boolean insurance, BigDecimal moneyAccount, int discount) {
+        super(login, password, firstName, lastName, dataBirthday, address, phoneNumber, email);
         this.insurance = insurance;
         this.moneyAccount = moneyAccount;
         this.discount = discount;
@@ -118,7 +119,7 @@ public class Patient extends User {
             return this;
         }
 
-        public PatientBuilder setDataBirthday(LocalDate dataBirthday) {
+        public PatientBuilder setDataBirthday(Date dataBirthday) {
             patient.setDataBirthday(dataBirthday);
             return this;
         }

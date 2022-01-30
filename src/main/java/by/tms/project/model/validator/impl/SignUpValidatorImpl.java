@@ -3,6 +3,7 @@ package by.tms.project.model.validator.impl;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.User;
 import by.tms.project.model.util.property.PropertyLoader;
+import by.tms.project.model.validator.SignUpValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -12,7 +13,7 @@ import static by.tms.project.controller.command.MessageAttributeName.*;
 import static by.tms.project.controller.command.MessageAttributeValue.*;
 import static by.tms.project.controller.command.RequestParameter.*;
 
-public final class SignUpValidatorImpl {
+public final class SignUpValidatorImpl implements SignUpValidator {
     private static final UserValidatorImpl DATA_VALIDATOR = UserValidatorImpl.getInstance();
     private static final String PROPERTY_PATH = "message.properties";
     private static final Properties property = PropertyLoader.getProperty(PROPERTY_PATH);
@@ -20,7 +21,11 @@ public final class SignUpValidatorImpl {
 
     private SignUpValidatorImpl() {
     }
-
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static SignUpValidatorImpl getInstance() {
         if (instance == null) {
             instance = new SignUpValidatorImpl();
@@ -29,6 +34,7 @@ public final class SignUpValidatorImpl {
         return instance;
     }
 
+    @Override
     public boolean isFormSighUpFormValid(User userForm, HttpServletRequest request) throws ServiceException{
         HttpSession session = request.getSession();
         int count = 0;

@@ -8,6 +8,7 @@ public final class RequestAttribute {
     public static final String LOGIN ="login";
     public static final String PASSWORD = "password";
 
+
     public static final String VALID_ROLE = "valid_role";
     public static final String VALID_LOGIN = "valid_login";
     public static final String VALID_PASSWORD = "valid_password";

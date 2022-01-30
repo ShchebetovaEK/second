@@ -5,6 +5,7 @@ import by.tms.project.model.validator.UserValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -12,7 +13,7 @@ import static by.tms.project.controller.command.RequestAttribute.LOGIN;
 import static by.tms.project.controller.command.RequestAttribute.PASSWORD;
 import static by.tms.project.controller.command.RequestParameter.*;
 
-public  final class UserValidatorImpl implements UserValidator {
+public final class UserValidatorImpl implements UserValidator {
     private static final Logger logger = LogManager.getLogger();
     private static final String PROPERTY_PATH = "message.properties";
     private static final Properties property = PropertyLoader.getProperty(PROPERTY_PATH);
@@ -20,9 +21,9 @@ public  final class UserValidatorImpl implements UserValidator {
     private static final String WHITESPACE = " ";
     private static final String LOGIN_REGEX = "^(\\w)[\\w_-]{1,18}(\\w)$";
     private static final String PASSWORD_REGEX = "^(.{8,40})$";
-    private static final String FIRST_NAME_REGEX = " todo"; //todo
-    private static final String LAST_NAME_REGEX = " todo"; //todo
-    private static final String DATABIRTHDAY_REGEX = "todo"; // todo
+    private static final String FIRST_NAME_REGEX = "^(\\w)[\\w_-]{2,18}(\\w)$"; //todo
+    private static final String LAST_NAME_REGEX = "^(\\w)[\\w_-]{1,30}(\\w)$"; //todo
+    private static final String DATABIRTHDAY_REGEX = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$"; // todo
     private static final String ADDRESS_REGEX = "todo "; // todo
     private static final String EMAIL_REGEX = "^((\\w|[-+])+(\\.(\\w|[-+])*)*@[a-z]+\\.[a-z]+)$";
     private static final String PHONE_NUMBER_REGEX = "^((\\+375|80)(25|29|33|44)\\d{7})$";
@@ -113,6 +114,7 @@ public  final class UserValidatorImpl implements UserValidator {
 
     /**
      * Is email valid.
+     *
      * @param email the email
      * @return the boolean
      */
@@ -134,54 +136,94 @@ public  final class UserValidatorImpl implements UserValidator {
 
     /**
      * check user
+     *
      * @param userData
      * @return the boolean.
      */
-    public boolean checkUserData(Map<String, String> userData) {
-        boolean isValid = true;
+    @Override
+    public Map<String, String> checkUserData(Map<String, String> userData) {
+        Map<String, String> mapErrorValidation = new HashMap<>();
         if (!isLoginValid(userData.get(LOGIN))) {
-            userData.put(LOGIN, INVALID_LOGIN);
-            isValid = false;
+            mapErrorValidation.put(LOGIN, INVALID_LOGIN);
         }
         if (!isPasswordValid(userData.get(PASSWORD))) {
-            userData.put(PASSWORD, INVALID_PASSWORD);
-            isValid = false;
+            mapErrorValidation.put(PASSWORD, INVALID_PASSWORD);
         }
-        isValid = checkUserPersonalData(userData) && isValid;
-        return isValid;
-    }
-
-    /**
-     * check personal user data.
-     * @param userData
-     * @return the boolean.
-     */
-    public boolean checkUserPersonalData(Map<String, String> userData) {
-        boolean isValid = true;
         if (!isFirstNameValid(userData.get(FIRST_NAME))) {
-            userData.put(FIRST_NAME, INVALID_FIRST_NAME);
-            isValid = false;
+            mapErrorValidation.put(FIRST_NAME, INVALID_FIRST_NAME);
+
         }
         if (!isLastNameValid(userData.get(LAST_NAME))) {
-            userData.put(LAST_NAME, INVALID_LAST_NAME);
-            isValid = false;
+            mapErrorValidation.put(LAST_NAME, INVALID_LAST_NAME);
         }
         if (!isAddressValid(userData.get(ADDRESS))) {
-            userData.put(ADDRESS, INVALID_ADDRESS);
-            isValid = false;
+            mapErrorValidation.put(ADDRESS, INVALID_ADDRESS);
         }
         if (!isDataBirthdayValid(userData.get(DATA_BIRTHDAY))) {
-            userData.put(DATA_BIRTHDAY, INVALID_DATA_BIRTHDAY);
-            isValid = false;
+            mapErrorValidation.put(DATA_BIRTHDAY, INVALID_DATA_BIRTHDAY);
         }
         if (!isEmailValid(userData.get(EMAIL))) {
-            userData.put(EMAIL, INVALID_EMAIL);
-            isValid = false;
+            mapErrorValidation.put(EMAIL, INVALID_EMAIL);
         }
         if (!isPhoneNumberValid(userData.get(PHONE_NUMBER))) {
-            userData.put(PHONE_NUMBER, INVALID_PHONE_NUMBER);
-            isValid = false;
+            mapErrorValidation.put(PHONE_NUMBER, INVALID_PHONE_NUMBER);
+
         }
-        return isValid;
+        return mapErrorValidation;
     }
 }
+//    /**
+//     * check user
+//     * @param userData
+//     * @return the boolean.
+//     */
+//    public boolean checkUserData(Map<String, String> userData) {
+//        boolean isValid = true;
+//        if (!isLoginValid(userData.get(LOGIN))) {
+//            userData.put(LOGIN, INVALID_LOGIN);
+//            isValid = false;
+//        }
+//        if (!isPasswordValid(userData.get(PASSWORD))) {
+//            userData.put(PASSWORD, INVALID_PASSWORD);
+//            isValid = false;
+//        }
+//        isValid = checkUserPersonalData(userData) && isValid;
+//        return isValid;
+//    }
+//
+//    /**
+//     * check personal user data.
+//     * @param userData
+//     * @return the boolean.
+//     */
+//    public boolean checkUserPersonalData(Map<String, String> userData) {
+//        boolean isValid = true;
+//        if (!isFirstNameValid(userData.get(FIRST_NAME))) {
+//            userData.put(FIRST_NAME, INVALID_FIRST_NAME);
+//            isValid = false;
+//        }
+//        if (!isLastNameValid(userData.get(LAST_NAME))) {
+//            userData.put(LAST_NAME, INVALID_LAST_NAME);
+//            isValid = false;
+//        }
+//        if (!isAddressValid(userData.get(ADDRESS))) {
+//            userData.put(ADDRESS, INVALID_ADDRESS);
+//            isValid = false;
+//        }
+//        if (!isDataBirthdayValid(userData.get(DATA_BIRTHDAY))) {
+//            userData.put(DATA_BIRTHDAY, INVALID_DATA_BIRTHDAY);
+//            isValid = false;
+//        }
+//        if (!isEmailValid(userData.get(EMAIL))) {
+//            userData.put(EMAIL, INVALID_EMAIL);
+//            isValid = false;
+//        }
+//        if (!isPhoneNumberValid(userData.get(PHONE_NUMBER))) {
+//            userData.put(PHONE_NUMBER, INVALID_PHONE_NUMBER);
+//            isValid = false;
+//        }
+//        return isValid;
+//    }
+//}
+
+

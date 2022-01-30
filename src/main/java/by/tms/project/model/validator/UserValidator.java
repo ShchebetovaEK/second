@@ -1,5 +1,7 @@
 package by.tms.project.model.validator;
 
+import java.util.Map;
+
 public interface UserValidator {
 
     boolean isLoginValid(String login);
@@ -17,4 +19,6 @@ public interface UserValidator {
     boolean isEmailValid(String email);
 
     boolean isPhoneNumberValid(String phoneNumber);
+
+    Map<String, String> checkUserData(Map<String, String> userData);
 }

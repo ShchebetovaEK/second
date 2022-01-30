@@ -166,7 +166,8 @@ public class PatientDaoImpl implements PatientDao {
             preparedStatement.setString(3, entity.getPassword());
             preparedStatement.setString(4, entity.getFirstName());
             preparedStatement.setString(5, entity.getLastName());
-            preparedStatement.setDate(6, Date.valueOf(entity.getDataBirthday()));
+            Date dataBirthday = new Date(entity.getDataBirthday().getTime());//
+            preparedStatement.setDate(6, dataBirthday);
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());
@@ -196,7 +197,8 @@ public class PatientDaoImpl implements PatientDao {
             preparedStatement.setString(3, entity.getPassword());
             preparedStatement.setString(4, entity.getFirstName());
             preparedStatement.setString(5, entity.getLastName());
-            preparedStatement.setDate(6, Date.valueOf(entity.getDataBirthday()));
+            Date dataBirthday = new Date(entity.getDataBirthday().getTime());//
+            preparedStatement.setDate(6, dataBirthday);
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());
@@ -358,7 +360,7 @@ public class PatientDaoImpl implements PatientDao {
                 .setPassword(resultSet.getString(ColumnName.USERS_PASSWORD))
                 .setFirstName(resultSet.getString(ColumnName.USERS_FIRST_NAME))
                 .setLastName(resultSet.getString(ColumnName.USERS_LAST_NAME))
-                .setDataBirthday(LocalDate.parse(resultSet.getString(ColumnName.USERS_DATA_BIRTHDAY)))
+//                .setDataBirthday(LocalDate.parse(resultSet.getString(ColumnName.USERS_DATA_BIRTHDAY)))
                 .setAddress(resultSet.getString(ColumnName.USERS_ADDRESS))
                 .setPhoneNumber(resultSet.getString(ColumnName.USERS_PHONE_NUMBER))
                 .setEmail(resultSet.getString(ColumnName.USERS_EMAIL))

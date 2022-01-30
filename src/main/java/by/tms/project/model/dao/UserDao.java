@@ -1,11 +1,10 @@
 package by.tms.project.model.dao;
 
 import by.tms.project.exception.DaoException;
-import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +24,7 @@ public interface UserDao extends BaseDao<Long, User> {
 
      List<User> findByLastNameAndRole(String lastName, Role role) throws  DaoException;
 
-     List<User> findByDataBirthday(LocalDate dataBirthday) throws DaoException;
+//     List<User> findByDataBirthday(Date dataBirthday) throws DaoException;
 
      Optional <User> findByEmail(String email) throws DaoException;
 
