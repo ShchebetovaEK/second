@@ -6,9 +6,9 @@ import by.tms.project.model.entity.Speciality;
 
 public interface DoctorValidator {
 
-    boolean isCategoryValid(Category category);
+    boolean isCategoryValid(String category);
 
-    boolean isExperienceValid(Experience experience);
+    boolean isExperienceValid(String experience);
 
-    boolean isSpecialityValid(Speciality speciality);
+    boolean isSpecialityValid(String speciality);
 }
