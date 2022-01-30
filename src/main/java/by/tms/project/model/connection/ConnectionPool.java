@@ -38,13 +38,10 @@ public final class ConnectionPool {
                 freeConnections.offer(connection);
             }
         } catch (SQLException e) {
-            logger.error("Connection is not create.", e);
+            logger.fatal("Connection is not create.", e);
+            throw new RuntimeException("Connection pool is empty.");
+        }
 
-        }
-        if(freeConnections.isEmpty()){
-          logger.fatal("");
-            throw new ExceptionInInitializerError("Connection pool is empty.");
-        }
     }
 
     /**
@@ -126,7 +123,7 @@ public final class ConnectionPool {
                 DriverManager.deregisterDriver(driver);
             } catch (SQLException e) {
                 logger.error("There are some problems with deregister driver",e);
-                //exception
+                //todo error?
             }
         });
     }

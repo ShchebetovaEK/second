@@ -21,7 +21,7 @@ public class CommandProvider {
         return instance;
     }
 
-    public Command takeCommand(String commandName) {
+    public Command getCommand(String commandName) {
         if (commandName == null) {
             return commandEnumMap.get(CommandType.GO_TO_WELCOME);
 

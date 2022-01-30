@@ -16,21 +16,24 @@ import java.util.Optional;
 
 public class DoctorDaoImpl implements DoctorDao {
     private static final Logger logger = LogManager.getLogger();
+    private static final String DOCTOR ="'doctor'" ;
     private static final String SQL_SELECT_ALL_DOCTORS = """
+         
+         //todo
             SELECT id,role,login,password,first_name,last_name,
                    data_birthday,address,phone_number,email,
                    category,experience,speciality
             FROM users
             INNER JOIN doctors on users.id = doctors.users_id
-            WHERE user.role =doctor""";
+            WHERE users.role = DOCTOR """;
+
     private static final String SQL_SELECT_DOCTORS_BY_ID = """
             SELECT id,role,login,password,first_name,last_name,
                    data_birthday,address,phone_number,email,
                    category,experience,speciality
             FROM users
             INNER JOIN doctors on users.id = doctors.users_id
-            WHERE user.id =?""";
-
+            WHERE users.id =?""";
     //todo
     private static final String SQL_CREATE_DOCTOR = """
             INSERT INTO users(id,role,login,password,first_name,last_name,
@@ -49,15 +52,14 @@ public class DoctorDaoImpl implements DoctorDao {
     private static final String SQL_DELETE_DOCTOR_BY_ID = """
             DELETE FROM users 
             WHERE users.id =?""";
-//todo
+
     private static final String SQL_SELECT_DOCTORS_BY_LOGIN = """
             SELECT id,role,login,password,first_name,last_name,
                    data_birthday,address,phone_number,email,
                    category,experience,speciality
             FROM users
             INNER JOIN doctors on users.id = doctors.users_id
-            WHERE doctors.category =?""";
-
+            WHERE users.login =?""";
     private static final String SQL_SELECT_DOCTORS_CATEGORY = """
             SELECT id,role,login,password,first_name,last_name,
                    data_birthday,address,phone_number,email,
@@ -164,7 +166,8 @@ public class DoctorDaoImpl implements DoctorDao {
             preparedStatement.setString(3, entity.getPassword());
             preparedStatement.setString(4, entity.getFirstName());
             preparedStatement.setString(5, entity.getLastName());
-            preparedStatement.setDate(6, Date.valueOf(entity.getDataBirthday()));
+            Date dataBirthday = new Date(entity.getDataBirthday().getTime());
+            preparedStatement.setDate(6, dataBirthday);
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());
@@ -196,11 +199,12 @@ public class DoctorDaoImpl implements DoctorDao {
             preparedStatement.setString(3, entity.getPassword());
             preparedStatement.setString(4, entity.getFirstName());
             preparedStatement.setString(5, entity.getLastName());
-            preparedStatement.setDate(6, Date.valueOf(entity.getDataBirthday()));
+            Date dataBirthday = new Date(entity.getDataBirthday().getTime());
+            preparedStatement.setDate(6, dataBirthday);
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());
-            preparedStatement.setString(10, String.valueOf(entity.getCategory()));
+            preparedStatement.setString(10, entity.getCategory().name());
             preparedStatement.setString(11, String.valueOf(entity.getExperience()));
             preparedStatement.setString(12, String.valueOf(entity.getSpeciality()));
             result = preparedStatement.executeUpdate();
@@ -319,7 +323,8 @@ public class DoctorDaoImpl implements DoctorDao {
         List<Doctor> doctorList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_DOCTORS_SPECIALITY)) {
-            preparedStatement.setString(1, String.valueOf(speciality));
+            String specStr = speciality.name(); // FIXME: 24.01.2022 
+            preparedStatement.setString(1, specStr);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     Doctor doctor = takeDoctorInfo(resultSet);
@@ -365,7 +370,7 @@ public class DoctorDaoImpl implements DoctorDao {
                 .setPassword(resultSet.getString(ColumnName.USERS_PASSWORD))
                 .setFirstName(resultSet.getString(ColumnName.USERS_FIRST_NAME))
                 .setLastName(resultSet.getString(ColumnName.USERS_LAST_NAME))
-                .setDataBirthday(LocalDate.parse(resultSet.getString(ColumnName.USERS_DATA_BIRTHDAY)))
+//                .setDataBirthday(LocalDate.parse(resultSet.getString(ColumnName.USERS_DATA_BIRTHDAY)))
                 .setAddress(resultSet.getString(ColumnName.USERS_ADDRESS))
                 .setPhoneNumber(resultSet.getString(ColumnName.USERS_PHONE_NUMBER))
                 .setEmail(resultSet.getString(ColumnName.USERS_EMAIL))

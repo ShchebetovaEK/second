@@ -19,7 +19,8 @@ import static by.tms.project.controller.command.PagePath.MAIN_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.*;
 import static by.tms.project.controller.command.RequestParameter.LOGIN;
 import static by.tms.project.controller.command.RequestParameter.PASSWORD;
-import static by.tms.project.controller.command.Router.RouterType.REDIRECT;
+
+import static by.tms.project.controller.command.Router.RouteType.REDIRECT;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 

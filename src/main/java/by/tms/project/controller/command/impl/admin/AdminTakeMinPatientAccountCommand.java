@@ -17,6 +17,7 @@ public class AdminTakeMinPatientAccountCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
+        //todo
         return router;
     }
 
