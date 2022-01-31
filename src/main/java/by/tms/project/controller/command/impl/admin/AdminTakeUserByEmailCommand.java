@@ -16,7 +16,7 @@ import java.util.Optional;
 
 import static by.tms.project.controller.command.RequestAttribute.OPTIONAL_USER;
 
-public class AdminTakeUserByEmail implements Command {
+public class AdminTakeUserByEmailCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private UserService userService = UserServiceImpl.getInstance();
 
