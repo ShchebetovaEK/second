@@ -1,8 +1,10 @@
 package by.tms.project.model.service;
 
+import by.tms.project.exception.DaoException;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.User;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -16,6 +18,16 @@ public interface UserService {
     Optional<User> findByLogin(String login) throws ServiceException;
 
     Optional<User> findUserById(long id) throws ServiceException;
+
+    List<User> findByFirstName(String firstName) throws ServiceException;
+
+    List<User> findByLastName(String lastName) throws ServiceException;
+
+//    List<User> findByDataBirthday(Date dataBirthday) throws ServiceException;
+//
+    Optional <User> findByEmail(String email) throws ServiceException;
+
+    Optional<User> findByPhoneNumber(String phoneNumber) throws ServiceException;
 
     boolean checkIfUserValidForRegistration(String login, String email) throws ServiceException;
 

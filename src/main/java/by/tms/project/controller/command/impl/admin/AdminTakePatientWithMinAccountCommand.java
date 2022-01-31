@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class AdminTakeMinPatientAccountCommand implements Command {
+public class AdminTakePatientWithMinAccountCommand implements Command {
     public static final Logger logger = LogManager.getLogger();
     private PatientService patientService = PatientServiceImpl.getInstance();
 

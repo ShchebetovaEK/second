@@ -12,15 +12,13 @@ import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 /**
  * @author ShchebetovaEK
- * <p>
+ *
  * class UserDaoImpl.
  */
 public class UserDaoImpl implements UserDao {
@@ -44,7 +42,8 @@ public class UserDaoImpl implements UserDao {
             users.data_birthday,users.address,users.phone_number,users.email 
             FROM users 
             WHERE users.login =? 
-            AND users.password = ?""";
+            AND users.password = ?"""; //todo password hash
+
     private static final String SQL_SELECT_BY_FIRST_NAME = """
             SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
             users.data_birthday,users.address,users.phone_number,users.email 
@@ -91,6 +90,8 @@ public class UserDaoImpl implements UserDao {
             UPDATE users 
             SET users.login=? 
             WHERE users.id=?""";
+
+    //todo
     private static final String SQL_SET_PASSWORD = """
             UPDATE users 
             SET users.password=? 
@@ -172,10 +173,11 @@ public class UserDaoImpl implements UserDao {
         List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                User user = takeUserInfo(resultSet);
-                userList.add(user);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    User user = takeUserInfo(resultSet);
+                    userList.add(user);
+                }
             }
         } catch (SQLException e) {
             logger.error("Failed at UserDaoImpl at method findAll", e);
@@ -217,7 +219,6 @@ public class UserDaoImpl implements UserDao {
      * @throws DaoException
      */
     @Override
-    //todo
     public boolean create(User entity) throws DaoException {
         int result = 0;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
@@ -227,7 +228,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(3, entity.getPassword());
             preparedStatement.setString(4, entity.getFirstName());
             preparedStatement.setString(5, entity.getLastName());
-            Date dataBirthday = new Date(entity.getDataBirthday().getTime());//
+            Date dataBirthday = new Date(entity.getDataBirthday().getTime());
             preparedStatement.setDate(6, dataBirthday);
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
@@ -509,7 +510,7 @@ public class UserDaoImpl implements UserDao {
         List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_DATA_BIRTHDAY)) {
-         //   Date dataBirthday = new Date(.getDataBirthday().getTime());//
+//               Date dataBirthday = new Date(.getDataBirthday().getTime());//
             preparedStatement.setDate(1, dataBirthday); //todo
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -550,7 +551,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     /**
-     * find user witn same phone number.
+     * find user with same phone number.
      *
      * @param phoneNumber
      * @return optionalList.
@@ -711,6 +712,7 @@ public class UserDaoImpl implements UserDao {
      * @throws DaoException
      */
     @Override
+    //todo
     public boolean checkOldPassword(User user, String oldPassword) throws DaoException {
         boolean result = false;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
@@ -731,7 +733,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     /**
-     * chech user login.
+     * check user login.
      *
      * @param login
      * @return the boolean.
@@ -934,7 +936,7 @@ public class UserDaoImpl implements UserDao {
                 .setPassword(resultSet.getString(ColumnName.USERS_PASSWORD))
                 .setFirstName(resultSet.getString(ColumnName.USERS_FIRST_NAME))
                 .setLastName(resultSet.getString(ColumnName.USERS_LAST_NAME))
-           //     .setDataBirthday(Date.parse(resultSet.getString(ColumnName.USERS_DATA_BIRTHDAY)))
+                //     .setDataBirthday(Date.parse(resultSet.getString(ColumnName.USERS_DATA_BIRTHDAY)))
                 .setAddress(resultSet.getString(ColumnName.USERS_ADDRESS))
                 .setPhoneNumber(resultSet.getString(ColumnName.USERS_PHONE_NUMBER))
                 .setEmail(resultSet.getString(ColumnName.USERS_EMAIL))

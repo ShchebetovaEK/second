@@ -16,16 +16,14 @@ import java.util.Optional;
 
 public class DoctorDaoImpl implements DoctorDao {
     private static final Logger logger = LogManager.getLogger();
-    private static final String DOCTOR ="'doctor'" ;
+    private static final String DOCTOR = "'doctor'";
     private static final String SQL_SELECT_ALL_DOCTORS = """
-         
-         //todo
             SELECT id,role,login,password,first_name,last_name,
-                   data_birthday,address,phone_number,email,
-                   category,experience,speciality
+            data_birthday,address,phone_number,email,
+            category,experience,speciality
             FROM users
             INNER JOIN doctors on users.id = doctors.users_id
-            WHERE users.role = DOCTOR """;
+            WHERE users.role =?""";
 
     private static final String SQL_SELECT_DOCTORS_BY_ID = """
             SELECT id,role,login,password,first_name,last_name,
@@ -111,11 +109,13 @@ public class DoctorDaoImpl implements DoctorDao {
 
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_DOCTORS)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.setString(1,DOCTOR);
+          try(ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 Doctor doctor = takeDoctorInfo(resultSet);
                 doctorList.add(doctor);
             }
+          }
         } catch (SQLException e) {
             logger.error("Failed at DoctorDaoImpl at method findAll", e);
             throw new DaoException("Failed at DoctorDaoImpl at method findAll", e);
@@ -340,6 +340,7 @@ public class DoctorDaoImpl implements DoctorDao {
 
     /**
      * find doctor with same login
+     *
      * @param login
      * @return
      * @throws DaoException

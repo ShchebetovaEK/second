@@ -18,27 +18,28 @@ import java.util.Optional;
 
 public class PatientDaoImpl implements PatientDao {
     private static final Logger logger = LogManager.getLogger();
+    private static final String PATIENT = "'patient'";
     private static final String SQL_SELECT_ALL_PATIENT = """
             SELECT id,role,login,password,first_name,last_name,
                    data_birthday,address,phone_number,email,
-                   category,experience,speciality
+                   insurance,money_account,discount
             FROM users
-            INNER JOIN doctors on users.id = doctors.users_id
-            WHERE user.role =doctor""";
+                     INNER JOIN patients on users.id = patients.users_id
+            WHERE users.role =?""";
     private static final String SQL_SELECT_PATIENTS_BY_ID = """
-            SELECT id,role,login,password,first_name,last_name,
-                   data_birthday,address,phone_number,email,
-                   category,experience,speciality
-            FROM users
-            INNER JOIN doctors on users.id = doctors.users_id
-            WHERE user.id =?""";
+           SELECT id,role,login,password,first_name,last_name,
+                  data_birthday,address,phone_number,email,
+                  insurance,money_account,discount
+           FROM users
+                    INNER JOIN patients on users.id = patients.users_id
+           WHERE users.id =?""";
 
     //todo
     private static final String SQL_CREATE_PATIENT = """
-            INSERT INTO users(id,role,login,password,first_name,last_name,
+            INSERT INTO users(role,login,password,first_name,last_name,
             data_birthday,address,phone_number,email) 
-            VALUES (?,?,?,?,?,?,?,?,?,?)
-            INSERT INTO doctors(category,experience,speciality)
+            VALUES (?,?,?,?,?,?,?,?,?)
+            INSERT INTO patients(insurance,money_account,discount)
             VALUES (?,?,?)""";
     //todo
     private static final String SQL_UPDATE_PATIENT = """
@@ -58,19 +59,14 @@ public class PatientDaoImpl implements PatientDao {
                    insurance,money_account,discount
             FROM users
             INNER JOIN patients on users.id = patients.users_id
-            WHERE patients.insurance =?
-            """;
-    //todo
-
-    private static final String SQL_SELECT_PATIENTS_BY_MONEY_ACCOUNT = """
+            WHERE patients.insurance =?""";
+      private static final String SQL_SELECT_PATIENTS_BY_MONEY_ACCOUNT = """
             SELECT id,role,login,password,first_name,last_name,
                    data_birthday,address,phone_number,email,
                    insurance,money_account,discount
             FROM users
-            INNER JOIN patients on users.id = patients.users_id
-            WHERE patients.money_account =? BETWEEN  20 """;
-
-    //todo
+                     INNER JOIN patients on users.id = patients.users_id
+            WHERE patients.money_account BETWEEN 20 AND 110 """;
     private static final String SQL_SELECT_PATIENTS_BY_DISCOUNT = """
             SELECT id,role,login,password,first_name,last_name,
                    data_birthday,address,phone_number,email,
@@ -79,14 +75,13 @@ public class PatientDaoImpl implements PatientDao {
             INNER JOIN patients on users.id = patients.users_id
             WHERE patients.discount =?""";
 
-   //todo
     private static final String SQL_SELECT_PATIENT_BY_LOGIN = """
             SELECT id,role,login,password,first_name,last_name,
                    data_birthday,address,phone_number,email,
-                   category,experience,speciality
+                   insurance,money_account,discount
             FROM users
-            INNER JOIN patients on users.id = doctors.users_id
-            WHERE user.login=?""";
+            INNER JOIN patients on users.id = patients.users_id
+            WHERE users.login=?""";
 
     private static PatientDaoImpl instance;
 

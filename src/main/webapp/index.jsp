@@ -19,8 +19,18 @@
 <form action="jsp/main/welcome.jsp">
     <input type="submit" value="welcome"/>
 </form>
+
+
 <form action="jsp/main/user_manager.jsp">
     <input type="submit" value="user_manager"/>
+</form>
+
+<form action="jsp/main/admin.jsp">
+    <input type="submit" value="doctor"/>
+</form>
+
+<form action="jsp/main/select.jsp">
+    <input type="submit" value="select"/>
 </form>
 <%--<form action="error400.jsp">--%>
 <%--    <input type="submit" value="Registration"/>--%>

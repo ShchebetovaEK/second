@@ -5,9 +5,10 @@ public final class RequestAttribute {
     public static final String CURRENT_PAGE = "current_page";
     public static final String USER = "user";
     public static final String USER_LIST = "users";
+    public static final String DOCTORS_LIST = "doctors";
+    public static final String OPTIONAL_USER = "optional_users";
     public static final String LOGIN ="login";
     public static final String PASSWORD = "password";
-
 
     public static final String VALID_ROLE = "valid_role";
     public static final String VALID_LOGIN = "valid_login";

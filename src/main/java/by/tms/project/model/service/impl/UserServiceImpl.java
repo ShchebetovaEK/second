@@ -115,6 +115,67 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findByFirstName(String firstName) throws ServiceException {
+        List<User> userList;
+        try {
+            userList = userDao.findByFirstName(firstName);
+        } catch (DaoException e) {
+            logger.error("Failed at UserServiceImpl at method findByFirstName", e);
+            throw new ServiceException("Failed at UserServiceImpl at method findByFirstName", e);
+        }
+        return userList;
+    }
+
+    @Override
+    public List<User> findByLastName(String lastName) throws ServiceException {
+        List<User> userList;
+        try {
+            userList = userDao.findByLastName(lastName);
+        } catch (DaoException e) {
+            logger.error("Failed at UserServiceImpl at method findByLastName", e);
+            throw new ServiceException("Failed at UserServiceImpl at method  findByLastName", e);
+        }
+        return userList;
+    }
+
+//    @Override
+//    public List<User> findByDataBirthday(Date dataBirthday) throws ServiceException {
+//        List<User> userList;
+//        try {
+//            userList = userDao.findByDataBirthday(dataBirthday);
+//        } catch (DaoException e) {
+//            logger.error("Failed at UserServiceImpl at method findByDataBirthday", e);
+//            throw new ServiceException("Failed at UserServiceImpl at method  findByDataBirthday", e);
+//        }
+//        return userList;
+//    }
+
+    @Override
+    public Optional<User> findByEmail(String email) throws ServiceException {
+        Optional<User> optionalUser;
+        try {
+            optionalUser = userDao.findByEmail(email);
+        } catch (DaoException e) {
+            logger.error("Failed at UserServiceImpl at method findByEmail", e);
+            throw new ServiceException("Failed at UserServiceImpl at method findByEmail", e);
+        }
+        return optionalUser;
+    }
+
+
+    @Override
+    public Optional<User> findByPhoneNumber(String phoneNumber) throws ServiceException {
+        Optional<User> optionalUser;
+        try {
+            optionalUser = userDao.findByPhoneNumber(phoneNumber);
+        } catch (DaoException e) {
+            logger.error("Failed at UserServiceImpl at method findByPhoneNumber", e);
+            throw new ServiceException("Failed at UserServiceImpl at method findByPhoneNumber", e);
+        }
+        return optionalUser;
+    }
+
+    @Override
     public boolean checkIfUserValidForRegistration(String login, String email) throws ServiceException {
         // TODO: 17.01.2022  
         return false;
@@ -172,10 +233,10 @@ public class UserServiceImpl implements UserService {
 
 
         try {
-            String loginCheckResult = UserValidatorImpl.getInstance().isLoginValid(login)
-                    ? (!userDao.ifExistByLogin(login) ? TRUE : NOT_UNIQUE_LOGIN_RESULT)
-                    : INVALID_LOGIN_RESULT;
-            result = parseBoolean(loginCheckResult) ;
+//            String loginCheckResult = UserValidatorImpl.getInstance().isLoginValid(login)
+//                    ? (!userDao.ifExistByLogin(login) ? TRUE : NOT_UNIQUE_LOGIN_RESULT)
+//                    : INVALID_LOGIN_RESULT;
+//            result = parseBoolean(loginCheckResult) ;
 
 //            boolean loginValid = UserValidatorImpl.getInstance().isLoginValid(login);
 //            boolean passwordValid = UserValidatorImpl.getInstance().isPasswordValid(password);
@@ -194,9 +255,9 @@ public class UserServiceImpl implements UserService {
 //            boolean phoneRes = UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber);
 //
 
-            if (result) {
+//            if (result) {
 
-                Role role = Role.PATIENT;
+                Role role = Role.DOCTOR;
                 String passwordHash = PasswordHash.encrypt(password);
                 User user = new User(role, login, passwordHash, firstName, lastName, dataBirthday, address, phoneNumber, email);
                 userDao.create(user);
@@ -206,7 +267,7 @@ public class UserServiceImpl implements UserService {
 
 //            } else {
 //                logger.debug(" fallll");
-            }
+//            }
 
         } catch (DaoException e) {
             logger.error("Failed at UserServiceImpl at method registerNewUser", e);
