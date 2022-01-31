@@ -1,6 +1,7 @@
 package by.tms.project.controller.command;
 
 public final class RequestParameter {
+    /*user*/
     public static final String COMMAND = "command";
     public static final String ID = "id";
     public static final String ROLE = "role";
@@ -13,6 +14,8 @@ public final class RequestParameter {
     public static final String ADDRESS = "address";
     public static final String PHONE_NUMBER = "phone_number";
     public static final String EMAIL = "email";
+    /*protocol*/
+    public static final String PAYER = "payer";
 
     public static final String TRUE = "true";
     public static final String FALSE= "false";

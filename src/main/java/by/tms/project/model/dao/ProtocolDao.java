@@ -11,9 +11,13 @@ public interface ProtocolDao {
 
     List<Protocol> findAll() throws DaoException;
 
+    List<Protocol> findByPayer(String payer) throws DaoException;
+
     List<Protocol> findByData(LocalDate protocolData) throws DaoException;
 
     List<Protocol> findByPatient() throws DaoException;
 
     List<Protocol> findByDoctor() throws DaoException;
+
+
 }

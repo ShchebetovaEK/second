@@ -45,6 +45,18 @@ public class ProtocolServiceImpl implements ProtocolService {
         return protocolList;
     }
 
+    @Override
+    public List<Protocol> findByPayer(String payer) throws ServiceException {
+        List<Protocol> protocolList;
+        try {
+            protocolList = protocolDao.findByPayer(payer);
+        } catch (DaoException e) {
+            logger.error("Failed at ProtocolServiceImpl at method findByPayer ", e);
+            throw new ServiceException("Failed at ProtocolServiceImpl at method findByPayer", e);
+        }
+        return protocolList;
+    }
+
     /**
      * find all protocol by data.
      *

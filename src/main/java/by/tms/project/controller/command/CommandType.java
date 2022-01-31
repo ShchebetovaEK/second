@@ -30,6 +30,7 @@ public enum CommandType {
     ADMIN_TAKE_USER_BY_EMAIL_COMMAND(new AdminTakeUserByEmailCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
     ADMIN_TAKE_USER_BY_BIRTHDAY_COMMAND(new AdminTakeUserByBirthdayCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
     ADMIN_TAKE_ALL_DOCTORS_COMMAND(new AdminTakeAllDoctorsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    ADMIN_TAKE_ALL_PROTOCOLS_COMMAND(new AdminTakeAllProtocolsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     MANAGER_PAGE_COMMAND(new AdminTakeAllUsersCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     /* common */
 

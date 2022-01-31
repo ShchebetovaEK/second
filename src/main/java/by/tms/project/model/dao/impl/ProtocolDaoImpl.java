@@ -32,20 +32,29 @@ public class ProtocolDaoImpl implements ProtocolDao {
              INNER JOIN patients on users.id = patients.users_id
              INNER JOIN doctors on users.id = doctors.users_id
              WHERE protocols.protocol_data=? """;
+
+    private static final String SQL_SELECT_ALL_PROTOCOL_BY_PAYER = """
+            SELECT protocols.protocol_id, protocols.protocol_data,
+             protocols.protocol_payer,protocols.protocol_cost,
+             FROM protocols
+             INNER JOIN patients on users.id = patients.users_id
+             INNER JOIN doctors on users.id = doctors.users_id
+             WHERE protocols.protocol_payer=? """;
+
     private static final String SQL_SELECT_ALL_PROTOCOL_BY_PATIENT = """
              SELECT protocols.protocol_id, protocols.protocol_data,
              protocols.protocol_payer,protocols.protocol_cost,
              FROM protocols
              INNER JOIN patients on users.id = patients.users_id
              INNER JOIN doctors on users.id = doctors.users_id
-             WHERE user.id =?""";
+             WHERE users.id =?""";
     private static final String SQL_SELECT_ALL_PROTOCOL_BY_DOCTOR = """
              SELECT protocols.protocol_id, protocols.protocol_data,
               protocols.protocol_payer,protocols.protocol_cost,
              FROM protocols
              INNER JOIN patients on users.id = patients.users_id
              INNER JOIN doctors on users.id = doctors.users_id
-             WHERE user.id =?""";
+             WHERE users.id =?""";
     private static ProtocolDaoImpl instance;
 
     private ProtocolDaoImpl() {
@@ -82,6 +91,23 @@ public class ProtocolDaoImpl implements ProtocolDao {
         } catch (SQLException e) {
             logger.error("Failed at ProtocolDaoImpl at method findAll", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method findAll", e);
+        }
+        return protocolList;
+    }
+
+    @Override
+    public List<Protocol> findByPayer(String payer) throws DaoException {
+        List<Protocol> protocolList = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PROTOCOL_BY_PAYER)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Protocol protocol = takeProtocolInfo(resultSet);
+                protocolList.add(protocol);
+            }
+        } catch (SQLException e) {
+            logger.error("Failed at ProtocolDaoImpl at method findByPayer", e);
+            throw new DaoException("Failed at ProtocolDaoImpl at method findByPayer", e);
         }
         return protocolList;
     }
