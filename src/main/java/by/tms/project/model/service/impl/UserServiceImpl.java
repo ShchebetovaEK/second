@@ -238,13 +238,13 @@ public class UserServiceImpl implements UserService {
 //                    : INVALID_LOGIN_RESULT;
 //            result = parseBoolean(loginCheckResult) ;
 
-//            boolean loginValid = UserValidatorImpl.getInstance().isLoginValid(login);
+            boolean loginValid = UserValidatorImpl.getInstance().isLoginValid(login);
 //            boolean passwordValid = UserValidatorImpl.getInstance().isPasswordValid(password);
 //            boolean firstNameValid = UserValidatorImpl.getInstance().isFirstNameValid(firstName);
 //            boolean lastNameValid = UserValidatorImpl.getInstance().isLastNameValid(lastName);
 //            boolean strDateValid = UserValidatorImpl.getInstance().isDataBirthdayValid(strData);
 //            boolean addressValid = UserValidatorImpl.getInstance().isAddressValid(address);
-//            boolean phoneNumberValid = UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber);
+            boolean phoneNumberValid = UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber);
 //            boolean emailValid = UserValidatorImpl.getInstance().isEmailValid(email);
 
 //            mapUserCheck = UserValidatorImpl.getInstance().checkUserData(userCheck);
@@ -255,7 +255,7 @@ public class UserServiceImpl implements UserService {
 //            boolean phoneRes = UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber);
 //
 
-//            if (result) {
+            if (phoneNumberValid) {
 
                 Role role = Role.DOCTOR;
                 String passwordHash = PasswordHash.encrypt(password);
@@ -267,7 +267,7 @@ public class UserServiceImpl implements UserService {
 
 //            } else {
 //                logger.debug(" fallll");
-//            }
+            }
 
         } catch (DaoException e) {
             logger.error("Failed at UserServiceImpl at method registerNewUser", e);

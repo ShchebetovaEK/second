@@ -18,18 +18,21 @@ import java.util.List;
 import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class AdminTakeAllUsersCommand
+ */
 public class AdminTakeAllUsersCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private UserService userService = UserServiceImpl.getInstance();
-    private DoctorService doctorService = DoctorServiceImpl.getInstance();
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-//        HttpSession session = request.getSession();
+
         try {
             List<User> userList = userService.findAll();
-//            session.setAttribute(USER_LIST,userList);
             request.setAttribute(USER_LIST, userList);
             router.setPage(USER_MANAGER_PAGE);
         } catch (ServiceException e) {

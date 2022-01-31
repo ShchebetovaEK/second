@@ -12,9 +12,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
 import java.util.Optional;
 
 import static by.tms.project.controller.command.RequestAttribute.OPTIONAL_USER;
+import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
 public class AdminTakeUserByIdCommand implements Command {
 
@@ -31,7 +33,8 @@ public class AdminTakeUserByIdCommand implements Command {
                 Optional<User> optionalUser = userService.findUserById(id);
                 if (optionalUser.isPresent()) {
                     user = optionalUser.get();
-                    request.setAttribute(OPTIONAL_USER, optionalUser);
+
+                    request.setAttribute(USER_LIST, List.of(user));
                 }
             } catch (ServiceException e) {
                 logger.error("Failed at AdminTakeUserByLoginCommand",e);

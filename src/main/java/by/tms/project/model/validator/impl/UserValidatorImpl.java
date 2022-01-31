@@ -1,13 +1,11 @@
 package by.tms.project.model.validator.impl;
 
-import by.tms.project.model.util.property.PropertyLoader;
 import by.tms.project.model.validator.UserValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import static by.tms.project.controller.command.RequestAttribute.LOGIN;
 import static by.tms.project.controller.command.RequestAttribute.PASSWORD;
@@ -15,8 +13,6 @@ import static by.tms.project.controller.command.RequestParameter.*;
 
 public final class UserValidatorImpl implements UserValidator {
     private static final Logger logger = LogManager.getLogger();
-    private static final String PROPERTY_PATH = "message.properties";
-    private static final Properties property = PropertyLoader.getProperty(PROPERTY_PATH);
     private static final String COMMA = ", ";
     private static final String WHITESPACE = " ";
     private static final String LOGIN_REGEX = "^(\\w)[\\w_-]{1,18}(\\w)$";
