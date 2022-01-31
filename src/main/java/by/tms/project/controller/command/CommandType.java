@@ -12,16 +12,16 @@ import java.util.List;
 import static by.tms.project.model.entity.Role.*;
 
 public enum CommandType {
-    GO_TO_WELCOME(new GoToWelcomeCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
-    GO_TO_MAIN(new GotoMainCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    /* move */
     GO_TO_ABOUT_PAGE_COMMAND(new GoToAboutCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     GO_TO_DOCTORS_COMMAND(new GoToDoctorsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    GO_TO_MAIN(new GotoMainCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     GO_TO_PEDIATRIC_COMMAND(new GoToPediatricCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     GO_TO_PRICE_COMMAND(new GoToPriceCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     REGISTRATION_PAGE(new GoToRegistrationCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
-    AUTHENTICATION_PAGE(new AuthenticationCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
-    MANAGER_PAGE_COMMAND(new AdminTakeAllUsersCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
-    AUTHENTICATION_COMMAND(new AuthenticationCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    GO_TO_WELCOME(new GoToWelcomeCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+
+    /* admin */
     ADMIN_PAGE_COMMAND(new AdminTakeAllDoctorsCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
     ADMIN_TAKE_USER_BY_LOGIN_COMMAND(new AdminTakeUserByLoginCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
     ADMIN_TAKE_USER_BY_ID_COMMAND(new AdminTakeUserByIdCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
@@ -30,6 +30,10 @@ public enum CommandType {
     ADMIN_TAKE_USER_BY_EMAIL_COMMAND(new AdminTakeUserByEmailCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
     ADMIN_TAKE_USER_BY_BIRTHDAY_COMMAND(new AdminTakeUserByBirthdayCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
     ADMIN_TAKE_ALL_DOCTORS_COMMAND(new AdminTakeAllDoctorsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    MANAGER_PAGE_COMMAND(new AdminTakeAllUsersCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    /* common */
+
+    AUTHENTICATION_COMMAND(new AuthenticationCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     LOG_IN_PAGE(new LogInCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     LOG_OUT_PAGE(new LogOutCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     CHANGE_LOCALE(new ChangeLocaleCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
