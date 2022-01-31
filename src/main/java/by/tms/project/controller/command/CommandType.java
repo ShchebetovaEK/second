@@ -22,18 +22,22 @@ public enum CommandType {
     GO_TO_WELCOME(new GoToWelcomeCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
 
     /* admin */
-    ADMIN_PAGE_COMMAND(new AdminTakeAllDoctorsCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
-    ADMIN_TAKE_USER_BY_LOGIN_COMMAND(new AdminTakeUserByLoginCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
-    ADMIN_TAKE_USER_BY_ID_COMMAND(new AdminTakeUserByIdCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
-    ADMIN_TAKE_USER_BY_LAST_NAME_COMMAND(new AdminTakeUserByLastNameCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
-    ADMIN_TAKE_USER_BY_FIRST_NAME_COMMAND(new AdminTakeUserByFirstNameCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
-    ADMIN_TAKE_USER_BY_EMAIL_COMMAND(new AdminTakeUserByEmailCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
-    ADMIN_TAKE_USER_BY_BIRTHDAY_COMMAND(new AdminTakeUserByBirthdayCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
+    ADMIN_PAGE_COMMAND(new AdminTakeAllUsersCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
     ADMIN_TAKE_ALL_DOCTORS_COMMAND(new AdminTakeAllDoctorsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    ADMIN_TAKE_ALL_PATIENTS_COMMAND(new AdminTakeAllPatientsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    ADMIN_TAKE_ALL_USERS_COMMAND(new AdminTakeAllUsersCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     ADMIN_TAKE_ALL_PROTOCOLS_COMMAND(new AdminTakeAllProtocolsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    ADMIN_TAKE_PROTOCOL_BY_DATA_COMMAND(new AdminTakeProtocolByDataCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    ADMIN_TAKE_PROTOCOL_BY_PAYER_COMMAND(new AdminTakeProtocolByPayerCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    ADMIN_TAKE_USER_BY_BIRTHDAY_COMMAND(new AdminTakeUserByBirthdayCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
+    ADMIN_TAKE_USER_BY_EMAIL_COMMAND(new AdminTakeUserByEmailCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
+    ADMIN_TAKE_USER_BY_FIRST_NAME_COMMAND(new AdminTakeUserByFirstNameCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
+    ADMIN_TAKE_USER_BY_LAST_NAME_COMMAND(new AdminTakeUserByLastNameCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
+    ADMIN_TAKE_USER_BY_ID_COMMAND(new AdminTakeUserByIdCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
+    ADMIN_TAKE_USER_BY_LOGIN_COMMAND(new AdminTakeUserByLoginCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
+
     MANAGER_PAGE_COMMAND(new AdminTakeAllUsersCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     /* common */
-
     AUTHENTICATION_COMMAND(new AuthenticationCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     LOG_IN_PAGE(new LogInCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     LOG_OUT_PAGE(new LogOutCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
