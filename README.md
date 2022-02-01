@@ -1,14 +1,13 @@
 FINAL PROJECT SCHEME DATABASE - CLINIC
 
----
-Guest role
----
+#User role
+
 *Go to the login page  
 *Authenticate with login and password  
 *Change locale  
 ---
 
-Admin role
+#Admin role
 ___
 *Go to the "main" page  
 *Change locale  
@@ -35,10 +34,6 @@ ___
 *View all protocol's  
 *View protocol   
 -by payer  
-
-
-
-
 ___
 ![CLINIC SCHEME](medicine.png)
 
