@@ -1,7 +1,5 @@
 FINAL PROJECT SCHEME DATABASE - CLINIC
 
- 
----
 #_User role_
 
 *Go to the login page  
@@ -10,7 +8,7 @@ FINAL PROJECT SCHEME DATABASE - CLINIC
 
 #_Admin role_
 ___
-*Go to the "main" page  
+*Go to the "main" page 
 *Change locale  
 *Log out  
 *View all user's  
