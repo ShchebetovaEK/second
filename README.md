@@ -2,13 +2,13 @@ FINAL PROJECT SCHEME DATABASE - CLINIC
 
  
 ---
-#User role
+#_User role_
 
 *Go to the login page  
 *Authenticate with login and password  
 *Change locale
 
-#Admin role
+#_Admin role_
 ___
 *Go to the "main" page  
 *Change locale  
