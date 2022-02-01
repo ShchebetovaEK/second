@@ -1,6 +1,9 @@
 package by.tms.project.controller.command;
 
 import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeAllDoctorsCommand;
+import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeDoctorByCategoryCommand;
+import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeDoctorByExperienceCommand;
+import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeDoctorBySpecialityCommand;
 import by.tms.project.controller.command.impl.admin.select.patient.AdminTakeAllPatientsCommand;
 import by.tms.project.controller.command.impl.admin.select.protocol.AdminTakeAllProtocolsCommand;
 import by.tms.project.controller.command.impl.admin.select.protocol.AdminTakeProtocolByDataCommand;
@@ -29,6 +32,9 @@ public enum CommandType {
     /* admin */
     ADMIN_PAGE_COMMAND(new AdminTakeAllUsersCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
     ADMIN_TAKE_ALL_DOCTORS_COMMAND(new AdminTakeAllDoctorsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    ADMIN_TAKE_DOCTORS_BY_CATEGORY_COMMAND(new AdminTakeDoctorByCategoryCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    ADMIN_TAKE_DOCTORS_BY_EXPERIENCE_COMMAND(new AdminTakeDoctorByExperienceCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    ADMIN_TAKE_DOCTORS_BY_SPECIALITY_COMMAND(new AdminTakeDoctorBySpecialityCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     ADMIN_TAKE_ALL_PATIENTS_COMMAND(new AdminTakeAllPatientsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     ADMIN_TAKE_ALL_USERS_COMMAND(new AdminTakeAllUsersCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     ADMIN_TAKE_ALL_PROTOCOLS_COMMAND(new AdminTakeAllProtocolsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),

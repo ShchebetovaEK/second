@@ -60,7 +60,7 @@
 <%--            <div id="message2"><b>${psw_mismatch_message}</b></div>--%>
 <%--        </c:if>--%>
         <br/><br/>
-        First name: <input type="first_name" id="first_name" class="form-control" name="first_name">
+        First name: <input type="first_name" id="first_name" class="form-control" name="first_name" pattern="">
         <c:choose>
             <c:when test="${invalid_first_name eq 'invalid_message'}">
                 <div id="message4"><b><${invalid_first_name_message}></b></div>
@@ -74,7 +74,7 @@
             </c:when>
         </c:choose>
         <br/><br/>
-        Data birthday: <input type="data_birthday" id="data_birthday" class="form-control" name="data_birthday">
+        Data birthday: <input type="date" id="data_birthday" class="form-control" name="data_birthday">
         <c:choose>
             <c:when test="${invalid_databirthday eq 'invalid_message'}">
                 <div id="message6"><b><${invalid_databirthday_message}></b></div>

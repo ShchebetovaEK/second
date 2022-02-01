@@ -18,7 +18,7 @@ import java.util.Optional;
 
 public class PatientDaoImpl implements PatientDao {
     private static final Logger logger = LogManager.getLogger();
-    private static final String PATIENT = "'patient'";
+    private static final String PATIENT = "patient";
     private static final String SQL_SELECT_ALL_PATIENT = """
             SELECT id,role,login,password,first_name,last_name,
                    data_birthday,address,phone_number,email,
@@ -27,12 +27,12 @@ public class PatientDaoImpl implements PatientDao {
                      INNER JOIN patients on users.id = patients.users_id
             WHERE users.role =?""";
     private static final String SQL_SELECT_PATIENTS_BY_ID = """
-           SELECT id,role,login,password,first_name,last_name,
-                  data_birthday,address,phone_number,email,
-                  insurance,money_account,discount
-           FROM users
-                    INNER JOIN patients on users.id = patients.users_id
-           WHERE users.id =?""";
+            SELECT id,role,login,password,first_name,last_name,
+                   data_birthday,address,phone_number,email,
+                   insurance,money_account,discount
+            FROM users
+            INNER JOIN patients on users.id = patients.users_id
+            WHERE users.id =?""";
 
     //todo
     private static final String SQL_CREATE_PATIENT = """
@@ -60,7 +60,7 @@ public class PatientDaoImpl implements PatientDao {
             FROM users
             INNER JOIN patients on users.id = patients.users_id
             WHERE patients.insurance =?""";
-      private static final String SQL_SELECT_PATIENTS_BY_MONEY_ACCOUNT = """
+    private static final String SQL_SELECT_PATIENTS_BY_MONEY_ACCOUNT = """
             SELECT id,role,login,password,first_name,last_name,
                    data_birthday,address,phone_number,email,
                    insurance,money_account,discount
@@ -90,6 +90,7 @@ public class PatientDaoImpl implements PatientDao {
 
     /**
      * Get instance
+     *
      * @return instance.
      */
     public static PatientDao getInstance() {
@@ -101,6 +102,7 @@ public class PatientDaoImpl implements PatientDao {
 
     /**
      * find all patients.
+     *
      * @return patientList.
      * @throws DaoException
      */
@@ -109,10 +111,12 @@ public class PatientDaoImpl implements PatientDao {
         List<Patient> patientList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PATIENT)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Patient patient = takePatientInfo(resultSet);
-                patientList.add(patient);
+            preparedStatement.setString(1, PATIENT);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Patient patient = takePatientInfo(resultSet);
+                    patientList.add(patient);
+                }
             }
         } catch (SQLException e) {
             logger.error("Failed at PatientDaoImpl at method findAll", e);
@@ -123,6 +127,7 @@ public class PatientDaoImpl implements PatientDao {
 
     /**
      * find patient with same id.
+     *
      * @param id
      * @return optionalPatient.
      * @throws DaoException
@@ -147,6 +152,7 @@ public class PatientDaoImpl implements PatientDao {
 
     /**
      * create patient.
+     *
      * @param entity
      * @return the boolean.
      * @throws DaoException
@@ -166,18 +172,20 @@ public class PatientDaoImpl implements PatientDao {
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());
-            preparedStatement.setBoolean(10,entity.isInsurance());
-            preparedStatement.setBigDecimal(11,entity.getMoneyAccount());
-            preparedStatement.setInt(12,entity.getDiscount());
+            preparedStatement.setBoolean(10, entity.isInsurance());
+            preparedStatement.setBigDecimal(11, entity.getMoneyAccount());
+            preparedStatement.setInt(12, entity.getDiscount());
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Failed at PatientDaoImpl at method create", e);
             throw new DaoException("Failed at PatientDaoImpl at method create", e);
         }
-        return (result > 0); }
+        return (result > 0);
+    }
 
     /**
      * update patient.
+     *
      * @param entity
      * @return the boolean.
      * @throws DaoException
@@ -197,9 +205,9 @@ public class PatientDaoImpl implements PatientDao {
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());
-            preparedStatement.setBoolean(10,entity.isInsurance());
-            preparedStatement.setBigDecimal(11,entity.getMoneyAccount());
-            preparedStatement.setInt(12,entity.getDiscount());
+            preparedStatement.setBoolean(10, entity.isInsurance());
+            preparedStatement.setBigDecimal(11, entity.getMoneyAccount());
+            preparedStatement.setInt(12, entity.getDiscount());
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Failed at PatientDaoImpl at method update", e);
@@ -210,6 +218,7 @@ public class PatientDaoImpl implements PatientDao {
 
     /**
      * delete patient with same id.
+     *
      * @param id
      * @return the boolean.
      * @throws DaoException
@@ -230,6 +239,7 @@ public class PatientDaoImpl implements PatientDao {
 
     /**
      * delete patient.
+     *
      * @param entity
      * @return the boolean.
      * @throws DaoException
@@ -250,6 +260,7 @@ public class PatientDaoImpl implements PatientDao {
 
     /**
      * find patient with insurance.
+     *
      * @param insurance
      * @return patientList.
      * @throws DaoException
@@ -275,6 +286,7 @@ public class PatientDaoImpl implements PatientDao {
 
     /**
      * find patient with minimum money in account.
+     *
      * @param moneyAccount
      * @return patientLIst.
      * @throws DaoException
@@ -300,6 +312,7 @@ public class PatientDaoImpl implements PatientDao {
 
     /**
      * Find patient with maxmimum discount.
+     *
      * @param discount
      * @return patientList.
      * @throws DaoException
@@ -325,6 +338,7 @@ public class PatientDaoImpl implements PatientDao {
 
     /**
      * find patient with same login.
+     *
      * @param login
      * @return optionalpatient.
      * @throws DaoException
@@ -350,12 +364,12 @@ public class PatientDaoImpl implements PatientDao {
     public Patient takePatientInfo(ResultSet resultSet) throws SQLException {
         return (new Patient.PatientBuilder()
                 .setId(resultSet.getLong(ColumnName.USERS_ID))
-                .setRole(Role.valueOf(resultSet.getString(ColumnName.USERS_ROLE)))
+                .setRole(Role.valueOf(resultSet.getString(ColumnName.USERS_ROLE).toUpperCase()))
                 .setLogin(resultSet.getString(ColumnName.USERS_LOGIN))
                 .setPassword(resultSet.getString(ColumnName.USERS_PASSWORD))
                 .setFirstName(resultSet.getString(ColumnName.USERS_FIRST_NAME))
                 .setLastName(resultSet.getString(ColumnName.USERS_LAST_NAME))
-//                .setDataBirthday(LocalDate.parse(resultSet.getString(ColumnName.USERS_DATA_BIRTHDAY)))
+                .setDataBirthday(Date.valueOf(resultSet.getString(ColumnName.USERS_DATA_BIRTHDAY)))
                 .setAddress(resultSet.getString(ColumnName.USERS_ADDRESS))
                 .setPhoneNumber(resultSet.getString(ColumnName.USERS_PHONE_NUMBER))
                 .setEmail(resultSet.getString(ColumnName.USERS_EMAIL))

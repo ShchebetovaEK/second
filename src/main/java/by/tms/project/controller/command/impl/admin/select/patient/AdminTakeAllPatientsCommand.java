@@ -14,8 +14,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
-import static by.tms.project.controller.command.RequestAttribute.PATIENTS_LIST;
-import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
+import static by.tms.project.controller.command.RequestAttribute.*;
 
 public class AdminTakeAllPatientsCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
@@ -25,8 +24,9 @@ public class AdminTakeAllPatientsCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         try {
-            List<Patient> patientList = patientService.findAll();
-            request.setAttribute(USER_LIST, patientList);
+            List<Patient> userList = patientService.findAll();
+            request.setAttribute(USER_LIST, userList);
+            request.setAttribute(PATIENT,Boolean.TRUE);
             router.setPage(USER_MANAGER_PAGE);
         } catch (ServiceException e) {
             logger.error("Failed at AdminTakeAllPatientsCommand");

@@ -14,6 +14,13 @@ public final class RequestParameter {
     public static final String ADDRESS = "address";
     public static final String PHONE_NUMBER = "phone_number";
     public static final String EMAIL = "email";
+
+
+
+    /*doctor*/
+    public static final String CATEGORY = "category";
+    public static final String EXPERIENCE = "experience";
+    public static final String SPECIALITY = "speciality";
     /*protocol*/
     public static final String PAYER = "payer";
 

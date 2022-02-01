@@ -165,7 +165,7 @@ public class Doctor extends User {
             doctor.setSpeciality(speciality);
             return this;
         }
-        //todo
+
 
         public Doctor buildDoctor() {
             return doctor;

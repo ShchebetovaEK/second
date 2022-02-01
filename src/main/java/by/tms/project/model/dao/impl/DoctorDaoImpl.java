@@ -12,11 +12,12 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 public class DoctorDaoImpl implements DoctorDao {
     private static final Logger logger = LogManager.getLogger();
-    private static final String DOCTOR = "'doctor'";
+    private static final String DOCTOR = "doctor";
     private static final String SQL_SELECT_ALL_DOCTORS = """
             SELECT id,role,login,password,first_name,last_name,
             data_birthday,address,phone_number,email,
@@ -270,7 +271,7 @@ public class DoctorDaoImpl implements DoctorDao {
         List<Doctor> doctorList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_DOCTORS_CATEGORY)) {
-            preparedStatement.setString(1, String.valueOf(category));
+            preparedStatement.setString(1, category.name());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     Doctor doctor = takeDoctorInfo(resultSet);
@@ -297,7 +298,7 @@ public class DoctorDaoImpl implements DoctorDao {
         List<Doctor> doctorList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_DOCTORS_EXPERIENCE)) {
-            preparedStatement.setString(1, String.valueOf(experience));
+            preparedStatement.setString(1, experience.name());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     Doctor doctor = takeDoctorInfo(resultSet);
@@ -323,8 +324,8 @@ public class DoctorDaoImpl implements DoctorDao {
         List<Doctor> doctorList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_DOCTORS_SPECIALITY)) {
-            String specStr = speciality.name(); // FIXME: 24.01.2022 
-            preparedStatement.setString(1, specStr);
+//            String specStr = speciality.name(); // FIXME: 24.01.2022
+            preparedStatement.setString(1, speciality.name());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     Doctor doctor = takeDoctorInfo(resultSet);
@@ -366,18 +367,18 @@ public class DoctorDaoImpl implements DoctorDao {
     public Doctor takeDoctorInfo(ResultSet resultSet) throws SQLException {
         return (new Doctor.DoctorBuilder()
                 .setId(resultSet.getLong(ColumnName.USERS_ID))
-                .setRole(Role.valueOf(resultSet.getString(ColumnName.USERS_ROLE)))
+                .setRole(Role.valueOf(resultSet.getString(ColumnName.USERS_ROLE).toUpperCase()))
                 .setLogin(resultSet.getString(ColumnName.USERS_LOGIN))
                 .setPassword(resultSet.getString(ColumnName.USERS_PASSWORD))
                 .setFirstName(resultSet.getString(ColumnName.USERS_FIRST_NAME))
                 .setLastName(resultSet.getString(ColumnName.USERS_LAST_NAME))
-//                .setDataBirthday(LocalDate.parse(resultSet.getString(ColumnName.USERS_DATA_BIRTHDAY)))
+                .setDataBirthday(Date.valueOf(resultSet.getString(ColumnName.USERS_DATA_BIRTHDAY)))
                 .setAddress(resultSet.getString(ColumnName.USERS_ADDRESS))
                 .setPhoneNumber(resultSet.getString(ColumnName.USERS_PHONE_NUMBER))
                 .setEmail(resultSet.getString(ColumnName.USERS_EMAIL))
-                .setCategory(Category.valueOf(resultSet.getString(ColumnName.DOCTORS_CATEGORY)))
-                .setExperience(Experience.valueOf(resultSet.getString(ColumnName.DOCTORS_EXPERIENCE)))
-                .setSpeciality(Speciality.valueOf(resultSet.getString(ColumnName.DOCTORS_SPECIALITY)))
+                .setCategory(Category.valueOf(resultSet.getString(ColumnName.DOCTORS_CATEGORY).toUpperCase()))
+                .setExperience(Experience.valueOf(resultSet.getString(ColumnName.DOCTORS_EXPERIENCE).toUpperCase()))
+                .setSpeciality(Speciality.valueOf(resultSet.getString(ColumnName.DOCTORS_SPECIALITY).toUpperCase()))
                 .buildDoctor());
     }
 }

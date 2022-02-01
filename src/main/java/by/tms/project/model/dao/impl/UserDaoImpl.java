@@ -937,7 +937,7 @@ public class UserDaoImpl implements UserDao {
                 .setPassword(resultSet.getString(ColumnName.USERS_PASSWORD))
                 .setFirstName(resultSet.getString(ColumnName.USERS_FIRST_NAME))
                 .setLastName(resultSet.getString(ColumnName.USERS_LAST_NAME))
-                //     .setDataBirthday(Date.parse(resultSet.getString(ColumnName.USERS_DATA_BIRTHDAY)))
+                .setDataBirthday(Date.valueOf((resultSet.getString(ColumnName.USERS_DATA_BIRTHDAY))))
                 .setAddress(resultSet.getString(ColumnName.USERS_ADDRESS))
                 .setPhoneNumber(resultSet.getString(ColumnName.USERS_PHONE_NUMBER))
                 .setEmail(resultSet.getString(ColumnName.USERS_EMAIL))

@@ -212,9 +212,11 @@ public class UserServiceImpl implements UserService {
 //        String confirmPassword = userCheck.get(CONFIRM_PASSWORD);
         String firstName = userCheck.get(FIRST_NAME);
         String lastName = userCheck.get(LAST_NAME);
+//        String strData = userCheck.get(DATA_BIRTHDAY);//"2011-11-11";//"userCheck.get(DATA_BIRTHDAY)";
         String strData = userCheck.get(DATA_BIRTHDAY);//"2011-11-11";//"userCheck.get(DATA_BIRTHDAY)";
-        Instant instant = Instant.parse(strData + "T00:00:00.00Z");
-        Date dataBirthday = Date.from(instant);
+//        Instant instant = Instant.parse(strData + "T00:00:00.00Z");
+//        Date dataBirthday = Date.from(instant);
+        Date dataBirthday = java.sql.Date.valueOf(strData);
         //   java.sql.Date dataBirthday = new java.sql.Date(today.getTime());//
         String address = userCheck.get(ADDRESS);
         String phoneNumber = userCheck.get(PHONE_NUMBER);

@@ -21,10 +21,10 @@
 <%--</form>--%>
 <%----%>
 
-<%--<form action="jsp/main/user_manager.jsp">--%>
-<%--    <input type="submit" value="user_manager"/>--%>
-<%--</form>--%>
-
+<form action="jsp/main/user_manager.jsp">
+    <input type="submit" value="user_manager"/>
+</form>
+<%----%>
 <%--<form action="jsp/main/admin.jsp">--%>
 <%--    <input type="submit" value="doctor"/>--%>
 <%--</form>--%>
