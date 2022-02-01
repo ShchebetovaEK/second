@@ -2,6 +2,11 @@ package by.tms.project.model.validator.impl;
 
 import by.tms.project.model.validator.LocaleValidator;
 
+/**
+ * @author SchebetovaEk
+ *
+ * class LocaleValidatorImpl
+ */
 public class LocaleValidatorImpl  implements LocaleValidator {
     private static final String ENGLISH_LOCALE = "en_US";
     private static final String RUSSIAN_LOCALE = "ru_RU";

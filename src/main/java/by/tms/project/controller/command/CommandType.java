@@ -1,6 +1,11 @@
 package by.tms.project.controller.command;
 
-import by.tms.project.controller.command.impl.admin.*;
+import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeAllDoctorsCommand;
+import by.tms.project.controller.command.impl.admin.select.patient.AdminTakeAllPatientsCommand;
+import by.tms.project.controller.command.impl.admin.select.protocol.AdminTakeAllProtocolsCommand;
+import by.tms.project.controller.command.impl.admin.select.protocol.AdminTakeProtocolByDataCommand;
+import by.tms.project.controller.command.impl.admin.select.protocol.AdminTakeProtocolByPayerCommand;
+import by.tms.project.controller.command.impl.admin.select.user.*;
 import by.tms.project.controller.command.impl.common.*;
 import by.tms.project.controller.command.impl.move.*;
 import by.tms.project.controller.command.impl.user.ChangeUserPersonalCommand;

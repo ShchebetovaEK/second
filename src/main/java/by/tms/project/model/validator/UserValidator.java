@@ -20,5 +20,5 @@ public interface UserValidator {
 
     boolean isPhoneNumberValid(String phoneNumber);
 
-    Map<String, String> checkUserData(Map<String, String> userData);
+    boolean checkUserData(Map<String, String> userData);
 }

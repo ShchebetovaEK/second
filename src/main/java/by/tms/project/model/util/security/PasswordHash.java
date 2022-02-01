@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @author ShchebetovaEK
- * <p>
+ *
  * final class PasswordHash
  */
 public final class PasswordHash {

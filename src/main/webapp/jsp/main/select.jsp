@@ -17,15 +17,34 @@
 <body>
 
 
-<%-- <form action="${abs}/controller" method="get">--%>
-<%--     <input type="hidden" name="command" value="manager_page_command">--%>
-<%--     <input type="submit" >--%>
-<%-- </form>--%>
+ <form action="${abs}/controller" method="get">
+     <input type="hidden" name="command" value="manager_page_command">
+  click to view all users   <input type="submit" >
+ </form>
 
 
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_take_user_by_login_command">
-    please, input desired login: <input type="text" name="login" >
+    please, input desired Login: <input type="text" name="login" >
+    <input type="submit" >
+</form>
+
+<form action="${abs}/controller" method="get">
+    <input type="hidden" name="command" value="admin_take_user_by_first_name_command">
+    please, input desired First Name: <input type="text" name="first_name" >
+    <input type="submit" >
+</form>
+
+
+<form action="${abs}/controller" method="get">
+    <input type="hidden" name="command" value="admin_take_user_by_last_name_command">
+    please, input desired Last Name: <input type="text" name="last_name" >
+    <input type="submit" >
+</form>
+
+<form action="${abs}/controller" method="get">
+    <input type="hidden" name="command" value="admin_take_user_by_id_command">
+    please, input desired id: <input type="text" name="id" >
     <input type="submit" >
 </form>
 
@@ -42,20 +61,20 @@
 
 
     </tr>
-${optional_user}
-<%--    <c:forEach items="${users}" var="user">--%>
-<%--        <tr>--%>
-<%--            <td>${user.id}</td>--%>
-<%--            <td>${user.role}</td>--%>
-<%--            <td>${user.login}</td>--%>
-<%--            <td>${user.firstName}</td>--%>
-<%--            <td>${user.lastName}</td>--%>
-<%--            <td>${user.address}</td>--%>
-<%--            <td>${user.email}</td>--%>
-<%--            <td>${user.phoneNumber}</td>--%>
-<%----%>
-<%--        </tr>--%>
-<%--    </c:forEach>--%>
+
+    <c:forEach items="${users}" var="user">
+        <tr>
+            <td>${user.id}</td>
+            <td>${user.role}</td>
+            <td>${user.login}</td>
+            <td>${user.firstName}</td>
+            <td>${user.lastName}</td>
+            <td>${user.address}</td>
+            <td>${user.email}</td>
+            <td>${user.phoneNumber}</td>
+
+        </tr>
+    </c:forEach>
 
 </table>
 <script src="../../js/bootstrap.bundle.min.js"></script>

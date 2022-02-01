@@ -1,4 +1,4 @@
-package by.tms.project.controller.command.impl.admin;
+package by.tms.project.controller.command.impl.admin.select.patient;
 
 import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.Router;

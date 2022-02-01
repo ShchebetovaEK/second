@@ -29,6 +29,10 @@
     <input type="submit" value="doctor"/>
 </form>
 
+<form action="jsp/main/admin.jsp">
+    <input type="submit" value="patients"/>
+</form>
+
 <form action="jsp/main/select.jsp">
     <input type="submit" value="select"/>
 </form>

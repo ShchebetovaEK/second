@@ -57,6 +57,8 @@
  </table>
 
 
+<a href="${pageContext.request.contextPath}/jsp/main/select.jsp">Back to select page</a>
+
  <script src="../../js/bootstrap.bundle.min.js"></script>
  </body>
 </html>

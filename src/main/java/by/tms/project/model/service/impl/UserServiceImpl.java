@@ -220,95 +220,33 @@ public class UserServiceImpl implements UserService {
         String phoneNumber = userCheck.get(PHONE_NUMBER);
         String email = userCheck.get(EMAIL);
 
-//        mapUserCheck.put(LOGIN,login);
-//        mapUserCheck.put(PASSWORD,password);
-//        mapUserCheck.put(FIRST_NAME,firstName);
-//        mapUserCheck.put(LAST_NAME,lastName);
-//        mapUserCheck.put(DATA_BIRTHDAY,strData);
-//        mapUserCheck.put(ADDRESS, address);
-//        mapUserCheck.put(PHONE_NUMBER,phoneNumber);
-//        mapUserCheck.put(EMAIL,email);
-
-
-
+        mapUserCheck.put(LOGIN, login);
+        mapUserCheck.put(PASSWORD, password);
+        mapUserCheck.put(FIRST_NAME, firstName);
+        mapUserCheck.put(LAST_NAME, lastName);
+        mapUserCheck.put(DATA_BIRTHDAY, strData);
+        mapUserCheck.put(ADDRESS, address);
+        mapUserCheck.put(PHONE_NUMBER, phoneNumber);
+        mapUserCheck.put(EMAIL, email);
 
         try {
-//            String loginCheckResult = UserValidatorImpl.getInstance().isLoginValid(login)
-//                    ? (!userDao.ifExistByLogin(login) ? TRUE : NOT_UNIQUE_LOGIN_RESULT)
-//                    : INVALID_LOGIN_RESULT;
-//            result = parseBoolean(loginCheckResult) ;
-
-            boolean loginValid = UserValidatorImpl.getInstance().isLoginValid(login);
-//            boolean passwordValid = UserValidatorImpl.getInstance().isPasswordValid(password);
-//            boolean firstNameValid = UserValidatorImpl.getInstance().isFirstNameValid(firstName);
-//            boolean lastNameValid = UserValidatorImpl.getInstance().isLastNameValid(lastName);
-//            boolean strDateValid = UserValidatorImpl.getInstance().isDataBirthdayValid(strData);
-//            boolean addressValid = UserValidatorImpl.getInstance().isAddressValid(address);
-            boolean phoneNumberValid = UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber);
-//            boolean emailValid = UserValidatorImpl.getInstance().isEmailValid(email);
-
-//            mapUserCheck = UserValidatorImpl.getInstance().checkUserData(userCheck);
-//           String phoneNumberResult = UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber) ? TRUE : FALSE;
-//            boolean phoneNumberCheckResult = UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber);
-//            boolean emailCheckResult = UserValidatorImpl.getInstance().isEmailValid(email);
-//            boolean result = parseBoolean(phoneNumberResult);
-//            boolean phoneRes = UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber);
-//
-
-            if (phoneNumberValid) {
-
-                Role role = Role.DOCTOR;
+            result = UserValidatorImpl.getInstance().checkUserData(mapUserCheck);
+            if (result) {
+                Role role = Role.PATIENT;
                 String passwordHash = PasswordHash.encrypt(password);
                 User user = new User(role, login, passwordHash, firstName, lastName, dataBirthday, address, phoneNumber, email);
                 userDao.create(user);
-//                return true;
-//            return  false;
-//                result = true;
-
-//            } else {
-//                logger.debug(" fallll");
             }
 
         } catch (DaoException e) {
             logger.error("Failed at UserServiceImpl at method registerNewUser", e);
             throw new ServiceException("Failed at UserServiceImpl at method registerNewUser", e);
-        }
-        catch (IllegalArgumentException e ){
-            logger.error("",e);
+        } catch (IllegalArgumentException e) {
+            logger.error("IllegalArgumentException at UserServiceImpl in registerNewUser ", e);
             return false;
         }
         return true;
     }
-
-//    }
-//            String loginCheckResult = UserValidatorImpl.getInstance().isLoginValid(login)
-//                    ? (!userDao.ifExistByLogin(login) ? TRUE : NOT_UNIQUE_LOGIN_RESULT)
-//                    : INVALID_LOGIN_RESULT;
-//            String passwordCheckResult = UserValidatorImpl.getInstance().isPasswordValid(password)
-//                    ? (!password.equals(confirmPassword)? TRUE : PASSWORD_MISMATCH)
-//                    : INVALID_PASSPORT_RESULT;
-
-
-//            if(result){
-//                Role role = Role.PATIENT;
-//                String passwordHash = PasswordHash.encrypt(password);
-//                User user = new User(role,login,passwordHash,email,phoneNumber);
-//                userDao.create(user);
-//            }
-//                if (mapUserCheck.isEmpty()) {
-//                Role role = Role.PATIENT;
-//                String passwordHash = PasswordHash.encrypt(password);
-//                User user = new User(role,login, passwordHash, firstName, lastName, dataBirthday, address, phoneNumber, email);
-//                userDao.create(user);
-//            }
-
-//        } catch (DaoException e) {
-//            logger.log(Level.ERROR, " ", e);
-//            throw new ServiceException(" ", e);
-//
-//        }
-
-//    }
 
     /**
      * update user's first name by id.

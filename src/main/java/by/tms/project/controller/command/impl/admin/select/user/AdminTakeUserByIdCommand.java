@@ -1,4 +1,4 @@
-package by.tms.project.controller.command.impl.admin;
+package by.tms.project.controller.command.impl.admin.select.user;
 
 import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.RequestParameter;
@@ -12,14 +12,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static by.tms.project.controller.command.RequestAttribute.OPTIONAL_USER;
+import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
+/**
+ * @author ShchebetovaEk
+ *
+ * class AdminTakeUserByIdCommand
+ */
 public class AdminTakeUserByIdCommand implements Command {
-
         private static final Logger logger = LogManager.getLogger();
         private UserService userService = UserServiceImpl.getInstance();
 
@@ -27,14 +32,15 @@ public class AdminTakeUserByIdCommand implements Command {
         public Router execute(HttpServletRequest request) throws CommandException {
             Router router = new Router();
             User user;
-            //todo
             Long id = Long.valueOf(request.getParameter(RequestParameter.ID));
             try {
                 Optional<User> optionalUser = userService.findUserById(id);
                 if (optionalUser.isPresent()) {
                     user = optionalUser.get();
-
-                    request.setAttribute(USER_LIST, List.of(user));
+                    List<User> userList = new ArrayList<>();
+                    userList.add(user);
+                    request.setAttribute(USER_LIST, userList);
+                    router.setPage(USER_MANAGER_PAGE);
                 }
             } catch (ServiceException e) {
                 logger.error("Failed at AdminTakeUserByLoginCommand",e);

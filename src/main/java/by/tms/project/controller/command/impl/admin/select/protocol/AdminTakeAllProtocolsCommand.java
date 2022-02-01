@@ -1,4 +1,4 @@
-package by.tms.project.controller.command.impl.admin;
+package by.tms.project.controller.command.impl.admin.select.protocol;
 
 import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.Router;
@@ -20,13 +20,11 @@ import static by.tms.project.controller.command.RequestAttribute.PROTOCOL_LIST;
 
 public class AdminTakeAllProtocolsCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private UserService userService = UserServiceImpl.getInstance();
-    private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
+       private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-
         try {
             List<Protocol> protocolList = protocolService.findAll();
             request.setAttribute(PROTOCOL_LIST, protocolList);

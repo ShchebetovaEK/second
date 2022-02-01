@@ -40,17 +40,7 @@ public class RegistrationCommand implements Command {
         try {
             boolean registration = userService.registerNewUser(checkData);
             router.setPage(registration ? WELCOME_PAGE : REGISTRATION_PAGE);
-//            Map<String, String> registrationMap = userService.registerNewUser(checkData);
-
-//            router.setPage(registrationMap.isEmpty() ? ACCOUNT_PAGE : REGISTRATION_PAGE);
-//            if (!registrationMap.isEmpty()) {
-//                for (String key : checkData.keySet()) {
-//                    String validation = checkData.get(key);
-//                    request.setAttribute(key, validation);
-//                    logger.debug("validation result" + key + "-" + validation);
-//                }
-//            }
-            return router;
+           return router;
         } catch (ServiceException e) {
             logger.error("Failed at RegistrationCommand", e);
             throw new CommandException("Failed at RegistrationCommand", e);
