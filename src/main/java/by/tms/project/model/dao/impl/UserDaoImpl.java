@@ -317,16 +317,17 @@ public class UserDaoImpl implements UserDao {
      * find user with same login and password.
      *
      * @param login
-     * @param password
+     * @param passwordHash
      * @return optionalList.
      * @throws DaoException
      */
     @Override
-    public Optional<User> findByLoginAndPassword(String login, String password) throws DaoException {
+    public Optional<User> findByLoginAndPassword(String login, String passwordHash) throws DaoException {
         Optional<User> optionalUser = Optional.empty();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_LOGIN_AND_PASSWORD)) {
             preparedStatement.setString(1, login);
+            preparedStatement.setString(2,passwordHash);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     optionalUser = Optional.of(takeUserInfo(resultSet));

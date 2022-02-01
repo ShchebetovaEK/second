@@ -44,7 +44,7 @@ public enum CommandType {
     MANAGER_PAGE_COMMAND(new AdminTakeAllUsersCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     /* common */
     AUTHENTICATION_COMMAND(new AuthenticationCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
-    LOG_IN_PAGE(new LogInCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    LOG_IN_COMMAND(new LogInCommand(),List.of(ADMIN, PATIENT, DOCTOR)),
     LOG_OUT_PAGE(new LogOutCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     CHANGE_LOCALE(new ChangeLocaleCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     NOT_EXIST_COMMAND(new NotExistCommand(), List.of(ADMIN, PATIENT, DOCTOR)),

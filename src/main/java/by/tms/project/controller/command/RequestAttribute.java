@@ -4,6 +4,11 @@ public final class RequestAttribute {
 
     public static final String CURRENT_PAGE = "current_page";
     public static final String USER = "user";
+    public static final String ADMIN = "admin";
+    public static final String PATIENT = "patient";
+    public static final String DOCTOR = "doctor";
+
+
     public static final String USER_LIST = "users";
     public static final String DOCTORS_LIST = "doctors";
     public static final String PATIENTS_LIST = "patients";

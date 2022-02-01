@@ -66,8 +66,8 @@ public class UserServiceImpl implements UserService {
         Optional<User> optionalUser = Optional.empty();
         try {
             if (UserValidatorImpl.getInstance().isLoginValid(login) && UserValidatorImpl.getInstance().isPasswordValid(password)) {
-                String passwordSalt = PasswordEncryptor.encrypt(password);
-                optionalUser = userDao.findByLoginAndPassword(login, passwordSalt);
+                String passwordHash = PasswordHash.encrypt(password);
+                optionalUser = userDao.findByLoginAndPassword(login, passwordHash);
             }
         } catch (DaoException e) {
             logger.error("Failed at UserServiceImpl at method findUserByLoginAndPassword", e);
