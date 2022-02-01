@@ -18,6 +18,7 @@ ___
 -by first name  
 -by last name  
 -by email  
+*Registration new Admin
   
 *View all doctor's  
 *View doctor  
