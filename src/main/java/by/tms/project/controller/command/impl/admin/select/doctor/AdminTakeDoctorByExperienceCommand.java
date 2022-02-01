@@ -19,11 +19,21 @@ import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.DOCTOR;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
+/**
+ * @author ShchebetovaEK
+ *
+ *  class AdminTakeDoctorByExperienceCommand
+ */
 public class AdminTakeDoctorByExperienceCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();
     private DoctorService doctorService = DoctorServiceImpl.getInstance();
-
+    /**
+     *
+     * @param request the request
+     * @return  the router.
+     * @throws CommandException
+     */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();

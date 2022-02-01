@@ -17,9 +17,21 @@ import java.util.List;
 import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
+/**
+ * @author ShchebetovaEK
+ *
+ *  class UserManagerCommand
+ */
 public class UserManagerCommand implements Command {
     public static final Logger logger = LogManager.getLogger();
     private UserService userService = UserServiceImpl.getInstance();
+
+    /**
+     *
+     * @param request the request
+     * @return the router.
+     * @throws CommandException
+     */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
 

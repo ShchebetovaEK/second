@@ -29,7 +29,12 @@ public class AdminTakePatientByLoginCommand implements Command {
     public static final Logger logger = LogManager.getLogger();
     private PatientService patientService = PatientServiceImpl.getInstance();
 
-
+    /**
+     *
+     * @param request the request
+     * @return  the router.
+     * @throws CommandException
+     */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();

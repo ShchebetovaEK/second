@@ -9,7 +9,19 @@ import static by.tms.project.controller.command.PagePath.ERROR_404_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.WRONG_COMMAND;
 import static java.lang.Boolean.TRUE;
 
+/**
+ * @author ShchebetovaEK
+ *
+ *  class NotExistCommand
+ */
 public class NotExistCommand implements Command {
+
+    /**
+     *
+     * @param request the request
+     * @return the router.
+     * @throws CommandException
+     */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
        Router router = new Router();

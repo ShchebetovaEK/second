@@ -5,7 +5,9 @@ import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeDocto
 import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeDoctorByExperienceCommand;
 import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeDoctorBySpecialityCommand;
 import by.tms.project.controller.command.impl.admin.select.patient.AdminTakeAllPatientsCommand;
+import by.tms.project.controller.command.impl.admin.select.patient.AdminTakePatientByDiscountCommand;
 import by.tms.project.controller.command.impl.admin.select.patient.AdminTakePatientByInsuranceCommand;
+import by.tms.project.controller.command.impl.admin.select.patient.AdminTakePatientByLoginCommand;
 import by.tms.project.controller.command.impl.admin.select.protocol.AdminTakeAllProtocolsCommand;
 import by.tms.project.controller.command.impl.admin.select.protocol.AdminTakeProtocolByDataCommand;
 import by.tms.project.controller.command.impl.admin.select.protocol.AdminTakeProtocolByPayerCommand;
@@ -36,8 +38,11 @@ public enum CommandType {
     ADMIN_TAKE_DOCTORS_BY_CATEGORY_COMMAND(new AdminTakeDoctorByCategoryCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     ADMIN_TAKE_DOCTORS_BY_EXPERIENCE_COMMAND(new AdminTakeDoctorByExperienceCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     ADMIN_TAKE_DOCTORS_BY_SPECIALITY_COMMAND(new AdminTakeDoctorBySpecialityCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+
     ADMIN_TAKE_ALL_PATIENTS_COMMAND(new AdminTakeAllPatientsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     ADMIN_TAKE_ALL_PATIENTS_BY_INSURANCE_COMMAND(new AdminTakePatientByInsuranceCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    ADMIN_TAKE_ALL_PATIENTS_BY_DISCOUNT_COMMAND(new AdminTakePatientByDiscountCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    ADMIN_TAKE_ALL_PATIENTS_BY_LOGIN_COMMAND(new AdminTakePatientByLoginCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
 
     ADMIN_TAKE_ALL_USERS_COMMAND(new AdminTakeAllUsersCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     ADMIN_TAKE_ALL_PROTOCOLS_COMMAND(new AdminTakeAllProtocolsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),

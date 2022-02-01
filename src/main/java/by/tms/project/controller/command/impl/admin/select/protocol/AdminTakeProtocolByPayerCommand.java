@@ -19,11 +19,23 @@ import java.util.List;
 import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.PROTOCOL_LIST;
 
+/**
+ * @author ShchebetovaEK
+ *
+ *  class AdminTakeProtocolByPayerCommand
+ */
 public class AdminTakeProtocolByPayerCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private UserService userService = UserServiceImpl.getInstance();
     private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
 
+
+    /**
+     *
+     * @param request the request
+     * @return  the router.
+     * @throws CommandException
+     */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();

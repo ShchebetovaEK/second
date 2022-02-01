@@ -19,15 +19,25 @@ import static by.tms.project.controller.command.PagePath.MAIN_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.*;
 import static by.tms.project.controller.command.RequestParameter.LOGIN;
 import static by.tms.project.controller.command.RequestParameter.PASSWORD;
-
 import static by.tms.project.controller.command.Router.RouteType.REDIRECT;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
+/**
+ * @author ShchebetovaEK
+ *
+ *  class AuthenticationCommand
+ */
 public class AuthenticationCommand implements Command {
     public static final Logger logger = LogManager.getLogger();
     private UserService userService = UserServiceImpl.getInstance();
 
+    /**
+     *
+     * @param request the request
+     * @return the router.
+     * @throws CommandException
+     */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();

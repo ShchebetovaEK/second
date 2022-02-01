@@ -3,7 +3,6 @@ package by.tms.project.controller.command.impl.common;
 import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
-import by.tms.project.model.validator.LocaleValidator;
 import by.tms.project.model.validator.impl.LocaleValidatorImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -13,9 +12,20 @@ import org.apache.logging.log4j.Logger;
 import static by.tms.project.controller.command.RequestAttribute.CURRENT_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.SESSION_LOCALE;
 
+/**
+ * @author ShchebetovaEK
+ *
+ *  class ChangeLocaleCommand
+ */
 public class ChangeLocaleCommand implements Command {
   public static final Logger logger = LogManager.getLogger();
 
+    /**
+     *
+     * @param request the request
+     * @return the router.
+     * @throws CommandException
+     */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();

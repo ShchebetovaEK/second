@@ -20,24 +20,25 @@
     <input type="hidden" name="command" value="admin_take_all_patients_command">
     <input type="submit"  name="patient">
 </form>
-
-<%--<form action="${abs}/controller" method="get">--%>
-<%--    <input type="hidden" name="command" value="admin_take_doctors_by_category_command">--%>
-<%--    please, input desired category: <input type="text" name="category" value="category" >--%>
-<%--    <input type="submit" >--%>
-<%--</form>--%>
-<%----%>
-<%--<form action="${abs}/controller" method="get">--%>
-<%--    <input type="hidden" name="command" value="admin_take_doctors_by_experience_command">--%>
-<%--    please, input desired experience: <input type="text" name="experience" value="experience">--%>
-<%--    <input type="submit" >--%>
-<%--</form>--%>
-<%----%>
-<%--<form action="${abs}/controller" method="get">--%>
-<%--    <input type="hidden" name="command" value="admin_take_doctors_by_speciality_command">--%>
-<%--    please, input desired speciality: <input type="text" name="speciality" value="speciality">--%>
-<%--    <input type="submit" >--%>
-<%--</form>--%>
+<br/>
+<form action="${abs}/controller" method="get">
+    <input type="hidden" name="command" value="admin_take_all_patients_by_insurance_command">
+    please, input desired insurance: <input type="text" name="insurance" value="1" >
+    <input type="submit" >
+</form>
+<br/>
+<form action="${abs}/controller" method="get">
+    <input type="hidden" name="command" value="admin_take_all_patients_by_discount_command">
+    please, input desired discount: <input type="text" name="discount" value="5">
+    <input type="submit" >
+</form>
+<br/>
+<form action="${abs}/controller" method="get">
+    <input type="hidden" name="command" value="admin_take_all_patients_by_login_command">
+    please, input desired login: <input type="text" name="login" >
+    <input type="submit" >
+</form>
+<br/>
 <table>
     <tr>
         <th>id</th>

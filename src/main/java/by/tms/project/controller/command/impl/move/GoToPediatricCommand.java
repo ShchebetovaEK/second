@@ -7,7 +7,19 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import static by.tms.project.controller.command.PagePath.PEDIATRIC_PAGE;
 
+/**
+ * @author ShchebetovaEK
+ *
+ *  class GoToPediatricCommand
+ */
 public class GoToPediatricCommand implements Command {
+
+    /**
+     *
+     * @param request the request
+     * @return the router.
+     * @throws CommandException
+     */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();

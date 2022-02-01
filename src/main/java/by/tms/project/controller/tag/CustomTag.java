@@ -8,7 +8,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The type Custom tag.
+ * @author ShchbetovaEK
+ *
+ * class CustomTag
  */
 public class CustomTag extends TagSupport {
     @Override

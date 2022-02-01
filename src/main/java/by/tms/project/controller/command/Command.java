@@ -15,7 +15,7 @@ public interface Command {
      * Execute command.
      *
      * @param request the request
-     * @return the router
+     * @return the router.
      * @throws CommandException the command exception
      */
 

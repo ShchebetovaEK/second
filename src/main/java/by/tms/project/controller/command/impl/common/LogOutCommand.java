@@ -8,9 +8,20 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * @author ShchebetovaEK
+ *
+ *  class LogOutCommand
+ */
 public class LogOutCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
 
+    /**
+     *
+     * @param request the request
+     * @return the router.
+     * @throws CommandException
+     */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();

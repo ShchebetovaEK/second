@@ -13,16 +13,25 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
-
-import static by.tms.project.controller.command.PagePath.*;
+import static by.tms.project.controller.command.PagePath.REGISTRATION_PAGE;
+import static by.tms.project.controller.command.PagePath.WELCOME_PAGE;
 import static by.tms.project.controller.command.RequestParameter.*;
-import static by.tms.project.controller.command.RequestParameter.LOGIN;
-import static by.tms.project.controller.command.RequestParameter.PASSWORD;
 
+/**
+ * @author ShchebetovaEK
+ *
+ *  class RegistrationCommand
+ */
 public class RegistrationCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private UserService userService = UserServiceImpl.getInstance();
 
+    /**
+     *
+     * @param request the request
+     * @return the router.
+     * @throws CommandException
+     */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();

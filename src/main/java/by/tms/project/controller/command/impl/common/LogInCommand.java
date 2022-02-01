@@ -19,10 +19,21 @@ import static by.tms.project.controller.command.RequestAttribute.*;
 import static by.tms.project.controller.command.RequestParameter.LOGIN;
 import static by.tms.project.controller.command.RequestParameter.PASSWORD;
 
+/**
+ * @author ShchebetovaEK
+ *
+ *  class LogInCommand
+ */
 public class LogInCommand implements Command {
     public static final Logger logger = LogManager.getLogger();
     UserServiceImpl userService = UserServiceImpl.getInstance();
 
+    /**
+     *
+     * @param request the request
+     * @return the router.
+     * @throws CommandException
+     */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         HttpSession session = request.getSession();
