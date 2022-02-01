@@ -21,6 +21,11 @@ public final class RequestParameter {
     public static final String CATEGORY = "category";
     public static final String EXPERIENCE = "experience";
     public static final String SPECIALITY = "speciality";
+
+    /*patient*/
+    public static final String INSURANCE = "insurance";
+    public static final String MONEY_ACCOUNT = "money_account";
+    public static final String DISCOUNT = "discount";
     /*protocol*/
     public static final String PAYER = "payer";
 

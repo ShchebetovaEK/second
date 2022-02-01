@@ -25,45 +25,50 @@
 <%-- </form>--%>
 
 
+<%--<form action="${abs}/controller" method="get">--%>
+<%--    doctor <input type="hidden" name="command" value="admin_take_all_doctors_command">--%>
+<%--         <input type="text" name="id" >--%>
+<%--    <input type="submit" value="doctor">--%>
+<%--</form>--%>
+<%--<form action="${abs}/controller" method="get">--%>
+<%--    doctor <input type="hidden" name="command" value="admin_take_doctors_by_category_command">--%>
+<%--         <input type="text" name="id" >--%>
+<%--    please, input desired category: <input type="text" name="category" >--%>
+<%--    <input type="submit" value="category">--%>
+<%--</form>--%>
+<%--<form action="${abs}/controller" method="get">--%>
+<%--    doctor <input type="hidden" name="command" value="admin_take_doctors_by_experience_command">--%>
+<%--         <input type="text" name="id" >--%>
+<%--    please, input desired category: <input type="text" name="experience" >--%>
+<%--    <input type="submit" value="experience">--%>
+<%--</form>--%>
+<%--<form action="${abs}/controller" method="get">--%>
+<%--    doctor <input type="hidden" name="command" value="admin_take_doctors_by_speciality_command">--%>
+<%--         <input type="text" name="id" >--%>
+<%--    please, input desired category: <input type="text" name="speciality" >--%>
+<%--    <input type="submit" value="speciality">--%>
+<%--</form>--%>
+<%----%>
+<%----%>
+<%----%>
+<br/>
 <form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="manager_page_command">
-    <%--     <input type="text" name="id" >--%>
-    <input type="submit">
+    view all users    <input type="hidden" name="command" value="manager_page_command">
+    <input type="submit" name="user">
 </form>
+<br/>
+
 <form action="${abs}/controller" method="get">
-    doctor <input type="hidden" name="command" value="admin_take_all_doctors_command">
-    <%--     <input type="text" name="id" >--%>
+   view all patients <input type="hidden" name="command" value="admin_take_all_patients_command">
+      <input type="submit" value="patient">
+</form>
+<br/>
+
+<form action="${abs}/controller" method="get">
+    view all doctors <input type="hidden" name="command" value="admin_take_all_doctors_command">
     <input type="submit" value="doctor">
 </form>
-<form action="${abs}/controller" method="get">
-    doctor <input type="hidden" name="command" value="admin_take_doctors_by_category_command">
-    <%--     <input type="text" name="id" >--%>
-    please, input desired category: <input type="text" name="category" >
-    <input type="submit" value="category">
-</form>
-<form action="${abs}/controller" method="get">
-    doctor <input type="hidden" name="command" value="admin_take_doctors_by_experience_command">
-    <%--     <input type="text" name="id" >--%>
-    please, input desired category: <input type="text" name="experience" >
-    <input type="submit" value="experience">
-</form>
-<form action="${abs}/controller" method="get">
-    doctor <input type="hidden" name="command" value="admin_take_doctors_by_speciality_command">
-    <%--     <input type="text" name="id" >--%>
-    please, input desired category: <input type="text" name="speciality" >
-    <input type="submit" value="speciality">
-</form>
-
-
-
-
-
-
-<form action="${abs}/controller" method="get">
-    doctor <input type="hidden" name="command" value="admin_take_all_patients_command">
-    <%--     <input type="text" name="id" >--%>
-    <input type="submit" value="patient">
-</form>
+<br/>
 
 <table>
     <tr>
@@ -108,8 +113,10 @@
 
 </table>
 
-
-<a href="${pageContext.request.contextPath}/jsp/main/select.jsp">Back to select page</a>
+<a href="${pageContext.request.contextPath}/jsp/main/user_manager.jsp">Back to manager</a>
+<a href="${pageContext.request.contextPath}/jsp/main/select.jsp.jsp">Back to select page</a>
+<a href="${pageContext.request.contextPath}/jsp/main/selectDoctor.jsp">Back to select doctor page</a>
+<a href="${pageContext.request.contextPath}/jsp/main/selectPatient.jsp">Back to select patient page</a>
 
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>

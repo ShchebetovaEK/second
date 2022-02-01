@@ -34,7 +34,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link"
-                   href="${pageContext.request.contextPath}/controller?command=registration_page">Registration</a>
+                   href="${pageContext.request.contextPath}/controller?command=go_to_registration_page">Registration</a>
             </li>
             <li class="nav-item">
             <a class="nav-link"

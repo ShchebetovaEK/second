@@ -44,7 +44,7 @@
 
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_take_user_by_id_command">
-    please, input desired id: <input type="text" name="id" >
+    please, input desired id: <input type="text" name="id" value="id">
     <input type="submit" >
 </form>
 
@@ -77,6 +77,13 @@
     </c:forEach>
 
 </table>
+
+ <a href="${pageContext.request.contextPath}/jsp/main/user_manager.jsp">Back to manager</a>
+ <a href="${pageContext.request.contextPath}/jsp/main/select.jsp">Back to select page</a>
+ <a href="${pageContext.request.contextPath}/jsp/main/selectDoctor.jsp">Back to select doctor page</a>
+ <a href="${pageContext.request.contextPath}/jsp/main/selectPatient.jsp">Back to select patient page</a>
+
+
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
