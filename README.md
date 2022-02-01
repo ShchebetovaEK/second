@@ -1,6 +1,7 @@
 #FINAL PROJECT SCHEME DATABASE - CLINIC FORESTMED
 
 #_User role_
+___
 
 *Go to the login page  
 *Authenticate with login and password  
