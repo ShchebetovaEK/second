@@ -22,6 +22,8 @@ public final class PagePath {
     public static final String WELCOME_PAGE = "/jsp/main/welcome.jsp";
 
     public static final String ADMIN_PAGE = "/jsp/main/admin.jsp";
+    public static final String ADMIN_REGISTRATION = "/jsp/main/adminRegistration.jsp";
+    public static final String DOCTOR_REGISTRATION = "/jsp/main/doctorRegistration.jsp";
     public static final String LOGIN_PAGE = "/jsp/main/login.jsp";
     public static final String SELECT = "/jsp/main/select.jsp";
     public static final String SELECT_DOCTOR = "/jsp/main/selectDoctor.jsp";
