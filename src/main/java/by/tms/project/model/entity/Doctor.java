@@ -20,9 +20,18 @@ public class Doctor extends User {
         this.speciality = speciality;
     }
 
-    public Doctor(String login, String password, String firstName, String lastName, Date dataBirthday, String address, String phoneNumber,
-                  String email, Category category, Experience experience, Speciality speciality) {
+    public Doctor(String login, String password, String firstName, String lastName, Date dataBirthday,
+                  String address, String phoneNumber, String email,
+                  Category category, Experience experience, Speciality speciality) {
         super(login, password, firstName, lastName, dataBirthday, address, phoneNumber, email);
+        this.category = category;
+        this.experience = experience;
+        this.speciality = speciality;
+    }
+
+    public Doctor(Role role, String login, String password, String firstName, String lastName, Date dataBirthday, String address,
+                  String phoneNumber, String email, Category category, Experience experience, Speciality speciality) {
+        super(role, login, password, firstName, lastName, dataBirthday, address, phoneNumber, email);
         this.category = category;
         this.experience = experience;
         this.speciality = speciality;
