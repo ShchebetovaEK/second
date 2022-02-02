@@ -43,6 +43,13 @@ public final class RequestParameter {
     public static final String INVALID_EMAIL = "invalidEmail";
     public static final String INVALID_ROLE = "invalidRole";
 
+    public static final String INVALID_CATEGORY = "invalidCategory";
+    public static final String INVALID_EXPERIENCE = "invalidExperience";
+    public static final String INVALID_SPECIALITY = "invalidSpeciality";
+
+
+
+
     public static final String NOT_VALID_LOGIN = "notValidLogin";
     public static final String NOT_VALID_PASSWORD = "notValidPassword";
     public static final String NOT_VALID_FIRST_NAME = "notValidFirstName";
