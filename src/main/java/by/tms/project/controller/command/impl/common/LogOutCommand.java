@@ -8,6 +8,9 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static by.tms.project.controller.command.PagePath.MAIN_PAGE;
+import static by.tms.project.controller.command.PagePath.WELCOME_PAGE;
+
 /**
  * @author ShchebetovaEK
  *
@@ -28,6 +31,7 @@ public class LogOutCommand implements Command {
         HttpSession session = request.getSession();
         session.invalidate();
         logger.debug("Session has finished");
+        router.setPage(MAIN_PAGE);
         return router;
     }
 }

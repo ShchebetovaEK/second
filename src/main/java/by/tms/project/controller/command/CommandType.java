@@ -1,5 +1,7 @@
 package by.tms.project.controller.command;
 
+import by.tms.project.controller.command.impl.admin.AdminRegisterAdminCommand;
+import by.tms.project.controller.command.impl.admin.AdminRegisterDoctorCommand;
 import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeAllDoctorsCommand;
 import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeDoctorByCategoryCommand;
 import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeDoctorByExperienceCommand;
@@ -39,6 +41,9 @@ public enum CommandType {
     ADMIN_TAKE_DOCTORS_BY_EXPERIENCE_COMMAND(new AdminTakeDoctorByExperienceCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     ADMIN_TAKE_DOCTORS_BY_SPECIALITY_COMMAND(new AdminTakeDoctorBySpecialityCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
 
+    ADMIN_REGISTER_DOCTORS_COMMAND(new AdminRegisterDoctorCommand(), List.of(ADMIN)),
+    ADMIN_REGISTER_ADMIN_COMMAND(new AdminRegisterAdminCommand(), List.of(ADMIN)),
+
     ADMIN_TAKE_ALL_PATIENTS_COMMAND(new AdminTakeAllPatientsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     ADMIN_TAKE_ALL_PATIENTS_BY_INSURANCE_COMMAND(new AdminTakePatientByInsuranceCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     ADMIN_TAKE_ALL_PATIENTS_BY_DISCOUNT_COMMAND(new AdminTakePatientByDiscountCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
@@ -59,11 +64,11 @@ public enum CommandType {
     /* common */
     AUTHENTICATION_COMMAND(new AuthenticationCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     LOG_IN_COMMAND(new LogInCommand(),List.of(ADMIN, PATIENT, DOCTOR)),
-    LOG_OUT_PAGE(new LogOutCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    LOG_OUT_COMMAND(new LogOutCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     CHANGE_LOCALE(new ChangeLocaleCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     NOT_EXIST_COMMAND(new NotExistCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     CHANGE_USER_PERSONAL_DATA(new ChangeUserPersonalCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
-    REGISTRATION_COMMAND(new RegistrationCommand(), List.of(PATIENT, ADMIN, DOCTOR));
+    REGISTRATION_COMMAND(new RegistrationCommand(), List.of(PATIENT));
 
 
     private final Command command;
