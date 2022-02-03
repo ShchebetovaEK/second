@@ -17,13 +17,13 @@ import java.util.Properties;
  */
  class ConnectionFactory {
     private static final Logger logger = LogManager.getLogger();
- //   private static final Properties property;
-    private static final String DATABASE_URL;
+    private static final Properties property;
+    private static  String DATABASE;
     private static final String DATABASE_URL_PROP = "url";
     private static final String PATH = "prop/db.properties";
 
     static {
-      //  property = PropertyLoader.getProperty(PATH);
+        property = PropertyLoader.getProperty(PATH);
         try {
             Driver mysqlDriver = new com.mysql.cj.jdbc.Driver();
             DriverManager.registerDriver(mysqlDriver);
@@ -31,9 +31,8 @@ import java.util.Properties;
             logger.fatal("Driver don't have registration ",e);
 
         }
-        DATABASE_URL = "jdbc:mysql://localhost:3306/forestmed?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";//property.getProperty(DATABASE_URL_PROP);
+        DATABASE = property.getProperty(DATABASE_URL_PROP);
     }
-
     /**
      * Get connection.
      *
@@ -41,8 +40,7 @@ import java.util.Properties;
      * @throws SQLException the SQL exception
      */
      static Connection getConnection() throws SQLException {
-       // return DriverManager.getConnection(DATABASE_URL,property);
-         return DriverManager.getConnection(DATABASE_URL,"root", "root");
+        return DriverManager.getConnection(DATABASE, property);
     }
 
     private ConnectionFactory() {
