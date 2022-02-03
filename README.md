@@ -45,7 +45,6 @@ ___
 -by payer  
 ___ 
 #  _Patient role_
-***  
 *Go to the "main" page  
 *Go to price page  
 *Go to our doctors page  
