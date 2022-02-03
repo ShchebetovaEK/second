@@ -1,4 +1,4 @@
-package by.tms.project.controller.command.impl.admin.select.user;
+package by.tms.project.controller.command.impl.select.user;
 
 import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.RequestParameter;
@@ -12,19 +12,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
-/**
- * @author ShchebetovaEK
- *
- * class AdminTakeUserByEmailCommand
- */
-public class AdminTakeUserByEmailCommand implements Command {
+public class AdminTakeUserByLastNameCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private UserService userService = UserServiceImpl.getInstance();
 
@@ -37,26 +30,16 @@ public class AdminTakeUserByEmailCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        User user;
-
-        String email = request.getParameter(RequestParameter.EMAIL);
+        String lastName = request.getParameter(RequestParameter.LAST_NAME);
         try {
-            Optional<User> optionalUser = userService.findByEmail(email);
-            if (optionalUser.isPresent()) {
-                user = optionalUser.get();
-                List<User> userList = new ArrayList<>();
-                userList.add(user);
-                request.setAttribute(USER_LIST, userList);
-                router.setPage(USER_MANAGER_PAGE);
-            }
+            List<User> userList = userService.findByLastName(lastName);
+            request.setAttribute(USER_LIST, userList);
+            router.setPage(USER_MANAGER_PAGE);
         } catch (ServiceException e) {
-            logger.error("Failed at AdminTakeUserByEmail ",e);
-            throw new CommandException("Failed at AdminTakeUserByEmail", e);
+            logger.error("Failed at AdminTakeUserByLastName", e);
+            throw new CommandException("Failed at AdminTakeUserByLastName", e);
         }
         return router;
     }
 }
-
-
-
 

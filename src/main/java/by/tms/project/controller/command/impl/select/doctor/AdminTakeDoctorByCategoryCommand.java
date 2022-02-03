@@ -1,4 +1,4 @@
-package by.tms.project.controller.command.impl.admin.select.doctor;
+package by.tms.project.controller.command.impl.select.doctor;
 
 import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.RequestParameter;

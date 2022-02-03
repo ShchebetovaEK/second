@@ -1,4 +1,4 @@
-package by.tms.project.controller.command.impl.admin.select.user;
+package by.tms.project.controller.command.impl.select.user;
 
 import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.RequestParameter;

@@ -1,4 +1,4 @@
-package by.tms.project.controller.command.impl.admin.select.protocol;
+package by.tms.project.controller.command.impl.select.protocol;
 
 import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.Router;

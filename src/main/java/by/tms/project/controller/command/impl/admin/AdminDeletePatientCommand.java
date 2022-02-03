@@ -1,4 +1,4 @@
-package by.tms.project.controller.command.impl.admin.select.patient;
+package by.tms.project.controller.command.impl.admin;
 
 import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.RequestParameter;
@@ -9,44 +9,38 @@ import by.tms.project.model.entity.Patient;
 import by.tms.project.model.service.PatientService;
 import by.tms.project.model.service.impl.PatientServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
-import static by.tms.project.controller.command.RequestAttribute.PATIENT;
-import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
+import static by.tms.project.controller.command.RequestAttribute.*;
+import static by.tms.project.controller.command.RequestParameter.USERS_ID;
 
-/**
- * @author ShchebetovaEK
- *
- *  class AdminTakePatientByDiscountCommand
- */
-public class AdminTakePatientByDiscountCommand implements Command {
+public class AdminDeletePatientCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private PatientService patientService = PatientServiceImpl.getInstance();
 
     /**
-     *
      * @param request the request
-     * @return  the router.
+     * @return the router.
      * @throws CommandException
      */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        String discount = request.getParameter(RequestParameter.DISCOUNT);
-
+        Long id = Long.valueOf(request.getParameter(USERS_ID));
+        HttpSession session = request.getSession();
+        Patient patient = (Patient) session.getAttribute(SESSION_USER);
         try {
-            List<Patient> userList = patientService.findByMaxDiscount(Integer.valueOf(discount));
-            request.setAttribute(USER_LIST, userList);
-            request.setAttribute(PATIENT, Boolean.TRUE);
-            router.setPage(USER_MANAGER_PAGE);
+            patientService.deletePatient(id);
         } catch (ServiceException e) {
-            logger.error("Failed at  AdminTakePatientByDiscountCommand", e);
-            throw new CommandException("Failed at AdminTakePatientByDiscountCommand", e);
+            logger.error("Failed at AdminDeletePatientCommand", e);
+            throw new CommandException("Failed at AdminDeletePatientCommand", e);
         }
+
         return router;
     }
 }

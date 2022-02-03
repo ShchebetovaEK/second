@@ -1,21 +1,22 @@
 package by.tms.project.controller.command;
 
+import by.tms.project.controller.command.impl.admin.AdminDeletePatientCommand;
 import by.tms.project.controller.command.impl.admin.AdminRegisterAdminCommand;
 import by.tms.project.controller.command.impl.admin.AdminRegisterDoctorCommand;
-import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeAllDoctorsCommand;
-import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeDoctorByCategoryCommand;
-import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeDoctorByExperienceCommand;
-import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeDoctorBySpecialityCommand;
-import by.tms.project.controller.command.impl.admin.select.patient.AdminTakeAllPatientsCommand;
-import by.tms.project.controller.command.impl.admin.select.patient.AdminTakePatientByDiscountCommand;
-import by.tms.project.controller.command.impl.admin.select.patient.AdminTakePatientByInsuranceCommand;
-import by.tms.project.controller.command.impl.admin.select.patient.AdminTakePatientByLoginCommand;
-import by.tms.project.controller.command.impl.admin.select.protocol.AdminTakeAllProtocolsCommand;
-import by.tms.project.controller.command.impl.admin.select.protocol.AdminTakeProtocolByDataCommand;
-import by.tms.project.controller.command.impl.admin.select.protocol.AdminTakeProtocolByPayerCommand;
-import by.tms.project.controller.command.impl.admin.select.user.*;
+import by.tms.project.controller.command.impl.select.doctor.AdminTakeAllDoctorsCommand;
+import by.tms.project.controller.command.impl.select.doctor.AdminTakeDoctorByCategoryCommand;
+import by.tms.project.controller.command.impl.select.doctor.AdminTakeDoctorByExperienceCommand;
+import by.tms.project.controller.command.impl.select.doctor.AdminTakeDoctorBySpecialityCommand;
+import by.tms.project.controller.command.impl.select.patient.AdminTakeAllPatientsCommand;
+import by.tms.project.controller.command.impl.select.patient.AdminTakePatientByDiscountCommand;
+import by.tms.project.controller.command.impl.select.patient.AdminTakePatientByInsuranceCommand;
+import by.tms.project.controller.command.impl.select.patient.AdminTakePatientByLoginCommand;
+import by.tms.project.controller.command.impl.select.protocol.AdminTakeAllProtocolsCommand;
+import by.tms.project.controller.command.impl.select.protocol.AdminTakeProtocolByDataCommand;
+import by.tms.project.controller.command.impl.select.protocol.AdminTakeProtocolByPayerCommand;
 import by.tms.project.controller.command.impl.common.*;
 import by.tms.project.controller.command.impl.move.*;
+import by.tms.project.controller.command.impl.select.user.*;
 import by.tms.project.controller.command.impl.update.doctor.UpdateDoctorExperienceCommand;
 import by.tms.project.controller.command.impl.update.doctor.UpdateDoctorSpecialityCommand;
 import by.tms.project.controller.command.impl.update.patient.UpdatePatientDiscountCommand;
@@ -80,6 +81,10 @@ public enum CommandType {
     UPDATE_PATIENT_DISCOUNT_COMMAND(new UpdatePatientDiscountCommand(), List.of(ADMIN, DOCTOR)),
     UPDATE_PATIENT_MONEY_ACCOUNT_COMMAND(new UpdatePatientMoneyAccountCommand(), List.of(ADMIN, DOCTOR)),
 
+    /*delete*/
+    ADMIN_DELETE_PATIENT_COMMAND(new AdminDeletePatientCommand(),List.of(ADMIN)),
+    ADMIN_DELETE_DOCTOR_COMMAND(new AdminDeletePatientCommand(),List.of(ADMIN)),
+    ADMIN_DELETE_ADMIN_COMMAND(new AdminDeletePatientCommand(),List.of(ADMIN)),
 
 
     /* common */

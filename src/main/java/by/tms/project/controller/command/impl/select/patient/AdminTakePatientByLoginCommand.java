@@ -1,6 +1,7 @@
-package by.tms.project.controller.command.impl.admin.select.patient;
+package by.tms.project.controller.command.impl.select.patient;
 
 import by.tms.project.controller.command.Command;
+import by.tms.project.controller.command.RequestParameter;
 import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
 import by.tms.project.exception.ServiceException;
@@ -11,18 +12,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.PATIENT;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
+
 /**
  * @author ShchebetovaEK
  *
- *  class AdminTakeAllPatientsCommand
+ * class  AdminTakePatientByLoginCommand
  */
-public class AdminTakeAllPatientsCommand implements Command {
-    private static final Logger logger = LogManager.getLogger();
+public class AdminTakePatientByLoginCommand implements Command {
+    public static final Logger logger = LogManager.getLogger();
     private PatientService patientService = PatientServiceImpl.getInstance();
 
     /**
@@ -34,15 +38,24 @@ public class AdminTakeAllPatientsCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
+        String login = request.getParameter(RequestParameter.LOGIN);
+
+        Patient patient;
         try {
-            List<Patient> userList = patientService.findAll();
-            request.setAttribute(USER_LIST, userList);
-            request.setAttribute(PATIENT,Boolean.TRUE);
-            router.setPage(USER_MANAGER_PAGE);
+            Optional<Patient> optionalUser = patientService.findPatientByLogin(login);
+            if (optionalUser.isPresent()) {
+                patient = optionalUser.get();
+                List<Patient> userList = new ArrayList<>();
+                userList.add(patient);
+                request.setAttribute(USER_LIST, userList);
+                request.setAttribute(PATIENT, Boolean.TRUE);
+                router.setPage(USER_MANAGER_PAGE);
+            }
         } catch (ServiceException e) {
-            logger.error("Failed at AdminTakeAllPatientsCommand");
-            throw new CommandException("Failed at AdminTakeAllPatientsCommand", e);
+            logger.error("Failed at AdminTakePatientByLoginCommand ", e);
+            throw new CommandException("Failed at AdminTakePatientByLoginCommand", e);
         }
         return router;
     }
 }
+
