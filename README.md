@@ -69,7 +69,7 @@ _Doctor role_
 -by discount  
 -by insurance  
 -by login
-
+***   
 
 ![CLINIC SCHEME](medicine.png)
 
