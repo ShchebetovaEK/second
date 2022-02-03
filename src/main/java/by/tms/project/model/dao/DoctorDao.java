@@ -22,6 +22,8 @@ public interface DoctorDao extends BaseDao<Long, Doctor>{
 
     boolean updateSpeciality(long id, Speciality speciality) throws DaoException;
 
+    boolean deleteDoctor(long id) throws DaoException;
+
 
 
 
