@@ -114,7 +114,7 @@ public class UserDaoImpl implements UserDao {
             users.data_birthday,users.address,users.phone_number,users.email
             FROM users
             WHERE users.login =?
-            AND  users.password =? """;
+            AND  users.password =?""";
     private static final String SQL_CHECK_OLD_PASSWORD = """
             SELECT users.password
             FROM users 
@@ -127,27 +127,27 @@ public class UserDaoImpl implements UserDao {
 
     private static final String SQL_UPDATE_USER_FIRST_NAME = """
             UPDATE users 
-            SET first_name 
+            SET first_name=?
             WHERE id =?""";
     private static final String SQL_UPDATE_USER_LAST_NAME = """
             UPDATE users 
-            SET last_name 
+            SET last_name=?
             WHERE id =?""";
     private static final String SQL_UPDATE_USER_EMAIL = """
             UPDATE users 
-            SET email 
+            SET email=?
             WHERE id =?""";
     private static final String SQL_UPDATE_USER_ADDRESS = """
             UPDATE users 
-            SET address
+            SET address=?
             WHERE id =?""";
     private static final String SQL_UPDATE_USER_PHONE_NUMBER = """
             UPDATE users 
-            SET phone_number 
+            SET phone_number=?
             WHERE id =?""";
     private static final String SQL_UPDATE_USER_DATA_BIRTHDAY = """
             UPDATE users 
-            SET data_birthday 
+            SET data_birthday=?
             WHERE id =?""";
 
     private static UserDaoImpl instance;
@@ -253,13 +253,13 @@ public class UserDaoImpl implements UserDao {
         int result;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER)) {
-            preparedStatement.setString(1, String.valueOf(entity.getRole()));
-            preparedStatement.setString(2, entity.getLogin());
-            preparedStatement.setString(3, entity.getPassword());
-            preparedStatement.setString(4, entity.getFirstName());
+        //    preparedStatement.setString(1, String.valueOf(entity.getRole()));
+         //   preparedStatement.setString(2, entity.getLogin());
+         //   preparedStatement.setString(3, entity.getPassword());
+            long id = entity.getId();
             preparedStatement.setString(5, entity.getLastName());
-            Date dataBirthday = new Date(entity.getDataBirthday().getTime());//
-            preparedStatement.setDate(6, dataBirthday);
+      //      Date dataBirthday = new Date(entity.getDataBirthday().getTime());//
+       //     preparedStatement.setDate(6, dataBirthday);
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());

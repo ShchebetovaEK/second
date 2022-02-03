@@ -251,6 +251,59 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     *
+     * @param userCheck
+     * @return
+     * @throws ServiceException
+     */
+    @Override
+    public boolean registerNewAdmin(Map<String, String> userCheck) throws ServiceException {
+        boolean result;
+        Map<String, String> mapUserCheck = new HashMap<>();
+        String login = userCheck.get(LOGIN);
+        String password = userCheck.get(PASSWORD);
+//        String confirmPassword = userCheck.get(CONFIRM_PASSWORD);
+        String firstName = userCheck.get(FIRST_NAME);
+        String lastName = userCheck.get(LAST_NAME);
+//        String strData = userCheck.get(DATA_BIRTHDAY);//"2011-11-11";//"userCheck.get(DATA_BIRTHDAY)";
+        String strData = userCheck.get(DATA_BIRTHDAY);//"2011-11-11";//"userCheck.get(DATA_BIRTHDAY)";
+//        Instant instant = Instant.parse(strData + "T00:00:00.00Z");
+//        Date dataBirthday = Date.from(instant);
+        Date dataBirthday = java.sql.Date.valueOf(strData);
+        //   java.sql.Date dataBirthday = new java.sql.Date(today.getTime());//
+        String address = userCheck.get(ADDRESS);
+        String phoneNumber = userCheck.get(PHONE_NUMBER);
+        String email = userCheck.get(EMAIL);
+
+        mapUserCheck.put(LOGIN, login);
+        mapUserCheck.put(PASSWORD, password);
+        mapUserCheck.put(FIRST_NAME, firstName);
+        mapUserCheck.put(LAST_NAME, lastName);
+        mapUserCheck.put(DATA_BIRTHDAY, strData);
+        mapUserCheck.put(ADDRESS, address);
+        mapUserCheck.put(PHONE_NUMBER, phoneNumber);
+        mapUserCheck.put(EMAIL, email);
+
+        try {
+            result = UserValidatorImpl.getInstance().checkUserData(mapUserCheck);
+            if (result) {
+                Role role = Role.ADMIN;
+                String passwordHash = PasswordHash.encrypt(password);
+                User user = new User(role, login, passwordHash, firstName, lastName, dataBirthday, address, phoneNumber, email);
+                userDao.create(user);
+            }
+
+        } catch (DaoException e) {
+            logger.error("Failed at UserServiceImpl at method registerNewAdmin", e);
+            throw new ServiceException("Failed at UserServiceImpl at method registerNewAdmin", e);
+        } catch (IllegalArgumentException e) {
+            logger.error("IllegalArgumentException at UserServiceImpl in registerNewAdmin ", e);
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * update user's first name by id.
      *
      * @param id
@@ -299,8 +352,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updatePhoneNumberById(long id, String phoneNumber) throws ServiceException {
         try {
-            return UserValidatorImpl.getInstance().isLastNameValid(phoneNumber)
-                    && userDao.updateLastNameById(id, phoneNumber);
+            return UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber)
+                    && userDao.updatePhoneNumberById(id, phoneNumber);
         } catch (DaoException e) {
             logger.error("Failed at UserServiceImpl at method updatePhoneNumberById", e);
             throw new ServiceException("Failed at UserServiceImpl at method updatePhoneNumberById", e);
@@ -318,8 +371,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateAddressById(long id, String address) throws ServiceException {
         try {
-            return UserValidatorImpl.getInstance().isLastNameValid(address)
-                    && userDao.updateLastNameById(id, address);
+            return UserValidatorImpl.getInstance().isAddressValid(address)
+                    && userDao.updateAddressById(id, address);
         } catch (DaoException e) {
             logger.error("Failed at UserServiceImpl at method updateAddressById", e);
             throw new ServiceException("Failed at UserServiceImpl at method updateAddressById", e);
@@ -337,8 +390,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateEmailById(long id, String email) throws ServiceException {
         try {
-            return UserValidatorImpl.getInstance().isLastNameValid(email)
-                    && userDao.updateLastNameById(id, email);
+            return UserValidatorImpl.getInstance().isEmailValid(email)
+                    && userDao.updateEmailById(id, email);
         } catch (DaoException e) {
             logger.error("Failed at UserServiceImpl at method updateEmailById", e);
             throw new ServiceException("Failed at UserServiceImpl at method updateEmailById", e);
@@ -356,11 +409,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateDataBirthdayById(long id, String dataBirthday) throws ServiceException {
         try {
-            return UserValidatorImpl.getInstance().isLastNameValid(dataBirthday)
-                    && userDao.updateLastNameById(id, dataBirthday);
+            return UserValidatorImpl.getInstance().isDataBirthdayValid(dataBirthday)
+                    && userDao.updateDataBirthdayById(id, dataBirthday);
         } catch (DaoException e) {
             logger.error("Failed at UserServiceImpl at method updateDataBirthdayById", e);
             throw new ServiceException("Failed at UserServiceImpl at method updateDataBirthdayById", e);
         }
+    }
+
+    @Override
+    public boolean verify(long userId) throws ServiceException {
+        return false;
     }
 }

@@ -24,7 +24,7 @@ public interface UserService {
     List<User> findByLastName(String lastName) throws ServiceException;
 
 //    List<User> findByDataBirthday(Date dataBirthday) throws ServiceException;
-//
+
     Optional <User> findByEmail(String email) throws ServiceException;
 
     Optional<User> findByPhoneNumber(String phoneNumber) throws ServiceException;
@@ -41,6 +41,8 @@ public interface UserService {
 
     boolean registerNewUser(Map<String, String> userCheck) throws ServiceException;
 
+    boolean registerNewAdmin(Map<String, String> userCheck) throws ServiceException;
+
     boolean updateFirstNameById(long id, String firstName) throws ServiceException;
 
     boolean updateLastNameById(long id, String lastName) throws ServiceException;
@@ -52,5 +54,7 @@ public interface UserService {
     boolean  updateEmailById(long id, String email) throws ServiceException;
 
     boolean  updateDataBirthdayById(long id, String dataBirthday) throws ServiceException;
+
+    boolean verify(long userId) throws ServiceException;
 
 }
