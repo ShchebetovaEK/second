@@ -66,7 +66,7 @@ ___
 *View patient    
 -by discount  
 -by insurance  
--by login
+-by login 
 ---
 
 ![CLINIC SCHEME](medicine.png)
