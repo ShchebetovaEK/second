@@ -16,6 +16,13 @@ import by.tms.project.controller.command.impl.admin.select.protocol.AdminTakePro
 import by.tms.project.controller.command.impl.admin.select.user.*;
 import by.tms.project.controller.command.impl.common.*;
 import by.tms.project.controller.command.impl.move.*;
+import by.tms.project.controller.command.impl.update.doctor.UpdateDoctorExperienceCommand;
+import by.tms.project.controller.command.impl.update.doctor.UpdateDoctorSpecialityCommand;
+import by.tms.project.controller.command.impl.update.patient.UpdatePatientDiscountCommand;
+import by.tms.project.controller.command.impl.update.patient.UpdatePatientInsuranceCommand;
+import by.tms.project.controller.command.impl.update.patient.UpdatePatientMoneyAccountCommand;
+import by.tms.project.controller.command.impl.update.user.*;
+import by.tms.project.controller.command.impl.update.doctor.UpdateDoctorCategoryCommand;
 import by.tms.project.controller.command.impl.user.ChangeUserPersonalCommand;
 import by.tms.project.model.entity.Role;
 
@@ -60,10 +67,24 @@ public enum CommandType {
     ADMIN_TAKE_USER_BY_LOGIN_COMMAND(new AdminTakeUserByLoginCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
     MANAGER_PAGE_COMMAND(new AdminTakeAllUsersCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
 
+    /*update*/
+    UPDATE_USER_ADDRESS_COMMAND(new UpdateUserAddressCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    UPDATE_USER_EMAIL_COMMAND(new UpdateUserEmailCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    UPDATE_USER_FIRST_NAME_COMMAND(new UpdateUserFirstNameCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    UPDATE_USER_LAST_NAME_COMMAND(new UpdateUserLastNameCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    UPDATE_USER_PHONE_NUMBER_COMMAND(new UpdateUserPhoneNumberCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    UPDATE_DOCTOR_CATEGORY_COMMAND(new UpdateDoctorCategoryCommand(), List.of(ADMIN, DOCTOR)),
+    UPDATE_DOCTOR_EXPERIENCE_COMMAND(new UpdateDoctorExperienceCommand(), List.of(ADMIN, DOCTOR)),
+    UPDATE_DOCTOR_SPECIALITY_COMMAND(new UpdateDoctorSpecialityCommand(), List.of(ADMIN, DOCTOR)),
+    UPDATE_PATIENT_INSURANCE_COMMAND(new UpdatePatientInsuranceCommand(), List.of(ADMIN, DOCTOR)),
+    UPDATE_PATIENT_DISCOUNT_COMMAND(new UpdatePatientDiscountCommand(), List.of(ADMIN, DOCTOR)),
+    UPDATE_PATIENT_MONEY_ACCOUNT_COMMAND(new UpdatePatientMoneyAccountCommand(), List.of(ADMIN, DOCTOR)),
+
+
 
     /* common */
     AUTHENTICATION_COMMAND(new AuthenticationCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
-    LOG_IN_COMMAND(new LogInCommand(),List.of(ADMIN, PATIENT, DOCTOR)),
+    LOG_IN_COMMAND(new LogInCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     LOG_OUT_COMMAND(new LogOutCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     CHANGE_LOCALE(new ChangeLocaleCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     NOT_EXIST_COMMAND(new NotExistCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
