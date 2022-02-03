@@ -38,7 +38,6 @@ ___
 -by discount  
 -by insurance  
 -by login  
-  
 *View all protocol's  
 *View protocol
 -by payer  
