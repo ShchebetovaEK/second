@@ -4,14 +4,17 @@ ___
 *Go to the "main" page 
 *Change locale  
 *Log out  
+
 *View all user's  
 -by id  
 -by login  
 -by first name  
 -by last name  
 -by email  
+
 *Registration new Admin  
 *Registration new Doctor  
+
 *Update doctor's  
 -category  
 -experience  
@@ -49,7 +52,6 @@ ___
 *Change locale   
 *Log in  
 *Log out  
-
 *View patient    
 -by discount  
 -by insurance  
@@ -64,7 +66,6 @@ ___
 *Log in  
 *Log out  
 *Registration  
-
 
 ![CLINIC SCHEME](medicine.png)
 
