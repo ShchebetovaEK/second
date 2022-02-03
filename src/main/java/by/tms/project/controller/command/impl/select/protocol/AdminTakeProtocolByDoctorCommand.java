@@ -1,6 +1,7 @@
 package by.tms.project.controller.command.impl.select.protocol;
 
 import by.tms.project.controller.command.Command;
+import by.tms.project.controller.command.RequestParameter;
 import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
 import by.tms.project.exception.ServiceException;
@@ -14,17 +15,12 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 import static by.tms.project.controller.command.PagePath.PROTOCOL_PAGE;
-import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
+import static by.tms.project.controller.command.RequestAttribute.PROTOCOL;
 import static by.tms.project.controller.command.RequestAttribute.PROTOCOL_LIST;
 
-/**
- * @author ShchebetovaEK
- *
- *  class AdminTakeAllProtocolsCommand
- */
-public class AdminTakeAllProtocolsCommand implements Command {
+public class AdminTakeProtocolByDoctorCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-       private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
+    private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
 
     /**
      *
@@ -35,13 +31,15 @@ public class AdminTakeAllProtocolsCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
+        Long doctorId = Long.valueOf(request.getParameter(RequestParameter.ID));
         try {
-            List<Protocol> protocolList = protocolService.findAll();
+            List<Protocol> protocolList = protocolService.findByDoctor(doctorId);
             request.setAttribute(PROTOCOL_LIST, protocolList);
-           router.setPage(PROTOCOL_PAGE);
+            request.setAttribute(PROTOCOL,Boolean.TRUE);
+            router.setPage(PROTOCOL_PAGE);
         } catch (ServiceException e) {
-            logger.error("Failed at AdminTakeAllProtocolCommand");
-            throw new CommandException("Failed at AdminTakeAllProtocolCommand", e);
+            logger.error("Failed at AdminTakeProtocolByDoctorCommand");
+            throw new CommandException("Failed at AdminTakeProtocolByDoctorCommand", e);
         }
         return router;
     }
