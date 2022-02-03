@@ -44,7 +44,7 @@ ___
 *View protocol   
 -by payer  
 ___ 
-#  _Patient role_
+_Patient role_
 *Go to the "main" page  
 *Go to price page  
 *Go to our doctors page  
@@ -54,7 +54,7 @@ ___
 *Log out  
 *Registration  
 --- 
-#  _Doctor role_  
+_Doctor role_  
 ---  
 *Go to the "main" page  
 *Go to price page  
