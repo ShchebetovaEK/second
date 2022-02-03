@@ -1,12 +1,4 @@
 #  FINAL PROJECT SCHEME DATABASE - CLINIC FORESTMED
-
-#  _User role_
-___
-
-*Go to the login page  
-*Authenticate with login and password  
-*Change locale
-
 #  _Admin role_
 ___
 *Go to the "main" page 
@@ -18,46 +10,60 @@ ___
 -by first name  
 -by last name  
 -by email  
-*Registration new Admin
-  
+*Registration new Admin  
+*Registration new Doctor  
+*Update doctor's  
+-category  
+-experience  
+-speciality  
+
+*Update patient's   
+-insurance  
+-discount  
+-money account  
+
 *View all doctor's  
+
 *View doctor  
 -by category  
 -by experience  
 -by speciality  
 
 *View all patient's  
+
 *View patient  
 -by discount  
 -by insurance  
 -by login  
   
 *View all protocol's  
+
 *View protocol   
 -by payer  
 ___
 #  _Doctor role_
-#####  *Go to the "main" page
-#####  *Go to price page
-#####  *Go to our doctors page
-#####  *Go to about page
-#####  *Change locale 
-#####  *Log in
-#####  *Log out
-#####  *View patient  
+*Go to the "main" page  
+*Go to price page  
+*Go to our doctors page  
+*Go to about page  
+*Change locale   
+*Log in  
+*Log out  
+
+*View patient    
 -by discount  
 -by insurance  
 -by login
 ---
 #  _Patient role_
-##  *Go to the "main" page  
-##  *Go to price page  
-##  *Go to our doctors page  
-##  *Go to about page  
-##  *Change locale  
-##  *Log in  
-##  *Log out  
-##  *Registration  
+*Go to the "main" page  
+*Go to price page  
+*Go to our doctors page  
+*Go to about page  
+*Change locale  
+*Log in  
+*Log out  
+*Registration  
 
 
 ![CLINIC SCHEME](medicine.png)
