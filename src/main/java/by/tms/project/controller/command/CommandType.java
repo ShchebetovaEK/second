@@ -11,9 +11,7 @@ import by.tms.project.controller.command.impl.select.patient.AdminTakeAllPatient
 import by.tms.project.controller.command.impl.select.patient.AdminTakePatientByDiscountCommand;
 import by.tms.project.controller.command.impl.select.patient.AdminTakePatientByInsuranceCommand;
 import by.tms.project.controller.command.impl.select.patient.AdminTakePatientByLoginCommand;
-import by.tms.project.controller.command.impl.select.protocol.AdminTakeAllProtocolsCommand;
-import by.tms.project.controller.command.impl.select.protocol.AdminTakeProtocolByDataCommand;
-import by.tms.project.controller.command.impl.select.protocol.AdminTakeProtocolByPayerCommand;
+import by.tms.project.controller.command.impl.select.protocol.*;
 import by.tms.project.controller.command.impl.common.*;
 import by.tms.project.controller.command.impl.move.*;
 import by.tms.project.controller.command.impl.select.user.*;
@@ -58,9 +56,13 @@ public enum CommandType {
     ADMIN_TAKE_ALL_PATIENTS_BY_LOGIN_COMMAND(new AdminTakePatientByLoginCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
 
     ADMIN_TAKE_ALL_USERS_COMMAND(new AdminTakeAllUsersCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+
     ADMIN_TAKE_ALL_PROTOCOLS_COMMAND(new AdminTakeAllProtocolsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     ADMIN_TAKE_PROTOCOL_BY_DATA_COMMAND(new AdminTakeProtocolByDataCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     ADMIN_TAKE_PROTOCOL_BY_PAYER_COMMAND(new AdminTakeProtocolByPayerCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    ADMIN_TAKE_PROTOCOL_BY_DOCTOR_COMMAND(new AdminTakeProtocolByDoctorCommand(), List.of(ADMIN, DOCTOR)),
+    ADMIN_TAKE_PROTOCOL_BY_PATIENT_COMMAND(new AdminTakeProtocolByPatientCommand(), List.of(ADMIN, DOCTOR)),
+
     ADMIN_TAKE_USER_BY_EMAIL_COMMAND(new AdminTakeUserByEmailCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
     ADMIN_TAKE_USER_BY_FIRST_NAME_COMMAND(new AdminTakeUserByFirstNameCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
     ADMIN_TAKE_USER_BY_LAST_NAME_COMMAND(new AdminTakeUserByLastNameCommand(), List.of(ADMIN, DOCTOR, PATIENT)),
