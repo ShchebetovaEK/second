@@ -1,4 +1,4 @@
-#FINAL PROJECT SCHEME DATABASE - CLINIC FORESTMED
+#  FINAL PROJECT SCHEME DATABASE - CLINIC FORESTMED
 
 #_User role_
 ___
@@ -50,14 +50,14 @@ ___
 -by login
 ---
 #_Patient role_
-*Go to the "main" page
-*Go to price page
-*Go to our doctors page
-*Go to about page
-*Change locale
-*Log in
-*Log out
-*Registration
+*Go to the "main" page  
+*Go to price page  
+*Go to our doctors page  
+*Go to about page  
+*Change locale  
+*Log in  
+*Log out  
+*Registration  
 
 
 ![CLINIC SCHEME](medicine.png)
