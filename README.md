@@ -44,6 +44,7 @@ ___
 *View protocol  
 -by payer  
 ***    
+--- 
 _Patient role_  
 ---   
 *Go to the "main" page  
