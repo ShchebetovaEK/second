@@ -41,8 +41,9 @@ ___
 
 *View all protocol's  
 
-*View protocol
--by payer  
+*View protocol  
+-by payer
+  
 ---    
 _Patient role_  
 ---   
