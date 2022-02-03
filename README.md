@@ -37,14 +37,14 @@ ___
 -by payer  
 ___
 #  _Doctor role_
-##  *Go to the "main" page
-##  *Go to price page
-##  *Go to our doctors page
-##  *Go to about page
-##  *Change locale 
-##  *Log in
-##  *Log out
-##  *View patient  
+#####  *Go to the "main" page
+#####  *Go to price page
+#####  *Go to our doctors page
+#####  *Go to about page
+#####  *Change locale 
+#####  *Log in
+#####  *Log out
+#####  *View patient  
 -by discount  
 -by insurance  
 -by login
