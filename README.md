@@ -1,13 +1,13 @@
 #  FINAL PROJECT SCHEME DATABASE - CLINIC FORESTMED
 
-#_User role_
+#  _User role_
 ___
 
 *Go to the login page  
 *Authenticate with login and password  
 *Change locale
 
-#_Admin role_
+#  _Admin role_
 ___
 *Go to the "main" page 
 *Change locale  
@@ -36,7 +36,7 @@ ___
 *View protocol   
 -by payer  
 ___
-#_Doctor role_
+#  _Doctor role_
 *Go to the "main" page
 *Go to price page
 *Go to our doctors page
@@ -49,7 +49,7 @@ ___
 -by insurance  
 -by login
 ---
-#_Patient role_
+#  _Patient role_
 *Go to the "main" page  
 *Go to price page  
 *Go to our doctors page  
