@@ -21,6 +21,8 @@ public final class RequestParameter {
     public static final String CATEGORY = "category";
     public static final String EXPERIENCE = "experience";
     public static final String SPECIALITY = "speciality";
+    public static final String USERS_ID = "users_id";
+
 
     /*patient*/
     public static final String INSURANCE = "insurance";
@@ -48,7 +50,8 @@ public final class RequestParameter {
     public static final String INVALID_SPECIALITY = "invalidSpeciality";
 
 
-
+    public static final String INVALID_INSURANCE = "invalidInsurance";
+    public static final String INVALID_DISCOUNT = "invalidDiscount";
 
     public static final String NOT_VALID_LOGIN = "notValidLogin";
     public static final String NOT_VALID_PASSWORD = "notValidPassword";

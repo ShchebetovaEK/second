@@ -1,9 +1,7 @@
 package by.tms.project.model.service;
 
-import by.tms.project.exception.DaoException;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.Patient;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import java.math.BigDecimal;
@@ -23,4 +21,10 @@ public interface PatientService {
     List<Patient> findByMaxDiscount(Integer discount) throws ServiceException;
 
     boolean toUpBalance(String login, BigDecimal sumForUp, HttpSession session) throws ServiceException;
+
+    boolean updateInsurance(long id, Boolean insurance) throws ServiceException;
+
+    boolean updateDiscount(long id, Integer discount) throws ServiceException;
+
+    boolean updateMoneyAccount(long id, BigDecimal moneyAccount) throws ServiceException;
 }

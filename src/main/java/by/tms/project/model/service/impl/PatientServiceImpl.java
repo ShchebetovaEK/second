@@ -7,6 +7,8 @@ import by.tms.project.model.dao.impl.PatientDaoImpl;
 import by.tms.project.model.entity.Doctor;
 import by.tms.project.model.entity.Patient;
 import by.tms.project.model.service.PatientService;
+import by.tms.project.model.validator.impl.DoctorValidatorImpl;
+import by.tms.project.model.validator.impl.PatientValidatorImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
@@ -119,4 +121,37 @@ public class PatientServiceImpl implements PatientService {
         return false;
 
     }
+
+    @Override
+    public boolean updateInsurance(long id, Boolean insurance) throws ServiceException {
+        try {
+            return PatientValidatorImpl.getInstance().isInsuranceValid(insurance)
+                    && patientDao.updateInsurance(id, insurance);
+        } catch (DaoException e) {
+            logger.error("Failed at PatientServiceImpl  at  updateInsurance", e);
+            throw new ServiceException("Failed at PatientServiceImpl at updateInsurance ", e);
+        }
+    }
+
+    @Override
+    public boolean updateDiscount(long id, Integer discount) throws ServiceException {
+        try {
+            return PatientValidatorImpl.getInstance().isDiscount(discount)
+                    && patientDao.updateDiscount(id, discount);
+        } catch (DaoException e) {
+            logger.error("Failed at PatientServiceImpl at updateDiscount ", e);
+            throw new ServiceException("Failed at PatientServiceImpl at  updateDiscount", e);
+        }
+    }
+
+    @Override
+    public boolean updateMoneyAccount(long id, BigDecimal moneyAccount) throws ServiceException {
+        try {
+            return PatientValidatorImpl.getInstance().isMoneyAccount(moneyAccount)
+                    && patientDao.updateMoneyAccount(id, moneyAccount);
+        } catch (DaoException e) {
+            logger.error("Failed at PatientServiceImpl at updateDiscount ", e);
+            throw new ServiceException("Failed at PatientServiceImpl at  updateDiscount", e);
+        }
+}
 }
