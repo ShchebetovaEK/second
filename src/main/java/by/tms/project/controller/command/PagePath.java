@@ -20,6 +20,7 @@ public final class PagePath {
     public static final String PRICE = "/jsp/main/price.jsp";
     public static final String REGISTRATION_PAGE = "/jsp/main/registration.jsp";
     public static final String WELCOME_PAGE = "/jsp/main/welcome.jsp";
+    public static final String PROTOCOL_PAGE = "/jsp/main/protocol.jsp";
 
     public static final String ADMIN_PAGE = "/jsp/main/admin.jsp";
     public static final String ADMIN_REGISTRATION = "/jsp/main/adminRegistration.jsp";
