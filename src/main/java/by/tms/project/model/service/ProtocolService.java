@@ -14,7 +14,7 @@ public interface ProtocolService {
 
     List<Protocol> findByData(LocalDate protocolData) throws ServiceException;
 
-    List<Protocol> findByPatient() throws ServiceException;
+    List<Protocol> findByPatient(Long patientId) throws ServiceException;
 
-    List<Protocol> findByDoctor() throws ServiceException ;
+    List<Protocol> findByDoctor(Long doctorId) throws ServiceException ;
 }

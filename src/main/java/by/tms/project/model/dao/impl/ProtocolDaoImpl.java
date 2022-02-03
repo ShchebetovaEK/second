@@ -19,42 +19,40 @@ import java.util.List;
 public class ProtocolDaoImpl implements ProtocolDao {
     private static final Logger logger = LogManager.getLogger();
     private static final String SQL_SELECT_ALL_PROTOCOL = """
-             SELECT protocols.protocol_id, protocols.protocol_data,
-             protocols.protocol_payer,protocols.protocol_cost,
-             FROM protocols
-             INNER JOIN patients on users.id = patients.users_id
-             INNER JOIN doctors on users.id = doctors.users_id
-             """;
+            SELECT protocol_id, protocol_data, protocol_payer, protocol_cost, patients_users_id, doctors_users_id,
+                      insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
+            FROM protocols
+            INNER JOIN patients on protocols.patients_users_id = patients.users_id
+            INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id""";
     private static final String SQL_SELECT_ALL_PROTOCOL_BY_DATA = """
-             SELECT protocols.protocol_id, protocols.protocol_data,
-             protocols.protocol_payer,protocols.protocol_cost,
-             FROM protocols
-             INNER JOIN patients on users.id = patients.users_id
-             INNER JOIN doctors on users.id = doctors.users_id
-             WHERE protocols.protocol_data=? """;
-
+            SELECT protocol_id, protocol_data, protocol_payer, protocol_cost, patients_users_id, doctors_users_id,
+                      insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
+            FROM protocols
+            INNER JOIN patients on protocols.patients_users_id = patients.users_id
+            INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
+            WHERE protocols.protocol_data=? """;
     private static final String SQL_SELECT_ALL_PROTOCOL_BY_PAYER = """
-            SELECT protocols.protocol_id, protocols.protocol_data,
-             protocols.protocol_payer,protocols.protocol_cost,
-             FROM protocols
-             INNER JOIN patients on users.id = patients.users_id
-             INNER JOIN doctors on users.id = doctors.users_id
-             WHERE protocols.protocol_payer=? """;
+            SELECT protocol_id, protocol_data, protocol_payer, protocol_cost, patients_users_id, doctors_users_id,
+                   insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
+            FROM protocols
+            INNER JOIN patients on protocols.patients_users_id = patients.users_id
+            INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
+            WHERE protocols.protocol_payer=? """;
 
     private static final String SQL_SELECT_ALL_PROTOCOL_BY_PATIENT = """
-             SELECT protocols.protocol_id, protocols.protocol_data,
-             protocols.protocol_payer,protocols.protocol_cost,
-             FROM protocols
-             INNER JOIN patients on users.id = patients.users_id
-             INNER JOIN doctors on users.id = doctors.users_id
-             WHERE users.id =?""";
+            SELECT protocol_id, protocol_data, protocol_payer, protocol_cost, patients_users_id, doctors_users_id,
+                   insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
+            FROM protocols
+            INNER JOIN patients on protocols.patients_users_id = patients.users_id
+            INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
+            WHERE patients_users_id=?;""";
     private static final String SQL_SELECT_ALL_PROTOCOL_BY_DOCTOR = """
-             SELECT protocols.protocol_id, protocols.protocol_data,
-              protocols.protocol_payer,protocols.protocol_cost,
-             FROM protocols
-             INNER JOIN patients on users.id = patients.users_id
-             INNER JOIN doctors on users.id = doctors.users_id
-             WHERE users.id =?""";
+            SELECT protocol_id, protocol_data, protocol_payer, protocol_cost, patients_users_id, doctors_users_id,
+                   insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
+            FROM protocols
+            INNER JOIN patients on protocols.patients_users_id = patients.users_id
+            INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
+            WHERE doctors_users_id=?;""";
     private static ProtocolDaoImpl instance;
 
     private ProtocolDaoImpl() {
@@ -114,6 +112,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
 
     /**
      * find all protocol with same data
+     *
      * @return protocolList.
      * @throws DaoException
      */
@@ -131,24 +130,30 @@ public class ProtocolDaoImpl implements ProtocolDao {
             logger.error("Failed at ProtocolDaoImpl at method findByData", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method findByData", e);
         }
-        return protocolList;    }
+        return protocolList;
+    }
 
     /**
      * find all protocol same patient.
+     *
      * @return protocolList.
      * @throws DaoException
      */
     @Override
-    public List<Protocol> findByPatient() throws DaoException {
+    public List<Protocol> findByPatient(Long patientId) throws DaoException {
         List<Protocol> protocolList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PROTOCOL_BY_PATIENT)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Protocol protocol = takeProtocolInfo(resultSet);
-                protocolList.add(protocol);
+            preparedStatement.setLong(1, patientId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                while (resultSet.next()) {
+                    Protocol protocol = takeProtocolInfo(resultSet);
+                    protocolList.add(protocol);
+                }
             }
-        } catch (SQLException e) {
+        } catch (
+                SQLException e) {
             logger.error("Failed at ProtocolDaoImpl at method findByPatient", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method findByPatient", e);
         }
@@ -157,18 +162,21 @@ public class ProtocolDaoImpl implements ProtocolDao {
 
     /**
      * find all protocol same doctor.
+     *
      * @return protocolList.
      * @throws DaoException
      */
     @Override
-    public List<Protocol> findByDoctor() throws DaoException {
+    public List<Protocol> findByDoctor(Long doctorId) throws DaoException {
         List<Protocol> protocolList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PROTOCOL_BY_DOCTOR)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Protocol protocol = takeProtocolInfo(resultSet);
-                protocolList.add(protocol);
+            preparedStatement.setLong(1, doctorId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Protocol protocol = takeProtocolInfo(resultSet);
+                    protocolList.add(protocol);
+                }
             }
         } catch (SQLException e) {
             logger.error("Failed at PatientDaoImpl at method findByDoctor", e);
@@ -181,8 +189,10 @@ public class ProtocolDaoImpl implements ProtocolDao {
         return (new Protocol.ProtocolBuilder()
                 .setProtocolId(resultSet.getLong(ColumnName.PROTOCOLS_PROTOCOL_ID))
                 .setProtocolData(LocalDate.parse(resultSet.getString(ColumnName.PROTOCOLS_PROTOCOL_DATA)))
-                .setProtocolPayer(Payer.valueOf(resultSet.getString(ColumnName.PROTOCOLS_PROTOCOL_PAYER)))
+                .setProtocolPayer(Payer.valueOf(resultSet.getString(ColumnName.PROTOCOLS_PROTOCOL_PAYER).toUpperCase()))
                 .setProtocolCost(resultSet.getBigDecimal(ColumnName.PROTOCOLS_PROTOCOL_COST))
+                .setPatientId(resultSet.getLong(ColumnName.PROTOCOLS_PATIENTS_USERS_ID))
+                .setDoctorId(resultSet.getLong(ColumnName.PROTOCOLS_DOCTORS_USER_ID))
                 .buildProtocol());
     }
 }

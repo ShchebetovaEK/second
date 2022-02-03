@@ -24,34 +24,43 @@
 <%--     <input type="submit" >--%>
 <%-- </form>--%>
 
-
 <form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="manager_page_command">
-    <%--     <input type="text" name="id" >--%>
+    <input type="hidden" name="command" value="admin_take_all_protocols_command">
+    <input type="submit">
+    <br/>
+</form>
+<form action="${abs}/controller" method="get">
+    <input type="hidden" name="command" value="admin_take_protocol_by_doctor_command">
+         <input type="text" name="id" placeholder="doctor id">
     <input type="submit">
 </form>
+<br/>
+<form action="${abs}/controller" method="get">
+    <input type="hidden" name="command" value="admin_take_protocol_by_patient_command">
+         <input type="text" name="id" placeholder="patient id" >
+    <input type="submit">
+</form>
+
 <table>
     <tr>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th> </th>
-        <th> </th>
-        <th></th>
-        <th></th>
-        <th> </th>
+        <th>protocolId</th>
+        <th>protocolData</th>
+        <th>protocolPayer</th>
+        <th> protocolCost</th>
+        <th> patientId</th>
+        <th>doctorId</th>
+
     </tr>
 
     <c:forEach items="${protocols}" var="protocol">
         <tr>
-            <td>${user.id}</td>
-            <td>${user.role}</td>
-            <td>${user.login}</td>
-            <td>${user.firstName}</td>
-            <td>${user.lastName}</td>
-            <td>${user.address}</td>
-            <td>${user.email}</td>
-            <td>${user.phoneNumber}</td>
+            <td>${protocol.protocolId}</td>
+            <td>${protocol.protocolData}</td>
+            <td>${protocol.protocolPayer}</td>
+            <td>${protocol.protocolCost}</td>
+            <td>${protocol.patientId}</td>
+            <td>${protocol.doctorId}</td>
+
         </tr>
     </c:forEach>
 

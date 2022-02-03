@@ -15,9 +15,9 @@ public interface ProtocolDao {
 
     List<Protocol> findByData(LocalDate protocolData) throws DaoException;
 
-    List<Protocol> findByPatient() throws DaoException;
+    List<Protocol> findByPatient(Long patientId) throws DaoException;
 
-    List<Protocol> findByDoctor() throws DaoException;
+    List<Protocol> findByDoctor(Long doctorId) throws DaoException;
 
 
 }

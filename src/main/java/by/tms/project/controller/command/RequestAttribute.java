@@ -12,7 +12,8 @@ public final class RequestAttribute {
     public static final String USER_LIST = "users";
     public static final String DOCTORS_LIST = "doctors";
     public static final String PATIENTS_LIST = "patients";
-    public static final String PROTOCOL_LIST = "protocol";
+    public static final String PROTOCOL_LIST = "protocols";
+    public static final String PROTOCOL = "protocol";
     public static final String OPTIONAL_USER = "optional_users";
 
     public static final String LOGIN ="login";

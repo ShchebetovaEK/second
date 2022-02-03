@@ -9,8 +9,8 @@ public class Protocol extends Entity{
     private LocalDate protocolData;
     private Payer protocolPayer;
     private BigDecimal protocolCost;
-    private Doctor doctor;
-    private Patient patient;
+    private Long doctorId;
+    private Long patientId;
     private List<Capability> capabilityList;
 
     public Protocol() {
@@ -21,6 +21,16 @@ public class Protocol extends Entity{
         this.protocolData = protocolData;
         this.protocolPayer = protocolPayer;
         this.protocolCost = protocolCost;
+    }
+
+    public Protocol(long protocolId, LocalDate protocolData, Payer protocolPayer,
+                    BigDecimal protocolCost, Long doctorId, Long patientId) {
+        this.protocolId = protocolId;
+        this.protocolData = protocolData;
+        this.protocolPayer = protocolPayer;
+        this.protocolCost = protocolCost;
+        this.doctorId = doctorId;
+        this.patientId = patientId;
     }
 
     public long getProtocolId() {
@@ -55,20 +65,20 @@ public class Protocol extends Entity{
         this.protocolCost = protocolCost;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
+    public Long getDoctorId() {
+        return doctorId;
     }
 
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public Long getPatientId() {
+        return patientId;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 
     public List<Capability> getCapabilityList() {
@@ -90,8 +100,8 @@ public class Protocol extends Entity{
         if (!protocolData.equals(protocol.protocolData)) return false;
         if (protocolPayer != protocol.protocolPayer) return false;
         if (!protocolCost.equals(protocol.protocolCost)) return false;
-        if (!doctor.equals(protocol.doctor)) return false;
-        if (!patient.equals(protocol.patient)) return false;
+        if (!doctorId.equals(protocol.doctorId)) return false;
+        if (!patientId.equals(protocol.patientId)) return false;
         return capabilityList.equals(protocol.capabilityList);
     }
 
@@ -101,24 +111,10 @@ public class Protocol extends Entity{
         result = 31 * result + protocolData.hashCode();
         result = 31 * result + protocolPayer.hashCode();
         result = 31 * result + protocolCost.hashCode();
-        result = 31 * result + doctor.hashCode();
-        result = 31 * result + patient.hashCode();
+        result = 31 * result + doctorId.hashCode();
+        result = 31 * result + patientId.hashCode();
         result = 31 * result + capabilityList.hashCode();
         return result;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Protocol{");
-        sb.append("protocolId=").append(protocolId);
-        sb.append(", protocolData=").append(protocolData);
-        sb.append(", protocolPayer=").append(protocolPayer);
-        sb.append(", protocolCost=").append(protocolCost);
-        sb.append(", doctor=").append(doctor);
-        sb.append(", patient=").append(patient);
-        sb.append(", capabilityList=").append(capabilityList);
-        sb.append('}');
-        return sb.toString();
     }
 
     public static class ProtocolBuilder {
@@ -145,7 +141,14 @@ public class Protocol extends Entity{
             protocol.setProtocolCost(protocolCost);
             return this;
         }
-
+        public ProtocolBuilder setDoctorId(Long doctorId) {
+            protocol.setDoctorId(doctorId);
+            return this;
+        }
+        public ProtocolBuilder setPatientId(Long patientId) {
+            protocol.setPatientId(patientId);
+            return this;
+        }
 
         public Protocol buildProtocol() {
             return protocol;

@@ -82,10 +82,10 @@ public class ProtocolServiceImpl implements ProtocolService {
      * @throws ServiceException
      */
     @Override
-    public List<Protocol> findByPatient() throws ServiceException {
+    public List<Protocol> findByPatient(Long patientId) throws ServiceException {
         List<Protocol> protocolList;
         try {
-            protocolList = protocolDao.findByPatient();
+            protocolList = protocolDao.findByPatient(patientId);
         } catch (DaoException e) {
             logger.error("Failed at ProtocolServiceImpl at method findByPatient", e);
             throw new ServiceException("Failed at ProtocolServiceImpl at method findByPatient", e);
@@ -100,10 +100,10 @@ public class ProtocolServiceImpl implements ProtocolService {
      * @throws ServiceException
      */
     @Override
-    public List<Protocol> findByDoctor() throws ServiceException {
+    public List<Protocol> findByDoctor(Long doctorId) throws ServiceException {
         List<Protocol> protocolList;
         try {
-            protocolList = protocolDao.findByDoctor();
+            protocolList = protocolDao.findByDoctor(doctorId);
         } catch (DaoException e) {
             logger.error("Failed at ProtocolServiceImpl at method findByDoctor", e);
             throw new ServiceException("Failed at ProtocolServiceImpl at method findByDoctor", e);
