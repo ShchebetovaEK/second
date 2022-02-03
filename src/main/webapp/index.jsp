@@ -57,6 +57,9 @@
 </form>
 
 
+<form action="jsp/main/update.jsp">
+    <input type="submit" value="update_command"/>
+</form>
 <%--<form action="error400.jsp">--%>
 <%--    <input type="submit" value="Registration"/>--%>
 <%--</form>--%>
