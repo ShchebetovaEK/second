@@ -44,7 +44,7 @@ ___
 *View protocol   
 -by payer
 _Patient role_  
-
+---   
 *Go to the "main" page  
 *Go to price page  
 *Go to our doctors page  
@@ -55,7 +55,7 @@ _Patient role_
 *Registration  
 
 _Doctor role_  
- 
+ --- 
 *Go to the "main" page  
 *Go to price page  
 *Go to our doctors page  
@@ -67,7 +67,7 @@ _Doctor role_
 -by discount  
 -by insurance  
 -by login
----
+
 
 ![CLINIC SCHEME](medicine.png)
 
