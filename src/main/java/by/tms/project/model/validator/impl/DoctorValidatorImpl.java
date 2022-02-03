@@ -7,6 +7,10 @@ import by.tms.project.model.validator.DoctorValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Map;
+
+import static by.tms.project.controller.command.RequestParameter.*;
+
 public class DoctorValidatorImpl implements DoctorValidator {
     private static final Logger logger = LogManager.getLogger();
     private static DoctorValidatorImpl instance;
@@ -39,7 +43,7 @@ public class DoctorValidatorImpl implements DoctorValidator {
         return match;
     }
 
-    //todo
+
     @Override
     public boolean isExperienceValid(String experience) {
         boolean match = true;
@@ -51,7 +55,7 @@ public class DoctorValidatorImpl implements DoctorValidator {
         return match;
     }
 
-    //todo
+
     @Override
     public boolean isSpecialityValid(String speciality) {
         boolean match = true;
@@ -61,5 +65,22 @@ public class DoctorValidatorImpl implements DoctorValidator {
             match = false;
         }
         return match;
+    }
+
+    public boolean checkUserDoctorData(Map<String, String> userData) {
+        boolean isValid = true;
+        if (!isCategoryValid(userData.get(CATEGORY))) {
+            userData.put(CATEGORY, INVALID_CATEGORY);
+            isValid = false;
+        }
+        if (!isExperienceValid(userData.get(EXPERIENCE))) {
+            userData.put(EXPERIENCE, INVALID_EXPERIENCE);
+            isValid = false;
+        }
+        if (!isSpecialityValid(userData.get(SPECIALITY))) {
+            userData.put(SPECIALITY, INVALID_SPECIALITY);
+            isValid = false;
+        }
+        return isValid;
     }
 }
