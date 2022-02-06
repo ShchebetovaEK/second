@@ -18,41 +18,47 @@
 <body>
 
 <form action="${abs}/controller" method="get">
+    <label class="form-label">view all doctor's </label>
     <input type="hidden" name="command" value="admin_take_all_doctors_command">
-    <input type="submit"  name="doctor">
+    <input type="submit"  >
 </form>
 
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_take_doctors_by_category_command">
-    please, input desired category: <input type="text" name="category" value="HIGH" >
+ <label class="form-label">please, input desired category: </label>
+    <input type="text" name="category" value="HIGH" >
     <input type="submit" >
 </form>
 
+
+
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_take_doctors_by_experience_command">
-    please, input desired experience: <input type="text" name="experience" value="FIVE_YEARS">
+  <label class="form-label"> please, input desired experience:</label>
+    <input type="text" name="experience" value="FIVE_YEARS">
     <input type="submit" >
 </form>
 
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_take_doctors_by_speciality_command">
-    please, input desired speciality: <input type="text" name="speciality" value="UROLOGY">
+    <label class="form-label">please, input desired speciality:</label>
+    <input type="text" name="speciality" value="UROLOGY">
     <input type="submit" >
 </form>
-<table>
+<table class="table text-danger">
     <tr>
-        <th>id</th>
-        <th>role</th>
-        <th>login</th>
-        <th>first name</th>
-        <th>last name</th>
-        <th>address</th>
-        <th>email</th>
-        <th>phone number</th>
-        <th>data birthday</th>
-        <th>category</th>
-        <th>experience</th>
-        <th>speciality</th>
+        <th scope="col">id</th>
+        <th scope="col">role</th>
+        <th scope="col">login</th>
+        <th scope="col">first name</th>
+        <th scope="col">last name</th>
+        <th scope="col">address</th>
+        <th scope="col">email</th>
+        <th scope="col">phone number</th>
+        <th scope="col">data birthday</th>
+        <th scope="col">category</th>
+        <th scope="col">experience</th>
+        <th scope="col"> speciality</th>
 
     </tr>
 
@@ -68,9 +74,8 @@
             <td>${user.email}</td>
             <td>${user.phoneNumber}</td>
             <td>${user.dataBirthday}</td>
-
-            <c:if test="${doctor}">
-                <td> ${user.category}</td>
+              <c:if test="${doctor}">
+                  <td> ${user.category}</td>
                 <td> ${user.experience}</td>
                 <td> ${user.speciality}</td>
             </c:if>

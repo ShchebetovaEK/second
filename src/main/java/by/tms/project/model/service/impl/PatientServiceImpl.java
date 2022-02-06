@@ -23,10 +23,11 @@ public class PatientServiceImpl implements PatientService {
     private PatientDao patientDao = PatientDaoImpl.getInstance();
     private static PatientServiceImpl instance;
 
-    private PatientServiceImpl(){}
+    private PatientServiceImpl() {
+    }
 
-    public static PatientServiceImpl getInstance( ){
-        if(instance == null){
+    public static PatientServiceImpl getInstance() {
+        if (instance == null) {
             instance = new PatientServiceImpl();
         }
         return instance;
@@ -34,6 +35,7 @@ public class PatientServiceImpl implements PatientService {
 
     /**
      * find all patient.
+     *
      * @return patientList.
      * @throws ServiceException
      */
@@ -51,6 +53,7 @@ public class PatientServiceImpl implements PatientService {
 
     /**
      * find patient by login.
+     *
      * @param login
      * @return optionalPatient.
      * @throws ServiceException
@@ -69,6 +72,7 @@ public class PatientServiceImpl implements PatientService {
 
     /**
      * find patient by insurance.
+     *
      * @param insurance
      * @return patientList.
      * @throws ServiceException
@@ -99,6 +103,7 @@ public class PatientServiceImpl implements PatientService {
 
     /**
      * find patient with max discount.
+     *
      * @param discount
      * @return patientList.
      * @throws ServiceException
@@ -153,5 +158,24 @@ public class PatientServiceImpl implements PatientService {
             logger.error("Failed at PatientServiceImpl at updateDiscount ", e);
             throw new ServiceException("Failed at PatientServiceImpl at  updateDiscount", e);
         }
-}
+    }
+
+    @Override
+    public boolean deletePatient(long id) throws ServiceException {
+        try {
+            return patientDao.deletePatient(id);
+        } catch (DaoException e) {
+            logger.error("", e);
+            throw new ServiceException("", e);
+        }
+    }
+    @Override
+    public boolean archivPatient(long id) throws ServiceException {
+        try {
+            return patientDao.archivPatient(id);
+        } catch (DaoException e) {
+            logger.error("Failed at PatientServiceImpl", e);
+            throw new ServiceException("Failed at PatientServiceImpl", e);
+        }
+    }
 }

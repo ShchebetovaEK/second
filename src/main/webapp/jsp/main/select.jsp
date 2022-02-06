@@ -36,6 +36,7 @@
 </form>
 
 
+
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_take_user_by_last_name_command">
     please, input desired Last Name: <input type="text" name="last_name" >
@@ -48,16 +49,16 @@
     <input type="submit" >
 </form>
 
-<table>
+<table class="table text-success">
     <tr>
-        <th>id</th>
-        <th>role</th>
-        <th>login</th>
-        <th>first name</th>
-        <th>last name</th>
-        <th>address</th>
-        <th>email</th>
-        <th>phone number </th>
+        <th scope="col">id</th>
+        <th scope="col">role</th>
+        <th scope="col">login</th>
+        <th scope="col">first name</th>
+        <th scope="col">last name</th>
+        <th scope="col">address</th>
+        <th scope="col">email</th>
+        <th scope="col">phone number </th>
 
 
     </tr>

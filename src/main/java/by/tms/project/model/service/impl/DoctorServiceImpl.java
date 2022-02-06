@@ -219,4 +219,27 @@ public class DoctorServiceImpl implements DoctorService {
             throw new ServiceException("Failed at UserServiceImpl at method ", e);
         }
     }
+
+    @Override
+    public boolean deleteDoctor(long id) throws ServiceException {
+        try {
+            return doctorDao.deleteDoctor(id);
+        } catch (DaoException e) {
+            logger.error("", e);
+            throw new ServiceException("", e);
+        }
+    }
+
+    @Override
+    public List<Doctor> chooseDoctor(Category category, Experience experience, Speciality speciality) throws ServiceException {
+        List<Doctor> doctorList;
+        try {
+            doctorList = doctorDao.findBySpeciality(speciality);
+        } catch (DaoException e) {
+            logger.error("Failed at DoctorServiceImpl at method chooseDoctor ", e);
+            throw new ServiceException("Failed at DoctorServiceImpl at method  chooseDoctor", e);
+        }
+        return doctorList;
+    }
 }
+

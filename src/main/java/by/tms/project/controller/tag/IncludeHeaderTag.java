@@ -1,6 +1,10 @@
 package by.tms.project.controller.tag;
 
-public class IncludeHeaderTag {
+//import jakarta.servlet.jsp.JspException;
+//import jakarta.servlet.jsp.JspWriter;
+//import jakarta.servlet.jsp.tagext.TagSupport;
+//
+//public class IncludeHeaderTag implements TagSupport {
         //extends TagSupport {
 //    private String var;
 //    private Role role;
@@ -30,4 +34,4 @@ public class IncludeHeaderTag {
 //                break;
 //        }
 //        return SKIP_BODY;
-    }
+//    }

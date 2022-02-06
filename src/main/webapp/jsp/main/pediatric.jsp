@@ -23,7 +23,7 @@
     <div class="card-body">
         <h5 class="card-title"> Pediatric </h5>
         <p class="card-text" >
-           Pediatric.pediatrics full of sympathy.</p>
+           Pediatric. pediatrics full of sympathy.</p>
         <a href="${pageContext.request.contextPath}/controller?command=go_to_price_command" class="card-link">price</a>
         <a href="${pageContext.request.contextPath}/controller?command=go_to_doctors_command"class="card-link">doctors</a>
     </div>

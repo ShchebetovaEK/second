@@ -40,6 +40,18 @@
          <input type="text" name="id" placeholder="patient id" >
     <input type="submit">
 </form>
+<br/>
+<form action="${abs}/controller" method="get">
+    <input type="hidden" name="command" value="admin_take_protocol_by_payer_command">
+    <input type="text" name="payer" placeholder="payer" >
+    <input type="submit">
+</form>
+<br/>
+<form action="${abs}/controller" method="get">
+    <input type="hidden" name="command" value="admin_take_protocol_by_data_command">
+    <input type="date" name="data" placeholder="YYYY-MM-DD" >
+    <input type="submit">
+</form>
 
 <table>
     <tr>
@@ -49,6 +61,13 @@
         <th> protocolCost</th>
         <th> patientId</th>
         <th>doctorId</th>
+        <th>insurance</th>
+        <th>moneyAccount</th>
+        <th>discount</th>
+        <th>category</th>
+        <th>experience</th>
+        <th>speciality</th>
+
 
     </tr>
 
@@ -61,6 +80,17 @@
             <td>${protocol.patientId}</td>
             <td>${protocol.doctorId}</td>
 
+            <c:if test="${patient}">
+                <td> ${user.insurance}</td>
+                <td> ${user.moneyAccount}</td>
+                <td> ${user.discount}</td>
+            </c:if>
+
+            <c:if test="${doctor}">
+                <td> ${user.category}</td>
+                <td> ${user.experience}</td>
+                <td> ${user.speciality}</td>
+            </c:if>
         </tr>
     </c:forEach>
 

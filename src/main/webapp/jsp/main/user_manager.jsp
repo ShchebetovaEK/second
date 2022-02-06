@@ -60,27 +60,27 @@
 
 <form action="${abs}/controller" method="get">
    view all patients <input type="hidden" name="command" value="admin_take_all_patients_command">
-      <input type="submit" value="patient">
+      <input type="submit">
 </form>
 <br/>
 
 <form action="${abs}/controller" method="get">
     view all doctors <input type="hidden" name="command" value="admin_take_all_doctors_command">
-    <input type="submit" value="doctor">
+    <input type="submit" >
 </form>
 <br/>
 
-<table>
+<table class="table text-success table-hover">
     <tr>
-        <th>id</th>
-        <th>role</th>
-        <th>login</th>
-        <th>first name</th>
-        <th>last name</th>
-        <th>address</th>
-        <th>email</th>
-        <th>phone number</th>
-        <th>data</th>
+        <th scope="col">id</th>
+        <th scope="col">role</th>
+        <th scope="col">login</th>
+        <th scope="col">first name</th>
+        <th scope="col">last name</th>
+        <th scope="col">address</th>
+        <th scope="col">email</th>
+        <th scope="col">phone number</th>
+        <th scope="col">data</th>
     </tr>
 
     <c:forEach items="${users}" var="user">
@@ -96,17 +96,17 @@
             <td>${user.phoneNumber}</td>
             <td>${user.dataBirthday}</td>
 
-            <c:if test="${doctor}">
-                <td> ${user.category}</td>
-                <td> ${user.experience}</td>
-                <td> ${user.speciality}</td>
-            </c:if>
+<%--            <c:if test="${doctor}">--%>
+<%--                <td> ${user.category}</td>--%>
+<%--                <td> ${user.experience}</td>--%>
+<%--                <td> ${user.speciality}</td>--%>
+<%--            </c:if>--%>
 
-            <c:if test="${patient}">
-                <td> ${user.insurance}</td>
-                <td> ${user.moneyAccount}</td>
-                <td> ${user.discount}</td>
-            </c:if>
+<%--            <c:if test="${patient}">--%>
+<%--                <td> ${user.insurance}</td>--%>
+<%--                <td> ${user.moneyAccount}</td>--%>
+<%--                <td> ${user.discount}</td>--%>
+<%--            </c:if>--%>
 
         </tr>
     </c:forEach>
@@ -114,7 +114,7 @@
 </table>
 
 <a href="${pageContext.request.contextPath}/jsp/main/user_manager.jsp">Back to manager</a>
-<a href="${pageContext.request.contextPath}/jsp/main/select.jsp.jsp">Back to select page</a>
+<a href="${pageContext.request.contextPath}/jsp/main/select.jsp">Back to select page</a>
 <a href="${pageContext.request.contextPath}/jsp/main/selectDoctor.jsp">Back to select doctor page</a>
 <a href="${pageContext.request.contextPath}/jsp/main/selectPatient.jsp">Back to select patient page</a>
 

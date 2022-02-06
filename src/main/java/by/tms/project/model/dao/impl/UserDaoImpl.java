@@ -4,9 +4,11 @@ import by.tms.project.exception.DaoException;
 import by.tms.project.model.connection.ConnectionPool;
 import by.tms.project.model.dao.ColumnName;
 import by.tms.project.model.dao.UserDao;
+import by.tms.project.model.entity.Archiv;
 import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
 import by.tms.project.model.util.security.PasswordEncryptor;
+import by.tms.project.model.util.security.PasswordHash;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
@@ -18,80 +20,78 @@ import java.util.Optional;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class UserDaoImpl.
  */
 public class UserDaoImpl implements UserDao {
     private static final Logger logger = LogManager.getLogger();
+    private static final String ARCHIV_INACTIV = "inactiv";
     private static final String SQL_SELECT_ALL = """
             SELECT id,role,login,password,first_name,last_name,
-            data_birthday,address,phone_number,email  
+            data_birthday,address,phone_number,email,archiv  
             FROM users""";
     private static final String SQL_SELECT_BY_ID = """ 
-            SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email 
+            SELECT id,role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email,archiv 
             FROM users
             WHERE users.id =?""";
     private static final String SQL_SELECT_BY_LOGIN = """
-            SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email 
+            SELECT id,role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email,archiv 
             FROM users 
             WHERE users.login =?""";
     private static final String SQL_SELECT_BY_LOGIN_AND_PASSWORD = """
-            SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email 
+            SELECT id,role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email,archiv
             FROM users 
             WHERE users.login =? 
-            AND users.password = ?"""; //todo password hash
-
+            AND users.password = ?""";
     private static final String SQL_SELECT_BY_FIRST_NAME = """
-            SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email 
+            SELECT id,role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email,archiv 
             FROM users 
             WHERE users.first_name=?""";
     private static final String SQL_SELECT_BY_LAST_NAME = """
-            SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email 
+            SELECT id,role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email,archiv 
             FROM users 
             WHERE users.last_name =?""";
     private static final String SQL_SELECT_BY_EMAIL = """
-            SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email 
+            SELECT id,role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email,archiv 
             FROM users 
             WHERE users.email =?""";
     private static final String SQL_SELECT_BY_DATA_BIRTHDAY = """
-            SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email 
+            SELECT id,role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email,archiv 
             FROM users 
             WHERE users.data_birthday =?""";
     private static final String SQL_SELECT_BY_PHONE_NUMBER = """
-            SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email 
+            SELECT id,role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email,archiv 
             FROM users
             WHERE users.phone_number=?""";
     private static final String SQL_SELECT_BY_FIRST_NAME_AND_ROLE = """
-            SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email 
+            SELECT id,role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email,archiv 
             FROM users 
             WHERE users.first_name =?  
             AND users.role=?""";
     private static final String SQL_SELECT_BY_LAST_NAME_AND_ROLE = """
-            SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email 
+            SELECT id,role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email,archiv 
             FROM users 
             WHERE users.last_name =? 
             AND users.role=?""";
     private static final String SQL_SELECT_ALL_BY_ROLE = """
-            SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email 
+            SELECT id,role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email,archiv  
             FROM users 
             WHERE users.role =?""";
     private static final String SQL_SET_LOGIN = """
             UPDATE users 
             SET users.login=? 
             WHERE users.id=?""";
-
-    //todo
     private static final String SQL_SET_PASSWORD = """
             UPDATE users 
             SET users.password=? 
@@ -100,18 +100,20 @@ public class UserDaoImpl implements UserDao {
             INSERT INTO users(role,login,password,first_name,last_name,
             data_birthday,address,phone_number,email)
             VALUES (?,?,?,?,?,?,?,?,?)""";
-
     private static final String SQL_UPDATE_USER = """
             UPDATE users 
             SET users.role=?,users.login=?,users.password=?,users.first_name=?,
-            users.last_name=?,users.data_birthday=?,users.address=?,users.phone_number=?,users.email=? 
+            users.last_name=?,users.data_birthday=?,users.address=?,users.phone_number=?,users.email=? users.archiv=?
             WHERE users.id=?""";
     private static final String SQL_DELETE_USER_BY_ID = """
             DELETE FROM users 
             WHERE users.id =?""";
+    private static final String SQL_DELETE_ADMIN_BY_ID = """
+            DELETE FROM users 
+            WHERE users.id =?""";
     private static final String SQL_CHECK_BY_LOGIN_PASSWORD = """ 
             SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email
+            users.data_birthday,users.address,users.phone_number,users.email,users.archiv
             FROM users
             WHERE users.login =?
             AND  users.password =?""";
@@ -149,11 +151,16 @@ public class UserDaoImpl implements UserDao {
             UPDATE users 
             SET data_birthday=?
             WHERE id =?""";
+    private static final String SQL_ARCHIV_USER_BY_ID = """
+            UPDATE users 
+            SET archiv =? 
+            WHERE id =?""";
 
     private static UserDaoImpl instance;
 
     private UserDaoImpl() {
     }
+
 
     public static UserDao getInstance() {
         if (instance == null) {
@@ -233,6 +240,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());
+
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Failed at UserDaoImpl at method create", e);
@@ -253,16 +261,17 @@ public class UserDaoImpl implements UserDao {
         int result;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER)) {
-        //    preparedStatement.setString(1, String.valueOf(entity.getRole()));
-         //   preparedStatement.setString(2, entity.getLogin());
-         //   preparedStatement.setString(3, entity.getPassword());
+            //    preparedStatement.setString(1, String.valueOf(entity.getRole()));
+            //   preparedStatement.setString(2, entity.getLogin());
+            //   preparedStatement.setString(3, entity.getPassword());
             long id = entity.getId();
             preparedStatement.setString(5, entity.getLastName());
-      //      Date dataBirthday = new Date(entity.getDataBirthday().getTime());//
-       //     preparedStatement.setDate(6, dataBirthday);
+            //      Date dataBirthday = new Date(entity.getDataBirthday().getTime());//
+            //     preparedStatement.setDate(6, dataBirthday);
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());
+            preparedStatement.setString(10, String.valueOf(entity.getArchiv()));
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Failed at UserDaoImpl at method update", e);
@@ -272,7 +281,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     /**
-     * delete user with same login.
+     * delete user with same id
      *
      * @param id
      * @return the boolean.
@@ -327,7 +336,7 @@ public class UserDaoImpl implements UserDao {
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_LOGIN_AND_PASSWORD)) {
             preparedStatement.setString(1, login);
-            preparedStatement.setString(2,passwordHash);
+            preparedStatement.setString(2, passwordHash);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     optionalUser = Optional.of(takeUserInfo(resultSet));
@@ -692,7 +701,7 @@ public class UserDaoImpl implements UserDao {
         int result;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SET_PASSWORD)) {
-            String resultPassword = PasswordEncryptor.encrypt(password);
+            String resultPassword = PasswordHash.encrypt(password);
             preparedStatement.setString(1, resultPassword);
             preparedStatement.setString(2, user.getLogin());
             result = preparedStatement.executeUpdate();
@@ -928,6 +937,27 @@ public class UserDaoImpl implements UserDao {
         return result;
     }
 
+    /**
+     * input user in archiv
+     * @param id
+     * @return the boolean.
+     * @throws DaoException
+     */
+    @Override
+    public boolean archivUser(long id) throws DaoException {
+        boolean result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ARCHIV_USER_BY_ID)) {
+            preparedStatement.setString(1, ARCHIV_INACTIV);
+            preparedStatement.setLong(2, id);
+            result = preparedStatement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method archivUser ", e);
+            throw new DaoException("Failed at  PatientDaoImpl at method archivUser", e);
+        }
+        return result;
+
+    }
 
     public User takeUserInfo(ResultSet resultSet) throws SQLException {
         return (new User.UserBuilder()
@@ -941,6 +971,7 @@ public class UserDaoImpl implements UserDao {
                 .setAddress(resultSet.getString(ColumnName.USERS_ADDRESS))
                 .setPhoneNumber(resultSet.getString(ColumnName.USERS_PHONE_NUMBER))
                 .setEmail(resultSet.getString(ColumnName.USERS_EMAIL))
+                .setArchiv(Archiv.valueOf(resultSet.getString(ColumnName.USERS_ARCHIV).toUpperCase()))
                 .buildUser());
     }
 }

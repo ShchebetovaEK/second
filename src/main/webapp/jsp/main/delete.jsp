@@ -23,10 +23,25 @@
 
     <input type="submit" name="delete" >
 </form>
+<br/>
+<form action="${abs}/controller" method="get">
+  archiv  <input type="hidden" name="command" value="admin_archiv_patient_command">
+    please, input  id patient: <input type="text" name="users_id" placeholder="id" >
+
+    <input type="submit" >
+</form>
 
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_delete_doctor_command">
     please, input  id doctor: <input type="text" name="users_id" placeholder="id" >
+
+    <input type="submit" name="delete" >
+</form>
+
+
+<form action="${abs}/controller" method="get">
+    <input type="hidden" name="command" value="admin_archiv_user_command">
+    please, input  id user: <input type="text" name="users_id" placeholder="id" >
 
     <input type="submit" name="delete" >
 </form>

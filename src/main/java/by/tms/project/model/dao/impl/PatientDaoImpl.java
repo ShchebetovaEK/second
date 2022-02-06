@@ -4,6 +4,7 @@ import by.tms.project.exception.DaoException;
 import by.tms.project.model.connection.ConnectionPool;
 import by.tms.project.model.dao.ColumnName;
 import by.tms.project.model.dao.PatientDao;
+import by.tms.project.model.entity.Archiv;
 import by.tms.project.model.entity.Patient;
 import by.tms.project.model.entity.Role;
 import org.apache.logging.log4j.LogManager;
@@ -19,70 +20,83 @@ import java.util.Optional;
 public class PatientDaoImpl implements PatientDao {
     private static final Logger logger = LogManager.getLogger();
     private static final String PATIENT = "patient";
+    private static final String ARCHIV_INACTIV = "inactiv";
     private static final String SQL_SELECT_ALL_PATIENT = """
             SELECT id,role,login,password,first_name,last_name,
-                   data_birthday,address,phone_number,email,
+                   data_birthday,address,phone_number,email,archiv,
                    insurance,money_account,discount
             FROM users
-                     INNER JOIN patients on users.id = patients.users_id
+            INNER JOIN patients on users.id = patients.users_id
             WHERE users.role =?""";
     private static final String SQL_SELECT_PATIENTS_BY_ID = """
             SELECT id,role,login,password,first_name,last_name,
-                   data_birthday,address,phone_number,email,
+                   data_birthday,address,phone_number,email,archiv,
                    insurance,money_account,discount
             FROM users
             INNER JOIN patients on users.id = patients.users_id
             WHERE users.id =?""";
-
-    //todo
-    private static final String SQL_CREATE_PATIENT = """
-            INSERT INTO users(role,login,password,first_name,last_name,
-            data_birthday,address,phone_number,email) 
-            VALUES (?,?,?,?,?,?,?,?,?)
-            INSERT INTO patients(insurance,money_account,discount)
-            VALUES (?,?,?)""";
-    //todo
-    private static final String SQL_UPDATE_PATIENT = """
-            UPDATE users 
-            SET users.role=?,users.login=?,users.password=?,users.first_name=?,
-            users.last_name=?,users.data_birthday=?,users.address=?,users.phone_number=?,users.email=? 
-            WHERE users.id=?""";
-
-    //todo
-    private static final String SQL_DELETE_PATIENT_BY_ID = """
-            DELETE FROM users 
-            WHERE users.id =?""";
-
     private static final String SQL_SELECT_PATIENTS_BY_INSURANCE = """
             SELECT id,role,login,password,first_name,last_name,
-                   data_birthday,address,phone_number,email,
+                   data_birthday,address,phone_number,email,archiv,
                    insurance,money_account,discount
             FROM users
             INNER JOIN patients on users.id = patients.users_id
             WHERE patients.insurance =?""";
     private static final String SQL_SELECT_PATIENTS_BY_MONEY_ACCOUNT = """
             SELECT id,role,login,password,first_name,last_name,
-                   data_birthday,address,phone_number,email,
+                   data_birthday,address,phone_number,email,archiv,
                    insurance,money_account,discount
             FROM users
                      INNER JOIN patients on users.id = patients.users_id
             WHERE patients.money_account BETWEEN 20 AND 110 """;
     private static final String SQL_SELECT_PATIENTS_BY_DISCOUNT = """
             SELECT id,role,login,password,first_name,last_name,
-                   data_birthday,address,phone_number,email,
+                   data_birthday,address,phone_number,email,archiv,
                    insurance,money_account,discount
             FROM users
             INNER JOIN patients on users.id = patients.users_id
             WHERE patients.discount =?""";
-
     private static final String SQL_SELECT_PATIENT_BY_LOGIN = """
             SELECT id,role,login,password,first_name,last_name,
-                   data_birthday,address,phone_number,email,
+                   data_birthday,address,phone_number,email,archiv,
                    insurance,money_account,discount
             FROM users
             INNER JOIN patients on users.id = patients.users_id
             WHERE users.login=?""";
+    private static final String SQL_UPDATE_INSURANCE = """
+            UPDATE patients
+            SET insurance =?
+            WHERE users_id=?""";
+    private static final String SQL_UPDATE_DISCOUNT = """
+            UPDATE patients
+            SET discount =?
+            WHERE users_id=? """;
+    private static final String SQL_UPDATE_MONEY_ACCOUNT = """
+            UPDATE patients
+            SET money_account =?
+            WHERE users_id=? """;
+    private static final String SQL_DELETE_PATIENT_BY_ID = """
+            DELETE FROM users 
+            WHERE users.id =?""";
 
+    //todo
+    private static final String SQL_CREATE_PATIENT = """
+            INSERT INTO users(role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email,archiv) 
+            VALUES (?,?,?,?,?,?,?,?,?,?)
+            INSERT INTO patients(insurance,money_account,discount)
+            VALUES (?,?,?)""";
+    //todo
+    private static final String SQL_UPDATE_PATIENT = """
+            UPDATE users 
+            SET users.role=?,users.login=?,users.password=?,users.first_name=?,
+            users.last_name=?,users.data_birthday=?,users.address=?,
+            users.phone_number=?,users.email=?,users.archiv=?
+            WHERE users.id=?""";
+    private static final String SQL_ARCHIV_PATIENT_BY_ID = """
+            UPDATE users
+            SET archiv = ?
+            WHERE users.id=?""";
     private static PatientDaoImpl instance;
 
     private PatientDaoImpl() {
@@ -172,9 +186,10 @@ public class PatientDaoImpl implements PatientDao {
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());
-            preparedStatement.setBoolean(10, entity.isInsurance());
-            preparedStatement.setBigDecimal(11, entity.getMoneyAccount());
-            preparedStatement.setInt(12, entity.getDiscount());
+            preparedStatement.setString(10, String.valueOf(entity.getArchiv()));
+            preparedStatement.setBoolean(11, entity.isInsurance());
+            preparedStatement.setBigDecimal(12, entity.getMoneyAccount());
+            preparedStatement.setInt(13, entity.getDiscount());
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Failed at PatientDaoImpl at method create", e);
@@ -205,9 +220,10 @@ public class PatientDaoImpl implements PatientDao {
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());
-            preparedStatement.setBoolean(10, entity.isInsurance());
-            preparedStatement.setBigDecimal(11, entity.getMoneyAccount());
-            preparedStatement.setInt(12, entity.getDiscount());
+            preparedStatement.setString(10, String.valueOf(entity.getArchiv()));
+            preparedStatement.setBoolean(11, entity.isInsurance());
+            preparedStatement.setBigDecimal(12, entity.getMoneyAccount());
+            preparedStatement.setInt(13, entity.getDiscount());
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Failed at PatientDaoImpl at method update", e);
@@ -361,6 +377,84 @@ public class PatientDaoImpl implements PatientDao {
         return optionalPatient;
     }
 
+    @Override
+    public boolean updateInsurance(long id, Boolean insurance) throws DaoException {
+        boolean result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_INSURANCE)) {
+            preparedStatement.setBoolean(1, insurance);
+            preparedStatement.setLong(2, id);
+            result = preparedStatement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method updateInsurance ", e);
+            throw new DaoException("Failed at PatientDaoImpl at method updateInsurance", e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean updateDiscount(long id, Integer discount) throws DaoException {
+        boolean result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_DISCOUNT)) {
+            preparedStatement.setInt(1, discount);
+            preparedStatement.setLong(2, id);
+            result = preparedStatement.executeUpdate() == 1;
+
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method  updateDiscount", e);
+            throw new DaoException("Failed at  PatientDaoImpl at method updateDiscount", e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean updateMoneyAccount(long id, BigDecimal moneyAccount) throws DaoException {
+        boolean result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_MONEY_ACCOUNT)) {
+            preparedStatement.setBigDecimal(1, moneyAccount);
+            preparedStatement.setLong(2, id);
+            result = preparedStatement.executeUpdate() == 1;
+
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method  updateMoneyAccount", e);
+            throw new DaoException("Failed at  PatientDaoImpl at method updateMoneyAccount", e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean deletePatient(long id) throws DaoException {
+        boolean result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_PATIENT_BY_ID)) {
+            preparedStatement.setLong(1, id);
+            result = preparedStatement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method deletePatient ", e);
+            throw new DaoException("Failed at  PatientDaoImpl at method deletePatient", e);
+        }
+        return result;
+
+    }
+
+    @Override
+    public boolean archivPatient(long id) throws DaoException {
+        boolean result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ARCHIV_PATIENT_BY_ID)) {
+            preparedStatement.setString(1, ARCHIV_INACTIV);
+            preparedStatement.setLong(2, id);
+            result = preparedStatement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            logger.error("Failed at PatientDaoImpl at method deletePatient ", e);
+            throw new DaoException("Failed at  PatientDaoImpl at method deletePatient", e);
+        }
+        return result;
+
+    }
+
     public Patient takePatientInfo(ResultSet resultSet) throws SQLException {
         return (new Patient.PatientBuilder()
                 .setId(resultSet.getLong(ColumnName.USERS_ID))
@@ -373,6 +467,7 @@ public class PatientDaoImpl implements PatientDao {
                 .setAddress(resultSet.getString(ColumnName.USERS_ADDRESS))
                 .setPhoneNumber(resultSet.getString(ColumnName.USERS_PHONE_NUMBER))
                 .setEmail(resultSet.getString(ColumnName.USERS_EMAIL))
+                .setArchiv(Archiv.valueOf(resultSet.getString(ColumnName.USERS_ARCHIV).toUpperCase()))
                 .setInsurance(resultSet.getBoolean(ColumnName.PATIENTS_INSURANCE))
                 .setMoneyAccount(resultSet.getBigDecimal(ColumnName.PATIENTS_MONEY_ACCOUNT))
                 .setDiscount(resultSet.getInt(ColumnName.PATIENTS_DISCOUNT))

@@ -13,6 +13,7 @@ public final class ColumnName {
     public static final String USERS_ADDRESS = "address";
     public static final String USERS_PHONE_NUMBER = "phone_number";
     public static final String USERS_EMAIL = "email";
+    public static final String USERS_ARCHIV = "archiv";
 
     /*TABLE PATIENTS*/
     public static final String PATIENTS_INSURANCE = "insurance";
@@ -40,6 +41,8 @@ public final class ColumnName {
     public static final String PROTOCOLS_PROTOCOL_COST = "protocol_cost";
     public static final String PROTOCOLS_PATIENTS_USERS_ID = "patients_users_id";
     public static final String PROTOCOLS_DOCTORS_USER_ID = "doctors_users_id";
+    public static final String APPLICATION = "application";
+    public static final String STATUS = "status";
 
     private ColumnName(){
 

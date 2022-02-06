@@ -7,9 +7,7 @@
 <head>
     <title>About Us</title>
 </head>
-
 <body>
-
     <div class="text-center text-success">
         Multidisciplinary medical company "ForestMed" has been operating since 2002.
         For almost 20 years of activity, the centers have received many awards in their industry and, most importantly,
@@ -18,8 +16,7 @@
         The quality of the services provided
         is under constant control of the company's management so that patient care meets the highest international standards
     </div>
-
-
+    <br/>
     <div class="text-center text-danger"><h1> Our Centers </h1></div>
 <div class="card-group">
     <div class="card text-body  bg-info mb-3">
@@ -43,7 +40,6 @@
         <div class="card-body">
 
             <p class="card-text"> Minsk city, Pritytskogo street, 140 </p>
-
         </div>
     </div>
 </div>

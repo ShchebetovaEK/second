@@ -29,7 +29,16 @@ public final class RequestParameter {
     public static final String MONEY_ACCOUNT = "money_account";
     public static final String DISCOUNT = "discount";
     /*protocol*/
-    public static final String PAYER = "payer";
+    public static final String PROTOCOL_ID = "protocol_id";
+    public static final String PROTOCOL_PAYER = "protocol_payer";
+    public static final String PROTOCOL_DATA = "protocol_data";
+    public static final String PROTOCOL_COST = "protocol_cost";
+    public static final String PROTOCOL_APPLICATION = "application";
+    public static final String PROTOCOL_STATUS = "status";
+
+    public static final String PROTOCOL_DOCTOR_USERS_ID = "doctors_users_id";
+    public static final String PROTOCOL_PATIENTS_USERS_ID = "patients_users_id";
+    public static final String PROTOCOL_ID_SUM = "forestmed.capabilities.protocols_protocol_id";
 
     public static final String TRUE = "true";
     public static final String FALSE= "false";

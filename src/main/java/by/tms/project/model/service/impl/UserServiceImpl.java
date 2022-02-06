@@ -85,9 +85,11 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Optional<User> findByLogin(String login) throws ServiceException {
-        Optional<User> optionalUser;
+        Optional<User> optionalUser = Optional.empty();
         try {
-            optionalUser = userDao.findByLogin(login);
+            if (UserValidatorImpl.getInstance().isLoginValid(login)) {
+                optionalUser = userDao.findByLogin(login);
+            }
         } catch (DaoException e) {
             logger.error("Failed at UserServiceImpl at method findByLogin", e);
             throw new ServiceException("Failed at UserServiceImpl at method findByLogin", e);
@@ -104,7 +106,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Optional<User> findUserById(long id) throws ServiceException {
-        Optional<User> optionalUser;
+        Optional<User> optionalUser = Optional.empty();
         try {
             optionalUser = userDao.findById(id);
         } catch (DaoException e) {
@@ -114,11 +116,20 @@ public class UserServiceImpl implements UserService {
         return optionalUser;
     }
 
+    /**
+     * find user by first name.
+     *
+     * @param firstName
+     * @return userList
+     * @throws ServiceException
+     */
     @Override
     public List<User> findByFirstName(String firstName) throws ServiceException {
-        List<User> userList;
+        List<User> userList = new ArrayList<>();
         try {
-            userList = userDao.findByFirstName(firstName);
+            if (UserValidatorImpl.getInstance().isFirstNameValid(firstName)) {
+                userList = userDao.findByFirstName(firstName);
+            }
         } catch (DaoException e) {
             logger.error("Failed at UserServiceImpl at method findByFirstName", e);
             throw new ServiceException("Failed at UserServiceImpl at method findByFirstName", e);
@@ -126,11 +137,20 @@ public class UserServiceImpl implements UserService {
         return userList;
     }
 
+    /**
+     * find user by last name
+     *
+     * @param lastName
+     * @return userList.
+     * @throws ServiceException
+     */
     @Override
     public List<User> findByLastName(String lastName) throws ServiceException {
-        List<User> userList;
+        List<User> userList = new ArrayList<>();
         try {
-            userList = userDao.findByLastName(lastName);
+            if (UserValidatorImpl.getInstance().isLastNameValid(lastName)) {
+                userList = userDao.findByLastName(lastName);
+            }
         } catch (DaoException e) {
             logger.error("Failed at UserServiceImpl at method findByLastName", e);
             throw new ServiceException("Failed at UserServiceImpl at method  findByLastName", e);
@@ -150,11 +170,20 @@ public class UserServiceImpl implements UserService {
 //        return userList;
 //    }
 
+    /**
+     * find user by email
+     *
+     * @param email
+     * @return optionalUser.
+     * @throws ServiceException
+     */
     @Override
     public Optional<User> findByEmail(String email) throws ServiceException {
-        Optional<User> optionalUser;
+        Optional<User> optionalUser = Optional.empty();
         try {
-            optionalUser = userDao.findByEmail(email);
+            if (UserValidatorImpl.getInstance().isEmailValid(email)) {
+                optionalUser = userDao.findByEmail(email);
+            }
         } catch (DaoException e) {
             logger.error("Failed at UserServiceImpl at method findByEmail", e);
             throw new ServiceException("Failed at UserServiceImpl at method findByEmail", e);
@@ -163,11 +192,20 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    /**
+     * find user by phone number
+     *
+     * @param phoneNumber
+     * @return optionalUser.
+     * @throws ServiceException
+     */
     @Override
     public Optional<User> findByPhoneNumber(String phoneNumber) throws ServiceException {
-        Optional<User> optionalUser;
+        Optional<User> optionalUser = Optional.empty();
         try {
-            optionalUser = userDao.findByPhoneNumber(phoneNumber);
+            if (UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber)) {
+                optionalUser = userDao.findByPhoneNumber(phoneNumber);
+            }
         } catch (DaoException e) {
             logger.error("Failed at UserServiceImpl at method findByPhoneNumber", e);
             throw new ServiceException("Failed at UserServiceImpl at method findByPhoneNumber", e);
@@ -177,12 +215,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkIfUserValidForRegistration(String login, String email) throws ServiceException {
-        // TODO: 17.01.2022  
-        return false;
-    }
-
-    @Override
-    public boolean registrationUser(String login, String password, String email) throws ServiceException {
         // TODO: 17.01.2022  
         return false;
     }
@@ -251,7 +283,6 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     *
      * @param userCheck
      * @return
      * @throws ServiceException
@@ -419,6 +450,39 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean verify(long userId) throws ServiceException {
-        return false;
+       //todo
+        return true;
+    }
+
+    /**
+     * delete user from database
+     * @param id
+     * @return
+     * @throws ServiceException
+     */
+    @Override
+    public boolean delete(long id) throws ServiceException {
+        try {
+            return userDao.delete(id);
+        } catch (DaoException e) {
+            logger.error("Failed at UserServiceImpl at method delete", e);
+            throw new ServiceException("Failed at UserServiceImpl at method delete", e);
+        }
+    }
+
+    /**
+     * input user in archiv
+     * @param id
+     * @return
+     * @throws ServiceException
+     */
+    @Override
+    public boolean archivUser(long id) throws ServiceException {
+        try {
+            return userDao.archivUser(id);
+        } catch (DaoException e) {
+            logger.error("Failed at UserServiceImpl at method archivUser", e);
+            throw new ServiceException("Failed at UserServiceImpl at method archivUser", e);
+        }
     }
 }

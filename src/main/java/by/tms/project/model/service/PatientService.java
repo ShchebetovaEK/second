@@ -27,4 +27,8 @@ public interface PatientService {
     boolean updateDiscount(long id, Integer discount) throws ServiceException;
 
     boolean updateMoneyAccount(long id, BigDecimal moneyAccount) throws ServiceException;
+
+    boolean deletePatient(long id) throws ServiceException;
+
+    boolean archivPatient(long id) throws ServiceException;
 }

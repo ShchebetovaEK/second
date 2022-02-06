@@ -31,8 +31,6 @@ public interface UserService {
 
     boolean checkIfUserValidForRegistration(String login, String email) throws ServiceException;
 
-    boolean registrationUser(String login, String password, String email) throws ServiceException;
-
     void sendMessageRegistrationOnUserEmail(String login, String email, String currentLocale) throws ServiceException;
 
     void setUserNewLogin(String login, String newLogin) throws ServiceException;
@@ -56,5 +54,9 @@ public interface UserService {
     boolean  updateDataBirthdayById(long id, String dataBirthday) throws ServiceException;
 
     boolean verify(long userId) throws ServiceException;
+
+    boolean delete(long id) throws ServiceException;
+
+    boolean archivUser(long id) throws ServiceException;
 
 }

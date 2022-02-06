@@ -60,7 +60,7 @@
 <%--            <div id="message2"><b>${psw_mismatch_message}</b></div>--%>
 <%--        </c:if>--%>
         <br/><br/>
-        First name: <input type="first_name" id="first_name" class="form-control" name="first_name" pattern="">
+        First name: <input type="first_name" id="first_name" class="form-control" name="first_name" pattern="([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})">
         <c:choose>
             <c:when test="${invalid_first_name eq 'invalid_message'}">
                 <div id="message4"><b><${invalid_first_name_message}></b></div>

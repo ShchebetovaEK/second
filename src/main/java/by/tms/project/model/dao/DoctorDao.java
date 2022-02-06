@@ -24,6 +24,8 @@ public interface DoctorDao extends BaseDao<Long, Doctor>{
 
     boolean deleteDoctor(long id) throws DaoException;
 
+    List<Doctor> chooseDoctor (Category category,Experience experience,Speciality speciality) throws DaoException;
+
 
 
 

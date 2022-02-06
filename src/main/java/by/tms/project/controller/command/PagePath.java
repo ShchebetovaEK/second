@@ -20,19 +20,26 @@ public final class PagePath {
     public static final String PRICE = "/jsp/main/price.jsp";
     public static final String REGISTRATION_PAGE = "/jsp/main/registration.jsp";
     public static final String WELCOME_PAGE = "/jsp/main/welcome.jsp";
+    public static final String DOCTOR_PAGE = "/jsp/main/doctor.jsp";
+
+
     public static final String PROTOCOL_PAGE = "/jsp/main/protocol.jsp";
+    public static final String TOTALSUM_PAGE = "/jsp/main/totalsumprotocol.jsp";
+    public static final String SUCCESS_PAGE = "/jsp/main/success.jsp";
 
     public static final String ADMIN_PAGE = "/jsp/main/admin.jsp";
     public static final String ADMIN_REGISTRATION = "/jsp/main/adminRegistration.jsp";
     public static final String DOCTOR_REGISTRATION = "/jsp/main/doctorRegistration.jsp";
+    public static final String PROTOCOL_REGISTRATION = "/jsp/main/protocolRegistration.jsp";
     public static final String LOGIN_PAGE = "/jsp/main/login.jsp";
     public static final String SELECT = "/jsp/main/select.jsp";
     public static final String SELECT_DOCTOR = "/jsp/main/selectDoctor.jsp";
+
     public static final String SELECT_PATIENT = "/jsp/main/selectPatient.jsp";
 
     public static final String SELECT_ALL_USERS_BY_LOGIN_PAGE = "/jsp/main/admin.jsp";
     public static final String USER_MANAGER_PAGE = "/jsp/main/user_manager.jsp";
-
+    public static final String CHOOSE_DOCTOR = "/jsp/main/chooseDoctor.jsp";
 
 
     private PagePath() {

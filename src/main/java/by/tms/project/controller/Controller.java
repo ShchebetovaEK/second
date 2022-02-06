@@ -2,6 +2,7 @@ package by.tms.project.controller;
 
 import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.CommandFactory;
+import by.tms.project.controller.command.PagePath;
 import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
 import jakarta.servlet.ServletException;
@@ -91,7 +92,8 @@ public class Controller extends HttpServlet {
             }
         } catch (CommandException e) {
             logger.log(Level.ERROR, "Internal error has occurred:", e);
-            response.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
+//            response.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
+            response.sendRedirect(request.getContextPath() + PagePath.ERROR_500_PAGE);
             //todo
         }
     }

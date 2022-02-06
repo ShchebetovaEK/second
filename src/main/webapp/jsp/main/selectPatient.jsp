@@ -13,12 +13,12 @@
           type="image/x-icon">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/fontello.css">
-    <title>Select Doctor</title>
+    <title>Select Patient</title>
 </head>
 <body>
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_take_all_patients_command">
-    <input type="submit"  name="patient">
+    <input type="submit"  >
 </form>
 <br/>
 <form action="${abs}/controller" method="get">
@@ -39,20 +39,20 @@
     <input type="submit" >
 </form>
 <br/>
-<table>
+<table class="table text-primary">
     <tr>
-        <th>id</th>
-        <th>role</th>
-        <th>login</th>
-        <th>first name</th>
-        <th>last name</th>
-        <th>address</th>
-        <th>email</th>
-        <th>phone number</th>
-        <th>data birthday</th>
-        <th>insurance</th>
-        <th>money account</th>
-        <th>discount</th>
+        <th scope="col">id</th>
+        <th scope="col">role</th>
+        <th scope="col">login</th>
+        <th scope="col">first name</th>
+        <th scope="col">last name</th>
+        <th scope="col">address</th>
+        <th scope="col">email</th>
+        <th scope="col">phone number</th>
+        <th scope="col">data birthday</th>
+        <th scope="col">insurance</th>
+        <th scope="col">money account</th>
+        <th scope="col">discount</th>
 
     </tr>
 

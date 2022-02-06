@@ -16,7 +16,7 @@ public final class UserValidatorImpl implements UserValidator {
     private static final String COMMA = ", ";
     private static final String WHITESPACE = " ";
     private static final String LOGIN_REGEX = "^(\\w)[\\w_-]{1,18}(\\w)$";
-    private static final String PASSWORD_REGEX = "^(.{5,40})$";
+    private static final String PASSWORD_REGEX = "^(.{4,40})$";
     private static final String FIRST_NAME_REGEX = "^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$";
     private static final String LAST_NAME_REGEX = "^([А-Я]{1}[а-яё]{1,30}|[A-Z]{1}[a-z]{1,30})$";
     private static final String DATABIRTHDAY_REGEX = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$";

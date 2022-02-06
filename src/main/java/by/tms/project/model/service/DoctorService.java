@@ -27,4 +27,8 @@ public interface DoctorService {
      boolean updateExperience(long id, Experience experience) throws ServiceException;
 
      boolean updateSpeciality(long id,  Speciality speciality) throws ServiceException;
+
+    boolean deleteDoctor(long id) throws ServiceException;
+
+    List<Doctor> chooseDoctor(Category category, Experience experience, Speciality speciality) throws ServiceException;
 }

@@ -2,7 +2,6 @@ package by.tms.project.model.connection;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,9 +13,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * final class ConnectionPool
- *
  */
 public final class ConnectionPool {
     private static final Logger logger = LogManager.getLogger();
@@ -27,8 +25,7 @@ public final class ConnectionPool {
     private final BlockingQueue<ProxyConnection> freeConnections;
     private final BlockingQueue<ProxyConnection> usingConnections;
 
-
-    private ConnectionPool(){
+    private ConnectionPool() {
         freeConnections = new LinkedBlockingDeque<>(DEFAULT_POOL_SIZE);
         usingConnections = new LinkedBlockingDeque<>(DEFAULT_POOL_SIZE);
 
@@ -45,19 +42,19 @@ public final class ConnectionPool {
     }
 
     /**
-     * Get instance CustomConnectionPool.
+     * Get instance ConnectionPool.
      *
-     * @return the CustomConnectionPool
+     * @return the ConnectionPool
      */
-    public static ConnectionPool getInstance(){
-        if(!instanceCreated.get()){
+    public static ConnectionPool getInstance() {
+        if (!instanceCreated.get()) {
             lock.lock();
-            try{
-                if(instance == null){
+            try {
+                if (instance == null) {
                     instance = new ConnectionPool();
                     instanceCreated.set(true);
                 }
-            }finally {
+            } finally {
                 lock.unlock();
             }
         }
@@ -69,7 +66,7 @@ public final class ConnectionPool {
      *
      * @return the connection
      */
-    public Connection takeConnection(){
+    public Connection takeConnection() {
         ProxyConnection connection = null;
         try {
             connection = freeConnections.take();
@@ -86,8 +83,8 @@ public final class ConnectionPool {
      * @param connection the connection
      * @return the boolean
      */
-    public boolean releaseConnection(Connection connection){
-        if(!(connection instanceof ProxyConnection)) {
+    public boolean releaseConnection(Connection connection) {
+        if (!(connection instanceof ProxyConnection)) {
             return false;
         }
         try {
@@ -95,7 +92,7 @@ public final class ConnectionPool {
             usingConnections.remove(proxy);
             freeConnections.put(proxy);
         } catch (InterruptedException e) {
-            logger.error("There are some problems with release connection",e);
+            logger.error("There are some problems with release connection", e);
         }
         return true;
     }
@@ -103,7 +100,7 @@ public final class ConnectionPool {
     /**
      * Destroy ConnectionPool.
      */
-    public void destroyPool(){
+    public void destroyPool() {
         for (int i = 0; i < DEFAULT_POOL_SIZE; i++) {
             try {
                 freeConnections.take().realClose();
@@ -117,12 +114,12 @@ public final class ConnectionPool {
     /**
      * Deregister driver.
      */
-    private void deregisterDriver(){
+    private void deregisterDriver() {
         DriverManager.getDrivers().asIterator().forEachRemaining(driver -> {
             try {
                 DriverManager.deregisterDriver(driver);
             } catch (SQLException e) {
-                logger.error("There are some problems with deregister driver",e);
+                logger.error("There are some problems with deregister driver", e);
                 //todo error?
             }
         });

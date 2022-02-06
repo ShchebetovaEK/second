@@ -1,29 +1,35 @@
 package by.tms.project.controller.tag;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.TagSupport;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspTagException;
+import jakarta.servlet.jsp.JspWriter;
+import jakarta.servlet.jsp.tagext.TagSupport;
+
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
- * @author ShchbetovaEK
+ * @author ShchebetovaEK
  *
- * class CustomTag
+ *  class CustomTag.
  */
+
 public class CustomTag extends TagSupport {
+    private static final String AUTHOR = "@autor ShchebetovaEK";
+
+    /**
+     *
+     * @return
+     * @throws JspException
+     */
     @Override
     public int doStartTag() throws JspException {
         JspWriter out = pageContext.getOut();
-        LocalDateTime localDateTime = LocalDateTime.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        String formatDateTime = localDateTime.format(format);
         try {
-            out.print(formatDateTime);
+            out.print(AUTHOR);
         } catch (IOException e) {
             throw new JspException(e);
         }
         return SKIP_BODY;
     }
+
 }

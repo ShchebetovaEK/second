@@ -20,63 +20,42 @@ public class DoctorDaoImpl implements DoctorDao {
     private static final String DOCTOR = "doctor";
     private static final String SQL_SELECT_ALL_DOCTORS = """
             SELECT id,role,login,password,first_name,last_name,
-            data_birthday,address,phone_number,email,
+            data_birthday,address,phone_number,email,archiv,
             category,experience,speciality
             FROM users
             INNER JOIN doctors on users.id = doctors.users_id
             WHERE users.role =?""";
-
     private static final String SQL_SELECT_DOCTORS_BY_ID = """
             SELECT id,role,login,password,first_name,last_name,
-                   data_birthday,address,phone_number,email,
+                   data_birthday,address,phone_number,email,archiv,
                    category,experience,speciality
             FROM users
             INNER JOIN doctors on users.id = doctors.users_id
             WHERE users.id =?""";
-    //todo
-    private static final String SQL_CREATE_USER_DOCTOR = """
-            INSERT INTO users(role,login,password,first_name,last_name,
-            data_birthday,address,phone_number,email) 
-            VALUES (?,?,?,?,?,?,?,?,?)""";
-    private static final String SQL_CREATE_DOCTOR = """
-            INSERT INTO doctors(category,experience,speciality,users_id)
-            VALUES (?,?,?, ?) """;
-    //todo
-    private static final String SQL_UPDATE_DOCTOR = """
-            UPDATE users 
-            SET users.role=?,users.login=?,users.password=?,users.first_name=?,
-            users.last_name=?,users.data_birthday=?,users.address=?,users.phone_number=?,users.email=? 
-            WHERE users.id=?""";
-
-    //todo
-    private static final String SQL_DELETE_DOCTOR_BY_ID = """
-            DELETE FROM users 
-            WHERE users.id =?""";
-
-    private static final String SQL_SELECT_DOCTORS_BY_LOGIN = """
+        private static final String SQL_SELECT_DOCTORS_BY_LOGIN = """
             SELECT id,role,login,password,first_name,last_name,
-                   data_birthday,address,phone_number,email,
+                   data_birthday,address,phone_number,email,archiv,
                    category,experience,speciality
             FROM users
             INNER JOIN doctors on users.id = doctors.users_id
             WHERE users.login =?""";
     private static final String SQL_SELECT_DOCTORS_CATEGORY = """
             SELECT id,role,login,password,first_name,last_name,
-                   data_birthday,address,phone_number,email,
+                   data_birthday,address,phone_number,email,archiv,
                    category,experience,speciality
             FROM users
             INNER JOIN doctors on users.id = doctors.users_id
             WHERE doctors.category =?""";
     private static final String SQL_SELECT_DOCTORS_EXPERIENCE = """
             SELECT id,role,login,password,first_name,last_name,
-                   data_birthday,address,phone_number,email,
+                   data_birthday,address,phone_number,email,archiv,
                    category,experience,speciality
             FROM users 
             INNER JOIN doctors on users.id = doctors.users_id
             WHERE doctors.experience =?""";
     private static final String SQL_SELECT_DOCTORS_SPECIALITY = """
             SELECT id,role,login,password,first_name,last_name,
-                   data_birthday,address,phone_number,email,
+                   data_birthday,address,phone_number,email,archiv,
                    category,experience,speciality
             FROM users
             INNER JOIN doctors on users.id = doctors.users_id
@@ -93,6 +72,32 @@ public class DoctorDaoImpl implements DoctorDao {
             UPDATE doctors
             SET speciality =?
             WHERE users_id=?""";
+    private static final String SQL_DELETE_DOCTOR_BY_ID = """
+            DELETE FROM users 
+            WHERE users.id =?""";
+       private static final String SQL_CREATE_USER_DOCTOR = """
+            INSERT INTO users(role,login,password,first_name,last_name,
+            data_birthday,address,phone_number,email,archiv,) 
+            VALUES (?,?,?,?,?,?,?,?,?,?)""";
+    private static final String SQL_CREATE_DOCTOR = """
+            INSERT INTO doctors(category,experience,speciality,users_id)
+            VALUES (?,?,?, ?) """;
+    private static final String SQL_UPDATE_DOCTOR = """
+            UPDATE users 
+            SET users.last_name=?,users.address=?,users.phone_number=?,users.email=? 
+            WHERE users.id=?""";
+
+    private static final String SQL_UPDATE_DOCTOR_FIELD = """
+            UPDATE users 
+            SET users.last_name=?,users.address=?,users.phone_number=?,users.email=? 
+            WHERE users.id=?""";
+    private static final String SQL_CHOOSE_DOCTOR = """
+           SELECT first_name,last_name,category,experience,speciality
+           FROM users
+           INNER JOIN doctors on users.id = doctors.users_id
+           WHERE doctors.category = ?
+             AND doctors.experience = ?
+             AND doctors.speciality = ?""";
 
 
     private static DoctorDaoImpl instance;
@@ -187,13 +192,13 @@ public class DoctorDaoImpl implements DoctorDao {
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());
+            preparedStatement.setString(10, String.valueOf(entity.getArchiv()));
             result = preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             int key = -1;
             if(resultSet.next()) {
                  key = resultSet.getInt(1);
             }
-            //TODO
             preparedStatement2.setString(1, String.valueOf(entity.getCategory()));
             preparedStatement2.setString(2, String.valueOf(entity.getExperience()));
             preparedStatement2.setString(3, String.valueOf(entity.getSpeciality()));
@@ -206,22 +211,6 @@ public class DoctorDaoImpl implements DoctorDao {
         return (result > 0);
     }
 
-//    public boolean create(Long id,Doctor entity) throws DaoException {
-//        int result = 0;
-//        try (Connection connection = ConnectionPool.getInstance().takeConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_DOCTOR)) {
-//
-//            preparedStatement.setString(10, String.valueOf(entity.getCategory()));
-//            preparedStatement.setString(11, String.valueOf(entity.getExperience()));
-//            preparedStatement.setString(12, String.valueOf(entity.getSpeciality()));
-//            result = preparedStatement.executeUpdate();
-//        } catch (SQLException e) {
-//            logger.error("Failed at DoctorDaoImpl at method create", e);
-//            throw new DaoException("Failed at DoctorDaoImpl at method create", e);
-//        }
-//        return (result > 0);
-//    }
-//
 
 
     /**
@@ -231,6 +220,7 @@ public class DoctorDaoImpl implements DoctorDao {
      * @return the boolean.
      * @throws DaoException
      */
+
     @Override
     public boolean update(Doctor entity) throws DaoException {
         int result;
@@ -246,9 +236,11 @@ public class DoctorDaoImpl implements DoctorDao {
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());
-            preparedStatement.setString(10, entity.getCategory().name());
-            preparedStatement.setString(11, String.valueOf(entity.getExperience()));
-            preparedStatement.setString(12, String.valueOf(entity.getSpeciality()));
+            preparedStatement.setString(10, String.valueOf(entity.getArchiv()));
+            preparedStatement.setString(10, String.valueOf(entity.getArchiv()));
+            preparedStatement.setString(11, entity.getCategory().name());
+            preparedStatement.setString(12, String.valueOf(entity.getExperience()));
+            preparedStatement.setString(13, String.valueOf(entity.getSpeciality()));
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Failed at DoctorDaoImpl at method update", e);
@@ -365,7 +357,6 @@ public class DoctorDaoImpl implements DoctorDao {
         List<Doctor> doctorList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_DOCTORS_SPECIALITY)) {
-//            String specStr = speciality.name(); // FIXME: 24.01.2022
             preparedStatement.setString(1, speciality.name());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -447,11 +438,47 @@ public class DoctorDaoImpl implements DoctorDao {
             result = preparedStatement.executeUpdate() == 1;
 
         } catch (SQLException e) {
-            logger.error("Failed at UserDaoImpl at method  updateSpeciality", e);
-            throw new DaoException("Failed at UserDaoImpl at method updateSpeciality", e);
+            logger.error("Failed at  at method  ", e);
+            throw new DaoException("Failed at  at method ", e);
         }
         return result;
     }
+
+    @Override
+    public boolean deleteDoctor(long id) throws DaoException {
+        boolean result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_DOCTOR_BY_ID)) {
+            preparedStatement.setLong(1, id);
+            result = preparedStatement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            logger.error("Failed at  at method deleteDoctor ", e);
+            throw new DaoException("Failed at   at method deleteDoctor", e);
+        }
+        return result;
+    }
+
+    @Override
+    public List<Doctor> chooseDoctor(Category category,  Experience experience,Speciality speciality) throws DaoException {
+        List<Doctor> doctorList = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHOOSE_DOCTOR)) {
+            preparedStatement.setString(1, category.name());
+            preparedStatement.setString(2, experience.name());
+            preparedStatement.setString(3, speciality.name());
+               try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Doctor doctor = takeDoctorInfo(resultSet);
+                    doctorList.add(doctor);
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Failed at DoctorDaoImpl at method chooseDoctor", e);
+            throw new DaoException("Failed at DoctorDaoImpl at method chooseDoctor", e);
+        }
+        return doctorList;
+    }
+
 
     public Doctor takeDoctorInfo(ResultSet resultSet) throws SQLException {
         return (new Doctor.DoctorBuilder()
@@ -465,6 +492,7 @@ public class DoctorDaoImpl implements DoctorDao {
                 .setAddress(resultSet.getString(ColumnName.USERS_ADDRESS))
                 .setPhoneNumber(resultSet.getString(ColumnName.USERS_PHONE_NUMBER))
                 .setEmail(resultSet.getString(ColumnName.USERS_EMAIL))
+                .setArchiv(Archiv.valueOf(resultSet.getString(ColumnName.USERS_ARCHIV).toUpperCase()))
                 .setCategory(Category.valueOf(resultSet.getString(ColumnName.DOCTORS_CATEGORY).toUpperCase()))
                 .setExperience(Experience.valueOf(resultSet.getString(ColumnName.DOCTORS_EXPERIENCE).toUpperCase()))
                 .setSpeciality(Speciality.valueOf(resultSet.getString(ColumnName.DOCTORS_SPECIALITY).toUpperCase()))

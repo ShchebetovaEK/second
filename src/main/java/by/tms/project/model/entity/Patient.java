@@ -19,9 +19,17 @@ public class Patient extends User {
         this.discount = discount;
     }
 
-    public Patient(String login, String password, String firstName, String lastName, Date dataBirthday, String address,
-                   String phoneNumber, String email, boolean insurance, BigDecimal moneyAccount, int discount) {
-        super(login, password, firstName, lastName, dataBirthday, address, phoneNumber, email);
+    public Patient(Role role, String login, String password, String firstName, String lastName, Date dataBirthday,
+                   String address, String phoneNumber, String email, boolean insurance, BigDecimal moneyAccount, int discount) {
+        super(role, login, password, firstName, lastName, dataBirthday, address, phoneNumber, email);
+        this.insurance = insurance;
+        this.moneyAccount = moneyAccount;
+        this.discount = discount;
+    }
+
+    public Patient(Role role, String login, String password, String firstName, String lastName, Date dataBirthday, String address,
+                   String phoneNumber, String email, Archiv archiv, boolean insurance, BigDecimal moneyAccount, int discount) {
+        super(role, login, password, firstName, lastName, dataBirthday, address, phoneNumber, email, archiv);
         this.insurance = insurance;
         this.moneyAccount = moneyAccount;
         this.discount = discount;
@@ -137,6 +145,11 @@ public class Patient extends User {
         public PatientBuilder setEmail(String email) {
             patient.setEmail(email);
             return this;
+        }
+
+        public  PatientBuilder setArchiv(Archiv archiv) {
+            patient.setArchiv(archiv);
+            return  this;
         }
 
         public PatientBuilder setInsurance(Boolean insurance) {
