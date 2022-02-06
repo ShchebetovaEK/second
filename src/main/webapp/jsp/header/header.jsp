@@ -13,37 +13,67 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=go_to_main">Main</a>
             </li>
+
             <li class="nav-item active">
                 <a class="nav-link"
-                   href="${pageContext.request.contextPath}/controller?command=go_to_about_page_command">About  us</a>
+                   href="${pageContext.request.contextPath}/controller?command=go_to_about_page_command">About us</a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link "
-                   href="${pageContext.request.contextPath}/controller?command=go_to_doctors_command"> Our  Doctors</a>
+                   href="${pageContext.request.contextPath}/controller?command=go_to_doctors_command"> Our Doctors</a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link"
                    href="${pageContext.request.contextPath}/controller?command=go_to_price_command">Price</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link"
-                   href="${pageContext.request.contextPath}/controller?command=go_to_welcome">Welcome</a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link"
                    href="${pageContext.request.contextPath}/controller?command=go_to_registration_page">Registration</a>
             </li>
+
             <li class="nav-item">
-            <a class="nav-link"
-               href="${pageContext.request.contextPath}/controller?command=log_in_command">LogIn</a>
+                <a class="nav-link"
+                   href="${pageContext.request.contextPath}/controller?command=log_in_command">LogIn</a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link"
                    href="${pageContext.request.contextPath}/controller?command=log_out_command">LogOut</a>
             </li>
+
+            <c:if test="${patient}">
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="${pageContext.request.contextPath}/controller?command=go_to_choose">Choose Doctor </a>
+                </li>
+
+            </c:if>
+
+            <c:if test="${admin}">
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="${pageContext.request.contextPath}/controller?command=go_to_admin_page"> Admin page </a>
+                </li>
+
+            </c:if>
+            <c:if test="${doctor}">
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="${pageContext.request.contextPath}/controller?command=go_to_doctor_page"> Doctor page </a>
+                </li>
+
+            </c:if>
+
             <form class="d-flex">
                 <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>

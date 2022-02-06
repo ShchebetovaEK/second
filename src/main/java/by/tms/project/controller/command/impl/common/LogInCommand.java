@@ -48,11 +48,11 @@ public class LogInCommand implements Command {
 
                 if (optionalUser.get().getRole().equals(Role.ADMIN)) {
                     session.setAttribute(ADMIN, Boolean.TRUE);
-                    router.setPage(USER_MANAGER_PAGE);
+                    router.setPage(ADMIN_PAGE);
                 }
                 if (optionalUser.get().getRole().equals(Role.DOCTOR)) {
                     session.setAttribute(DOCTOR, Boolean.TRUE);
-                    router.setPage(DOCTORS);
+                    router.setPage(DOCTOR_PAGE);
                 }
                 if (optionalUser.get().getRole().equals(Role.PATIENT)) {
                     session.setAttribute(PATIENT, Boolean.TRUE);

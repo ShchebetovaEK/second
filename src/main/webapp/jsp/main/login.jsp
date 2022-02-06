@@ -12,21 +12,21 @@
           type="image/x-icon">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/fontello.css">
-    <title>Main</title>
+    <title>LOGIN</title>
 </head>
 <body>
-<form method="POST" action="${abs}/controller">
-<input type="hidden" name="command" value="log_in_command">
-Login
-<input name="login" >
-<br/>
-Password
-<input name="password" type="password" >
-<br/>
-<p><input type="submit"></p>
-</form>
-<a href="${pageContext.request.contextPath}/jsp/main/registration.jsp"></a>
-
-
+<div class="text-center">
+    <form method="POST" action="${abs}/controller">
+        <br/>
+        <input type="hidden" name="command" value="log_in_command">
+        <label class="form-label"> Login </label>
+        <input name="login">
+        <br/>
+        <label class="form-label"> Password </label>
+        <input name="password" type="password">
+        <br/>
+        <p><input type="submit"></p>
+    </form>
+</div>
 </body>
 </html>
