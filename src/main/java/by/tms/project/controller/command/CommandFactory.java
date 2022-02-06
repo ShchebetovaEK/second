@@ -6,6 +6,8 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * @author ShchebetovaEK
+ *
+ * class CommandFactory
  */
 public class CommandFactory {
     private static final Logger logger = LogManager.getLogger();
