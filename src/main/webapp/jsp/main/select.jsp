@@ -9,82 +9,83 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../../img/png-transparent-graphy-logo-tree-leaf-branch-logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../img/png-transparent-graphy-logo-tree-leaf-branch-logo.png"
+          type="image/x-icon">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/fontello.css">
     <title>Manager Page</title>
 </head>
 <body>
 
+<div class="text-center">
+    <form action="${abs}/controller" method="get">
+        <input type="hidden" name="command" value="manager_page_command">
+       <label class="form-label">click to view all user's</label>  <input type="submit">
+    </form>
+    <br/>
+    <form action="${abs}/controller" method="get">
+        <input type="hidden" name="command" value="admin_take_user_by_login_command">
+        <label class="form-label">please, input desired user's Login:</label>
+        <input type="text" name="login">
+        <input type="submit">
+    </form>
+    <br/>
+    <form action="${abs}/controller" method="get">
+        <input type="hidden" name="command" value="admin_take_user_by_first_name_command">
+        <label class="form-label">please, input desired user's  First Name:</label>
+        <input type="text" name="first_name">
+        <input type="submit">
+    </form>
+    <br/>
+    <form action="${abs}/controller" method="get">
+        <input type="hidden" name="command" value="admin_take_user_by_last_name_command">
+        <label class="form-label">please, input desired user's  Last Name:</label>
+        <input type="text" name="last_name">
+        <input type="submit">
+    </form>
+    <br/>
+    <form action="${abs}/controller" method="get">
+        <input type="hidden" name="command" value="admin_take_user_by_id_command">
+        <label class="form-label">please, input desired user's id:</label>
+        <input type="text" name="id" value="id">
+        <input type="submit">
+    </form>
+    <br/>
 
- <form action="${abs}/controller" method="get">
-     <input type="hidden" name="command" value="manager_page_command">
-  click to view all users   <input type="submit" >
- </form>
-
-
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_take_user_by_login_command">
-    please, input desired Login: <input type="text" name="login" >
-    <input type="submit" >
-</form>
-
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_take_user_by_first_name_command">
-    please, input desired First Name: <input type="text" name="first_name" >
-    <input type="submit" >
-</form>
-
-
-
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_take_user_by_last_name_command">
-    please, input desired Last Name: <input type="text" name="last_name" >
-    <input type="submit" >
-</form>
-
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_take_user_by_id_command">
-    please, input desired id: <input type="text" name="id" value="id">
-    <input type="submit" >
-</form>
-
-<table class="table text-success">
-    <tr>
-        <th scope="col">id</th>
-        <th scope="col">role</th>
-        <th scope="col">login</th>
-        <th scope="col">first name</th>
-        <th scope="col">last name</th>
-        <th scope="col">address</th>
-        <th scope="col">email</th>
-        <th scope="col">phone number </th>
-
-
-    </tr>
-
-    <c:forEach items="${users}" var="user">
+    <table class="table text-success">
         <tr>
-            <td>${user.id}</td>
-            <td>${user.role}</td>
-            <td>${user.login}</td>
-            <td>${user.firstName}</td>
-            <td>${user.lastName}</td>
-            <td>${user.address}</td>
-            <td>${user.email}</td>
-            <td>${user.phoneNumber}</td>
-
+            <th scope="col">id</th>
+            <th scope="col">role</th>
+            <th scope="col">login</th>
+            <th scope="col">first name</th>
+            <th scope="col">last name</th>
+            <th scope="col">address</th>
+            <th scope="col">email</th>
+            <th scope="col">phone number</th>
         </tr>
-    </c:forEach>
+        <c:forEach items="${users}" var="user">
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.role}</td>
+                <td>${user.login}</td>
+                <td>${user.firstName}</td>
+                <td>${user.lastName}</td>
+                <td>${user.address}</td>
+                <td>${user.email}</td>
+                <td>${user.phoneNumber}</td>
+            </tr>
+        </c:forEach>
+    </table>
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/user_manager.jsp"
+       role="button">Back to manager</a>
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/select.jsp"
+       role="button">Back to select page</a>
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/selectDoctor.jsp"
+       role="button">Back to select page</a>
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/selectPatient.jsp"
+       role="button">Back to select patient page</a>
 
-</table>
-
- <a href="${pageContext.request.contextPath}/jsp/main/user_manager.jsp">Back to manager</a>
- <a href="${pageContext.request.contextPath}/jsp/main/select.jsp">Back to select page</a>
- <a href="${pageContext.request.contextPath}/jsp/main/selectDoctor.jsp">Back to select doctor page</a>
- <a href="${pageContext.request.contextPath}/jsp/main/selectPatient.jsp">Back to select patient page</a>
-
-
+</div>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

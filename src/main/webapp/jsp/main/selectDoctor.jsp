@@ -13,10 +13,10 @@
           type="image/x-icon">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/fontello.css">
-    <title>Select Doctor</title>
+    <title>${title}</title>
 </head>
 <body>
-
+<div class="text-center">
 <form action="${abs}/controller" method="get">
     <label class="form-label">view all doctor's </label>
     <input type="hidden" name="command" value="admin_take_all_doctors_command">
@@ -84,12 +84,15 @@
     </c:forEach>
 
 </table>
-
-<a href="${pageContext.request.contextPath}/jsp/main/user_manager.jsp">Back to manager</a>
-<a href="${pageContext.request.contextPath}/jsp/main/select.jsp">Back to select page</a>
-<a href="${pageContext.request.contextPath}/jsp/main/selectDoctor.jsp">Back to select doctor page</a>
-<a href="${pageContext.request.contextPath}/jsp/main/selectPatient.jsp">Back to select patient page</a>
-
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/user_manager.jsp"
+       role="button">Back to manager</a>
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/select.jsp"
+       role="button">Back to select page</a>
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/selectDoctor.jsp"
+       role="button">Back to select page</a>
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/selectPatient.jsp"
+       role="button">Back to select patient page</a>
+</div>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
