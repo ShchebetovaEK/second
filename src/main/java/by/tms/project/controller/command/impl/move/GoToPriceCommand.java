@@ -5,7 +5,7 @@ import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
 import jakarta.servlet.http.HttpServletRequest;
 
-import static by.tms.project.controller.command.PagePath.PRICE;
+import static by.tms.project.controller.command.PagePath.PRICE_PAGE;
 
 /**
  * @author ShchebetovaEK
@@ -23,7 +23,7 @@ public class GoToPriceCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        router.setPage(PRICE);
+        router.setPage(PRICE_PAGE);
         return router;
     }
 }

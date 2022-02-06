@@ -9,6 +9,11 @@ import java.util.Map;
 
 import static by.tms.project.controller.command.RequestParameter.*;
 
+/**
+ * @author  ShchebetovaEK
+ *
+ * class PatientValidatorImpl
+ */
 public class PatientValidatorImpl implements PatientValidator {
     private static final Logger logger = LogManager.getLogger();
     private static PatientValidatorImpl instance;

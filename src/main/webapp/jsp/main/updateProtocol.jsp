@@ -12,46 +12,21 @@
     <link rel="shortcut icon" href="../../img/png-transparent-graphy-logo-tree-leaf-branch-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/fontello.css">
-    <title>Manager Page</title>
+    <title>${title}</title>
 </head>
 <body>
-
-
-
+<div class="text-center">
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_update_protocol_command">
-    please, input  id: <input type="text" name="protocol_id" >
+    <label class="form-label"> please, input protocol's id:</label>
+    <input type="text" name="protocol_id" >
+    <label class="form-label"> please, input protocol's id:</label>
     please, input protocol_cost: <input type="text" name="protocol_cost" >
     <input type="submit" >
 </form>
 <br/>
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="update_user_last_name_command">
-    please, input  id: <input type="text" name="id" >
-    click to update last name  <input type="text" name="last_name" >
-    <input type="submit" >
 </form>
-<br/>
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="update_user_address_command">
-    please, input  id: <input type="text" name="id" >
-    please, input desired address: <input type="text" name="address" >
-    <input type="submit" >
-</form>
-
-<%----%>
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="update_doctor_category_command">
-    please, input  id: <input type="text" name="users_id" >
-    please, input desired category: <input type="text" name="category" pattern="HIGH"pattern ="SECOND" pattern="FIRST">
-    <input type="submit" >
-</form>
-
-
-
-
-
-
+</div>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

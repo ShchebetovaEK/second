@@ -30,6 +30,7 @@ public class ProtocolValidatorImpl implements ProtocolValidator {
     public boolean isPayerValid(String payer) {
         boolean match = true;
         try {
+
             Payer.valueOf(payer);
         } catch (IllegalArgumentException e) {
             match = false;

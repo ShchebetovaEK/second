@@ -14,10 +14,7 @@
     <title>Welcome</title>
 </head>
 <body>
-<h1 class="text-center">  WELCOME, ${user.firstName} ${user.lastName}!!</h1>
-
-
-
+<h1 class="text-center"> WELCOME, ${user.firstName} ${user.lastName}!!</h1>
 <div class="card-group">
     <div class="card text-body  bg-info mb-3">
         <img src='<%=request.getContextPath() %>/img/card2.jpeg'
@@ -46,23 +43,6 @@
         </div>
     </div>
 </div>
-<img src="/img/iStock-1150397417_1000_d_850.jpg" class="img-fluid" alt="...">
-
-<%--<label for="password">${psw}</label><br/>--%>
-<%--<input type="password" id="password" class="form-control" name="password" placeholder="${psw}">--%>
-<%--<c:if test="${invalid_passport eq 'invalid_message'}"><div id="message2"><b>${invalid_psw_message}</b></div></c:if>--%>
-<%--<br/><br/>--%>
-<%--<li><a href="${abs}/controller?command=change_locale_command">${nigiri_option}</a></li>--%>
-<%--<h3 class="text-center text-danger"><%= "Please, input your login and password :" %>--%>
-<%--</h3>--%>
-<%--<br/>--%>
-<%--<span class="border border-warning"></span>--%>
-<%--login: <input type="email" name="email">--%>
-<%--<br/>--%>
-<%--password <input type="password" name="password" minlength="6">--%>
-<%--<input type="button" value="push">--%>
-<%--<br/>--%>
-<%--<input type="button" value="registration">--%>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
