@@ -12,22 +12,13 @@ public class User extends Entity {
     private String address;
     private String phoneNumber;
     private String email;
+    private Archiv archiv;
 
     public User() {
     }
 
-    public User(String login, String password, String firstName, String lastName, Date dataBirthday, String address, String phoneNumber, String email) {
-        this.login = login;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dataBirthday = dataBirthday;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-    }
-
-    public User(Role role, String login, String password, String firstName, String lastName, Date dataBirthday, String address, String phoneNumber, String email) {
+    public User(Role role, String login, String password, String firstName,
+                String lastName, Date dataBirthday, String address, String phoneNumber, String email) {
         this.role = role;
         this.login = login;
         this.password = password;
@@ -39,8 +30,22 @@ public class User extends Entity {
         this.email = email;
     }
 
+    public User(Role role, String login, String password, String firstName, String lastName, Date dataBirthday,
+                String address, String phoneNumber, String email, Archiv archiv) {
+        this.role = role;
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dataBirthday = dataBirthday;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.archiv = archiv;
+    }
+
     public User(long id, Role role, String login, String password, String firstName, String lastName,
-                Date dataBirthday, String address, String phoneNumber, String email) {
+                Date dataBirthday, String address, String phoneNumber, String email, Archiv archiv) {
         this.id = id;
         this.role = role;
         this.login = login;
@@ -51,6 +56,7 @@ public class User extends Entity {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.archiv = archiv;
     }
 
     public long getId() {
@@ -133,6 +139,14 @@ public class User extends Entity {
         this.email = email;
     }
 
+    public Archiv getArchiv() {
+        return archiv;
+    }
+
+    public void setArchiv(Archiv archiv) {
+        this.archiv = archiv;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -149,7 +163,8 @@ public class User extends Entity {
         if (!dataBirthday.equals(user.dataBirthday)) return false;
         if (!address.equals(user.address)) return false;
         if (!phoneNumber.equals(user.phoneNumber)) return false;
-        return email.equals(user.email);
+        if (!email.equals(user.email)) return false;
+        return archiv == user.archiv;
     }
 
     @Override
@@ -164,6 +179,7 @@ public class User extends Entity {
         result = 31 * result + address.hashCode();
         result = 31 * result + phoneNumber.hashCode();
         result = 31 * result + email.hashCode();
+        result = 31 * result + archiv.hashCode();
         return result;
     }
 
@@ -180,9 +196,9 @@ public class User extends Entity {
         sb.append(", address='").append(address).append('\'');
         sb.append(", phoneNumber='").append(phoneNumber).append('\'');
         sb.append(", email='").append(email).append('\'');
+        sb.append(", archiv=").append(archiv);
         sb.append('}');
         return sb.toString();
-
     }
 
     public static class UserBuilder {
@@ -239,6 +255,11 @@ public class User extends Entity {
         public UserBuilder setEmail(String email) {
             user.setEmail(email);
             return this;
+        }
+
+        public  UserBuilder setArchiv(Archiv archiv) {
+            user.setArchiv(archiv);
+            return  this;
         }
 
         public User buildUser() {
