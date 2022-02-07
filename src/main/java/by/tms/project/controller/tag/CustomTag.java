@@ -1,7 +1,6 @@
 package by.tms.project.controller.tag;
 
 import jakarta.servlet.jsp.JspException;
-import jakarta.servlet.jsp.JspTagException;
 import jakarta.servlet.jsp.JspWriter;
 import jakarta.servlet.jsp.tagext.TagSupport;
 

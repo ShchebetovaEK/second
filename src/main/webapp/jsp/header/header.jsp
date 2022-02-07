@@ -79,6 +79,10 @@
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             <p>Today <%= new java.util.Date() %>
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="${pageContext.request.contextPath}/controller?command=change_locale"> Change locale</a>
+            </li>
         </ul>
     </div>
 </nav>

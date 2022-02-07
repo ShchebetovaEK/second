@@ -7,11 +7,9 @@ import by.tms.project.model.dao.UserDao;
 import by.tms.project.model.entity.Archiv;
 import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
-import by.tms.project.model.util.security.PasswordEncryptor;
 import by.tms.project.model.util.security.PasswordHash;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -721,26 +719,26 @@ public class UserDaoImpl implements UserDao {
      * @return the boolean.
      * @throws DaoException
      */
-    @Override
-    //todo
-    public boolean checkOldPassword(User user, String oldPassword) throws DaoException {
-        boolean result = false;
-        try (Connection connection = ConnectionPool.getInstance().takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_OLD_PASSWORD)) {
-            preparedStatement.setLong(1, user.getId());
-            preparedStatement.setString(2, user.getLogin());
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                resultSet.next();
-                if (BCrypt.checkpw(oldPassword, resultSet.getString(ColumnName.USERS_PASSWORD))) {
-                    result = true;
-                }
-            }
-        } catch (SQLException e) {
-            logger.error("Failed at UserDaoImpl at method checkOldPassword", e);
-            throw new DaoException("Failed at UserDaoImpl at method checkOldPassword", e);
-        }
-        return result;
-    }
+//    @Override
+
+//    public boolean checkOldPassword(User user, String oldPassword) throws DaoException {
+//        boolean result = false;
+//        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+//             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_OLD_PASSWORD)) {
+//            preparedStatement.setLong(1, user.getId());
+//            preparedStatement.setString(2, user.getLogin());
+//            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+//                resultSet.next();
+//                if (BCrypt.checkpw(oldPassword, resultSet.getString(ColumnName.USERS_PASSWORD))) {
+//                    result = true;
+//                }
+//            }
+//        } catch (SQLException e) {
+//            logger.error("Failed at UserDaoImpl at method checkOldPassword", e);
+//            throw new DaoException("Failed at UserDaoImpl at method checkOldPassword", e);
+//        }
+//        return result;
+//    }
 
     /**
      * check user login.

@@ -31,9 +31,9 @@
                role="button">Delete</a>
             <a class="btn btn-info" href="${pageContext.request.contextPath}/jsp/main/adminRegistration.jsp"
                role="button">Registration Admin</a>
-            <a class="btn btn-info" href="${pageContext.request.contextPath}/jsp/main/doctorRegistration.jsp"
+            <a class="btn btn-info" href="${pageContext.request.contextPath}/jsp/admin/doctorRegistration.jsp"
                role="button">Registration Doctor</a>
-            <a class="btn btn-info" href="${pageContext.request.contextPath}/jsp/main/protocolRegistration.jsp"
+            <a class="btn btn-info" href="${pageContext.request.contextPath}/jsp/admin/protocolRegistration.jsp"
                role="button">Registration Protocol</a>
         </form>
     </div>

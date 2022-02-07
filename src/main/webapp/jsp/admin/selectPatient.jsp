@@ -15,37 +15,31 @@
     <link rel="stylesheet" href="../../css/fontello.css">
     <title>${title}</title>
 </head>
-<body>
 <div class="text-center">
 <form action="${abs}/controller" method="get">
-    <label class="form-label">view all doctor's </label>
-    <input type="hidden" name="command" value="admin_take_all_doctors_command">
+    <input type="hidden" name="command" value="admin_take_all_patients_command">
     <input type="submit"  >
 </form>
-
+<br/>
 <form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_take_doctors_by_category_command">
- <label class="form-label">please, input desired category: </label>
-    <input type="text" name="category" value="HIGH" >
+    <input type="hidden" name="command" value="admin_take_all_patients_by_insurance_command">
+    please, input desired insurance: <input type="text" name="insurance" value="1" >
     <input type="submit" >
 </form>
-
-
-
+<br/>
 <form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_take_doctors_by_experience_command">
-  <label class="form-label"> please, input desired experience:</label>
-    <input type="text" name="experience" value="FIVE_YEARS">
+    <input type="hidden" name="command" value="admin_take_all_patients_by_discount_command">
+    please, input desired discount: <input type="text" name="discount" value="5">
     <input type="submit" >
 </form>
-
+<br/>
 <form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_take_doctors_by_speciality_command">
-    <label class="form-label">please, input desired speciality:</label>
-    <input type="text" name="speciality" value="UROLOGY">
+    <input type="hidden" name="command" value="admin_take_all_patients_by_login_command">
+    please, input desired login: <input type="text" name="login" >
     <input type="submit" >
 </form>
-<table class="table text-danger">
+<br/>
+<table class="table text-primary">
     <tr>
         <th scope="col">id</th>
         <th scope="col">role</th>
@@ -56,9 +50,9 @@
         <th scope="col">email</th>
         <th scope="col">phone number</th>
         <th scope="col">data birthday</th>
-        <th scope="col">category</th>
-        <th scope="col">experience</th>
-        <th scope="col"> speciality</th>
+        <th scope="col">insurance</th>
+        <th scope="col">money account</th>
+        <th scope="col">discount</th>
 
     </tr>
 
@@ -74,24 +68,25 @@
             <td>${user.email}</td>
             <td>${user.phoneNumber}</td>
             <td>${user.dataBirthday}</td>
-              <c:if test="${doctor}">
-                  <td> ${user.category}</td>
-                <td> ${user.experience}</td>
-                <td> ${user.speciality}</td>
+
+            <c:if test="${patient}">
+                <td> ${user.insurance}</td>
+                <td> ${user.moneyAccount}</td>
+                <td> ${user.discount}</td>
             </c:if>
 
         </tr>
     </c:forEach>
 
 </table>
-    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/user_manager.jsp"
-       role="button">Back to manager</a>
-    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/select.jsp"
-       role="button">Back to select page</a>
-    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/selectDoctor.jsp"
-       role="button">Back to select page</a>
-    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/selectPatient.jsp"
-       role="button">Back to select patient page</a>
+<a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/user_manager.jsp"
+   role="button">Back to manager</a>
+<a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/select.jsp"
+   role="button">Back to select page</a>
+<a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/selectDoctor.jsp"
+   role="button">Back to select page</a>
+<a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/selectPatient.jsp"
+   role="button">Back to select patient page</a>
 </div>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>

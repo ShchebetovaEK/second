@@ -80,7 +80,7 @@
 </form>
 
 
-<a href="${pageContext.request.contextPath}/jsp/main/chooseDoctor.jsp">Back to choose doctor page</a>
+<a href="${pageContext.request.contextPath}/jsp/patient/chooseDoctor.jsp">Back to choose doctor page</a>
 
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>

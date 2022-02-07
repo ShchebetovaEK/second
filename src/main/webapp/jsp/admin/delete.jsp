@@ -16,43 +16,43 @@
 </head>
 <body>
 
-
+<div class="text-center">
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_delete_patient_command">
-    please, input  id patient: <input type="text" name="users_id" placeholder="id" >
-
+    <label class="form-label"> please, input  id patient to delete:</label>
+    <input type="text" name="users_id" placeholder="id" >
     <input type="submit" name="delete" >
 </form>
 <br/>
 <form action="${abs}/controller" method="get">
   archiv  <input type="hidden" name="command" value="admin_archiv_patient_command">
-    please, input  id patient: <input type="text" name="users_id" placeholder="id" >
-
+    <label class="form-label">   please, input  id patient to arhiv: </label>
+  <input type="text" name="users_id" placeholder="id" >
     <input type="submit" >
 </form>
 
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_delete_doctor_command">
-    please, input  id doctor: <input type="text" name="users_id" placeholder="id" >
-
+    <label class="form-label">  please, input  id doctor to delete:</label>
+    <input type="text" name="users_id" placeholder="id" >
     <input type="submit" name="delete" >
 </form>
 
 
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_archiv_user_command">
-    please, input  id user: <input type="text" name="users_id" placeholder="id" >
-
+    <label class="form-label">  please, input  id user to archiv: </label>
+   <input type="text" name="users_id" placeholder="id" >
     <input type="submit" name="delete" >
 </form>
 
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_delete_admin_command">
-    please, input  id doctor: <input type="text" name="users_id" placeholder="id" >
-
+    <label class="form-label">   please, input  id admin to delete:</label>
+   <input type="text" name="users_id" placeholder="id" >
     <input type="submit" name="delete" >
 </form>
-<%--<footer> <%@include file="../footer/footer.jsp" %></footer>--%>
+</div>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -15,8 +15,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.tms.project.controller.command.PagePath.PROTOCOL_PAGE;
-import static by.tms.project.controller.command.PagePath.PROTOCOL_REGISTRATION;
+import static by.tms.project.controller.command.PagePath.*;
 import static by.tms.project.controller.command.RequestParameter.*;
 
 public class AdminRegisterProtocolCommand implements Command {
@@ -44,7 +43,7 @@ public class AdminRegisterProtocolCommand implements Command {
         try {
             boolean registration = protocolService.registerProtocol(checkData);
 
-            router.setPage(registration ? PROTOCOL_PAGE : PROTOCOL_REGISTRATION);
+            router.setPage(registration ? PROTOCOL_PAGE : PROTOCOL_REGISTRATION_PAGE);
             return router;
         } catch (ServiceException e) {
             logger.error("Failed at AdminRegisterProtocolCommand", e);

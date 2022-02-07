@@ -22,8 +22,7 @@
             <h2 class="text-center text-black">
                 OPERATION WAS SUCCESSFUL</h2>
             <br/>
-            <a class="btn btn-warning" href="${pageContext.request.contextPath}/jsp/move/main.jsp"
-               role="button">Back to main</a>
+
         </form>
     </div>
 </div>

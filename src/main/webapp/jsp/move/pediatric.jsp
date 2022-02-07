@@ -18,7 +18,7 @@
 
 
 <div class="card text-center text-white bg-success mb-3" style="width: 30rem;">
-    <img src='<%=request.getContextPath() %>/img/card12.jpeg'/>
+    <img src='<%=request.getContextPath() %>/img/card16.jpeg'/>
     <%--    <img src="../../img/27178e1e4016a854ad194f90605ad6fe.jpg" class="card-img-top">--%>
     <div class="card-body">
         <h5 class="card-title"> Pediatric </h5>

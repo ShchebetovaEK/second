@@ -16,8 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static by.tms.project.controller.command.PagePath.SELECT_PATIENT;
-import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
+import static by.tms.project.controller.command.PagePath.SELECT_PATIENT_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.PATIENT;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
@@ -50,7 +49,7 @@ public class AdminTakePatientByLoginCommand implements Command {
                 userList.add(patient);
                 request.setAttribute(USER_LIST, userList);
                 request.setAttribute(PATIENT, Boolean.TRUE);
-                router.setPage(SELECT_PATIENT);
+                router.setPage(SELECT_PATIENT_PAGE);
             }
         } catch (ServiceException e) {
             logger.error("Failed at AdminTakePatientByLoginCommand ", e);

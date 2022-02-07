@@ -1,6 +1,6 @@
 package by.tms.project.controller.command;
 
-import by.tms.project.controller.command.impl.AdminTakeProtocolCostCommand;
+import by.tms.project.controller.command.impl.admin.AdminTakeProtocolCostCommand;
 import by.tms.project.controller.command.impl.admin.delete.AdminArchivPatientCommand;
 import by.tms.project.controller.command.impl.admin.delete.AdminArchivUserCommand;
 import by.tms.project.controller.command.impl.admin.select.protocol.*;

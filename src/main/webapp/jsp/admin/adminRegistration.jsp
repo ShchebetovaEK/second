@@ -38,7 +38,8 @@
     <title>${title}</title>
 </head>
 <body>
-<h1>registration</h1>
+<h1 class="text-center">registration</h1>
+<div class="text-center">
 <div class="container-fluid" id="container-fluid">
     <form action="${abs}/controller" method="post">
         <input type="hidden" name="command" value="admin_register_admin_command">
@@ -105,7 +106,7 @@
         <input type="submit" class="form-control" id="sign_up" name="submit"><br/>
     </form>
 </div>
-
+</div>
 
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>

@@ -2,7 +2,7 @@
 <%@include file="../../imports.jspf" %>
 <html>
 <header>
-    <%@include file="../header/header.jsp" %>
+    <%@include file="../header/headerLogIn.jsp" %>
 </header>
 <head>
     <meta charset="UTF-8">

@@ -78,11 +78,11 @@
     </table>
     <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/user_manager.jsp"
        role="button">Back to manager</a>
-    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/select.jsp"
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/select.jsp"
        role="button">Back to select page</a>
-    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/selectDoctor.jsp"
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/selectDoctor.jsp"
        role="button">Back to select page</a>
-    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/selectPatient.jsp"
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/selectPatient.jsp"
        role="button">Back to select patient page</a>
 
 </div>

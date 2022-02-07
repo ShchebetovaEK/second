@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="text-center"><img src='<%=request.getContextPath() %>/img/error1.jpeg'/>
-    <a href="${pageContext.request.contextPath}/jsp/main/main.jsp">Back to homepage</a>
+    <a href="${pageContext.request.contextPath}/jsp/move/main.jsp">Back to homepage</a>
     <div style="font-size: 24px">Request from ${pageContext.errorData.requestURI} is failed</div>
     <br/>
     <div style="font-size: 20px">Servlet name: ${pageContext.errorData.servletName} </div>

@@ -11,6 +11,11 @@ import static by.tms.project.controller.command.RequestAttribute.LOGIN;
 import static by.tms.project.controller.command.RequestAttribute.PASSWORD;
 import static by.tms.project.controller.command.RequestParameter.*;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * final class UserValidatorImpl
+ */
 public final class UserValidatorImpl implements UserValidator {
     private static final Logger logger = LogManager.getLogger();
     private static final String COMMA = ", ";
@@ -130,13 +135,13 @@ public final class UserValidatorImpl implements UserValidator {
         return phoneNumber != null && phoneNumber.matches(PHONE_NUMBER_REGEX);
     }
 
-    /**
-     * check user
-     *
-     * @param userData
-     * @return the boolean.
-     */
-
+//    /**
+//     * check user
+//     *
+//     * @param userData
+//     * @return the boolean.
+//     */
+//
 //    public Map<String, String> checkUserData(Map<String, String> userData) {
 //        Map<String, String> mapErrorValidation = new HashMap<>();
 //        if (!isLoginValid(userData.get(LOGIN))) {

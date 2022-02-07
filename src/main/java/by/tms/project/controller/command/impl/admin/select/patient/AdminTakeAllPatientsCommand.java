@@ -38,7 +38,7 @@ public class AdminTakeAllPatientsCommand implements Command {
             List<Patient> userList = patientService.findAll();
             request.setAttribute(USER_LIST, userList);
             request.setAttribute(PATIENT,Boolean.TRUE);
-            router.setPage(SELECT_PATIENT);
+            router.setPage(SELECT_PATIENT_PAGE);
         } catch (ServiceException e) {
             logger.error("Failed at AdminTakeAllPatientsCommand");
             throw new CommandException("Failed at AdminTakeAllPatientsCommand", e);

@@ -18,6 +18,7 @@
 
 
 
+<div class="text-center">
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_update_protocol_application_command">
     please, input  id: <input type="text" name="protocol_id" >
@@ -34,7 +35,7 @@
 </form>
 <br/>
 
-
+</div>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

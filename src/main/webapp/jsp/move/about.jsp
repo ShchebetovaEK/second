@@ -20,7 +20,7 @@
     <div class="text-center text-danger"><h1> Our Centers </h1></div>
 <div class="card-group">
     <div class="card text-body  bg-info mb-3">
-        <img src='<%=request.getContextPath() %>/img/clinic1.jpeg'class="card-img-top" alt="...">
+        <img src='<%=request.getContextPath() %>/img/clinic1.jpeg' class="card-img-top" alt="...">
 
         <div class="card-body">
 
@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="card text-body  bg-info mb-3">
-        <img src='<%=request.getContextPath() %>/img/clinic2.jpeg'class="card-img-top" alt="...">
+        <img src='<%=request.getContextPath() %>/img/clinic2.jpeg' class="card-img-top" alt="...">
 
         <div class="card-body">
 

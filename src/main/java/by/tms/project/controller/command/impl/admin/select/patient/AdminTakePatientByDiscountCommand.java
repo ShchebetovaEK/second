@@ -14,8 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-import static by.tms.project.controller.command.PagePath.SELECT_PATIENT;
-import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
+import static by.tms.project.controller.command.PagePath.SELECT_PATIENT_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.PATIENT;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
@@ -43,7 +42,7 @@ public class AdminTakePatientByDiscountCommand implements Command {
             List<Patient> userList = patientService.findByMaxDiscount(Integer.valueOf(discount));
             request.setAttribute(USER_LIST, userList);
             request.setAttribute(PATIENT, Boolean.TRUE);
-            router.setPage(SELECT_PATIENT);
+            router.setPage(SELECT_PATIENT_PAGE);
         } catch (ServiceException e) {
             logger.error("Failed at  AdminTakePatientByDiscountCommand", e);
             throw new CommandException("Failed at AdminTakePatientByDiscountCommand", e);

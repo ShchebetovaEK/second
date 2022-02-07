@@ -15,8 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-import static by.tms.project.controller.command.PagePath.SELECT_DOCTOR;
-import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
+import static by.tms.project.controller.command.PagePath.SELECT_DOCTOR_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.DOCTOR;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
@@ -46,7 +45,7 @@ public class AdminTakeDoctorBySpecialityCommand implements Command {
             List<Doctor> userList = doctorService.findDoctorBySpeciality(Speciality.valueOf(speciality.toUpperCase()));
             request.setAttribute(USER_LIST, userList);
             request.setAttribute(DOCTOR, Boolean.TRUE);
-            router.setPage(SELECT_DOCTOR);
+            router.setPage(SELECT_DOCTOR_PAGE);
         } catch (ServiceException e) {
             logger.error("Failed at AdminTakeDoctorBySpecialityCommand ", e);
             throw new CommandException("Failed at AdminTakeDoctorBySpecialityCommand", e);

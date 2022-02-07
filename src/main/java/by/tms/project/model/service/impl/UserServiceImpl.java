@@ -7,7 +7,6 @@ import by.tms.project.model.dao.impl.UserDaoImpl;
 import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
 import by.tms.project.model.service.UserService;
-import by.tms.project.model.util.security.PasswordEncryptor;
 import by.tms.project.model.util.security.PasswordHash;
 import by.tms.project.model.validator.impl.UserValidatorImpl;
 import org.apache.logging.log4j.LogManager;
