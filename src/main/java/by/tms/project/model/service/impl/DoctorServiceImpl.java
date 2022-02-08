@@ -231,6 +231,16 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public boolean archivDoctor(long id) throws ServiceException {
+            try {
+                return doctorDao.archivDoctor(id);
+            } catch (DaoException e) {
+                logger.error("Failed at DoctorServiceImpl at archivDoctor ", e);
+                throw new ServiceException("Failed at DoctorServiceImpl at archivDoctor", e);
+            }
+    }
+
+    @Override
     public List<Doctor> chooseDoctor(Category category, Experience experience, Speciality speciality) throws ServiceException {
         List<Doctor> doctorList;
         try {

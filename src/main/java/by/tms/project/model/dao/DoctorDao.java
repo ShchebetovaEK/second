@@ -1,6 +1,7 @@
 package by.tms.project.model.dao;
 
 import by.tms.project.exception.DaoException;
+import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.*;
 
 import java.util.List;
@@ -23,6 +24,8 @@ public interface DoctorDao extends BaseDao<Long, Doctor>{
     boolean updateSpeciality(long id, Speciality speciality) throws DaoException;
 
     boolean deleteDoctor(long id) throws DaoException;
+
+    boolean archivDoctor(long id) throws DaoException;
 
     List<Doctor> chooseDoctor (Category category,Experience experience,Speciality speciality) throws DaoException;
 

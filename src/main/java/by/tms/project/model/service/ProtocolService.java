@@ -18,17 +18,17 @@ public interface ProtocolService {
 
     List<Protocol> findByData(LocalDate protocolData) throws ServiceException;
 
-    List<Protocol> findByPatient(Long patientId) throws ServiceException;
+    List<Protocol> findByPatient(long patientId) throws ServiceException;
 
-    List<Protocol> findByDoctor(Long doctorId) throws ServiceException;
+    List<Protocol> findByDoctor(long doctorId) throws ServiceException;
 
     boolean registerProtocol(Map<String, String> protocolCheck) throws ServiceException;
 
-    boolean updateProtocolCost(Long protocolCost, Long protocolId) throws ServiceException;
+    boolean updateProtocolCost(long protocolCost, long protocolId) throws ServiceException;
 
-    boolean updateProtocolApplication(Long protocolId, Application application) throws ServiceException;
+    boolean updateProtocolApplication(long protocolId, Application application) throws ServiceException;
 
-    boolean updateProtocolStatus(Long protocolId, Status status) throws ServiceException;
+    boolean updateProtocolStatus(long protocolId, Status status) throws ServiceException;
 
     boolean takeProtocolCost(long protocolId) throws  ServiceException;
 }

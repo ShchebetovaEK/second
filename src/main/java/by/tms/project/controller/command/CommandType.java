@@ -30,8 +30,9 @@ import by.tms.project.controller.command.impl.admin.update.patient.UpdatePatient
 import by.tms.project.controller.command.impl.admin.update.patient.UpdatePatientInsuranceCommand;
 import by.tms.project.controller.command.impl.admin.update.patient.UpdatePatientMoneyAccountCommand;
 import by.tms.project.controller.command.impl.admin.update.doctor.UpdateDoctorCategoryCommand;
-import by.tms.project.controller.command.impl.patient.PatientTakeAllDoctorsCommand;
 import by.tms.project.controller.command.impl.patient.PatientTakeProtocolCommand;
+import by.tms.project.controller.command.impl.patient.PatientViewAllDoctorCommand;
+import by.tms.project.controller.command.impl.patient.PatientViewMyProtocolCommand;
 import by.tms.project.controller.command.impl.user.ChangeUserPersonalCommand;
 import by.tms.project.model.entity.Role;
 
@@ -115,7 +116,9 @@ public enum CommandType {
     /*only patient command*/
     PATIENT_CHOOSE_DOCTOR_COMMAND(new PatientChooseDoctorCommand(), List.of(PATIENT)),
     PATIENT_TAKE_PROTOCOL_COMMAND(new PatientTakeProtocolCommand(), List.of(PATIENT)),
-    PATIENT_TAKE_ALL_DOCTOR_COMMAND(new PatientTakeAllDoctorsCommand(), List.of(PATIENT)),
+    PATIENT_VIEW_ALL_DOCTOR_COMMAND(new PatientViewAllDoctorCommand(), List.of(PATIENT)),
+    PATIENT_VIEW_MY_PROTOCOL_COMMAND(new PatientViewMyProtocolCommand(), List.of(PATIENT)),
+
     /* common */
     AUTHENTICATION_COMMAND(new AuthenticationCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     LOG_IN_COMMAND(new LogInCommand(), List.of(ADMIN, PATIENT, DOCTOR)),

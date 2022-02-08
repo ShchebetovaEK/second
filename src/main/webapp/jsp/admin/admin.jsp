@@ -23,13 +23,15 @@
     <div class="md-3">
         <form method="POST" action="${abs}/controller">
 
-            <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/select.jsp"
-               role="button">Select</a>
-            <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/update.jsp"
+            <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/select.jsp"
+               role="button">Select User's </a>
+            <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/protocol.jsp"
+               role="button">Select Protocol's </a>
+            <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/update.jsp"
                role="button">Update</a>
-            <a class="btn btn-danger" href="${pageContext.request.contextPath}/jsp/main/delete.jsp"
+            <a class="btn btn-danger" href="${pageContext.request.contextPath}/jsp/admin/delete.jsp"
                role="button">Delete</a>
-            <a class="btn btn-info" href="${pageContext.request.contextPath}/jsp/main/adminRegistration.jsp"
+            <a class="btn btn-info" href="${pageContext.request.contextPath}/jsp/admin/adminRegistration.jsp"
                role="button">Registration Admin</a>
             <a class="btn btn-info" href="${pageContext.request.contextPath}/jsp/admin/doctorRegistration.jsp"
                role="button">Registration Doctor</a>

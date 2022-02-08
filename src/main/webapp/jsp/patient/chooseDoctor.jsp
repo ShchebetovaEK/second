@@ -16,14 +16,16 @@
     <title>choose Doctor</title>
 </head>
 <body>
-
+<div class="text-center">
 <form action="${abs}/controller" method="get">
 
-    <input type="hidden" name="command" value="admin_take_all_doctors_command">
-    <h2> view all doctors</h2>     <input type="submit" >
+    <input type="hidden" name="command" value="patient_view_all_doctor_command">
+    <h6 class="text-center text-black"> ${user.firstName}, view all doctors!</h6>
+      <input type="submit" >
 </form>
-
+<br/>
 <form action="${abs}/controller" method="get">
+    <h6> ${user.firstName}, you can choose doctor by category,experience and speciality</h6>
     <input type="hidden" name="command" value="patient_choose_doctor_command">
    <label class="form-label"> please, input desired category: </label>
     <input type="text" name="category" value="HIGH" placeholder="HIGH" >
@@ -33,7 +35,7 @@
     <input type="text" name="speciality" value="PEDIATRICS" placeholder="PEDIATRICS">
     <input type="submit" >
 </form>
-
+    <br/>
 <table class="table table-hover">
     <tr>
         <th scope="col">doctor's id</th>
@@ -64,8 +66,9 @@
 
 </table>
 
-
+    <br/>
 <form action="${abs}/controller" method="get">
+    <h6 class="text-center text-black"> ${user.firstName}, input your application!</h6>
     <input type="hidden" name="command" value="patient_take_protocol_command">
 <%--    please, input doctor first name: <input type="text" name="first_name" value="Антонина" placeholder="Антонина" >--%>
 <%--    please, input doctor last name: <input type="text" name="last_name" value="Нестерович" placeholder="Нестерович" >--%>
@@ -78,10 +81,10 @@
 
     <input type="submit" >
 </form>
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/patient/viewMyProtocol.jsp"
+       role="button">view ${user.firstName} protocol</a>
 
-
-<a href="${pageContext.request.contextPath}/jsp/patient/chooseDoctor.jsp">Back to choose doctor page</a>
-
+</div>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

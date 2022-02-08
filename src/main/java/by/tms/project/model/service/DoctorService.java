@@ -30,5 +30,7 @@ public interface DoctorService {
 
     boolean deleteDoctor(long id) throws ServiceException;
 
+    boolean archivDoctor(long id) throws ServiceException;
+
     List<Doctor> chooseDoctor(Category category, Experience experience, Speciality speciality) throws ServiceException;
 }

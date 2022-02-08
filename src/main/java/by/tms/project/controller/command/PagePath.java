@@ -38,6 +38,8 @@ public final class PagePath {
     public static final String WELCOME_PAGE = "/jsp/main/welcome.jsp";
     /* package patient*/
     public static final String CHOOSE_DOCTOR = "/jsp/patient/chooseDoctor.jsp";
+    public static final String VIEW_ALL_DOCTOR = "/jsp/patient/viewAllDoctor.jsp";
+    public static final String VIEW_MY_PROTOCOL = "/jsp/patient/viewMyProtocol.jsp";
     /* package move*/
     public static final String ABOUT_PAGE = "/jsp/move/about.jsp";
     public static final String MAIN_PAGE = "/jsp/move/main.jsp";

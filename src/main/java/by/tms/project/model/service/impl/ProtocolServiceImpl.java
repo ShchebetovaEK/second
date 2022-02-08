@@ -92,7 +92,7 @@ public class ProtocolServiceImpl implements ProtocolService {
      * @throws ServiceException
      */
     @Override
-    public List<Protocol> findByPatient(Long patientId) throws ServiceException {
+    public List<Protocol> findByPatient(long patientId) throws ServiceException {
         List<Protocol> protocolList;
         try {
             protocolList = protocolDao.findByPatient(patientId);
@@ -110,7 +110,7 @@ public class ProtocolServiceImpl implements ProtocolService {
      * @throws ServiceException
      */
     @Override
-    public List<Protocol> findByDoctor(Long doctorId) throws ServiceException {
+    public List<Protocol> findByDoctor(long doctorId) throws ServiceException {
         List<Protocol> protocolList;
         try {
             protocolList = protocolDao.findByDoctor(doctorId);
@@ -130,8 +130,8 @@ public class ProtocolServiceImpl implements ProtocolService {
 //        LocalDate protocolData = LocalDate.parse(protocolCheck.get(PROTOCOL_DATA));
         String strProtocolPayer = protocolCheck.get(PROTOCOL_PAYER);
         Payer protocolPayer = Payer.valueOf(strProtocolPayer.toUpperCase());
-//        String strProtocolCost = protocolCheck.get(PROTOCOL_COST);
-//        Long protocolCost = Long.valueOf(strProtocolCost);
+        String strProtocolCost = protocolCheck.get(PROTOCOL_COST);
+        Long protocolCost = Long.valueOf(strProtocolCost);
         String strPatientsUsersId = protocolCheck.get(PROTOCOL_PATIENTS_USERS_ID);
         Long patientsUsersId = Long.valueOf(strPatientsUsersId);
         String strDoctorsUsersId = protocolCheck.get(PROTOCOL_DOCTOR_USERS_ID);
@@ -139,7 +139,7 @@ public class ProtocolServiceImpl implements ProtocolService {
 
         mapProtocolCheck.put(PROTOCOL_DATA, String.valueOf(protocolData));
         mapProtocolCheck.put(PROTOCOL_PAYER, String.valueOf(protocolPayer));
-//        mapProtocolCheck.put(PROTOCOL_COST, String.valueOf(protocolCost));
+        mapProtocolCheck.put(PROTOCOL_COST, String.valueOf(protocolCost));
         mapProtocolCheck.put(PROTOCOL_DOCTOR_USERS_ID, String.valueOf(doctorsUsersId));
         mapProtocolCheck.put(PROTOCOL_PATIENTS_USERS_ID, String.valueOf(patientsUsersId));
 
@@ -147,7 +147,7 @@ public class ProtocolServiceImpl implements ProtocolService {
             result = ProtocolValidatorImpl.getInstance().isPayerValid(protocolPayer.name());
             if (result) {
                 Protocol protocol = new Protocol(protocolData, protocolPayer,
-//                      protocolCost,
+                      protocolCost,
                         patientsUsersId, doctorsUsersId);
                 protocolDao.create(protocol);
             }
@@ -163,7 +163,7 @@ public class ProtocolServiceImpl implements ProtocolService {
     }
 
     @Override
-    public boolean updateProtocolCost(Long protocolCost, Long protocolId) throws ServiceException {
+    public boolean updateProtocolCost(long protocolCost, long protocolId) throws ServiceException {
         try {
             return protocolDao.updateProtocolCost(protocolCost, protocolId);
         } catch (DaoException e) {
@@ -173,7 +173,7 @@ public class ProtocolServiceImpl implements ProtocolService {
     }
 
     @Override
-    public boolean updateProtocolApplication(Long protocolId, Application application) throws ServiceException {
+    public boolean updateProtocolApplication(long protocolId, Application application) throws ServiceException {
         try {
             return protocolDao.updateProtocolApplication(protocolId, application);
         } catch (DaoException e) {
@@ -183,7 +183,7 @@ public class ProtocolServiceImpl implements ProtocolService {
     }
 
     @Override
-    public boolean updateProtocolStatus(Long protocolId, Status status) throws ServiceException {
+    public boolean updateProtocolStatus(long protocolId, Status status) throws ServiceException {
         try {
             return protocolDao.updateProtocolStatus(protocolId, status);
         } catch (DaoException e) {

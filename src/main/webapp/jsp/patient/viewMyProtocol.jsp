@@ -17,42 +17,12 @@
     <title>${title}</title>
 </head>
 <body>
-
-
-<%-- <form action="${abs}/controller" method="get">--%>
-<%--     <input type="hidden" name="command" value="manager_page_command">--%>
-<%--     <input type="submit" >--%>
-<%-- </form>--%>
 <div class="text-center">
 <form action="${abs}/controller" method="get">
-    <label class="form-label"> view all protocol</label>
-    <input type="hidden" name="command" value="admin_take_all_protocols_command">
-    <input type="submit">
-    <br/>
-</form>
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_take_protocol_by_doctor_command">
-         <input type="text" name="id" placeholder="doctor id">
+    <input type="hidden" name="command" value="patient_view_my_protocol_command">
     <input type="submit">
 </form>
 <br/>
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_take_protocol_by_patient_command">
-         <input type="text" name="id" placeholder="patient id" >
-    <input type="submit">
-</form>
-<br/>
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_take_protocol_by_payer_command">
-    <input type="text" name="protocol_payer" placeholder="payer" >
-    <input type="submit">
-</form>
-<br/>
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_take_protocol_by_data_command">
-    <input type="date" name="protocol_data" placeholder="YYYY-MM-DD" >
-    <input type="submit">
-</form>
 
 <table>
     <tr>
@@ -78,8 +48,8 @@
             <td>${protocol.protocolData}</td>
             <td>${protocol.protocolPayer}</td>
             <td>${protocol.protocolCost}</td>
-            <td>${protocol.patientsUsersId}</td>
-            <td>${protocol.doctorsUsersId}</td>
+            <td>${protocol.patientId}</td>
+            <td>${protocol.doctorId}</td>
 
 <%--            <c:if test="${patient}">--%>
 <%--                <td> ${user.insurance}</td>--%>
@@ -94,9 +64,7 @@
 <%--            </c:if>--%>
         </tr>
     </c:forEach>
-
 </table>
-
 </div>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>

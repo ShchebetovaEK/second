@@ -9,15 +9,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 public class DoctorDaoImpl implements DoctorDao {
     private static final Logger logger = LogManager.getLogger();
     private static final String DOCTOR = "doctor";
+    private static final String ARCHIV_INACTIV = "inactiv";
     private static final String SQL_SELECT_ALL_DOCTORS = """
             SELECT id,role,login,password,first_name,last_name,
             data_birthday,address,phone_number,email,archiv,
@@ -98,6 +97,10 @@ public class DoctorDaoImpl implements DoctorDao {
            WHERE doctors.category = ?
              AND doctors.experience = ?
              AND doctors.speciality = ?""";
+    private static final String SQL_ARCHIV_DOCTOR_BY_ID = """
+            UPDATE users
+            SET archiv = ?
+            WHERE users.id=?""";
 
 
     private static DoctorDaoImpl instance;
@@ -406,8 +409,8 @@ public class DoctorDaoImpl implements DoctorDao {
             result = preparedStatement.executeUpdate() == 1;
 
         } catch (SQLException e) {
-            logger.error("Failed at UserDaoImpl at method updateCategory ", e);
-            throw new DaoException("Failed at UserDaoImpl at method updateCategory", e);
+            logger.error("Failed at DoctorDaoImpl at method updateCategory ", e);
+            throw new DaoException("Failed at  DoctorDaoImplat method updateCategory", e);
         }
         return result;
     }
@@ -422,8 +425,8 @@ public class DoctorDaoImpl implements DoctorDao {
             result = preparedStatement.executeUpdate() == 1;
 
         } catch (SQLException e) {
-            logger.error("Failed at UserDaoImpl at method  updateExperience", e);
-            throw new DaoException("Failed at UserDaoImpl at method updateExperience", e);
+            logger.error("Failed at DoctorDaoImpl at method  updateExperience", e);
+            throw new DaoException("Failed at DoctorDaoImpl at method updateExperience", e);
         }
         return result;
     }
@@ -438,8 +441,8 @@ public class DoctorDaoImpl implements DoctorDao {
             result = preparedStatement.executeUpdate() == 1;
 
         } catch (SQLException e) {
-            logger.error("Failed at  at method  ", e);
-            throw new DaoException("Failed at  at method ", e);
+            logger.error("Failed at DoctorDaoImpl  at method updateSpeciality ", e);
+            throw new DaoException("Failed at DoctorDaoImpl at method updateSpeciality", e);
         }
         return result;
     }
@@ -452,11 +455,27 @@ public class DoctorDaoImpl implements DoctorDao {
             preparedStatement.setLong(1, id);
             result = preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
-            logger.error("Failed at  at method deleteDoctor ", e);
-            throw new DaoException("Failed at   at method deleteDoctor", e);
+            logger.error("Failed at DoctorDaoImpl at method deleteDoctor ", e);
+            throw new DaoException("Failed at  DoctorDaoImpl at method deleteDoctor", e);
         }
         return result;
     }
+
+    @Override
+    public boolean archivDoctor(long id) throws DaoException {
+        boolean result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ARCHIV_DOCTOR_BY_ID)) {
+            preparedStatement.setString(1, ARCHIV_INACTIV);
+            preparedStatement.setLong(2, id);
+            result = preparedStatement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            logger.error("Failed at DoctorDaoImpl at method  archivDoctor", e);
+            throw new DaoException("Failed at DoctorDaoImpl  at method archivDoctor", e);
+        }
+        return result;
+    }
+
 
     @Override
     public List<Doctor> chooseDoctor(Category category,  Experience experience,Speciality speciality) throws DaoException {

@@ -15,15 +15,15 @@ public interface ProtocolDao extends BaseDao<Long, Protocol> {
 
     List<Protocol> findByData(LocalDate protocolData) throws DaoException;
 
-    List<Protocol> findByPatient(Long patientId) throws DaoException;
+    List<Protocol> findByPatient(long patientId) throws DaoException;
 
-    List<Protocol> findByDoctor(Long doctorId) throws DaoException;
+    List<Protocol> findByDoctor(long doctorId) throws DaoException;
 
-    boolean updateProtocolCost(Long protocolCost, Long protocolId) throws DaoException;
+    boolean updateProtocolCost(long protocolCost, Long protocolId) throws DaoException;
 
-    boolean updateProtocolApplication(Long protocolId, Application application) throws DaoException;
+    boolean updateProtocolApplication(long protocolId, Application application) throws DaoException;
 
-    boolean updateProtocolStatus(Long protocolId, Status status) throws DaoException;
+    boolean updateProtocolStatus(long protocolId, Status status) throws DaoException;
 
-    boolean takeProtocolCost(Long protocolId) throws DaoException;
+    boolean takeProtocolCost(long protocolId) throws DaoException;
 }

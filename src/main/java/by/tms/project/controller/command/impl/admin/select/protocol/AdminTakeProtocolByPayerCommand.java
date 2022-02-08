@@ -19,6 +19,7 @@ import java.util.List;
 
 import static by.tms.project.controller.command.PagePath.PROTOCOL_PAGE;
 import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
+import static by.tms.project.controller.command.RequestAttribute.PROTOCOL;
 import static by.tms.project.controller.command.RequestAttribute.PROTOCOL_LIST;
 
 /**
@@ -43,6 +44,7 @@ public class AdminTakeProtocolByPayerCommand implements Command {
         try {
             List<Protocol> protocolList = protocolService.findByPayer(Payer.valueOf(payer.toUpperCase()));
             request.setAttribute(PROTOCOL_LIST, protocolList);
+            request.setAttribute(PROTOCOL,Boolean.TRUE);
             router.setPage(PROTOCOL_PAGE);
         } catch (ServiceException e) {
             logger.error("Failed at AdminTakeProtocolByPayerCommand");

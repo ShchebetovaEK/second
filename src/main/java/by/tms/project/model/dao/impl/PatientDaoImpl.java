@@ -288,14 +288,14 @@ public class PatientDaoImpl implements PatientDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_PATIENTS_BY_INSURANCE)) {
             preparedStatement.setBoolean(1, insurance);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
+               while (resultSet.next()) {
                     Patient patient = takePatientInfo(resultSet);
                     patientList.add(patient);
                 }
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at PatientDaoImpl at method findByInsurance ", e);
+            throw new DaoException("Failed at PatientDaoImpl at method findByInsurance", e);
         }
         return patientList;
     }
@@ -314,14 +314,14 @@ public class PatientDaoImpl implements PatientDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_PATIENTS_BY_MONEY_ACCOUNT)) {
             preparedStatement.setBigDecimal(1, moneyAccount);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     Patient patient = takePatientInfo(resultSet);
                     patientList.add(patient);
                 }
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at PatientDaoImpl at method findByMinimumMoneyAccount", e);
+            throw new DaoException("Failed at PatientDaoImpl at method findByMinimumMoneyAccount", e);
         }
         return patientList;
     }
@@ -340,14 +340,14 @@ public class PatientDaoImpl implements PatientDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_PATIENTS_BY_DISCOUNT)) {
             preparedStatement.setInt(1, discount);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     Patient patient = takePatientInfo(resultSet);
                     patientList.add(patient);
                 }
             }
         } catch (SQLException e) {
-            logger.error("", e);
-            throw new DaoException("", e);
+            logger.error("Failed at PatientDaoImpl at method findByMaxDiscount", e);
+            throw new DaoException("Failed at PatientDaoImpl at method findByMaxDiscount", e);
         }
         return patientList;
     }
@@ -366,7 +366,7 @@ public class PatientDaoImpl implements PatientDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_PATIENT_BY_LOGIN)) {
             preparedStatement.setString(1, login);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     optionalPatient = Optional.of(takePatientInfo(resultSet));
                 }
             }

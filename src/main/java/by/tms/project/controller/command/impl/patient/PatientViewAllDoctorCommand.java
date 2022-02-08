@@ -13,11 +13,11 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-import static by.tms.project.controller.command.PagePath.CHOOSE_DOCTOR;
+import static by.tms.project.controller.command.PagePath.VIEW_ALL_DOCTOR;
 import static by.tms.project.controller.command.RequestAttribute.DOCTOR;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
-public class PatientTakeAllDoctorsCommand implements Command {
+public class PatientViewAllDoctorCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private DoctorService doctorService = DoctorServiceImpl.getInstance();
 
@@ -33,10 +33,10 @@ public class PatientTakeAllDoctorsCommand implements Command {
             List<Doctor> userList = doctorService.findAll();
             request.setAttribute(USER_LIST, userList);
             request.setAttribute(DOCTOR, Boolean.TRUE);
-            router.setPage(CHOOSE_DOCTOR);
+            router.setPage(VIEW_ALL_DOCTOR);
         } catch (ServiceException e) {
-            logger.error("Failed at AdminTakeAllDoctorsCommand", e);
-            throw new CommandException("Failed at AdminTakeAllDoctorsCommand", e);
+            logger.error("Failed at PatientViewAllDoctorCommand", e);
+            throw new CommandException("Failed at PatientViewAllDoctorCommand", e);
         }
         return router;
     }

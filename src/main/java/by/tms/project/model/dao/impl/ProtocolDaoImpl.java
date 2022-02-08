@@ -236,7 +236,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
      * @throws DaoException
      */
     @Override
-    public List<Protocol> findByPatient(Long patientId) throws DaoException {
+    public List<Protocol> findByPatient(long patientId) throws DaoException {
         List<Protocol> protocolList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PROTOCOL_BY_PATIENT)) {
@@ -263,7 +263,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
      * @throws DaoException
      */
     @Override
-    public List<Protocol> findByDoctor(Long doctorId) throws DaoException {
+    public List<Protocol> findByDoctor(long doctorId) throws DaoException {
         List<Protocol> protocolList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PROTOCOL_BY_DOCTOR)) {
@@ -289,7 +289,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
      * @throws DaoException
      */
     @Override
-    public boolean updateProtocolCost(Long protocolCost, Long protocolId) throws DaoException {
+    public boolean updateProtocolCost(long protocolCost, Long protocolId) throws DaoException {
         boolean result;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_PROTOCOL_COST)) {
@@ -311,7 +311,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
      * @throws DaoException
      */
     @Override
-    public boolean updateProtocolApplication(Long protocolId, Application application) throws DaoException {
+    public boolean updateProtocolApplication(long protocolId, Application application) throws DaoException {
         boolean result;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_PROTOCOL_APPLICATION)) {
@@ -333,7 +333,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
      * @throws DaoException
      */
     @Override
-    public boolean updateProtocolStatus(Long protocolId, Status status) throws DaoException {
+    public boolean updateProtocolStatus(long protocolId, Status status) throws DaoException {
         boolean result;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_PROTOCOL_STATUS)) {
@@ -354,7 +354,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
      * @throws DaoException
      */
     @Override
-    public boolean takeProtocolCost(Long protocolId) throws DaoException {
+    public boolean takeProtocolCost(long protocolId) throws DaoException {
         boolean result;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_TAKE_PROTOCOL_COST)) {
