@@ -135,44 +135,6 @@ public final class UserValidatorImpl implements UserValidator {
         return phoneNumber != null && phoneNumber.matches(PHONE_NUMBER_REGEX);
     }
 
-//    /**
-//     * check user
-//     *
-//     * @param userData
-//     * @return the boolean.
-//     */
-//
-//    public Map<String, String> checkUserData(Map<String, String> userData) {
-//        Map<String, String> mapErrorValidation = new HashMap<>();
-//        if (!isLoginValid(userData.get(LOGIN))) {
-//            mapErrorValidation.put(LOGIN, INVALID_LOGIN);
-//        }
-//        if (!isPasswordValid(userData.get(PASSWORD))) {
-//            mapErrorValidation.put(PASSWORD, INVALID_PASSWORD);
-//        }
-//        if (!isFirstNameValid(userData.get(FIRST_NAME))) {
-//            mapErrorValidation.put(FIRST_NAME, INVALID_FIRST_NAME);
-//
-//        }
-//        if (!isLastNameValid(userData.get(LAST_NAME))) {
-//            mapErrorValidation.put(LAST_NAME, INVALID_LAST_NAME);
-//        }
-//        if (!isAddressValid(userData.get(ADDRESS))) {
-//            mapErrorValidation.put(ADDRESS, INVALID_ADDRESS);
-//        }
-//        if (!isDataBirthdayValid(userData.get(DATA_BIRTHDAY))) {
-//            mapErrorValidation.put(DATA_BIRTHDAY, INVALID_DATA_BIRTHDAY);
-//        }
-//        if (!isEmailValid(userData.get(EMAIL))) {
-//            mapErrorValidation.put(EMAIL, INVALID_EMAIL);
-//        }
-//        if (!isPhoneNumberValid(userData.get(PHONE_NUMBER))) {
-//            mapErrorValidation.put(PHONE_NUMBER, INVALID_PHONE_NUMBER);
-//
-//        }
-//        return mapErrorValidation;
-//    }
-//}
     /**
      * check user
      * @param userData
@@ -227,5 +189,3 @@ public final class UserValidatorImpl implements UserValidator {
         return isValid;
     }
 }
-
-
