@@ -128,6 +128,11 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public List<Doctor> chooseCapability() throws ServiceException {
+        return null;
+    }
+
+    @Override
     public boolean registerNewDoctor(Map<String, String> userCheck) throws ServiceException {
         boolean resultOne;
         boolean resultTwo;

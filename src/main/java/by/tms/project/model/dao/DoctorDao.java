@@ -17,6 +17,8 @@ public interface DoctorDao extends BaseDao<Long, Doctor>{
 
     Optional<Doctor> findDoctorByLogin(String login) throws DaoException;
 
+    List<Doctor> chooseCapability() throws ServiceException;
+
     boolean updateCategory(long id, Category category) throws DaoException;
 
     boolean updateExperience(long id, Experience experience) throws DaoException;

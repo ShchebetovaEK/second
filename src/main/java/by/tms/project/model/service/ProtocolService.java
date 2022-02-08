@@ -30,7 +30,7 @@ public interface ProtocolService {
 
     boolean adminRegistrationProtocol(Map<String, String> protocolCheck) throws ServiceException;
 
-    boolean updateProtocolCost(long protocolCost, long protocolId) throws ServiceException;
+    boolean updateProtocolCost( long protocolCost,long protocolId) throws ServiceException;
 
     boolean updateProtocolApplication(long protocolId, Application application) throws ServiceException;
 

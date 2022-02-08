@@ -22,6 +22,8 @@ public final class RequestParameter {
     public static final String EXPERIENCE = "experience";
     public static final String SPECIALITY = "speciality";
     public static final String USERS_ID = "users_id";
+    public static final String CAPABILITY = "";
+
 
 
     /*patient*/

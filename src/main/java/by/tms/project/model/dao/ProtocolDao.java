@@ -23,7 +23,7 @@ public interface ProtocolDao extends BaseDao<Long, Protocol> {
 
     List<Protocol> findByDoctor(long doctorId) throws DaoException;
 
-    boolean updateProtocolCost(long protocolCost, Long protocolId) throws DaoException;
+    boolean updateProtocolCost( long protocolCost,long protocolId) throws DaoException;
 
     boolean updateProtocolApplication(long protocolId, Application application) throws DaoException;
 

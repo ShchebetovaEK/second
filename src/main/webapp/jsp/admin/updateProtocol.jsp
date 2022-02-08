@@ -18,16 +18,38 @@
 <body>
 <div class="text-center">
     <form action="${abs}/controller" method="get">
-        <input type="hidden" name="command" value="admin_update_protocol_command">
+        <input type="hidden" name="command" value="admin_update_protocol_cost_command">
         <label class="form-label">  please, input protocol_cost:</label>
         <input type="text" name="protocol_cost">
         <label class="form-label"> please, input protocol's id:</label>
         <input type="text" name="protocol_id">
+        <input type="submit">
         <br/>
     </form>
 
-    <label class="form-label"> please, input protocol's id:</label>
-  <input type="submit">
+    <form action="${abs}/controller" method="get">
+        <input type="hidden" name="command" value="admin_update_protocol_status_command">
+        <label class="form-label"> please, input protocol's id:</label>
+        <input type="text" name="protocol_id">
+        <label class="form-label">  please, input protocol status:</label>
+        <input type="text" name="status">
+        <input type="submit">
+        <br/>
+    </form>
+
+    <br/>
+
+    <form action="${abs}/controller" method="get">
+        <input type="hidden" name="command" value="admin_update_protocol_application_command">
+        <label class="form-label"> please, input protocol's id:</label>
+        <input type="text" name="protocol_id">
+        <label class="form-label">  please, input protocol application:</label>
+        <input type="text" name="application">
+        <input type="submit">
+        <br/>
+    </form>
+
+
 
 
     <br/>

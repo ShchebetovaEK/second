@@ -1,6 +1,7 @@
 package by.tms.project.model.dao.impl;
 
 import by.tms.project.exception.DaoException;
+import by.tms.project.exception.ServiceException;
 import by.tms.project.model.connection.ConnectionPool;
 import by.tms.project.model.dao.ColumnName;
 import by.tms.project.model.dao.DoctorDao;
@@ -397,6 +398,11 @@ public class DoctorDaoImpl implements DoctorDao {
             throw new DaoException("Failed at DoctorDaoImpl at method findDoctorByLogin", e);
         }
         return optionalDoctor;
+    }
+
+    @Override
+    public List<Doctor> chooseCapability() throws ServiceException {
+        return null;
     }
 
     @Override

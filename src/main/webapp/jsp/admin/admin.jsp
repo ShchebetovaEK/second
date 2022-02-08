@@ -29,6 +29,8 @@
                role="button">Select Protocol's </a>
             <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/update.jsp"
                role="button">Update</a>
+            <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/updateProtocol.jsp"
+               role="button">Update</a>
             <a class="btn btn-danger" href="${pageContext.request.contextPath}/jsp/admin/delete.jsp"
                role="button">Delete</a>
             <a class="btn btn-info" href="${pageContext.request.contextPath}/jsp/admin/adminRegistration.jsp"

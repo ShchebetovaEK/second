@@ -56,7 +56,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
             FROM protocols
             INNER JOIN patients on protocols.patients_users_id = patients.users_id
             INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
-            WHERE protocols.status=? """;
+            WHERE protocols.payer=? """;
 
     private static final String SQL_SELECT_ALL_PROTOCOL_BY_PATIENT = """
             SELECT protocol_id, protocol_data, protocol_payer, protocol_cost,application,status, patients_users_id, doctors_users_id,
@@ -367,7 +367,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
      * @throws DaoException
      */
     @Override
-    public boolean updateProtocolCost(long protocolCost, Long protocolId) throws DaoException {
+    public boolean updateProtocolCost(long protocolCost, long protocolId) throws DaoException {
         boolean result;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_PROTOCOL_COST)) {

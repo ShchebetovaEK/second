@@ -13,12 +13,11 @@ import org.apache.logging.log4j.Logger;
 import static by.tms.project.controller.command.RequestParameter.PROTOCOL_COST;
 import static by.tms.project.controller.command.RequestParameter.PROTOCOL_ID;
 
-public class AdminUpdateProtocolCommand implements Command {
+public class AdminUpdateProtocolCostCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException
@@ -32,7 +31,7 @@ public class AdminUpdateProtocolCommand implements Command {
         Long protocolId = Long.valueOf(strProtocolId);
 
         try {
-            protocolService.updateProtocolCost(protocolCost,protocolId);
+            protocolService.updateProtocolCost(protocolCost, protocolId);
         } catch (ServiceException e) {
             logger.error("Failed at  AdminUpdateProtocolCommand", e);
             throw new CommandException("Failed at AdminUpdateProtocolCommand", e);

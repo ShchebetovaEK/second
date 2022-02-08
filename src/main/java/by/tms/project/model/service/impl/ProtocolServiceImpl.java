@@ -90,7 +90,7 @@ public class ProtocolServiceImpl implements ProtocolService {
         List<Protocol> protocolList = new ArrayList<>();
         try {
 
-                protocolList = protocolDao.findByApplication(application);
+            protocolList = protocolDao.findByApplication(application);
 
         } catch (DaoException e) {
             logger.error("Failed at ProtocolServiceImpl at method  findByApplication", e);
@@ -104,7 +104,7 @@ public class ProtocolServiceImpl implements ProtocolService {
         List<Protocol> protocolList = new ArrayList<>();
         try {
 
-                protocolList = protocolDao.findByStatus(status);
+            protocolList = protocolDao.findByStatus(status);
 
         } catch (DaoException e) {
             logger.error("Failed at ProtocolServiceImpl at method findByStatus ", e);
@@ -213,7 +213,7 @@ public class ProtocolServiceImpl implements ProtocolService {
             result = ProtocolValidatorImpl.getInstance().isPayerValid(protocolPayer.name());
             if (result) {
                 Protocol protocol = new Protocol(protocolData, protocolPayer,
-                        protocolCost, patientsUsersId, doctorsUsersId,protocolApplication);
+                        protocolCost, patientsUsersId, doctorsUsersId, protocolApplication);
                 protocolDao.createAdmin(protocol);
             }
 
@@ -228,9 +228,9 @@ public class ProtocolServiceImpl implements ProtocolService {
     }
 
     @Override
-    public boolean updateProtocolCost(long protocolCost, long protocolId) throws ServiceException {
+    public boolean updateProtocolCost( long protocolCost,long protocolId) throws ServiceException {
         try {
-            return protocolDao.updateProtocolCost(protocolCost, protocolId);
+            return protocolDao.updateProtocolCost( protocolCost, protocolId);
         } catch (DaoException e) {
             logger.error("Failed at ProtocolServiceImpl  at method updateProtocolCost", e);
             throw new ServiceException("Failed at ProtocolServiceImpl  at method updateProtocolCost ", e);

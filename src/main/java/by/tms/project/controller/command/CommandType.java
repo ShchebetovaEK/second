@@ -6,10 +6,10 @@ import by.tms.project.controller.command.impl.admin.delete.AdminArchivUserComman
 import by.tms.project.controller.command.impl.admin.select.protocol.*;
 import by.tms.project.controller.command.impl.admin.select.user.*;
 import by.tms.project.controller.command.impl.admin.update.protocol.AdminUpdateProtocolApplicationCommand;
-import by.tms.project.controller.command.impl.admin.update.protocol.AdminUpdateProtocolCommand;
+import by.tms.project.controller.command.impl.admin.update.protocol.AdminUpdateProtocolCostCommand;
 import by.tms.project.controller.command.impl.admin.update.protocol.AdminUpdateProtocolStatusCommand;
 import by.tms.project.controller.command.impl.admin.update.user.*;
-import by.tms.project.controller.command.impl.patient.PatientChooseDoctorCommand;
+import by.tms.project.controller.command.impl.patient.*;
 import by.tms.project.controller.command.impl.admin.create.AdminRegisterProtocolCommand;
 import by.tms.project.controller.command.impl.admin.delete.AdminDeletePatientCommand;
 import by.tms.project.controller.command.impl.admin.create.AdminRegisterAdminCommand;
@@ -30,9 +30,6 @@ import by.tms.project.controller.command.impl.admin.update.patient.UpdatePatient
 import by.tms.project.controller.command.impl.admin.update.patient.UpdatePatientInsuranceCommand;
 import by.tms.project.controller.command.impl.admin.update.patient.UpdatePatientMoneyAccountCommand;
 import by.tms.project.controller.command.impl.admin.update.doctor.UpdateDoctorCategoryCommand;
-import by.tms.project.controller.command.impl.patient.PatientTakeProtocolCommand;
-import by.tms.project.controller.command.impl.patient.PatientViewAllDoctorCommand;
-import by.tms.project.controller.command.impl.patient.PatientViewMyProtocolCommand;
 import by.tms.project.controller.command.impl.user.ChangeUserPersonalCommand;
 import by.tms.project.model.entity.Role;
 
@@ -105,7 +102,7 @@ public enum CommandType {
     UPDATE_PATIENT_INSURANCE_COMMAND(new UpdatePatientInsuranceCommand(), List.of(ADMIN)),
     UPDATE_PATIENT_DISCOUNT_COMMAND(new UpdatePatientDiscountCommand(), List.of(ADMIN)),
     UPDATE_PATIENT_MONEY_ACCOUNT_COMMAND(new UpdatePatientMoneyAccountCommand(), List.of(ADMIN)),
-    ADMIN_UPDATE_PROTOCOL_COMMAND(new AdminUpdateProtocolCommand(), List.of(ADMIN)),
+    ADMIN_UPDATE_PROTOCOL_COST_COMMAND(new AdminUpdateProtocolCostCommand(), List.of(ADMIN)),
     ADMIN_UPDATE_PROTOCOL_APPLICATION_COMMAND(new AdminUpdateProtocolApplicationCommand(), List.of(ADMIN)),
     ADMIN_UPDATE_PROTOCOL_STATUS_COMMAND(new AdminUpdateProtocolStatusCommand(),List.of(ADMIN)),
     /*delete*/
@@ -117,6 +114,7 @@ public enum CommandType {
 
     /*only patient command*/
     PATIENT_CHOOSE_DOCTOR_COMMAND(new PatientChooseDoctorCommand(), List.of(PATIENT)),
+    PATIENT_CHOOSE_CAPABILITY_COMMAND(new PatientChooseCapabilityCommand(), List.of(PATIENT)),
     PATIENT_TAKE_PROTOCOL_COMMAND(new PatientTakeProtocolCommand(), List.of(PATIENT)),
     PATIENT_VIEW_ALL_DOCTOR_COMMAND(new PatientViewAllDoctorCommand(), List.of(PATIENT)),
     PATIENT_VIEW_MY_PROTOCOL_COMMAND(new PatientViewMyProtocolCommand(), List.of(PATIENT)),
