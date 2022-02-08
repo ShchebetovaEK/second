@@ -43,6 +43,20 @@ public class ProtocolDaoImpl implements ProtocolDao {
             INNER JOIN patients on protocols.patients_users_id = patients.users_id
             INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
             WHERE protocols.protocol_payer=? """;
+    private static final String SQL_SELECT_ALL_PROTOCOL_BY_APPLICATION = """
+            SELECT protocol_id, protocol_data, protocol_payer, protocol_cost,application,status, patients_users_id, doctors_users_id,
+                   insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
+            FROM protocols
+            INNER JOIN patients on protocols.patients_users_id = patients.users_id
+            INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
+            WHERE protocols.application=? """;
+    private static final String SQL_SELECT_ALL_PROTOCOL_BY_STATUS = """
+            SELECT protocol_id, protocol_data, protocol_payer, protocol_cost,application,status, patients_users_id, doctors_users_id,
+                   insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
+            FROM protocols
+            INNER JOIN patients on protocols.patients_users_id = patients.users_id
+            INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
+            WHERE protocols.status=? """;
 
     private static final String SQL_SELECT_ALL_PROTOCOL_BY_PATIENT = """
             SELECT protocol_id, protocol_data, protocol_payer, protocol_cost,application,status, patients_users_id, doctors_users_id,
@@ -64,6 +78,10 @@ public class ProtocolDaoImpl implements ProtocolDao {
     private static final String SQL_PATIENT_CREATE_PROTOCOLS = """
             INSERT INTO protocols (protocol_data, protocol_payer,  patients_users_id, doctors_users_id)
             VALUES (?,?,?,?)""";
+    private static final String SQL_ADMIN_CREATE_PROTOCOLS = """
+            INSERT INTO protocols (protocol_data, protocol_payer, protocol_cost, 
+            patients_users_id, doctors_users_id,application)
+            VALUES (?,?,?,?,?,?)""";
     private static final String SQL_UPDATE_PROTOCOL_COST = """
             UPDATE  protocols 
             SET protocol_cost=? 
@@ -165,6 +183,28 @@ public class ProtocolDaoImpl implements ProtocolDao {
     }
 
     @Override
+    public boolean createAdmin(Protocol entity) throws DaoException {
+        int result = 0;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADMIN_CREATE_PROTOCOLS)) {
+            Date protocolData = new Date(entity.getProtocolData().getTime());
+            preparedStatement.setDate(1, protocolData);
+            preparedStatement.setString(2, String.valueOf(entity.getProtocolPayer()));
+            preparedStatement.setLong(3,entity.getProtocolCost());
+            preparedStatement.setLong(4, entity.getDoctorsUsersId());
+            preparedStatement.setLong(5, entity.getPatientsUsersId());
+            preparedStatement.setString(6, String.valueOf(entity.getApplication()));
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Failed at ProtocolDaoImpl at method createAdmin", e);
+            throw new DaoException("Failed at ProtocolDaoImpl at method createAdmin", e);
+        }
+        return (result > 0);
+    }
+
+
+
+    @Override
     public boolean update(Protocol entity) throws DaoException {
         return false;
     }
@@ -225,6 +265,44 @@ public class ProtocolDaoImpl implements ProtocolDao {
         } catch (SQLException e) {
             logger.error("Failed at ProtocolDaoImpl at method findByData", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method findByData", e);
+        }
+        return protocolList;
+    }
+
+    @Override
+    public List<Protocol> findByApplication(Application application) throws DaoException {
+        List<Protocol> protocolList = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PROTOCOL_BY_APPLICATION)) {
+            preparedStatement.setString(1, application.name());
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Protocol protocol = takeProtocolInfo(resultSet);
+                    protocolList.add(protocol);
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Failed at ProtocolDaoImpl at method findByApplication ", e);
+            throw new DaoException("Failed at ProtocolDaoImpl at method findByApplication ", e);
+        }
+        return protocolList;
+    }
+
+    @Override
+    public List<Protocol> findByStatus(Status status) throws DaoException {
+        List<Protocol> protocolList = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PROTOCOL_BY_STATUS)) {
+            preparedStatement.setString(1, status.name());
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Protocol protocol = takeProtocolInfo(resultSet);
+                    protocolList.add(protocol);
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Failed at ProtocolDaoImpl at method findByStatus", e);
+            throw new DaoException("Failed at ProtocolDaoImpl at method findByStatus", e);
         }
         return protocolList;
     }

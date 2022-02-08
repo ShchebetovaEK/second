@@ -82,6 +82,8 @@ public enum CommandType {
     ADMIN_TAKE_PROTOCOL_BY_PAYER_COMMAND(new AdminTakeProtocolByPayerCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     ADMIN_TAKE_PROTOCOL_BY_DOCTOR_COMMAND(new AdminTakeProtocolByDoctorCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     ADMIN_TAKE_PROTOCOL_BY_PATIENT_COMMAND(new AdminTakeProtocolByPatientCommand(), List.of(ADMIN, DOCTOR)),
+    ADMIN_TAKE_PROTOCOL_BY_APPLICATION_COMMAND(new AdminTakeProtocolByApplicationCommand(), List.of(ADMIN, DOCTOR)),
+    ADMIN_TAKE_PROTOCOL_BY_STATUS_COMMAND(new AdminTakeProtocolByStatusCommand(), List.of(ADMIN, DOCTOR)),
 
     ADMIN_TAKE_USER_BY_EMAIL_COMMAND(new AdminTakeUserByEmailCommand(), List.of(ADMIN)),
     ADMIN_TAKE_USER_BY_FIRST_NAME_COMMAND(new AdminTakeUserByFirstNameCommand(), List.of(ADMIN)),

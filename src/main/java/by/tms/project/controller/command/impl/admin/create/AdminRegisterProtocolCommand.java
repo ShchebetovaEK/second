@@ -38,10 +38,10 @@ public class AdminRegisterProtocolCommand implements Command {
         checkData.put(PROTOCOL_COST,request.getParameter(PROTOCOL_COST));
         checkData.put(PROTOCOL_PATIENTS_USERS_ID,request.getParameter(PROTOCOL_PATIENTS_USERS_ID));
         checkData.put(PROTOCOL_DOCTOR_USERS_ID,request.getParameter(PROTOCOL_DOCTOR_USERS_ID));
-
+        checkData.put(PROTOCOL_APPLICATION,request.getParameter(PROTOCOL_APPLICATION));
 
         try {
-            boolean registration = protocolService.registerProtocol(checkData);
+            boolean registration = protocolService.adminRegistrationProtocol(checkData);
 
             router.setPage(registration ? PROTOCOL_PAGE : PROTOCOL_REGISTRATION_PAGE);
             return router;

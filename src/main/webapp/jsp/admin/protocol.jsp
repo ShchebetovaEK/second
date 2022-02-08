@@ -31,43 +31,62 @@
     <br/>
 </form>
 <form action="${abs}/controller" method="get">
+
     <input type="hidden" name="command" value="admin_take_protocol_by_doctor_command">
+    <label class="form-label"> doctor</label>
          <input type="text" name="id" placeholder="doctor id">
     <input type="submit">
 </form>
 <br/>
 <form action="${abs}/controller" method="get">
+    <label class="form-label"> patient</label>
     <input type="hidden" name="command" value="admin_take_protocol_by_patient_command">
          <input type="text" name="id" placeholder="patient id" >
     <input type="submit">
 </form>
 <br/>
 <form action="${abs}/controller" method="get">
+    <label class="form-label"> payer</label>
     <input type="hidden" name="command" value="admin_take_protocol_by_payer_command">
     <input type="text" name="protocol_payer" placeholder="payer" >
     <input type="submit">
 </form>
 <br/>
 <form action="${abs}/controller" method="get">
+    <label class="form-label"> data</label>
     <input type="hidden" name="command" value="admin_take_protocol_by_data_command">
-    <input type="date" name="protocol_data" placeholder="YYYY-MM-DD" >
+    <input type="text" name="protocol_data" placeholder="YYYY-MM-DD" >
     <input type="submit">
 </form>
+    <form action="${abs}/controller" method="get">
+        <label class="form-label"> status</label>
+        <input type="hidden" name="command" value="admin_take_protocol_by_status_command">
+        <input type="text" name="status"  value="paid"  >
+        <input type="submit">
+    </form>
+    <form action="${abs}/controller" method="get">
+        <label class="form-label"> application</label>
+        <input type="hidden" name="command" value="admin_take_protocol_by_application_command">
+        <input type="text" name="application"  value="active"  >
+        <input type="submit">
+    </form>
 
-<table>
+<table class="table text-info">
     <tr>
-        <th>protocolId</th>
-        <th>protocolData</th>
-        <th>protocolPayer</th>
-        <th> protocolCost</th>
-        <th> patientId</th>
-        <th>doctorId</th>
-        <th>insurance</th>
-        <th>moneyAccount</th>
-        <th>discount</th>
-        <th>category</th>
-        <th>experience</th>
-        <th>speciality</th>
+        <th scope="col">protocolId</th>
+        <th scope="col">protocolData</th>
+        <th scope="col">protocolPayer</th>
+        <th scope="col"> protocolCost</th>
+        <th scope="col"> patientId</th>
+        <th scope="col">doctorId</th>
+        <th scope="col">status</th>
+        <th scope="col">application</th>
+        <th scope="col">insurance</th>
+        <th scope="col">moneyAccount</th>
+        <th scope="col">discount</th>
+        <th scope="col">category</th>
+        <th scope="col">experience</th>
+        <th scope="col">speciality</th>
 
 
     </tr>
@@ -80,6 +99,10 @@
             <td>${protocol.protocolCost}</td>
             <td>${protocol.patientsUsersId}</td>
             <td>${protocol.doctorsUsersId}</td>
+            <td>${protocol.status}</td>
+            <td>${protocol.application}</td>
+
+
 
 <%--            <c:if test="${patient}">--%>
 <%--                <td> ${user.insurance}</td>--%>

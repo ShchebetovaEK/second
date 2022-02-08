@@ -30,9 +30,7 @@ public class AdminUpdateProtocolCommand implements Command {
         Long protocolCost = Long.valueOf(strProtocolCost);
         String strProtocolId = request.getParameter(PROTOCOL_ID);
         Long protocolId = Long.valueOf(strProtocolId);
-//        Long id = Long.valueOf(request.getParameter(USERS_ID));
-//        HttpSession session = request.getSession();
-//        Patient patient = (Patient) session.getAttribute(SESSION_USER);
+
         try {
             protocolService.updateProtocolCost(protocolCost,protocolId);
         } catch (ServiceException e) {

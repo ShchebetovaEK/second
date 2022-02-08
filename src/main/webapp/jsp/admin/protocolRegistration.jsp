@@ -89,6 +89,9 @@
             <%--            </c:when>--%>
             <%--        </c:choose>--%>
             <br/><br/>
+            <label class="text-center"> application:</label>
+            <input type="text" id="application" class="form-control" name="application">
+            <br/>
             <input type="submit" class="form-control" id="sign_up" name="submit"><br/>
         </form>
     </div>

@@ -85,6 +85,34 @@ public class ProtocolServiceImpl implements ProtocolService {
         return protocolList;
     }
 
+    @Override
+    public List<Protocol> findByApplication(Application application) throws ServiceException {
+        List<Protocol> protocolList = new ArrayList<>();
+        try {
+
+                protocolList = protocolDao.findByApplication(application);
+
+        } catch (DaoException e) {
+            logger.error("Failed at ProtocolServiceImpl at method  findByApplication", e);
+            throw new ServiceException("Failed at ProtocolServiceImpl at method findByApplication", e);
+        }
+        return protocolList;
+    }
+
+    @Override
+    public List<Protocol> findByStatus(Status status) throws ServiceException {
+        List<Protocol> protocolList = new ArrayList<>();
+        try {
+
+                protocolList = protocolDao.findByStatus(status);
+
+        } catch (DaoException e) {
+            logger.error("Failed at ProtocolServiceImpl at method findByStatus ", e);
+            throw new ServiceException("Failed at ProtocolServiceImpl at method findByStatus", e);
+        }
+        return protocolList;
+    }
+
     /**
      * find all protocol by patient.
      *
@@ -122,7 +150,42 @@ public class ProtocolServiceImpl implements ProtocolService {
     }
 
     @Override
-    public boolean registerProtocol(Map<String, String> protocolCheck) throws ServiceException {
+    public boolean patientApplicationProtocol(Map<String, String> protocolCheck) throws ServiceException {
+        boolean result;
+        Map<String, String> mapProtocolCheck = new HashMap<>();
+        String strProtocolData = protocolCheck.get(PROTOCOL_DATA);
+        Date protocolData = java.sql.Date.valueOf(strProtocolData);
+        String strProtocolPayer = protocolCheck.get(PROTOCOL_PAYER);
+        Payer protocolPayer = Payer.valueOf(strProtocolPayer.toUpperCase());
+        String strPatientsUsersId = protocolCheck.get(PROTOCOL_PATIENTS_USERS_ID);
+        Long patientsUsersId = Long.valueOf(strPatientsUsersId);
+        String strDoctorsUsersId = protocolCheck.get(PROTOCOL_DOCTOR_USERS_ID);
+        Long doctorsUsersId = Long.valueOf(strDoctorsUsersId);
+
+        mapProtocolCheck.put(PROTOCOL_DATA, String.valueOf(protocolData));
+        mapProtocolCheck.put(PROTOCOL_PAYER, String.valueOf(protocolPayer));
+        mapProtocolCheck.put(PROTOCOL_DOCTOR_USERS_ID, String.valueOf(doctorsUsersId));
+        mapProtocolCheck.put(PROTOCOL_PATIENTS_USERS_ID, String.valueOf(patientsUsersId));
+
+        try {
+            result = ProtocolValidatorImpl.getInstance().isPayerValid(protocolPayer.name());
+            if (result) {
+                Protocol protocol = new Protocol(protocolData, protocolPayer, patientsUsersId, doctorsUsersId);
+                protocolDao.create(protocol);
+            }
+
+        } catch (DaoException e) {
+            logger.error("Failed at ProtocolServiceImpl at method registerProtocol", e);
+            throw new ServiceException("Failed at ProtocolServiceImpl at method registerProtocol ", e);
+        } catch (IllegalArgumentException e) {
+            logger.error("IllegalArgumentException at ProtocolServiceImpl at  registerProtocol", e);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean adminRegistrationProtocol(Map<String, String> protocolCheck) throws ServiceException {
         boolean result;
         Map<String, String> mapProtocolCheck = new HashMap<>();
         String strProtocolData = protocolCheck.get(PROTOCOL_DATA);
@@ -136,27 +199,29 @@ public class ProtocolServiceImpl implements ProtocolService {
         Long patientsUsersId = Long.valueOf(strPatientsUsersId);
         String strDoctorsUsersId = protocolCheck.get(PROTOCOL_DOCTOR_USERS_ID);
         Long doctorsUsersId = Long.valueOf(strDoctorsUsersId);
+        String strProtocolApplication = protocolCheck.get(PROTOCOL_APPLICATION);
+        Application protocolApplication = Application.valueOf(strProtocolApplication.toUpperCase());
 
         mapProtocolCheck.put(PROTOCOL_DATA, String.valueOf(protocolData));
         mapProtocolCheck.put(PROTOCOL_PAYER, String.valueOf(protocolPayer));
         mapProtocolCheck.put(PROTOCOL_COST, String.valueOf(protocolCost));
         mapProtocolCheck.put(PROTOCOL_DOCTOR_USERS_ID, String.valueOf(doctorsUsersId));
         mapProtocolCheck.put(PROTOCOL_PATIENTS_USERS_ID, String.valueOf(patientsUsersId));
+        mapProtocolCheck.put(PROTOCOL_APPLICATION, String.valueOf(protocolApplication));
 
         try {
             result = ProtocolValidatorImpl.getInstance().isPayerValid(protocolPayer.name());
             if (result) {
                 Protocol protocol = new Protocol(protocolData, protocolPayer,
-                      protocolCost,
-                        patientsUsersId, doctorsUsersId);
-                protocolDao.create(protocol);
+                        protocolCost, patientsUsersId, doctorsUsersId,protocolApplication);
+                protocolDao.createAdmin(protocol);
             }
 
         } catch (DaoException e) {
-            logger.error("Failed at ProtocolServiceImpl at method registerProtocol", e);
-            throw new ServiceException("Failed at ProtocolServiceImpl at method registerProtocol ", e);
+            logger.error("Failed at ProtocolServiceImpl at method adminRegistrationProtocol", e);
+            throw new ServiceException("Failed at ProtocolServiceImpl at method adminRegistrationProtocol ", e);
         } catch (IllegalArgumentException e) {
-            logger.error("IllegalArgumentException at ProtocolServiceImpl at  registerProtocol", e);
+            logger.error("IllegalArgumentException at ProtocolServiceImpl at  adminRegistrationProtocol", e);
             return false;
         }
         return true;

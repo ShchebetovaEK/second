@@ -16,18 +16,39 @@ public class Protocol extends Entity{
 
     public Protocol() {
     }
+
     public Protocol(Date protocolData, Payer protocolPayer, Long doctorsUsersId, Long patientsUsersId) {
         this.protocolData = protocolData;
         this.protocolPayer = protocolPayer;
         this.doctorsUsersId = doctorsUsersId;
         this.patientsUsersId = patientsUsersId;
     }
+
+    public Protocol(Date protocolData, Payer protocolPayer,
+                    Long protocolCost, Long doctorsUsersId, Long patientsUsersId, Application application) {
+        this.protocolData = protocolData;
+        this.protocolPayer = protocolPayer;
+        this.protocolCost = protocolCost;
+        this.doctorsUsersId = doctorsUsersId;
+        this.patientsUsersId = patientsUsersId;
+        this.application = application;
+    }
+
     public Protocol(Date protocolData, Payer protocolPayer, Long protocolCost, Long doctorId, Long patientId) {
         this.protocolData = protocolData;
         this.protocolPayer = protocolPayer;
         this.protocolCost = protocolCost;
         this.doctorsUsersId = doctorId;
         this.patientsUsersId = patientId;
+    }
+
+    public Protocol(Date protocolData, Payer protocolPayer, Long protocolCost, Long doctorsUsersId, Long patientsUsersId, Status status) {
+        this.protocolData = protocolData;
+        this.protocolPayer = protocolPayer;
+        this.protocolCost = protocolCost;
+        this.doctorsUsersId = doctorsUsersId;
+        this.patientsUsersId = patientsUsersId;
+        this.status = status;
     }
 
     public Protocol(long protocolId, Date protocolData, Payer protocolPayer, Long protocolCost,

@@ -46,7 +46,7 @@ public class PatientTakeProtocolCommand implements Command {
         checkData.put(PROTOCOL_PATIENTS_USERS_ID, String.valueOf(patientId));
 
         try {
-            boolean registerProtocol = protocolService.registerProtocol(checkData);
+            boolean registerProtocol = protocolService.patientApplicationProtocol(checkData);
             request.setAttribute(PATIENT, Boolean.TRUE);
             router.setRouterType(Router.RouteType.REDIRECT);
             router.setPage(registerProtocol ? SUCCESS_PAGE : CHOOSE_DOCTOR);

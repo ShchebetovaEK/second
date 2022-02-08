@@ -15,6 +15,10 @@ public interface ProtocolDao extends BaseDao<Long, Protocol> {
 
     List<Protocol> findByData(LocalDate protocolData) throws DaoException;
 
+    List<Protocol> findByApplication(Application application) throws DaoException;
+
+    List<Protocol> findByStatus(Status status) throws DaoException;
+
     List<Protocol> findByPatient(long patientId) throws DaoException;
 
     List<Protocol> findByDoctor(long doctorId) throws DaoException;
@@ -26,4 +30,6 @@ public interface ProtocolDao extends BaseDao<Long, Protocol> {
     boolean updateProtocolStatus(long protocolId, Status status) throws DaoException;
 
     boolean takeProtocolCost(long protocolId) throws DaoException;
+
+    boolean createAdmin(Protocol entity) throws DaoException;
 }
