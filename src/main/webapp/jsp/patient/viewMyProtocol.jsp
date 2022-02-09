@@ -51,21 +51,22 @@
             <td>${protocol.patientId}</td>
             <td>${protocol.doctorId}</td>
 
-<%--            <c:if test="${patient}">--%>
-<%--                <td> ${user.insurance}</td>--%>
-<%--                <td> ${user.moneyAccount}</td>--%>
-<%--                <td> ${user.discount}</td>--%>
-<%--            </c:if>--%>
-<%----%>
-<%--            <c:if test="${doctor}">--%>
-<%--                <td> ${user.category}</td>--%>
-<%--                <td> ${user.experience}</td>--%>
-<%--                <td> ${user.speciality}</td>--%>
-<%--            </c:if>--%>
+            <c:if test="${patient_req}">
+                <td> ${user.insurance}</td>
+                <td> ${user.moneyAccount}</td>
+                <td> ${user.discount}</td>
+            </c:if>
+
+            <c:if test="${doctor_req}">
+                <td> ${user.category}</td>
+                <td> ${user.experience}</td>
+                <td> ${user.speciality}</td>
+            </c:if>
         </tr>
     </c:forEach>
 </table>
 </div>
+<footer><div class="text-center"> <ctg:footer/> </div></footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

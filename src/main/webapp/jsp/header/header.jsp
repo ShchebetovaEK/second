@@ -25,7 +25,7 @@
 
             <li class="nav-item">
                 <a class="nav-link "
-                   href="${pageContext.request.contextPath}/controller?command=go_to_doctors_command"> Our Doctors</a>
+                   href="${pageContext.request.contextPath}/controller?command=go_to_our_doctors_command"> Our Doctors</a>
             </li>
 
             <li class="nav-item">

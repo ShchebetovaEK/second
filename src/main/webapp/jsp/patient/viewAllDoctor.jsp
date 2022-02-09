@@ -52,7 +52,7 @@
                 <td>${user.email}</td>
                 <td>${user.phoneNumber}</td>
                 <td>${user.dataBirthday}</td>
-                <c:if test="${doctor}">
+                <c:if test="${doctor_req}">
                     <td> ${user.category}</td>
                     <td> ${user.experience}</td>
                     <td> ${user.speciality}</td>
@@ -66,6 +66,7 @@
        role="button">Back to choose doctor page</a>
 
 </div>
+<footer><div class="text-center"> <ctg:footer/> </div></footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

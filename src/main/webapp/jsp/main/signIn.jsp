@@ -12,21 +12,21 @@
           type="image/x-icon">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/fontello.css">
-    <title>Main</title>
+    <title>SIGN IN</title>
 </head>
 <body>
 <br/>
 <div class="text-center">
-    <div class="mb-3">
+    <div class="text-center ">
         <form method="POST" action="${abs}/controller">
             <h2 class="text-center"> Hello , User! Please, LogIn or registrate!</h2>
             <br/>
             <input type="hidden" name="command" value="log_in_command">
-            <label class="form-label"> Login</label>
-            <input type="text" name="login" placeholder="login">
+            <label class="form-label"> Login </label>
+            <input type="text" name="login" placeholder="login" pattern="(\w)[\w_-]{1,18}(\w)">
             <br/>
             <label class="form-label"> Password </label>
-            <input name="password" type="password" placeholder="password">
+            <input name="password" type="password" placeholder="password" pattern="(.{4,40})">
             <br/>
             <p><input type="submit"></p>
             <br/>
@@ -35,5 +35,8 @@
         </form>
     </div>
 </div>
+<footer>
+    <div class="text-center"><ctg:footer/></div>
+</footer>
 </body>
 </html>

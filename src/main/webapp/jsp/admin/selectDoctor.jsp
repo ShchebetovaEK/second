@@ -56,6 +56,7 @@
         <th scope="col">email</th>
         <th scope="col">phone number</th>
         <th scope="col">data birthday</th>
+        <th scope="col">archiv</th>
         <th scope="col">category</th>
         <th scope="col">experience</th>
         <th scope="col"> speciality</th>
@@ -74,7 +75,9 @@
             <td>${user.email}</td>
             <td>${user.phoneNumber}</td>
             <td>${user.dataBirthday}</td>
-              <c:if test="${doctor}">
+            <td>${user.archiv}</td>
+
+              <c:if test="${doctor_req}">
                   <td> ${user.category}</td>
                 <td> ${user.experience}</td>
                 <td> ${user.speciality}</td>
@@ -93,6 +96,8 @@
     <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/selectPatient.jsp"
        role="button">Back to select patient page</a>
 </div>
+
+<footer><div class="text-center"> <ctg:footer/> </div></footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -69,7 +69,7 @@
             <td>${user.phoneNumber}</td>
             <td>${user.dataBirthday}</td>
 
-            <c:if test="${patient}">
+            <c:if test="${patient_req}">
                 <td> ${user.insurance}</td>
                 <td> ${user.moneyAccount}</td>
                 <td> ${user.discount}</td>
@@ -88,6 +88,8 @@
     <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/selectPatient.jsp"
        role="button">Back to select patient page</a>
 </div>
+
+<footer><div class="text-center"> <ctg:footer/> </div></footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

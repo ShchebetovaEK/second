@@ -27,6 +27,10 @@
         <br/>
         <p><input type="submit"></p>
     </form>
+
 </div>
+
+<footer><div class="text-center"> <ctg:footer/> </div></footer>
+<script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

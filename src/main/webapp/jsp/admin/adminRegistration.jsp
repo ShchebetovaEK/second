@@ -56,11 +56,6 @@
             <div id="message2"><b>${invalid_psw_message}</b></div>
         </c:if>
         <br/><br/>
-        <%--        Confirm password: <input type="password" id="confirm-password" class="form-control" name="confirm_password">--%>
-        <%--        <c:if test="${invalid_passport eq 'password_mismatch'}">--%>
-        <%--            <div id="message2"><b>${psw_mismatch_message}</b></div>--%>
-        <%--        </c:if>--%>
-        <br/><br/>
         First name: <input type="first_name" id="first_name" class="form-control" name="first_name" >
         <c:choose>
             <c:when test="${invalid_first_name eq 'invalid_message'}">
@@ -107,7 +102,7 @@
     </form>
 </div>
 </div>
-
+<footer><div class="text-center"> <ctg:footer/> </div></footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

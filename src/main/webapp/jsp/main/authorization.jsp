@@ -15,5 +15,7 @@ password: <input type="password" value="password">
 <input type="submit" value="authorization">
 
 
+<footer><div class="text-center"> <ctg:footer/> </div></footer>
+<script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
