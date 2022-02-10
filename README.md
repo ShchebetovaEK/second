@@ -70,6 +70,8 @@ _Patient role_
 * Log in  
 * Log out  
 * Registration  
+* Choose doctor  
+* Application protocol's  
 * View all doctor's  
 * View all patient's protocol  
 
@@ -85,13 +87,7 @@ _Doctor role_
 
 * View all patient's  
 
-* View patient    
--by discount  
--by insurance  
--by login
-
-
-* View all patient's protocol
+* View all doctor's protocol
 ***   
 
 ![CLINIC SCHEME](medicine.png)
