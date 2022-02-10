@@ -52,9 +52,10 @@ ___
 -by application  
  
 * Update protocol's  
-- status  
-- application  
-- protocol cost  
+-status  
+-application  
+-protocol cost  
+
 
 * Take totalCost  
 ***    
