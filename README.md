@@ -51,7 +51,7 @@ ___
 -by status  
 -by application  
  
-*Update protocol's  
+* Update protocol's  
 - status  
 - application  
 - protocol cost  
@@ -84,9 +84,7 @@ _Doctor role_
 * Change locale   
 * Log in  
 * Log out  
-
 * View all patient's  
-
 * View all doctor's protocol
 ***   
 
