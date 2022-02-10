@@ -1,4 +1,8 @@
 #  FINAL PROJECT SCHEME DATABASE - CLINIC FORESTMED
+ForestMed Clinic is a web application through which patients can learn more about us. The patient can get basic information, as well as choose a doctor and a convenient day to visit the clinic. The administrator performs the main functions: registers doctors, new administrators, processes and creates requests for research protocols, makes changes to the data of doctors, patients, protocols.
+The doctor has the opportunity to view the data of patients, the protocols performed by him.
+
+Main Role project:  
 #  _Admin role_
 ___
 * Go to the "main" page 
