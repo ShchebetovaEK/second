@@ -96,7 +96,7 @@ _Doctor role_
 * Log out  
 * View all patient's  
 * View all doctor's protocol
-***   
+***    
 
 ![CLINIC SCHEME](forestmed.png)
 
