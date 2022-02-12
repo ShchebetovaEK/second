@@ -95,5 +95,5 @@ _Doctor role_
 * View all doctor's protocol
 ***   
 
-![CLINIC SCHEME](medicine.png)
+![CLINIC SCHEME](forestmed.png)
 
