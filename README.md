@@ -6,7 +6,7 @@ Main Role project:
 #  _Admin role_
 ___
 * Go to the "main" page 
-* Change locale 
+* Change locale  
 * Log In
 * Log out  
 
@@ -20,16 +20,6 @@ ___
 * Registration new Admin  
 * Registration new Doctor 
 * Registration new Protocol  
-
-* Update doctor's  
--category  
--experience  
--speciality  
-
-* Update patient's   
--insurance  
--discount  
--money account  
 
 * View all doctor's  
 
@@ -54,14 +44,26 @@ ___
 -by patient Id  
 -by status  
 -by application  
- 
+
+* Update doctor's  
+  -category  
+  -experience  
+  -speciality
+
+* Update patient's   
+  -insurance  
+  -discount  
+  -money account
+
 * Update protocol's  
 -status  
 -application  
 -protocol cost  
 
-
 * Take totalCost  
+* Archiv doctor  
+* Archiv patient  
+* Archiv admin  
 ***    
 
 
