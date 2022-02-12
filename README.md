@@ -5,9 +5,12 @@ The doctor has the opportunity to view the data of patients, the protocols perfo
 Main Role project:  
 #  _Admin role_
 ___
-* Go to the "main" page 
+* Go to the "main" page
+* Go to price page  
+* Go to our doctors page  
+* Go to about page  
 * Change locale  
-* Log In
+* Log In  
 * Log out  
 
 * View all user's  
