@@ -15,10 +15,16 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+import static by.tms.project.controller.command.PagePath.SUCCESS_PAGE;
 import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.*;
 import static by.tms.project.controller.command.RequestParameter.USERS_ID;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class AdminDeletePatientCommand
+ */
 public class AdminDeletePatientCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private PatientService patientService = PatientServiceImpl.getInstance();
@@ -31,16 +37,20 @@ public class AdminDeletePatientCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        Long id = Long.valueOf(request.getParameter(USERS_ID));
+        String strId = request.getParameter(USERS_ID);
+        if (strId == null){
+            throw new CommandException("Failed at AdminDeletePatientCommand");
+        }
+        Long id = Long.valueOf(strId);
         HttpSession session = request.getSession();
-        Patient patient = (Patient) session.getAttribute(SESSION_USER);
+        Patient patient = (Patient) session.getAttribute(SESSION_PATIENT);
         try {
             patientService.deletePatient(id);
+            router.setPage(SUCCESS_PAGE);
         } catch (ServiceException e) {
             logger.error("Failed at AdminDeletePatientCommand", e);
             throw new CommandException("Failed at AdminDeletePatientCommand", e);
         }
-
         return router;
     }
 }

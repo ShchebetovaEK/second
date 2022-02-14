@@ -4,7 +4,6 @@ import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
 import by.tms.project.exception.ServiceException;
-import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
 import by.tms.project.model.service.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +17,7 @@ import static by.tms.project.controller.command.PagePath.*;
 import static by.tms.project.controller.command.RequestAttribute.*;
 import static by.tms.project.controller.command.RequestParameter.LOGIN;
 import static by.tms.project.controller.command.RequestParameter.PASSWORD;
+import static by.tms.project.controller.command.SessionAttribute.*;
 
 /**
  * @author ShchebetovaEK
@@ -45,26 +45,29 @@ public class LogInCommand implements Command {
             Optional<User> optionalUser = userService.findUserByLoginAndPassword(login, password);
             if (optionalUser.isPresent()) {
                 session.setAttribute(SESSION_USER, optionalUser.get());
+                switch (optionalUser.get().getRole()) {
+                    case ADMIN -> {
+                        session.setAttribute(ADMIN, Boolean.TRUE);
+                        router.setPage(ADMIN_PAGE);
+                    }
+                    case DOCTOR -> {
+                        session.setAttribute(DOCTOR, Boolean.TRUE);
+                        router.setPage(DOCTOR_PAGE);
+                    }
+                    case PATIENT -> {
+                        session.setAttribute(PATIENT, Boolean.TRUE);
+                        router.setPage(WELCOME_PAGE);
+                    }
+                    default -> router.setPage(LOGIN_PAGE);
+                }
 
-                if (optionalUser.get().getRole().equals(Role.ADMIN)) {
-                    session.setAttribute(ADMIN, Boolean.TRUE);
-                    router.setPage(ADMIN_PAGE);
-                }
-                if (optionalUser.get().getRole().equals(Role.DOCTOR)) {
-                    session.setAttribute(DOCTOR, Boolean.TRUE);
-                    router.setPage(DOCTOR_PAGE);
-                }
-                if (optionalUser.get().getRole().equals(Role.PATIENT)) {
-                    session.setAttribute(PATIENT, Boolean.TRUE);
-                    router.setPage(WELCOME_PAGE);
-                }
             } else {
-                router.setPage(LOGIN_PAGE);
+                router.setPage(SIGN_IN_PAGE);
             }
 
         } catch (ServiceException e) {
-            logger.error("Failed at RegistrationCommand", e);
-            throw new CommandException("Failed at RegistrationCommand", e);
+            logger.error("Failed at LogInCommand", e);
+            throw new CommandException("Failed at LogInCommand", e);
         }
         return router;
     }

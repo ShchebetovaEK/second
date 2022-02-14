@@ -25,7 +25,7 @@ public final class UserValidatorImpl implements UserValidator {
     private static final String FIRST_NAME_REGEX = "^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$";
     private static final String LAST_NAME_REGEX = "^([А-Я]{1}[а-яё]{1,30}|[A-Z]{1}[a-z]{1,30})$";
     private static final String DATABIRTHDAY_REGEX = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$";
-    private static final String ADDRESS_REGEX = "^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})(\\s)(\\d{2})\\-(\\d{2})$";
+    private static final String ADDRESS_REGEX = "^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})(\\s)(\\d{1,3})\\-(\\d{1,3})$";
     private static final String EMAIL_REGEX = "^((\\w|[-+])+(\\.(\\w|[-+])*)*@[a-z]+\\.[a-z]+)$";
     private static final String PHONE_NUMBER_REGEX = "^((\\+375|80)(25|29|33|44)\\d{7})$";
 

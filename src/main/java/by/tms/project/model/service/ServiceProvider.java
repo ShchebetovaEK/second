@@ -16,7 +16,7 @@ public class ServiceProvider {
     }
 
     public static ServiceProvider getInstance(){
-        return ServiceProvider.instance; //todo
+        return ServiceProvider.instance;
 
     }
 

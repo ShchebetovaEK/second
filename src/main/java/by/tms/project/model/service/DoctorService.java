@@ -20,8 +20,6 @@ public interface DoctorService {
 
     List<Doctor> findDoctorBySpeciality(Speciality speciality) throws ServiceException;
 
-    List<Doctor> chooseCapability() throws ServiceException;
-
     boolean registerNewDoctor(Map<String, String> userCheck) throws ServiceException;
 
     boolean updateCategory(long id, Category category) throws ServiceException;
@@ -34,5 +32,4 @@ public interface DoctorService {
 
     boolean archivDoctor(long id) throws ServiceException;
 
-    List<Doctor> chooseDoctor(Category category, Experience experience, Speciality speciality) throws ServiceException;
 }

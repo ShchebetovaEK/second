@@ -15,35 +15,44 @@ import org.apache.logging.log4j.Logger;
 import java.time.LocalDate;
 import java.util.List;
 
+import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
 import static by.tms.project.controller.command.PagePath.PROTOCOL_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.PROTOCOL;
 import static by.tms.project.controller.command.RequestAttribute.PROTOCOL_LIST;
+import static by.tms.project.controller.command.RequestParameter.PROTOCOL_DATA;
 
 /**
  * @author ShchebetovaEK
- *
- *  class AdminTakeProtocolByDataCommand
+ * <p>
+ * class AdminTakeProtocolByDataCommand
  */
 public class AdminTakeProtocolByDataCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();
     private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
+
     /**
-     *
      * @param request the request
-     * @return  the router.
+     * @return the router.
      * @throws CommandException
      */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-       LocalDate protocolData = LocalDate.parse(request.getParameter(RequestParameter.PROTOCOL_DATA));
+        String strData = request.getParameter(PROTOCOL_DATA);
+        LocalDate protocolData = null;
+        if (strData.isEmpty()) {
+            router.setPage(FAIL_PAGE);
+            return router;
+        }
+        protocolData = LocalDate.parse(strData);
         try {
-            List<Protocol> protocolList = protocolService.findByData(protocolData);
-            request.setAttribute(PROTOCOL_LIST, protocolList);
-            request.setAttribute(PROTOCOL,Boolean.TRUE);
-            router.setPage(PROTOCOL_PAGE);
-
+            if (protocolData != null) {
+                List<Protocol> protocolList = protocolService.findByData(protocolData);
+                request.setAttribute(PROTOCOL_LIST, protocolList);
+                request.setAttribute(PROTOCOL, Boolean.TRUE);
+                router.setPage(PROTOCOL_PAGE);
+            }
         } catch (ServiceException e) {
             logger.error("Failed at AdminTakeProtocolByDataCommand");
             throw new CommandException("Failed at AdminTakeProtocolByDataCommand", e);

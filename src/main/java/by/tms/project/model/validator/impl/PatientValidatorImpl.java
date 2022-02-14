@@ -36,25 +36,12 @@ public class PatientValidatorImpl implements PatientValidator {
     }
 
     @Override
-    public boolean isInsuranceValid(Boolean insurance) {
-        boolean match = true;
-        try {
-            insurance.booleanValue();
-        } catch (IllegalArgumentException e) {
-            match = false;
-        }
-        return match;
-    }
-
-
-    @Override
     public boolean isDiscount(Integer discount) {
-        boolean match = true;
+        boolean match = false;
         try {
-            if (discount > 0 && discount < 30){
-            discount.intValue();
+            if (discount!=null &&  discount > 0 && discount <= 30){
+                match = true;
             }
-
         } catch (IllegalArgumentException e) {
             match = false;
         }
@@ -75,10 +62,7 @@ public class PatientValidatorImpl implements PatientValidator {
 
     public boolean checkUserPatientData(Map<String, String> userData) {
         boolean isValid = true;
-        if (!isInsuranceValid(Boolean.valueOf(userData.get(INSURANCE)))) {
-            userData.put(INSURANCE, INVALID_CATEGORY);
-            isValid = false;
-        }
+
         if (!isDiscount(Integer.valueOf(userData.get(DISCOUNT)))) {
             userData.put(DISCOUNT, INVALID_DISCOUNT);
             isValid = false;

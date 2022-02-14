@@ -1,6 +1,5 @@
 package by.tms.project.model.entity;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class Doctor extends User {
         this.speciality = speciality;
     }
 
-    public Doctor(Role role, String login, String password, String firstName, String lastName, Date dataBirthday,
+    public Doctor(AccessRole role, String login, String password, String firstName, String lastName, Date dataBirthday,
                   String address, String phoneNumber, String email, Category category, Experience experience, Speciality speciality) {
         super(role, login, password, firstName, lastName, dataBirthday, address, phoneNumber, email);
         this.category = category;
@@ -28,7 +27,7 @@ public class Doctor extends User {
         this.speciality = speciality;
     }
 
-    public Doctor(Role role, String login, String password, String firstName, String lastName, Date dataBirthday, String address, String phoneNumber,
+    public Doctor(AccessRole role, String login, String password, String firstName, String lastName, Date dataBirthday, String address, String phoneNumber,
                   String email, Archiv archiv, Category category, Experience experience, Speciality speciality) {
         super(role, login, password, firstName, lastName, dataBirthday, address, phoneNumber, email, archiv);
         this.category = category;
@@ -114,7 +113,7 @@ public class Doctor extends User {
             return this;
         }
 
-        public DoctorBuilder setRole(Role role) {
+        public DoctorBuilder setRole(AccessRole role) {
             doctor.setRole(role);
             return this;
         }

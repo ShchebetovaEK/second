@@ -1,7 +1,6 @@
 package by.tms.project.model.dao.impl;
 
 import by.tms.project.exception.DaoException;
-import by.tms.project.exception.ServiceException;
 import by.tms.project.model.connection.ConnectionPool;
 import by.tms.project.model.dao.ColumnName;
 import by.tms.project.model.dao.DoctorDao;
@@ -130,7 +129,6 @@ public class DoctorDaoImpl implements DoctorDao {
     @Override
     public List<Doctor> findAll() throws DaoException {
         List<Doctor> doctorList = new ArrayList<>();
-
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_DOCTORS)) {
             preparedStatement.setString(1,DOCTOR);
@@ -215,8 +213,6 @@ public class DoctorDaoImpl implements DoctorDao {
         return (result > 0);
     }
 
-
-
     /**
      * update doctor.
      *
@@ -297,7 +293,7 @@ public class DoctorDaoImpl implements DoctorDao {
     }
 
     /**
-     * find doctor witn same castegory.
+     * find doctor with same category.
      *
      * @param category
      * @return doctorList.
@@ -310,7 +306,7 @@ public class DoctorDaoImpl implements DoctorDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_DOCTORS_CATEGORY)) {
             preparedStatement.setString(1, category.name());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     Doctor doctor = takeDoctorInfo(resultSet);
                     doctorList.add(doctor);
                 }
@@ -337,7 +333,7 @@ public class DoctorDaoImpl implements DoctorDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_DOCTORS_EXPERIENCE)) {
             preparedStatement.setString(1, experience.name());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     Doctor doctor = takeDoctorInfo(resultSet);
                     doctorList.add(doctor);
                 }
@@ -363,7 +359,7 @@ public class DoctorDaoImpl implements DoctorDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_DOCTORS_SPECIALITY)) {
             preparedStatement.setString(1, speciality.name());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
+               while (resultSet.next()) {
                     Doctor doctor = takeDoctorInfo(resultSet);
                     doctorList.add(doctor);
                 }
@@ -398,11 +394,6 @@ public class DoctorDaoImpl implements DoctorDao {
             throw new DaoException("Failed at DoctorDaoImpl at method findDoctorByLogin", e);
         }
         return optionalDoctor;
-    }
-
-    @Override
-    public List<Doctor> chooseCapability() throws ServiceException {
-        return null;
     }
 
     @Override
@@ -467,6 +458,12 @@ public class DoctorDaoImpl implements DoctorDao {
         return result;
     }
 
+    /**
+     * archiv Doctor with same id
+     * @param id
+     * @return the boolean
+     * @throws DaoException
+     */
     @Override
     public boolean archivDoctor(long id) throws DaoException {
         boolean result;
@@ -491,6 +488,7 @@ public class DoctorDaoImpl implements DoctorDao {
             preparedStatement.setString(1, category.name());
             preparedStatement.setString(2, experience.name());
             preparedStatement.setString(3, speciality.name());
+
                try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     Doctor doctor = takeDoctorInfo(resultSet);
@@ -508,7 +506,7 @@ public class DoctorDaoImpl implements DoctorDao {
     public Doctor takeDoctorInfo(ResultSet resultSet) throws SQLException {
         return (new Doctor.DoctorBuilder()
                 .setId(resultSet.getLong(ColumnName.USERS_ID))
-                .setRole(Role.valueOf(resultSet.getString(ColumnName.USERS_ROLE).toUpperCase()))
+                .setRole(AccessRole.valueOf(resultSet.getString(ColumnName.USERS_ROLE).toUpperCase()))
                 .setLogin(resultSet.getString(ColumnName.USERS_LOGIN))
                 .setPassword(resultSet.getString(ColumnName.USERS_PASSWORD))
                 .setFirstName(resultSet.getString(ColumnName.USERS_FIRST_NAME))

@@ -10,9 +10,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static by.tms.project.controller.command.PagePath.*;
 import static by.tms.project.controller.command.RequestParameter.PROTOCOL_COST;
 import static by.tms.project.controller.command.RequestParameter.PROTOCOL_ID;
 
+/**
+ * @author ShchebetovaEK
+ * <p>
+ * class AdminUpdateProtocolCostCommand
+ */
 public class AdminUpdateProtocolCostCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
@@ -26,12 +32,20 @@ public class AdminUpdateProtocolCostCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         String strProtocolCost = request.getParameter(PROTOCOL_COST);
-        Long protocolCost = Long.valueOf(strProtocolCost);
         String strProtocolId = request.getParameter(PROTOCOL_ID);
+        if (strProtocolCost.isEmpty() && strProtocolId.isEmpty()) {
+            router.setPage(FAIL_PAGE);
+            return router;
+        }
+        Long protocolCost = Long.valueOf(strProtocolCost);
         Long protocolId = Long.valueOf(strProtocolId);
-
         try {
-            protocolService.updateProtocolCost(protocolCost, protocolId);
+            if (protocolCost != null && protocolId != null) {
+                protocolService.updateProtocolCost(protocolCost, protocolId);
+                router.setPage(SUCCESS_PAGE);
+            } else {
+                router.setPage(FAIL_PAGE);
+            }
         } catch (ServiceException e) {
             logger.error("Failed at  AdminUpdateProtocolCommand", e);
             throw new CommandException("Failed at AdminUpdateProtocolCommand", e);

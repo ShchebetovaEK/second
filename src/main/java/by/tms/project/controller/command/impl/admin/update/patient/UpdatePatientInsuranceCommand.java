@@ -15,15 +15,22 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
+import static by.tms.project.controller.command.PagePath.SUCCESS_PAGE;
+import static by.tms.project.controller.command.RequestAttribute.SESSION_PATIENT;
 import static by.tms.project.controller.command.RequestAttribute.SESSION_USER;
 import static by.tms.project.controller.command.RequestParameter.*;
 
+/**
+ * @author ShchebetovaEK
+ * <p>
+ * class UpdatePatientInsuranceCommand
+ */
 public class UpdatePatientInsuranceCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private PatientService patientService = PatientServiceImpl.getInstance();
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException
@@ -31,17 +38,30 @@ public class UpdatePatientInsuranceCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        Boolean upInsurance = Boolean.valueOf(request.getParameter(INSURANCE));
-        Long id = Long.valueOf(request.getParameter(USERS_ID));
+        String strInsurance = request.getParameter(INSURANCE);
+        Boolean insurance = null;
+        String strId = request.getParameter(USERS_ID);
+        if (strInsurance.isEmpty() && strId.isEmpty()) {
+            router.setPage(FAIL_PAGE);
+            return router;
+        }
+        Long id = Long.valueOf(strId);
+        insurance = Boolean.valueOf(strInsurance);
         HttpSession session = request.getSession();
-        Patient patient = (Patient) session.getAttribute(SESSION_USER);
+        Patient patient = (Patient) session.getAttribute(SESSION_PATIENT);
         try {
-            patientService.updateInsurance(id, upInsurance);
+            if (insurance != null) {
+                patientService.updateInsurance(id, insurance);
+                router.setPage(SUCCESS_PAGE);
+            }
+            else {
+                router.setPage(FAIL_PAGE);
+            }
+
         } catch (ServiceException e) {
             logger.error("Failed at UpdatePatientInsuranceCommand", e);
             throw new CommandException("Failed at UpdatePatientInsuranceCommand", e);
         }
-
         return router;
     }
 }

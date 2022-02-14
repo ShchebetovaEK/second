@@ -28,14 +28,17 @@ import static by.tms.project.controller.command.RequestParameter.*;
 import static by.tms.project.controller.command.RequestParameter.PROTOCOL_PATIENTS_USERS_ID;
 import static by.tms.project.controller.command.SessionAttribute.*;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class PatientChooseDoctorCommand
+ */
 public class PatientChooseDoctorCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private PatientService patientService = PatientServiceImpl.getInstance();
     private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
     private DoctorService doctorService = DoctorServiceImpl.getInstance();
-
     /**
-     *
      * @param request the request
      * @return  the router.
      * @throws CommandException
@@ -43,21 +46,18 @@ public class PatientChooseDoctorCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        String category = request.getParameter(RequestParameter.CATEGORY);
-        String experience = request.getParameter(RequestParameter.EXPERIENCE);
-        String speciality = request.getParameter(RequestParameter.SPECIALITY);
-        // todo
-
-
-
-        try {
-            List<Doctor> chooseDoctor = doctorService.chooseDoctor(Category.valueOf(category.toUpperCase()),
-                    Experience.valueOf(experience.toUpperCase()), Speciality.valueOf(speciality.toUpperCase()));
+        String strSpeciality = request.getParameter(RequestParameter.SPECIALITY);
+        if (strSpeciality == null){
+            throw new CommandException("Failed at PatientChooseDoctorCommand ");
+        }
+         try {
+             String speciality = strSpeciality.toUpperCase();
+            List<Doctor> chooseDoctor = doctorService.findDoctorBySpeciality(Speciality.valueOf(speciality));
             request.setAttribute(USER_LIST, chooseDoctor);
             request.setAttribute(DOCTOR, Boolean.TRUE);
             router.setPage(CHOOSE_DOCTOR);
         } catch (ServiceException e) {
-            logger.error("Failed at PatientChooseDoctorCommand ", e);
+            logger.error("Failed at PatientChooseDoctorCommand", e);
             throw new CommandException("Failed at PatientChooseDoctorCommand", e);
         }
         return router;

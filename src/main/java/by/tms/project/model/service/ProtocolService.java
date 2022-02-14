@@ -36,5 +36,5 @@ public interface ProtocolService {
 
     boolean updateProtocolStatus(long protocolId, Status status) throws ServiceException;
 
-    boolean takeProtocolCost(long protocolId) throws ServiceException;
+    long takeProtocolCost(long protocolId) throws ServiceException;
 }

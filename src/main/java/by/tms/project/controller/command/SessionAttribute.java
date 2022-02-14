@@ -1,7 +1,10 @@
 package by.tms.project.controller.command;
 
 public final class SessionAttribute {
-    public static final String CURRENT_PAGE = "currentPage";
+    public static final String ADMIN = "admin";
+    public static final String PATIENT = "patient";
+    public static final String DOCTOR = "doctor";
+
     public static final String AUTHORIZATION = "autorization";
     public static final String ID = "id";
     public static final String ROLE = "role";
@@ -13,6 +16,7 @@ public final class SessionAttribute {
     public static final String ADDRESS = "address";
     public static final String PHONE_NUMBER = "phoneNumber";
     public static final String EMAIL = "email";
+    public static final String CURRENT_PAGE = "current_page";
 
     public static final String DOCTOR_CATEGORY ="category";
     public static final String DOCTOR_EXPERIENCE ="experience";

@@ -10,15 +10,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static by.tms.project.controller.command.PagePath.WELCOME_PAGE;
+import static by.tms.project.controller.command.PagePath.*;
 import static by.tms.project.controller.command.RequestParameter.PROTOCOL_ID_SUM;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class AdminTakeProtocolCostCommand
+ */
 public class AdminTakeProtocolCostCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
-
     /**
-     *
      * @param request the request
      * @return  the router.
      * @throws CommandException
@@ -30,8 +33,7 @@ public class AdminTakeProtocolCostCommand implements Command {
         Long protocolId = Long.valueOf(strProtocolId);
         try {
           protocolService.takeProtocolCost(protocolId);
-
-            router.setPage(WELCOME_PAGE);
+            router.setPage(SUCCESS_PAGE);
         } catch (ServiceException e) {
             logger.error("Failed at AdminTakeProtocolCostCommand");
             throw new CommandException("Failed at AdminTakeProtocolCostCommand", e);

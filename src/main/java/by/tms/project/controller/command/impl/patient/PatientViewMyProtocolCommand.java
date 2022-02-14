@@ -16,15 +16,18 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 import static by.tms.project.controller.command.PagePath.VIEW_MY_PROTOCOL;
-import static by.tms.project.controller.command.RequestAttribute.PROTOCOL_LIST;
-import static by.tms.project.controller.command.RequestAttribute.SESSION_USER;
+import static by.tms.project.controller.command.RequestAttribute.*;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class PatientViewMyProtocolCommand
+ */
 public class PatientViewMyProtocolCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
 
     /**
-     *
      * @param request the request
      * @return  the router.
      * @throws CommandException
@@ -38,6 +41,7 @@ public class PatientViewMyProtocolCommand implements Command {
         try {
             List<Protocol> protocolList = protocolService.findByPatient(patientId);
             request.setAttribute(PROTOCOL_LIST, protocolList);
+            request.setAttribute(PROTOCOL,Boolean.TRUE);
             router.setPage(VIEW_MY_PROTOCOL);
         } catch (ServiceException e) {
             logger.error("Failed at PatientViewMyProtocolCommand");

@@ -6,22 +6,20 @@ import by.tms.project.model.dao.ProtocolDao;
 import by.tms.project.model.dao.impl.ProtocolDaoImpl;
 import by.tms.project.model.entity.*;
 import by.tms.project.model.service.ProtocolService;
-import by.tms.project.model.validator.impl.DoctorValidatorImpl;
+import by.tms.project.model.validator.ProtocolValidator;
 import by.tms.project.model.validator.impl.ProtocolValidatorImpl;
-import by.tms.project.model.validator.impl.UserValidatorImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
 import static by.tms.project.controller.command.RequestParameter.*;
-import static by.tms.project.controller.command.RequestParameter.SPECIALITY;
 
 public class ProtocolServiceImpl implements ProtocolService {
     private static final Logger logger = LogManager.getLogger();
     private ProtocolDao protocolDao = ProtocolDaoImpl.getInstance();
+    private ProtocolValidator protocolValidator = ProtocolValidatorImpl.getInstance();
     private static ProtocolServiceImpl instance;
 
     private ProtocolServiceImpl() {
@@ -52,11 +50,18 @@ public class ProtocolServiceImpl implements ProtocolService {
         return protocolList;
     }
 
+    /**
+     * find by payer
+     *
+     * @param payer
+     * @return protocolList
+     * @throws ServiceException
+     */
     @Override
     public List<Protocol> findByPayer(Payer payer) throws ServiceException {
         List<Protocol> protocolList = new ArrayList<>();
         try {
-            if (ProtocolValidatorImpl.getInstance().isPayerValid(payer.name())) {
+            if (protocolValidator.isPayerValid(payer.name())) {
                 protocolList = protocolDao.findByPayer(payer);
             }
         } catch (DaoException e) {
@@ -76,7 +81,6 @@ public class ProtocolServiceImpl implements ProtocolService {
     public List<Protocol> findByData(LocalDate protocolData) throws ServiceException {
         List<Protocol> protocolList;
         try {
-
             protocolList = protocolDao.findByData(protocolData);
         } catch (DaoException e) {
             logger.error("Failed at ProtocolServiceImpl at method findByData", e);
@@ -85,13 +89,20 @@ public class ProtocolServiceImpl implements ProtocolService {
         return protocolList;
     }
 
+    /**
+     * find By Application
+     *
+     * @param application
+     * @return protocolList
+     * @throws ServiceException
+     */
     @Override
     public List<Protocol> findByApplication(Application application) throws ServiceException {
         List<Protocol> protocolList = new ArrayList<>();
         try {
-
-            protocolList = protocolDao.findByApplication(application);
-
+            if (protocolValidator.isApplicationValid(application.name())) {
+                protocolList = protocolDao.findByApplication(application);
+            }
         } catch (DaoException e) {
             logger.error("Failed at ProtocolServiceImpl at method  findByApplication", e);
             throw new ServiceException("Failed at ProtocolServiceImpl at method findByApplication", e);
@@ -99,13 +110,20 @@ public class ProtocolServiceImpl implements ProtocolService {
         return protocolList;
     }
 
+    /**
+     * find By Status
+     *
+     * @param status
+     * @return protocolList
+     * @throws ServiceException
+     */
     @Override
     public List<Protocol> findByStatus(Status status) throws ServiceException {
         List<Protocol> protocolList = new ArrayList<>();
         try {
-
-            protocolList = protocolDao.findByStatus(status);
-
+            if(protocolValidator.isStatusValid(status.name())) {
+                protocolList = protocolDao.findByStatus(status);
+            }
         } catch (DaoException e) {
             logger.error("Failed at ProtocolServiceImpl at method findByStatus ", e);
             throw new ServiceException("Failed at ProtocolServiceImpl at method findByStatus", e);
@@ -149,6 +167,13 @@ public class ProtocolServiceImpl implements ProtocolService {
         return protocolList;
     }
 
+    /**
+     * patient Application Protocol
+     *
+     * @param protocolCheck
+     * @return the boolean
+     * @throws ServiceException
+     */
     @Override
     public boolean patientApplicationProtocol(Map<String, String> protocolCheck) throws ServiceException {
         boolean result;
@@ -184,13 +209,19 @@ public class ProtocolServiceImpl implements ProtocolService {
         return true;
     }
 
+    /**
+     * admin Registration Protocol
+     *
+     * @param protocolCheck
+     * @return the boolean
+     * @throws ServiceException
+     */
     @Override
     public boolean adminRegistrationProtocol(Map<String, String> protocolCheck) throws ServiceException {
         boolean result;
         Map<String, String> mapProtocolCheck = new HashMap<>();
         String strProtocolData = protocolCheck.get(PROTOCOL_DATA);
         Date protocolData = java.sql.Date.valueOf(strProtocolData);
-//        LocalDate protocolData = LocalDate.parse(protocolCheck.get(PROTOCOL_DATA));
         String strProtocolPayer = protocolCheck.get(PROTOCOL_PAYER);
         Payer protocolPayer = Payer.valueOf(strProtocolPayer.toUpperCase());
         String strProtocolCost = protocolCheck.get(PROTOCOL_COST);
@@ -214,7 +245,7 @@ public class ProtocolServiceImpl implements ProtocolService {
             if (result) {
                 Protocol protocol = new Protocol(protocolData, protocolPayer,
                         protocolCost, patientsUsersId, doctorsUsersId, protocolApplication);
-                protocolDao.createAdmin(protocol);
+                protocolDao.createProtocolByAdmin(protocol);
             }
 
         } catch (DaoException e) {
@@ -227,16 +258,32 @@ public class ProtocolServiceImpl implements ProtocolService {
         return true;
     }
 
+    /**
+     * admin update Protocol Cost
+     *
+     * @param protocolCost
+     * @param protocolId
+     * @return the boolean
+     * @throws ServiceException
+     */
     @Override
-    public boolean updateProtocolCost( long protocolCost,long protocolId) throws ServiceException {
+    public boolean updateProtocolCost(long protocolCost, long protocolId) throws ServiceException {
         try {
-            return protocolDao.updateProtocolCost( protocolCost, protocolId);
+            return protocolDao.updateProtocolCost(protocolCost, protocolId);
         } catch (DaoException e) {
             logger.error("Failed at ProtocolServiceImpl  at method updateProtocolCost", e);
             throw new ServiceException("Failed at ProtocolServiceImpl  at method updateProtocolCost ", e);
         }
     }
 
+    /**
+     * admin update Protocol Application
+     *
+     * @param protocolId
+     * @param application
+     * @return
+     * @throws ServiceException
+     */
     @Override
     public boolean updateProtocolApplication(long protocolId, Application application) throws ServiceException {
         try {
@@ -247,6 +294,14 @@ public class ProtocolServiceImpl implements ProtocolService {
         }
     }
 
+    /**
+     * admin update Protocol Status
+     *
+     * @param protocolId
+     * @param status
+     * @return the boolean
+     * @throws ServiceException
+     */
     @Override
     public boolean updateProtocolStatus(long protocolId, Status status) throws ServiceException {
         try {
@@ -257,8 +312,15 @@ public class ProtocolServiceImpl implements ProtocolService {
         }
     }
 
+    /**
+     * admin take Protocol Cost
+     *
+     * @param protocolId
+     * @return
+     * @throws ServiceException
+     */
     @Override
-    public boolean takeProtocolCost(long protocolId) throws ServiceException {
+    public long takeProtocolCost(long protocolId) throws ServiceException {
         try {
             return protocolDao.takeProtocolCost(protocolId);
         } catch (DaoException e) {

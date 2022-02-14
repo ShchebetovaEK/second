@@ -13,16 +13,23 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
+import static by.tms.project.controller.command.PagePath.SUCCESS_PAGE;
+import static by.tms.project.controller.command.RequestAttribute.SESSION_DOCTOR;
 import static by.tms.project.controller.command.RequestAttribute.SESSION_USER;
 import static by.tms.project.controller.command.RequestParameter.CATEGORY;
 import static by.tms.project.controller.command.RequestParameter.USERS_ID;
 
+/**
+ * @author ShchebetovaEK
+ * <p>
+ * class UpdateDoctorCategoryCommand
+ */
 public class UpdateDoctorCategoryCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private DoctorService doctorService = DoctorServiceImpl.getInstance();
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException
@@ -31,16 +38,26 @@ public class UpdateDoctorCategoryCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         String category = request.getParameter(CATEGORY).toUpperCase();
-        Long id = Long.valueOf(request.getParameter(USERS_ID));
+        String strId = request.getParameter(USERS_ID);
+        if (category.isEmpty() && strId.isEmpty()) {
+            router.setPage(FAIL_PAGE);
+            return router;
+        }
+        Long id = Long.valueOf(strId);
         HttpSession session = request.getSession();
-        Doctor doctor = (Doctor) session.getAttribute(SESSION_USER);
+        Doctor doctor = (Doctor) session.getAttribute(SESSION_DOCTOR);
         try {
-            doctorService.updateCategory(id, Category.valueOf(category));
+            if (category != null) {
+                doctorService.updateCategory(id, Category.valueOf(category));
+                router.setPage(SUCCESS_PAGE);
+            } else {
+                router.setPage(FAIL_PAGE);
+            }
         } catch (ServiceException e) {
             logger.error("Failed at UpdateDoctorCategoryCommand", e);
             throw new CommandException("Failed at UpdateDoctorCategoryCommand", e);
         }
-
+        router.setRouterType(Router.RouteType.REDIRECT);
         return router;
     }
 }

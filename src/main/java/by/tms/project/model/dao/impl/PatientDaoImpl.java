@@ -6,13 +6,12 @@ import by.tms.project.model.dao.ColumnName;
 import by.tms.project.model.dao.PatientDao;
 import by.tms.project.model.entity.Archiv;
 import by.tms.project.model.entity.Patient;
-import by.tms.project.model.entity.Role;
+import by.tms.project.model.entity.AccessRole;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -78,16 +77,11 @@ public class PatientDaoImpl implements PatientDao {
     private static final String SQL_DELETE_PATIENT_BY_ID = """
             DELETE FROM users 
             WHERE users.id =?""";
-
-    //todo
-    private static final String SQL_CREATE_PATIENT = """
-            INSERT INTO users(role,login,password,first_name,last_name,
-            data_birthday,address,phone_number,email,archiv) 
-            VALUES (?,?,?,?,?,?,?,?,?,?)
-            INSERT INTO patients(insurance,money_account,discount)
-            VALUES (?,?,?)""";
-    //todo
-    private static final String SQL_UPDATE_PATIENT = """
+      private static final String SQL_CREATE_PATIENT = """
+            INSERT INTO patients (insurance, money_account, discount) 
+            VALUES (?,?,?)
+           """;
+      private static final String SQL_UPDATE_PATIENT = """
             UPDATE users 
             SET users.role=?,users.login=?,users.password=?,users.first_name=?,
             users.last_name=?,users.data_birthday=?,users.address=?,
@@ -176,20 +170,9 @@ public class PatientDaoImpl implements PatientDao {
         int result = 0;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_PATIENT)) {
-            preparedStatement.setString(1, String.valueOf(entity.getRole()));
-            preparedStatement.setString(2, entity.getLogin());
-            preparedStatement.setString(3, entity.getPassword());
-            preparedStatement.setString(4, entity.getFirstName());
-            preparedStatement.setString(5, entity.getLastName());
-            Date dataBirthday = new Date(entity.getDataBirthday().getTime());//
-            preparedStatement.setDate(6, dataBirthday);
-            preparedStatement.setString(7, entity.getAddress());
-            preparedStatement.setString(8, entity.getPhoneNumber());
-            preparedStatement.setString(9, entity.getEmail());
-            preparedStatement.setString(10, String.valueOf(entity.getArchiv()));
-            preparedStatement.setBoolean(11, entity.isInsurance());
-            preparedStatement.setBigDecimal(12, entity.getMoneyAccount());
-            preparedStatement.setInt(13, entity.getDiscount());
+            preparedStatement.setBoolean(1, entity.isInsurance());
+            preparedStatement.setBigDecimal(2, entity.getMoneyAccount());
+            preparedStatement.setInt(3, entity.getDiscount());
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Failed at PatientDaoImpl at method create", e);
@@ -308,7 +291,7 @@ public class PatientDaoImpl implements PatientDao {
      * @throws DaoException
      */
     @Override
-    public List<Patient> findByMinimumMoneyAccount(BigDecimal moneyAccount) throws DaoException {
+    public List<Patient> findByMoneyAccount(BigDecimal moneyAccount) throws DaoException {
         List<Patient> patientList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_PATIENTS_BY_MONEY_ACCOUNT)) {
@@ -320,21 +303,21 @@ public class PatientDaoImpl implements PatientDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("Failed at PatientDaoImpl at method findByMinimumMoneyAccount", e);
-            throw new DaoException("Failed at PatientDaoImpl at method findByMinimumMoneyAccount", e);
+            logger.error("Failed at PatientDaoImpl at method findByMoneyAccount", e);
+            throw new DaoException("Failed at PatientDaoImpl at method findByMoneyAccount", e);
         }
         return patientList;
     }
 
     /**
-     * Find patient with maxmimum discount.
+     * Find patient with discount.
      *
      * @param discount
      * @return patientList.
      * @throws DaoException
      */
     @Override
-    public List<Patient> findByMaxDiscount(Integer discount) throws DaoException {
+    public List<Patient> findByDiscount(Integer discount) throws DaoException {
         List<Patient> patientList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_PATIENTS_BY_DISCOUNT)) {
@@ -346,8 +329,8 @@ public class PatientDaoImpl implements PatientDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("Failed at PatientDaoImpl at method findByMaxDiscount", e);
-            throw new DaoException("Failed at PatientDaoImpl at method findByMaxDiscount", e);
+            logger.error("Failed at PatientDaoImpl at method findByDiscount", e);
+            throw new DaoException("Failed at PatientDaoImpl at method findByDiscount", e);
         }
         return patientList;
     }
@@ -366,7 +349,7 @@ public class PatientDaoImpl implements PatientDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_PATIENT_BY_LOGIN)) {
             preparedStatement.setString(1, login);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
+                if (resultSet.next()) {
                     optionalPatient = Optional.of(takePatientInfo(resultSet));
                 }
             }
@@ -439,6 +422,12 @@ public class PatientDaoImpl implements PatientDao {
 
     }
 
+    /**
+     * archiv Patient with same id
+     * @param id
+     * @return the boolean
+     * @throws DaoException
+     */
     @Override
     public boolean archivPatient(long id) throws DaoException {
         boolean result;
@@ -448,8 +437,8 @@ public class PatientDaoImpl implements PatientDao {
             preparedStatement.setLong(2, id);
             result = preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
-            logger.error("Failed at PatientDaoImpl at method deletePatient ", e);
-            throw new DaoException("Failed at  PatientDaoImpl at method deletePatient", e);
+            logger.error("Failed at PatientDaoImpl at method  archivPatient", e);
+            throw new DaoException("Failed at  PatientDaoImpl at method archivPatient", e);
         }
         return result;
 
@@ -458,7 +447,7 @@ public class PatientDaoImpl implements PatientDao {
     public Patient takePatientInfo(ResultSet resultSet) throws SQLException {
         return (new Patient.PatientBuilder()
                 .setId(resultSet.getLong(ColumnName.USERS_ID))
-                .setRole(Role.valueOf(resultSet.getString(ColumnName.USERS_ROLE).toUpperCase()))
+                .setRole(AccessRole.valueOf(resultSet.getString(ColumnName.USERS_ROLE).toUpperCase()))
                 .setLogin(resultSet.getString(ColumnName.USERS_LOGIN))
                 .setPassword(resultSet.getString(ColumnName.USERS_PASSWORD))
                 .setFirstName(resultSet.getString(ColumnName.USERS_FIRST_NAME))

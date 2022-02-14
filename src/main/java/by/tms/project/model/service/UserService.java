@@ -23,7 +23,7 @@ public interface UserService {
 
     List<User> findByLastName(String lastName) throws ServiceException;
 
-//    List<User> findByDataBirthday(Date dataBirthday) throws ServiceException;
+    List<User> searchByLastName(String lastName) throws ServiceException;
 
     Optional <User> findByEmail(String email) throws ServiceException;
 
@@ -58,5 +58,4 @@ public interface UserService {
     boolean delete(long id) throws ServiceException;
 
     boolean archivUser(long id) throws ServiceException;
-
 }

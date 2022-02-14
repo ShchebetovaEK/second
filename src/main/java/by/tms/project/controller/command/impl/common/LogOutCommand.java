@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import static by.tms.project.controller.command.PagePath.MAIN_PAGE;
 import static by.tms.project.controller.command.PagePath.WELCOME_PAGE;
+import static by.tms.project.controller.command.SessionAttribute.*;
 
 /**
  * @author ShchebetovaEK
@@ -29,9 +30,13 @@ public class LogOutCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         HttpSession session = request.getSession();
+        session.removeAttribute(DOCTOR);
+        session.removeAttribute(PATIENT);
+        session.removeAttribute(ADMIN);
         session.invalidate();
         logger.debug("Session has finished");
         router.setPage(MAIN_PAGE);
+
         return router;
     }
 }

@@ -15,8 +15,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.tms.project.controller.command.PagePath.REGISTRATION_PAGE;
-import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
+import static by.tms.project.controller.command.PagePath.*;
 import static by.tms.project.controller.command.RequestParameter.*;
 import static by.tms.project.controller.command.RequestParameter.EMAIL;
 
@@ -44,7 +43,6 @@ public class AdminRegisterDoctorCommand  implements Command {
         Map<String, String> checkData = new HashMap<>();
         checkData.put(LOGIN, request.getParameter(LOGIN));
         checkData.put(PASSWORD, request.getParameter(PASSWORD));
-//        checkData.put(CONFIRMED_PASSWORD,request.getParameter(CONFIRM_PASSWORD));
         checkData.put(FIRST_NAME, request.getParameter(FIRST_NAME));
         checkData.put(LAST_NAME, request.getParameter(LAST_NAME));
         checkData.put(DATA_BIRTHDAY, request.getParameter(DATA_BIRTHDAY));
@@ -57,7 +55,7 @@ public class AdminRegisterDoctorCommand  implements Command {
 
         try {
             boolean registration = doctorService.registerNewDoctor(checkData);
-            router.setPage(registration ? USER_MANAGER_PAGE : REGISTRATION_PAGE);
+            router.setPage(registration ? ADMIN_PAGE : REGISTRATION_PAGE);
             return router;
         } catch (ServiceException e) {
             logger.error("Failed at AdminRegisterDoctorCommand", e);

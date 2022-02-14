@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
+import static by.tms.project.controller.command.PagePath.SUCCESS_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.SESSION_USER;
 import static by.tms.project.controller.command.RequestParameter.ID;
 import static by.tms.project.controller.command.RequestParameter.PHONE_NUMBER;
@@ -26,7 +28,6 @@ public class UpdateUserPhoneNumberCommand implements Command {
     private UserService userService = UserServiceImpl.getInstance();
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException
@@ -34,15 +35,25 @@ public class UpdateUserPhoneNumberCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        Long id = Long.valueOf(request.getParameter(ID));
         String upPhoneNumber = request.getParameter(PHONE_NUMBER);
+        String strId = request.getParameter(ID);
+        if (upPhoneNumber.isEmpty() && strId.isEmpty()) {
+            router.setPage(FAIL_PAGE);
+            return router;
+        }
+        Long id = Long.valueOf(strId);
         HttpSession session = request.getSession();
-        User user = (User)session.getAttribute(SESSION_USER);
-        try{
-            userService.updatePhoneNumberById(id,upPhoneNumber);
+        User user = (User) session.getAttribute(SESSION_USER);
+        try {
+            if (upPhoneNumber != null && strId != null) {
+                userService.updatePhoneNumberById(id, upPhoneNumber);
+                router.setPage(SUCCESS_PAGE);
+            } else {
+                router.setPage(FAIL_PAGE);
+            }
         } catch (ServiceException e) {
-            logger.error("Failed at UpdateUserPhoneNumberCommand",e);
-            throw new CommandException("Failed at UpdateUserPhoneNumberCommand",e);
+            logger.error("Failed at UpdateUserPhoneNumberCommand", e);
+            throw new CommandException("Failed at UpdateUserPhoneNumberCommand", e);
         }
 
         return router;

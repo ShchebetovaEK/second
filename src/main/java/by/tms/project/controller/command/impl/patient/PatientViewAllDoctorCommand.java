@@ -14,9 +14,14 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 import static by.tms.project.controller.command.PagePath.VIEW_ALL_DOCTOR;
-import static by.tms.project.controller.command.RequestAttribute.DOCTOR;
+import static by.tms.project.controller.command.RequestAttribute.DOCTOR_REQ;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class PatientViewAllDoctorCommand
+ */
 public class PatientViewAllDoctorCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private DoctorService doctorService = DoctorServiceImpl.getInstance();
@@ -32,7 +37,7 @@ public class PatientViewAllDoctorCommand implements Command {
         try {
             List<Doctor> userList = doctorService.findAll();
             request.setAttribute(USER_LIST, userList);
-            request.setAttribute(DOCTOR, Boolean.TRUE);
+            request.setAttribute(DOCTOR_REQ, Boolean.TRUE);
             router.setPage(VIEW_ALL_DOCTOR);
         } catch (ServiceException e) {
             logger.error("Failed at PatientViewAllDoctorCommand", e);

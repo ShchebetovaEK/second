@@ -32,7 +32,11 @@ public class DoctorValidatorImpl implements DoctorValidator {
         return instance;
     }
 
-
+    /**
+     * Is category valid
+     * @param category
+     * @return the boolean
+     */
     public boolean isCategoryValid(String category) {
         boolean match = true;
         try {
@@ -44,6 +48,11 @@ public class DoctorValidatorImpl implements DoctorValidator {
     }
 
 
+    /**
+     * is experience valid
+     * @param experience
+     * @return the boolean
+     */
     @Override
     public boolean isExperienceValid(String experience) {
         boolean match = true;
@@ -56,6 +65,11 @@ public class DoctorValidatorImpl implements DoctorValidator {
     }
 
 
+    /**
+     * is speciality valid
+     * @param speciality
+     * @return the boolean
+     */
     @Override
     public boolean isSpecialityValid(String speciality) {
         boolean match = true;
@@ -67,6 +81,11 @@ public class DoctorValidatorImpl implements DoctorValidator {
         return match;
     }
 
+    /**
+     * check Doctor Data
+     * @param userData
+     * @return the boolean
+     */
     public boolean checkUserDoctorData(Map<String, String> userData) {
         boolean isValid = true;
         if (!isCategoryValid(userData.get(CATEGORY))) {

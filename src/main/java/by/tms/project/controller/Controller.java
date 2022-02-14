@@ -92,9 +92,8 @@ public class Controller extends HttpServlet {
             }
         } catch (CommandException e) {
             logger.log(Level.ERROR, "Internal error has occurred:", e);
-//            response.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
             response.sendRedirect(request.getContextPath() + PagePath.ERROR_500_PAGE);
-            //todo
+
         }
     }
 

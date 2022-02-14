@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
+import static by.tms.project.controller.command.PagePath.SUCCESS_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.SESSION_USER;
 import static by.tms.project.controller.command.RequestParameter.ADDRESS;
 import static by.tms.project.controller.command.RequestParameter.ID;
@@ -26,7 +28,6 @@ public class UpdateUserAddressCommand implements Command {
     private UserService userService = UserServiceImpl.getInstance();
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException
@@ -35,11 +36,21 @@ public class UpdateUserAddressCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         String upAddress = request.getParameter(ADDRESS);
-        Long id = Long.valueOf(request.getParameter(ID));
+        String strId = request.getParameter(ID);
+        if (upAddress.isEmpty() && strId.isEmpty()) {
+            router.setPage(FAIL_PAGE);
+            return router;
+        }
+        Long id = Long.valueOf(strId);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(SESSION_USER);
         try {
-            userService.updateAddressById(id, upAddress);
+            if (upAddress != null && strId != null) {
+                userService.updateAddressById(id, upAddress);
+                router.setPage(SUCCESS_PAGE);
+            } else {
+                router.setPage(FAIL_PAGE);
+            }
         } catch (ServiceException e) {
             logger.error("Failed at UpdateUserAddressCommand", e);
             throw new CommandException("Failed at UpdateUserAddressCommand", e);

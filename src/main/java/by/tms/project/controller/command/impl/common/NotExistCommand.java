@@ -27,6 +27,6 @@ public class NotExistCommand implements Command {
        Router router = new Router();
        request.setAttribute(WRONG_COMMAND,TRUE);
        router.setPage(ERROR_404_PAGE);
-        return router;
+       return router;
     }
 }

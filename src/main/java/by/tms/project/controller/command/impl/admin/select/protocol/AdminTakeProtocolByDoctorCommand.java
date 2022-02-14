@@ -14,28 +14,38 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
 import static by.tms.project.controller.command.PagePath.PROTOCOL_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.PROTOCOL;
 import static by.tms.project.controller.command.RequestAttribute.PROTOCOL_LIST;
 
+/**
+ * @author ShchebetovaEK
+ * <p>
+ * class AdminTakeProtocolByDoctorCommand
+ */
 public class AdminTakeProtocolByDoctorCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
 
     /**
-     *
      * @param request the request
-     * @return  the router.
+     * @return the router.
      * @throws CommandException
      */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        Long doctorId = Long.valueOf(request.getParameter(RequestParameter.ID));
+        String strId = request.getParameter(RequestParameter.ID);
+        if (strId.isEmpty()) {
+            router.setPage(FAIL_PAGE);
+            return router;
+        }
+        Long doctorId = Long.valueOf(strId);
         try {
             List<Protocol> protocolList = protocolService.findByDoctor(doctorId);
             request.setAttribute(PROTOCOL_LIST, protocolList);
-            request.setAttribute(PROTOCOL,Boolean.TRUE);
+            request.setAttribute(PROTOCOL, Boolean.TRUE);
             router.setPage(PROTOCOL_PAGE);
         } catch (ServiceException e) {
             logger.error("Failed at AdminTakeProtocolByDoctorCommand");

@@ -56,8 +56,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
             FROM protocols
             INNER JOIN patients on protocols.patients_users_id = patients.users_id
             INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
-            WHERE protocols.payer=? """;
-
+            WHERE protocols.status=? """;
     private static final String SQL_SELECT_ALL_PROTOCOL_BY_PATIENT = """
             SELECT protocol_id, protocol_data, protocol_payer, protocol_cost,application,status, patients_users_id, doctors_users_id,
                    insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
@@ -72,9 +71,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
             INNER JOIN patients on protocols.patients_users_id = patients.users_id
             INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
             WHERE doctors_users_id=?;""";
-    private static final String SQL_CREATE_PROTOCOL = """
-            INSERT INTO protocols (protocol_data, protocol_payer, protocol_cost,application,status, patients_users_id, doctors_users_id)
-            VALUES (?,?,?,?,?)""";
     private static final String SQL_PATIENT_CREATE_PROTOCOLS = """
             INSERT INTO protocols (protocol_data, protocol_payer,  patients_users_id, doctors_users_id)
             VALUES (?,?,?,?)""";
@@ -82,6 +78,10 @@ public class ProtocolDaoImpl implements ProtocolDao {
             INSERT INTO protocols (protocol_data, protocol_payer, protocol_cost, 
             patients_users_id, doctors_users_id,application)
             VALUES (?,?,?,?,?,?)""";
+    private static final String SQL_UPDATE_PROTOCOL = """
+            UPDATE  protocols 
+            SET protocol_data=?, protocol_payer=?, protocol_cost=?,application,status=?, patients_users_id=?, doctors_users_id=?
+            WHERE protocol_id =?""";
     private static final String SQL_UPDATE_PROTOCOL_COST = """
             UPDATE  protocols 
             SET protocol_cost=? 
@@ -98,6 +98,9 @@ public class ProtocolDaoImpl implements ProtocolDao {
             SELECT SUM(capability_cost) 
             FROM capabilities 
             WHERE forestmed.capabilities.protocols_protocol_id=?""";
+    private static final String SQL_DELETE_PROTOCOL_BY_ID = """
+            DELETE FROM protocols 
+            WHERE protocols.protocolId =?""";
 
     private static ProtocolDaoImpl instance;
 
@@ -142,6 +145,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
 
     /**
      * find protocol with same id
+     *
      * @param id
      * @return
      * @throws DaoException
@@ -183,44 +187,94 @@ public class ProtocolDaoImpl implements ProtocolDao {
     }
 
     @Override
-    public boolean createAdmin(Protocol entity) throws DaoException {
+    public boolean createProtocolByAdmin(Protocol entity) throws DaoException {
         int result = 0;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADMIN_CREATE_PROTOCOLS)) {
             Date protocolData = new Date(entity.getProtocolData().getTime());
             preparedStatement.setDate(1, protocolData);
             preparedStatement.setString(2, String.valueOf(entity.getProtocolPayer()));
-            preparedStatement.setLong(3,entity.getProtocolCost());
+            preparedStatement.setLong(3, entity.getProtocolCost());
             preparedStatement.setLong(4, entity.getDoctorsUsersId());
             preparedStatement.setLong(5, entity.getPatientsUsersId());
             preparedStatement.setString(6, String.valueOf(entity.getApplication()));
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl at method createAdmin", e);
-            throw new DaoException("Failed at ProtocolDaoImpl at method createAdmin", e);
+            logger.error("Failed at ProtocolDaoImpl at method createProtocolByAdmin", e);
+            throw new DaoException("Failed at ProtocolDaoImpl at method createProtocolByAdmin", e);
         }
         return (result > 0);
     }
 
-
-
+    /**
+     * update Protocol
+     * @param entity
+     * @return the boolean
+     * @throws DaoException
+     */
     @Override
     public boolean update(Protocol entity) throws DaoException {
-        return false;
+        int result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_PROTOCOL)) {
+            preparedStatement.setString(1, String.valueOf((entity.getProtocolData())));
+            preparedStatement.setString(2, String.valueOf(entity.getProtocolPayer()));
+            preparedStatement.setLong(3, entity.getProtocolCost());
+            preparedStatement.setLong(4, entity.getDoctorsUsersId());
+            preparedStatement.setLong(5, entity.getPatientsUsersId());
+            preparedStatement.setString(7, String.valueOf(entity.getApplication()));
+            preparedStatement.setString(8, String.valueOf(entity.getStatus()));
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Failed at ProtocolDaoImpl at method update", e);
+            throw new DaoException("Failed at  ProtocolDaoImpl at method update", e);
+        }
+        return (result > 0);
     }
 
+    /**
+     * delete protocol by protocolId
+     * @param protocolId
+     * @return the boolean
+     * @throws DaoException
+     */
     @Override
-    public boolean delete(Long entity) throws DaoException {
-        return false;
+    public boolean delete(Long protocolId) throws DaoException {
+        int result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_PROTOCOL_BY_ID)) {
+            preparedStatement.setLong(1, protocolId);
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Failed at ProtocolDaoImpl at method delete", e);
+            throw new DaoException("Failed at ProtocolDaoImpl at method delete", e);
+        }
+        return (result > 0);
     }
 
+    /**
+     * delete Protocol
+     * @param entity
+     * @return the boolean
+     * @throws DaoException
+     */
     @Override
     public boolean delete(Protocol entity) throws DaoException {
-        return false;
+        int result;
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_PROTOCOL_BY_ID)) {
+            preparedStatement.setLong(1, entity.getProtocolId());
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Failed at ProtocolDaoImpl  at method delete entity", e);
+            throw new DaoException("Failed at ProtocolDaoImpl at method delete entity", e);
+        }
+        return (result > 0);
     }
 
     /**
      * find protocol with same payer
+     *
      * @param payer
      * @return
      * @throws DaoException
@@ -269,6 +323,12 @@ public class ProtocolDaoImpl implements ProtocolDao {
         return protocolList;
     }
 
+    /**
+     * find protocol with same application
+     * @param application
+     * @return protocolList
+     * @throws DaoException
+     */
     @Override
     public List<Protocol> findByApplication(Application application) throws DaoException {
         List<Protocol> protocolList = new ArrayList<>();
@@ -288,6 +348,12 @@ public class ProtocolDaoImpl implements ProtocolDao {
         return protocolList;
     }
 
+    /**
+     * find protocol with same status
+     * @param status
+     * @return protocolList
+     * @throws DaoException
+     */
     @Override
     public List<Protocol> findByStatus(Status status) throws DaoException {
         List<Protocol> protocolList = new ArrayList<>();
@@ -320,7 +386,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL_PROTOCOL_BY_PATIENT)) {
             preparedStatement.setLong(1, patientId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-
                 while (resultSet.next()) {
                     Protocol protocol = takeProtocolInfo(resultSet);
                     protocolList.add(protocol);
@@ -353,14 +418,15 @@ public class ProtocolDaoImpl implements ProtocolDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("Failed at  at method findByDoctor", e);
-            throw new DaoException("Failed at  at method findByDoctor", e);
+            logger.error("Failed at  ProtocolDaoImpl at method findByDoctor", e);
+            throw new DaoException("Failed at ProtocolDaoImpl  at method findByDoctor", e);
         }
         return protocolList;
     }
 
     /**
      * update protocol cost
+     *
      * @param protocolCost
      * @param protocolId
      * @return the boolean.
@@ -375,14 +441,15 @@ public class ProtocolDaoImpl implements ProtocolDao {
             preparedStatement.setLong(2, protocolId);
             result = preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
-            logger.error("Failed at  at method updateProtocolCost", e);
-            throw new DaoException("Failed at  at method updateProtocolCost", e);
+            logger.error("Failed at ProtocolDaoImpl  at method updateProtocolCost", e);
+            throw new DaoException("Failed at  ProtocolDaoImpl at method updateProtocolCost", e);
         }
         return result;
     }
 
     /**
      * update protocol application
+     *
      * @param protocolId
      * @param application
      * @return the boolean.
@@ -397,14 +464,15 @@ public class ProtocolDaoImpl implements ProtocolDao {
             preparedStatement.setLong(2, protocolId);
             result = preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
-            logger.error("Failed at  at method updateProtocolApplication", e);
-            throw new DaoException("Failed at  at method updateProtocolApplication", e);
+            logger.error("Failed at ProtocolDaoImpl  at method updateProtocolApplication", e);
+            throw new DaoException("Failed at ProtocolDaoImpl at method updateProtocolApplication", e);
         }
         return result;
     }
 
     /**
      * update protocolstatus
+     *
      * @param protocolId
      * @param status
      * @return the boolean
@@ -419,30 +487,35 @@ public class ProtocolDaoImpl implements ProtocolDao {
             preparedStatement.setLong(2, protocolId);
             result = preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
-            logger.error("Failed at  at method updateProtocolStatus", e);
-            throw new DaoException("Failed at  at method updateProtocolStatus", e);
+            logger.error("Failed at ProtocolDaoImpl  at method updateProtocolStatus", e);
+            throw new DaoException("Failed at ProtocolDaoImpl at method updateProtocolStatus", e);
         }
         return result;
     }
 
-    /** take protocol cost
+    /**
+     * take protocol cost
      *
      * @param protocolId
      * @return boolean.
      * @throws DaoException
      */
     @Override
-    public boolean takeProtocolCost(long protocolId) throws DaoException {
-        boolean result;
+    public long takeProtocolCost(long protocolId) throws DaoException {
+        ResultSet result;
+        long cost = -1;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_TAKE_PROTOCOL_COST)) {
             preparedStatement.setLong(1, protocolId);
-            result = preparedStatement.executeUpdate() == 1;
+            result = preparedStatement.executeQuery();
+            if (result.next()) {
+                cost = result.getLong(1);
+            }
         } catch (SQLException e) {
-            logger.error("Failed at  at method takeProtocolCost", e);
-            throw new DaoException("Failed at  at method takeProtocolCost", e);
+            logger.error("Failed at ProtocolDaoImpl at method takeProtocolCost", e);
+            throw new DaoException("Failed at ProtocolDaoImpl at method takeProtocolCost", e);
         }
-        return result;
+        return cost;
     }
 
     public Protocol takeProtocolInfo(ResultSet resultSet) throws SQLException {

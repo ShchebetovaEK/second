@@ -7,6 +7,7 @@ import by.tms.project.model.dao.impl.DoctorDaoImpl;
 import by.tms.project.model.entity.*;
 import by.tms.project.model.service.DoctorService;
 import by.tms.project.model.util.security.PasswordHash;
+import by.tms.project.model.validator.DoctorValidator;
 import by.tms.project.model.validator.impl.DoctorValidatorImpl;
 import by.tms.project.model.validator.impl.UserValidatorImpl;
 import org.apache.logging.log4j.LogManager;
@@ -17,11 +18,11 @@ import java.util.*;
 import static by.tms.project.controller.command.RequestParameter.*;
 import static by.tms.project.controller.command.RequestParameter.EMAIL;
 
-
 public class DoctorServiceImpl implements DoctorService {
     private static final Logger logger = LogManager.getLogger();
-    private DoctorDao doctorDao = DoctorDaoImpl.getInstance();
     private static DoctorServiceImpl instance;
+    private DoctorDao doctorDao = DoctorDaoImpl.getInstance();
+    private DoctorValidator doctorValidator = DoctorValidatorImpl.getInstance();
 
     private DoctorServiceImpl() {
     }
@@ -79,9 +80,11 @@ public class DoctorServiceImpl implements DoctorService {
      */
     @Override
     public List<Doctor> findDoctorByCategory(Category category) throws ServiceException {
-        List<Doctor> doctorList;
+        List<Doctor> doctorList = new ArrayList<>();
         try {
-            doctorList = doctorDao.findByCategory(category);
+            if (doctorValidator.isCategoryValid(category.name())) {
+                doctorList = doctorDao.findByCategory(category);
+            }
         } catch (DaoException e) {
             logger.error("Failed at DoctorServiceImpl at method findDoctorByCategory", e);
             throw new ServiceException("Failed at DoctorServiceImpl at method findDoctorByCategory", e);
@@ -98,9 +101,11 @@ public class DoctorServiceImpl implements DoctorService {
      */
     @Override
     public List<Doctor> findDoctorByExperience(Experience experience) throws ServiceException {
-        List<Doctor> doctorList;
+        List<Doctor> doctorList = new ArrayList<>();
         try {
-            doctorList = doctorDao.findByExperience(experience);
+            if (doctorValidator.isExperienceValid(experience.name())) {
+                doctorList = doctorDao.findByExperience(experience);
+            }
         } catch (DaoException e) {
             logger.error("Failed at DoctorServiceImpl at method findDoctorByExperience", e);
             throw new ServiceException("Failed at DoctorServiceImpl at method findDoctorByExperience", e);
@@ -127,11 +132,13 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorList;
     }
 
-    @Override
-    public List<Doctor> chooseCapability() throws ServiceException {
-        return null;
-    }
-
+    /**
+     * register New Doctor
+     *
+     * @param userCheck
+     * @return the boolean
+     * @throws ServiceException
+     */
     @Override
     public boolean registerNewDoctor(Map<String, String> userCheck) throws ServiceException {
         boolean resultOne;
@@ -140,15 +147,10 @@ public class DoctorServiceImpl implements DoctorService {
         Map<String, String> mapDoctorCheck = new HashMap<>();
         String login = userCheck.get(LOGIN);
         String password = userCheck.get(PASSWORD);
-//        String confirmPassword = userCheck.get(CONFIRM_PASSWORD);
         String firstName = userCheck.get(FIRST_NAME);
         String lastName = userCheck.get(LAST_NAME);
-//        String strData = userCheck.get(DATA_BIRTHDAY);//"2011-11-11";//"userCheck.get(DATA_BIRTHDAY)";
-        String strData = userCheck.get(DATA_BIRTHDAY);//"2011-11-11";//"userCheck.get(DATA_BIRTHDAY)";
-//        Instant instant = Instant.parse(strData + "T00:00:00.00Z");
-//        Date dataBirthday = Date.from(instant);
+        String strData = userCheck.get(DATA_BIRTHDAY);
         Date dataBirthday = java.sql.Date.valueOf(strData);
-        //   java.sql.Date dataBirthday = new java.sql.Date(today.getTime());//
         String address = userCheck.get(ADDRESS);
         String phoneNumber = userCheck.get(PHONE_NUMBER);
         String email = userCheck.get(EMAIL);
@@ -176,85 +178,112 @@ public class DoctorServiceImpl implements DoctorService {
             resultOne = UserValidatorImpl.getInstance().checkUserData(mapUserCheck);
             resultTwo = DoctorValidatorImpl.getInstance().checkUserDoctorData(mapDoctorCheck);
             if (resultOne && resultTwo) {
-                Role role = Role.DOCTOR;
+                AccessRole role = AccessRole.DOCTOR;
                 String passwordHash = PasswordHash.encrypt(password);
-                Doctor doctor = new Doctor(role, login, passwordHash, firstName, lastName, dataBirthday, address, phoneNumber, email, category, experience, speciality);
+                Doctor doctor = new Doctor(role, login, passwordHash, firstName, lastName, dataBirthday,
+                        address, phoneNumber, email, category, experience, speciality);
                 doctorDao.create(doctor);
             }
 
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method registerNewUser", e);
-            throw new ServiceException("Failed at UserServiceImpl at method registerNewUser", e);
+            logger.error("Failed at DoctorServiceImpl at method registerNewDoctor", e);
+            throw new ServiceException("Failed at DoctorServiceImpl at method registerNewDoctor", e);
         } catch (IllegalArgumentException e) {
-            logger.error("IllegalArgumentException at UserServiceImpl in registerNewUser ", e);
+            logger.error("IllegalArgumentException at DoctorServiceImpl in registerNewDoctor ", e);
             return false;
         }
         return true;
     }
 
+    /**
+     * update  doctor's Category
+     *
+     * @param id
+     * @param category
+     * @return the boolean
+     * @throws ServiceException
+     */
     @Override
     public boolean updateCategory(long id, Category category) throws ServiceException {
         try {
             return DoctorValidatorImpl.getInstance().isCategoryValid(category.name())
                     && doctorDao.updateCategory(id, category);
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method ", e);
-            throw new ServiceException("Failed at UserServiceImpl at method ", e);
+            logger.error("Failed at UserServiceImpl at method updateCategory", e);
+            throw new ServiceException("Failed at UserServiceImpl at method updateCategory", e);
         }
     }
 
+    /**
+     * update  doctor's Experience
+     *
+     * @param id
+     * @param experience
+     * @return the boolean
+     * @throws ServiceException
+     */
     @Override
     public boolean updateExperience(long id, Experience experience) throws ServiceException {
         try {
             return DoctorValidatorImpl.getInstance().isExperienceValid(experience.name())
                     && doctorDao.updateExperience(id, experience);
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method ", e);
-            throw new ServiceException("Failed at UserServiceImpl at method ", e);
+            logger.error("Failed at UserServiceImpl at method updateExperience", e);
+            throw new ServiceException("Failed at UserServiceImpl at method updateExperience", e);
         }
     }
 
+    /**
+     * update  doctor's Speciality
+     *
+     * @param id
+     * @param speciality
+     * @return the boolean
+     * @throws ServiceException
+     */
     @Override
     public boolean updateSpeciality(long id, Speciality speciality) throws ServiceException {
         try {
             return DoctorValidatorImpl.getInstance().isSpecialityValid(speciality.name())
                     && doctorDao.updateSpeciality(id, speciality);
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method ", e);
-            throw new ServiceException("Failed at UserServiceImpl at method ", e);
+            logger.error("Failed at UserServiceImpl at method updateExperience", e);
+            throw new ServiceException("Failed at UserServiceImpl at method updateExperience ", e);
         }
     }
 
+    /**
+     * delete Doctor
+     *
+     * @param id
+     * @return the boolean
+     * @throws ServiceException
+     */
     @Override
     public boolean deleteDoctor(long id) throws ServiceException {
         try {
             return doctorDao.deleteDoctor(id);
         } catch (DaoException e) {
-            logger.error("", e);
-            throw new ServiceException("", e);
+            logger.error("Failed at UserServiceImpl at method deleteDoctor", e);
+            throw new ServiceException("Failed at UserServiceImpl at method deleteDoctor", e);
         }
     }
 
+    /**
+     * archiv Doctor
+     *
+     * @param id
+     * @return the boolean
+     * @throws ServiceException
+     */
     @Override
     public boolean archivDoctor(long id) throws ServiceException {
-            try {
-                return doctorDao.archivDoctor(id);
-            } catch (DaoException e) {
-                logger.error("Failed at DoctorServiceImpl at archivDoctor ", e);
-                throw new ServiceException("Failed at DoctorServiceImpl at archivDoctor", e);
-            }
-    }
-
-    @Override
-    public List<Doctor> chooseDoctor(Category category, Experience experience, Speciality speciality) throws ServiceException {
-        List<Doctor> doctorList;
         try {
-            doctorList = doctorDao.findBySpeciality(speciality);
+            return doctorDao.archivDoctor(id);
         } catch (DaoException e) {
-            logger.error("Failed at DoctorServiceImpl at method chooseDoctor ", e);
-            throw new ServiceException("Failed at DoctorServiceImpl at method  chooseDoctor", e);
+            logger.error("Failed at DoctorServiceImpl at archivDoctor ", e);
+            throw new ServiceException("Failed at DoctorServiceImpl at archivDoctor", e);
         }
-        return doctorList;
     }
 }
 

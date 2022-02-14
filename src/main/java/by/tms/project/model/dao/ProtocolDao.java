@@ -2,7 +2,6 @@ package by.tms.project.model.dao;
 
 import by.tms.project.exception.DaoException;
 import by.tms.project.model.entity.*;
-import com.oracle.wls.shaded.org.apache.bcel.generic.ATHROW;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,7 +28,7 @@ public interface ProtocolDao extends BaseDao<Long, Protocol> {
 
     boolean updateProtocolStatus(long protocolId, Status status) throws DaoException;
 
-    boolean takeProtocolCost(long protocolId) throws DaoException;
+    long takeProtocolCost(long protocolId) throws DaoException;
 
-    boolean createAdmin(Protocol entity) throws DaoException;
+    boolean createProtocolByAdmin(Protocol entity) throws DaoException;
 }

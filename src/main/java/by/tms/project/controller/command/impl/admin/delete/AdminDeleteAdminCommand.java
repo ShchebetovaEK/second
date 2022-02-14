@@ -12,9 +12,16 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static by.tms.project.controller.command.PagePath.SUCCESS_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.SESSION_USER;
 import static by.tms.project.controller.command.RequestParameter.USERS_ID;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class AdminDeleteAdminCommand
+ *
+ */
 public class AdminDeleteAdminCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private UserService userService = UserServiceImpl.getInstance();
@@ -27,16 +34,20 @@ public class AdminDeleteAdminCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        Long id = Long.valueOf(request.getParameter(USERS_ID));
+        String strId = request.getParameter(USERS_ID);
+        if (strId == null){
+            throw new CommandException("Failed at AdminDeleteAdminCommand");
+        }
+        Long id = Long.valueOf(strId);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(SESSION_USER);
         try {
             userService.delete(id);
+            router.setPage(SUCCESS_PAGE);
         } catch (ServiceException e) {
             logger.error("Failed at AdminDeleteAdminCommand", e);
             throw new CommandException("Failed at AdminDeleteAdminCommand", e);
         }
-
         return router;
     }
 }

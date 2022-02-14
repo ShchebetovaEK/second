@@ -12,9 +12,15 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static by.tms.project.controller.command.RequestAttribute.SESSION_USER;
+import static by.tms.project.controller.command.PagePath.SUCCESS_PAGE;
+import static by.tms.project.controller.command.RequestAttribute.SESSION_PATIENT;
 import static by.tms.project.controller.command.RequestParameter.USERS_ID;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class AdminArchivPatientCommand
+ */
 public class AdminArchivPatientCommand  implements Command {
     private static final Logger logger = LogManager.getLogger();
     private PatientService patientService = PatientServiceImpl.getInstance();
@@ -27,16 +33,20 @@ public class AdminArchivPatientCommand  implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        Long id = Long.valueOf(request.getParameter(USERS_ID));
+        String strId = request.getParameter(USERS_ID);
+        if (strId == null) {
+            throw new CommandException("Failed at AdminArchivPatientCommand");
+        }
+        Long id = Long.valueOf(strId);
         HttpSession session = request.getSession();
-        Patient patient = (Patient) session.getAttribute(SESSION_USER);
+        Patient patient = (Patient) session.getAttribute(SESSION_PATIENT);
         try {
             patientService.archivPatient(id);
+            router.setPage(SUCCESS_PAGE);
         } catch (ServiceException e) {
-            logger.error("Failed at AdminDeletePatientCommand", e);
-            throw new CommandException("Failed at AdminDeletePatientCommand", e);
+            logger.error("Failed at AdminArchivPatientCommand", e);
+            throw new CommandException("Failed at AdminArchivPatientCommand", e);
         }
-
         return router;
     }
 }

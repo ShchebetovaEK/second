@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface PatientService {
@@ -16,11 +17,11 @@ public interface PatientService {
 
     List<Patient> findByInsurance(Boolean insurance) throws ServiceException;
 
-    List<Patient> findByMinimumMoneyAccount(BigDecimal moneyAccount) throws ServiceException;
+    List<Patient> findByMoneyAccount(BigDecimal moneyAccount) throws ServiceException;
 
-    List<Patient> findByMaxDiscount(Integer discount) throws ServiceException;
+    List<Patient> findByDiscount(Integer discount) throws ServiceException;
 
-    boolean toUpBalance(String login, BigDecimal sumForUp, HttpSession session) throws ServiceException;
+    boolean create(Map<String, String> userCheck) throws ServiceException;
 
     boolean updateInsurance(long id, Boolean insurance) throws ServiceException;
 

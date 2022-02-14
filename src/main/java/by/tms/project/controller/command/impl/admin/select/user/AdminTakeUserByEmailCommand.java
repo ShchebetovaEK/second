@@ -16,12 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
 import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class AdminTakeUserByEmailCommand
  */
 public class AdminTakeUserByEmailCommand implements Command {
@@ -29,7 +30,6 @@ public class AdminTakeUserByEmailCommand implements Command {
     private UserService userService = UserServiceImpl.getInstance();
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException
@@ -38,8 +38,11 @@ public class AdminTakeUserByEmailCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         User user;
-
         String email = request.getParameter(RequestParameter.EMAIL);
+        if (email.isEmpty()) {
+            router.setPage(FAIL_PAGE);
+            return router;
+        }
         try {
             Optional<User> optionalUser = userService.findByEmail(email);
             if (optionalUser.isPresent()) {
@@ -50,7 +53,7 @@ public class AdminTakeUserByEmailCommand implements Command {
                 router.setPage(USER_MANAGER_PAGE);
             }
         } catch (ServiceException e) {
-            logger.error("Failed at AdminTakeUserByEmail ",e);
+            logger.error("Failed at AdminTakeUserByEmail ", e);
             throw new CommandException("Failed at AdminTakeUserByEmail", e);
         }
         return router;

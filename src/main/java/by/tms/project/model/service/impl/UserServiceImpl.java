@@ -4,7 +4,7 @@ import by.tms.project.exception.DaoException;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.dao.UserDao;
 import by.tms.project.model.dao.impl.UserDaoImpl;
-import by.tms.project.model.entity.Role;
+import by.tms.project.model.entity.AccessRole;
 import by.tms.project.model.entity.User;
 import by.tms.project.model.service.UserService;
 import by.tms.project.model.util.security.PasswordHash;
@@ -12,12 +12,9 @@ import by.tms.project.model.validator.impl.UserValidatorImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
-import java.time.Instant;
 import java.util.*;
 
 import static by.tms.project.controller.command.RequestParameter.*;
-import static java.lang.Boolean.parseBoolean;
 
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LogManager.getLogger();
@@ -157,17 +154,19 @@ public class UserServiceImpl implements UserService {
         return userList;
     }
 
-//    @Override
-//    public List<User> findByDataBirthday(Date dataBirthday) throws ServiceException {
-//        List<User> userList;
-//        try {
-//            userList = userDao.findByDataBirthday(dataBirthday);
-//        } catch (DaoException e) {
-//            logger.error("Failed at UserServiceImpl at method findByDataBirthday", e);
-//            throw new ServiceException("Failed at UserServiceImpl at method  findByDataBirthday", e);
-//        }
-//        return userList;
-//    }
+    @Override
+    public List<User> searchByLastName(String lastName) throws ServiceException {
+        List<User> userList = new ArrayList<>();
+        try {
+            if (UserValidatorImpl.getInstance().isLastNameValid(lastName)) {
+                userList = userDao.searchByLastName(lastName);
+            }
+        } catch (DaoException e) {
+            logger.error("Failed at UserServiceImpl at method searchByLastName", e);
+            throw new ServiceException("Failed at UserServiceImpl at method  searchByLastName", e);
+        }
+        return userList;
+    }
 
     /**
      * find user by email
@@ -212,43 +211,22 @@ public class UserServiceImpl implements UserService {
         return optionalUser;
     }
 
-    @Override
-    public boolean checkIfUserValidForRegistration(String login, String email) throws ServiceException {
-        // TODO: 17.01.2022  
-        return false;
-    }
-
-    @Override
-    public void sendMessageRegistrationOnUserEmail(String login, String email, String currentLocale) throws ServiceException {
-// TODO: 17.01.2022  
-    }
-
-    @Override
-    public void setUserNewLogin(String login, String newLogin) throws ServiceException {
-        // TODO: 17.01.2022  
-    }
-
-    @Override
-    public void setUserNewPassword(String login, String newPassword) throws ServiceException {
-        // TODO: 17.01.2022  
-    }
-
+    /**
+     * register New user
+     * @param userCheck
+     * @return
+     * @throws ServiceException
+     */
     @Override
     public boolean registerNewUser(Map<String, String> userCheck) throws ServiceException {
-        // TODO
         boolean result;
         Map<String, String> mapUserCheck = new HashMap<>();
         String login = userCheck.get(LOGIN);
         String password = userCheck.get(PASSWORD);
-//        String confirmPassword = userCheck.get(CONFIRM_PASSWORD);
         String firstName = userCheck.get(FIRST_NAME);
         String lastName = userCheck.get(LAST_NAME);
-//        String strData = userCheck.get(DATA_BIRTHDAY);//"2011-11-11";//"userCheck.get(DATA_BIRTHDAY)";
-        String strData = userCheck.get(DATA_BIRTHDAY);//"2011-11-11";//"userCheck.get(DATA_BIRTHDAY)";
-//        Instant instant = Instant.parse(strData + "T00:00:00.00Z");
-//        Date dataBirthday = Date.from(instant);
+        String strData = userCheck.get(DATA_BIRTHDAY);
         Date dataBirthday = java.sql.Date.valueOf(strData);
-        //   java.sql.Date dataBirthday = new java.sql.Date(today.getTime());//
         String address = userCheck.get(ADDRESS);
         String phoneNumber = userCheck.get(PHONE_NUMBER);
         String email = userCheck.get(EMAIL);
@@ -265,7 +243,7 @@ public class UserServiceImpl implements UserService {
         try {
             result = UserValidatorImpl.getInstance().checkUserData(mapUserCheck);
             if (result) {
-                Role role = Role.PATIENT;
+                AccessRole role = AccessRole.PATIENT;
                 String passwordHash = PasswordHash.encrypt(password);
                 User user = new User(role, login, passwordHash, firstName, lastName, dataBirthday, address, phoneNumber, email);
                 userDao.create(user);
@@ -282,6 +260,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * register New Admin
      * @param userCheck
      * @return
      * @throws ServiceException
@@ -292,15 +271,10 @@ public class UserServiceImpl implements UserService {
         Map<String, String> mapUserCheck = new HashMap<>();
         String login = userCheck.get(LOGIN);
         String password = userCheck.get(PASSWORD);
-//        String confirmPassword = userCheck.get(CONFIRM_PASSWORD);
         String firstName = userCheck.get(FIRST_NAME);
         String lastName = userCheck.get(LAST_NAME);
-//        String strData = userCheck.get(DATA_BIRTHDAY);//"2011-11-11";//"userCheck.get(DATA_BIRTHDAY)";
-        String strData = userCheck.get(DATA_BIRTHDAY);//"2011-11-11";//"userCheck.get(DATA_BIRTHDAY)";
-//        Instant instant = Instant.parse(strData + "T00:00:00.00Z");
-//        Date dataBirthday = Date.from(instant);
+        String strData = userCheck.get(DATA_BIRTHDAY);
         Date dataBirthday = java.sql.Date.valueOf(strData);
-        //   java.sql.Date dataBirthday = new java.sql.Date(today.getTime());//
         String address = userCheck.get(ADDRESS);
         String phoneNumber = userCheck.get(PHONE_NUMBER);
         String email = userCheck.get(EMAIL);
@@ -317,10 +291,11 @@ public class UserServiceImpl implements UserService {
         try {
             result = UserValidatorImpl.getInstance().checkUserData(mapUserCheck);
             if (result) {
-                Role role = Role.ADMIN;
+                AccessRole role = AccessRole.ADMIN;
                 String passwordHash = PasswordHash.encrypt(password);
                 User user = new User(role, login, passwordHash, firstName, lastName, dataBirthday, address, phoneNumber, email);
                 userDao.create(user);
+                //mail
             }
 
         } catch (DaoException e) {
@@ -447,14 +422,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public boolean verify(long userId) throws ServiceException {
-       //todo
-        return true;
-    }
-
     /**
      * delete user from database
+     *
      * @param id
      * @return
      * @throws ServiceException
@@ -471,6 +441,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * input user in archiv
+     *
      * @param id
      * @return
      * @throws ServiceException
@@ -484,4 +455,29 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Failed at UserServiceImpl at method archivUser", e);
         }
     }
+
+//    @Override
+//    public boolean edit(Map<String, String> editCheck) throws ServiceException {
+//        boolean result;
+//        Map<String, String> mapUserCheck = new HashMap<>();
+//        String login = editCheck.get(LOGIN);
+//        String firstName = editCheck.get(FIRST_NAME);
+//        String lastName = editCheck.get(LAST_NAME);
+//        String address = editCheck.get(ADDRESS);
+//        String phoneNumber = editCheck.get(PHONE_NUMBER);
+//        String email = editCheck.get(EMAIL);
+//
+//        mapUserCheck.put(LOGIN, login);
+//        mapUserCheck.put(FIRST_NAME, firstName);
+//        mapUserCheck.put(LAST_NAME, lastName);
+//        mapUserCheck.put(ADDRESS, address);
+//        mapUserCheck.put(PHONE_NUMBER, phoneNumber);
+//        mapUserCheck.put(EMAIL, email);
+//        try{
+//           result = UserValidatorImpl.getInstance().checkUserData(mapUserCheck);
+//           if (result){
+//               userDao.update()
+//           }
+//        }
+//    }
 }

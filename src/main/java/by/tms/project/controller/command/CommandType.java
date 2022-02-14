@@ -1,17 +1,17 @@
 package by.tms.project.controller.command;
 
 import by.tms.project.controller.command.impl.admin.AdminTakeProtocolCostCommand;
-import by.tms.project.controller.command.impl.admin.delete.AdminArchivPatientCommand;
-import by.tms.project.controller.command.impl.admin.delete.AdminArchivUserCommand;
+import by.tms.project.controller.command.impl.admin.delete.*;
 import by.tms.project.controller.command.impl.admin.select.protocol.*;
 import by.tms.project.controller.command.impl.admin.select.user.*;
 import by.tms.project.controller.command.impl.admin.update.protocol.AdminUpdateProtocolApplicationCommand;
 import by.tms.project.controller.command.impl.admin.update.protocol.AdminUpdateProtocolCostCommand;
 import by.tms.project.controller.command.impl.admin.update.protocol.AdminUpdateProtocolStatusCommand;
 import by.tms.project.controller.command.impl.admin.update.user.*;
+import by.tms.project.controller.command.impl.doctor.DoctorViewAllPatientCommand;
+import by.tms.project.controller.command.impl.doctor.DoctorViewMyProtocolCommand;
 import by.tms.project.controller.command.impl.patient.*;
 import by.tms.project.controller.command.impl.admin.create.AdminRegisterProtocolCommand;
-import by.tms.project.controller.command.impl.admin.delete.AdminDeletePatientCommand;
 import by.tms.project.controller.command.impl.admin.create.AdminRegisterAdminCommand;
 import by.tms.project.controller.command.impl.admin.create.AdminRegisterDoctorCommand;
 import by.tms.project.controller.command.impl.admin.select.doctor.AdminTakeAllDoctorsCommand;
@@ -30,13 +30,14 @@ import by.tms.project.controller.command.impl.admin.update.patient.UpdatePatient
 import by.tms.project.controller.command.impl.admin.update.patient.UpdatePatientInsuranceCommand;
 import by.tms.project.controller.command.impl.admin.update.patient.UpdatePatientMoneyAccountCommand;
 import by.tms.project.controller.command.impl.admin.update.doctor.UpdateDoctorCategoryCommand;
+import by.tms.project.controller.command.impl.user.AccountUserCommand;
 import by.tms.project.controller.command.impl.user.ChangeUserPersonalCommand;
-import by.tms.project.model.entity.Role;
+import by.tms.project.model.entity.AccessRole;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static by.tms.project.model.entity.Role.*;
+import static by.tms.project.model.entity.AccessRole.*;
 
 /**
  * @author ShchbetovaEK
@@ -46,7 +47,7 @@ import static by.tms.project.model.entity.Role.*;
 public enum CommandType {
     /* move */
     GO_TO_ABOUT_PAGE_COMMAND(new GoToAboutCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
-    GO_TO_DOCTORS_COMMAND(new GoToDoctorsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
+    GO_TO_OUR_DOCTORS_COMMAND(new GoToOurDoctorsCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     GO_TO_MAIN(new GotoMainCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     GO_TO_PEDIATRIC_COMMAND(new GoToPediatricCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     GO_TO_PRICE_COMMAND(new GoToPriceCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
@@ -106,19 +107,24 @@ public enum CommandType {
     ADMIN_UPDATE_PROTOCOL_APPLICATION_COMMAND(new AdminUpdateProtocolApplicationCommand(), List.of(ADMIN)),
     ADMIN_UPDATE_PROTOCOL_STATUS_COMMAND(new AdminUpdateProtocolStatusCommand(),List.of(ADMIN)),
     /*delete*/
+    ADMIN_DELETE_DOCTOR_COMMAND(new AdminDeleteDoctorCommand(), List.of(ADMIN)),
+    ADMIN_DELETE_ADMIN_COMMAND(new AdminDeleteAdminCommand(), List.of(ADMIN)),
     ADMIN_DELETE_PATIENT_COMMAND(new AdminDeletePatientCommand(), List.of(ADMIN)),
     ADMIN_ARCHIV_PATIENT_COMMAND(new AdminArchivPatientCommand(), List.of(ADMIN)),
     ADMIN_ARCHIV_USER_COMMAND(new AdminArchivUserCommand(), List.of(ADMIN)),
-    ADMIN_DELETE_DOCTOR_COMMAND(new AdminDeletePatientCommand(), List.of(ADMIN)),
-    ADMIN_DELETE_ADMIN_COMMAND(new AdminDeletePatientCommand(), List.of(ADMIN)),
+    ADMIN_ARCHIV_DOCTOR_COMMAND(new AdminArchivDoctorCommand(), List.of(ADMIN)),
 
-    /*only patient command*/
+
+    /*patient command*/
     PATIENT_CHOOSE_DOCTOR_COMMAND(new PatientChooseDoctorCommand(), List.of(PATIENT)),
-    PATIENT_CHOOSE_CAPABILITY_COMMAND(new PatientChooseCapabilityCommand(), List.of(PATIENT)),
     PATIENT_TAKE_PROTOCOL_COMMAND(new PatientTakeProtocolCommand(), List.of(PATIENT)),
     PATIENT_VIEW_ALL_DOCTOR_COMMAND(new PatientViewAllDoctorCommand(), List.of(PATIENT)),
     PATIENT_VIEW_MY_PROTOCOL_COMMAND(new PatientViewMyProtocolCommand(), List.of(PATIENT)),
+    ACCOUNT_USER_COMMAND(new AccountUserCommand(),List.of(PATIENT)),
 
+    /*doctor command*/
+    DOCTOR_VIEW_ALL_PATIENT_COMMAND(new DoctorViewAllPatientCommand(), List.of(DOCTOR)),
+    DOCTOR_VIEW_PROTOCOL_COMMAND(new DoctorViewMyProtocolCommand(), List.of(DOCTOR)),
     /* common */
     AUTHENTICATION_COMMAND(new AuthenticationCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     LOG_IN_COMMAND(new LogInCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
@@ -126,18 +132,19 @@ public enum CommandType {
     CHANGE_LOCALE(new ChangeLocaleCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     NOT_EXIST_COMMAND(new NotExistCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
     CHANGE_USER_PERSONAL_DATA(new ChangeUserPersonalCommand(), List.of(ADMIN, PATIENT, DOCTOR)),
-    REGISTRATION_COMMAND(new RegistrationCommand(), List.of(PATIENT));
+    REGISTRATION_COMMAND(new RegistrationCommand(), List.of(PATIENT)),
+    SEARCH_BY_LAST_NAME_COMMAND(new SearchByLastNameCommand(), List.of(ADMIN, PATIENT, DOCTOR));
 
 
     private final Command command;
-    private final List<Role> roleList;
+    private final List<AccessRole> roleList;
 
     CommandType(Command command) {
         this.command = command;
         this.roleList = new ArrayList<>();
     }
 
-    CommandType(Command command, List<Role> roleList) {
+    CommandType(Command command, List<AccessRole> roleList) {
         this.command = command;
         this.roleList = roleList;
     }
@@ -146,7 +153,7 @@ public enum CommandType {
         return command;
     }
 
-    public List<Role> getRoleList() {
+    public List<AccessRole> getRoleList() {
         return roleList;
     }
 }

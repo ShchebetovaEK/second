@@ -37,7 +37,6 @@ public class AdminRegisterAdminCommand implements Command {
         Map<String, String> checkData = new HashMap<>();
         checkData.put(LOGIN, request.getParameter(LOGIN));
         checkData.put(PASSWORD, request.getParameter(PASSWORD));
-//        checkData.put(CONFIRMED_PASSWORD,request.getParameter(CONFIRM_PASSWORD));
         checkData.put(FIRST_NAME, request.getParameter(FIRST_NAME));
         checkData.put(LAST_NAME, request.getParameter(LAST_NAME));
         checkData.put(DATA_BIRTHDAY, request.getParameter(DATA_BIRTHDAY));
@@ -47,7 +46,7 @@ public class AdminRegisterAdminCommand implements Command {
 
         try {
             boolean registration = userService.registerNewAdmin(checkData);
-            router.setPage(registration ? WELCOME_PAGE : REGISTRATION_PAGE);
+            router.setPage(registration ? SUCCESS_PAGE : REGISTRATION_PAGE);
             return router;
         } catch (ServiceException e) {
             logger.error("Failed at RegistrationCommand", e);

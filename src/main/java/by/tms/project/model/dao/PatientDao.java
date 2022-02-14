@@ -13,9 +13,9 @@ public interface PatientDao extends BaseDao<Long,Patient>{
 
     List<Patient> findByInsurance(Boolean insurance) throws DaoException;
 
-    List<Patient> findByMinimumMoneyAccount (BigDecimal moneyAccount) throws DaoException;
+    List<Patient> findByMoneyAccount (BigDecimal moneyAccount) throws DaoException;
 
-    List<Patient> findByMaxDiscount(Integer discount) throws DaoException;
+    List<Patient> findByDiscount(Integer discount) throws DaoException;
 
     Optional<Patient> findPatientByLogin(String login) throws DaoException;
 

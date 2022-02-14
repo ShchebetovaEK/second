@@ -120,7 +120,7 @@ public final class ConnectionPool {
                 DriverManager.deregisterDriver(driver);
             } catch (SQLException e) {
                 logger.error("There are some problems with deregister driver", e);
-                //todo error?
+
             }
         });
     }

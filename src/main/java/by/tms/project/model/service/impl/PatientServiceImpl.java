@@ -4,24 +4,28 @@ import by.tms.project.exception.DaoException;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.dao.PatientDao;
 import by.tms.project.model.dao.impl.PatientDaoImpl;
-import by.tms.project.model.entity.Doctor;
 import by.tms.project.model.entity.Patient;
 import by.tms.project.model.service.PatientService;
-import by.tms.project.model.validator.impl.DoctorValidatorImpl;
+import by.tms.project.model.validator.PatientValidator;
+import by.tms.project.model.validator.UserValidator;
 import by.tms.project.model.validator.impl.PatientValidatorImpl;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+import by.tms.project.model.validator.impl.UserValidatorImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
+import java.math.BigInteger;
+import java.util.*;
+
+import static by.tms.project.controller.command.RequestParameter.*;
 
 public class PatientServiceImpl implements PatientService {
     private static final Logger logger = LogManager.getLogger();
     private PatientDao patientDao = PatientDaoImpl.getInstance();
+    private PatientValidator patientValidator = PatientValidatorImpl.getInstance();
+    private UserValidator userValidator = UserValidatorImpl.getInstance();
     private static PatientServiceImpl instance;
+
 
     private PatientServiceImpl() {
     }
@@ -60,9 +64,11 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public Optional<Patient> findPatientByLogin(String login) throws ServiceException {
-        Optional<Patient> optionalPatient;
+        Optional<Patient> optionalPatient = Optional.empty();
         try {
-            optionalPatient = patientDao.findPatientByLogin(login);
+            if (userValidator.isLoginValid(login)) {
+                optionalPatient = patientDao.findPatientByLogin(login);
+            }
         } catch (DaoException e) {
             logger.error("Failed at PatientServiceImpl at method findPatientByLogin", e);
             throw new ServiceException("Failed at PatientServiceImpl at method findPatientByLogin", e);
@@ -90,10 +96,10 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public List<Patient> findByMinimumMoneyAccount(BigDecimal moneyAccount) throws ServiceException {
+    public List<Patient> findByMoneyAccount(BigDecimal moneyAccount) throws ServiceException {
         List<Patient> patientList;
         try {
-            patientList = patientDao.findByMinimumMoneyAccount(moneyAccount);
+            patientList = patientDao.findByMoneyAccount(moneyAccount);
         } catch (DaoException e) {
             logger.error("Failed at PatientServiceImpl at method findByMinimumMoneyAccount", e);
             throw new ServiceException("Failed at PatientServiceImpl at method findByMinimumMoneyAccount", e);
@@ -102,39 +108,71 @@ public class PatientServiceImpl implements PatientService {
     }
 
     /**
-     * find patient with max discount.
+     * find patient with discount.
      *
      * @param discount
      * @return patientList.
      * @throws ServiceException
      */
     @Override
-    public List<Patient> findByMaxDiscount(Integer discount) throws ServiceException {
-        List<Patient> patientList;
+    public List<Patient> findByDiscount(Integer discount) throws ServiceException {
+        List<Patient> patientList = new ArrayList<>();
         try {
-            patientList = patientDao.findByMaxDiscount(discount);
+            if (patientValidator.isDiscount(discount)) {
+                patientList = patientDao.findByDiscount(discount);
+            }
         } catch (DaoException e) {
-            logger.error("Failed at PatientServiceImpl at method findByMaxDiscount", e);
-            throw new ServiceException("Failed at PatientServiceImpl at method findByMaxDiscount", e);
+            logger.error("Failed at PatientServiceImpl at method findByDiscount", e);
+            throw new ServiceException("Failed at PatientServiceImpl at method findByDiscount", e);
         }
         return patientList;
     }
 
     @Override
-    public boolean toUpBalance(String login, BigDecimal sumForUp, HttpSession session) throws ServiceException {
-        // TODO: 17.01.2022
-        return false;
+    public boolean create(Map<String, String> userCheck) throws ServiceException {
+        boolean resultOne;
 
+//        Map<String, String> mapPatientCheck = new HashMap<>();
+//        String strInsurance = userCheck.get(INSURANCE);
+//        Boolean insurance = Boolean.valueOf(strInsurance);
+//        String strMoney = userCheck.get(MONEY_ACCOUNT);
+        // todo
+//        BigInteger moneyAccount = BigDecimal.valueOf(strMoney);
+
+//        String strDiscount = userCheck.get(DISCOUNT);
+
+//        Integer discount = Integer.valueOf(strDiscount);
+//
+//        mapPatientCheck.put(INSURANCE, String.valueOf(insurance));
+//        mapPatientCheck.put(MONEY_ACCOUNT, String.valueOf(moneyAccount));
+//        mapPatientCheck.put(DISCOUNT, String.valueOf(discount));
+//
+//        try {
+//            resultOne = PatientValidatorImpl.getInstance().checkUserPatientData(mapPatientCheck);
+//            if (resultOne) {
+//                Patient patient = new Patient(insurance,
+//                        moneyAccount,discount);
+//                patientDao.create(patient);
+//            }
+//
+//        } catch (DaoException e) {
+//            logger.error("Failed at PatientServiceImpl at method create", e);
+//            throw new ServiceException("Failed at PatientServiceImpl at method create", e);
+//        } catch (IllegalArgumentException e) {
+//            logger.error("IllegalArgumentException at PatientServiceImpl in create ", e);
+//            return false;
+//        }
+        return true;
     }
+
 
     @Override
     public boolean updateInsurance(long id, Boolean insurance) throws ServiceException {
         try {
-            return PatientValidatorImpl.getInstance().isInsuranceValid(insurance)
-                    && patientDao.updateInsurance(id, insurance);
+            return patientDao.updateInsurance(id, insurance);
         } catch (DaoException e) {
-            logger.error("Failed at PatientServiceImpl  at  updateInsurance", e);
-            throw new ServiceException("Failed at PatientServiceImpl at updateInsurance ", e);
+            logger.error("Failed at PatientServiceImpl  at method updateInsurance", e);
+            throw new ServiceException("Failed at PatientServiceImpl at method updateInsurance ", e);
         }
     }
 
@@ -144,8 +182,8 @@ public class PatientServiceImpl implements PatientService {
             return PatientValidatorImpl.getInstance().isDiscount(discount)
                     && patientDao.updateDiscount(id, discount);
         } catch (DaoException e) {
-            logger.error("Failed at PatientServiceImpl at updateDiscount ", e);
-            throw new ServiceException("Failed at PatientServiceImpl at  updateDiscount", e);
+            logger.error("Failed at PatientServiceImpl at method updateDiscount", e);
+            throw new ServiceException("Failed at PatientServiceImpl at method updateDiscount", e);
         }
     }
 
@@ -155,8 +193,8 @@ public class PatientServiceImpl implements PatientService {
             return PatientValidatorImpl.getInstance().isMoneyAccount(moneyAccount)
                     && patientDao.updateMoneyAccount(id, moneyAccount);
         } catch (DaoException e) {
-            logger.error("Failed at PatientServiceImpl at updateDiscount ", e);
-            throw new ServiceException("Failed at PatientServiceImpl at  updateDiscount", e);
+            logger.error("Failed at PatientServiceImpl at method updateDiscount", e);
+            throw new ServiceException("Failed at PatientServiceImpl at method updateDiscount", e);
         }
     }
 
@@ -165,17 +203,25 @@ public class PatientServiceImpl implements PatientService {
         try {
             return patientDao.deletePatient(id);
         } catch (DaoException e) {
-            logger.error("", e);
-            throw new ServiceException("", e);
+            logger.error("Failed at PatientServiceImpl at method deletePatient", e);
+            throw new ServiceException("Failed at PatientServiceImpl at  method deletePatient", e);
         }
     }
+
+    /**
+     * archiv Patient by id
+     *
+     * @param id
+     * @return the boolean
+     * @throws ServiceException
+     */
     @Override
     public boolean archivPatient(long id) throws ServiceException {
         try {
             return patientDao.archivPatient(id);
         } catch (DaoException e) {
-            logger.error("Failed at PatientServiceImpl", e);
-            throw new ServiceException("Failed at PatientServiceImpl", e);
+            logger.error("Failed at PatientServiceImpl at method archivPatient", e);
+            throw new ServiceException("Failed at PatientServiceImpl at method archivPatient", e);
         }
     }
 }

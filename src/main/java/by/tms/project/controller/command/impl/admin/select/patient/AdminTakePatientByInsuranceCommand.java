@@ -14,34 +14,36 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
 import static by.tms.project.controller.command.PagePath.SELECT_PATIENT_PAGE;
-import static by.tms.project.controller.command.RequestAttribute.PATIENT;
+import static by.tms.project.controller.command.RequestAttribute.PATIENT_REQ;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class AdminTakePatientByInsuranceCommand
  */
 public class AdminTakePatientByInsuranceCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private PatientService patientService = PatientServiceImpl.getInstance();
-
     /**
-     *
      * @param request the request
-     * @return  the router.
+     * @return the router.
      * @throws CommandException
      */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         String insurance = request.getParameter(RequestParameter.INSURANCE);
-
+        if (insurance.isEmpty()) {
+            router.setPage(FAIL_PAGE);
+            return router;
+        }
         try {
             List<Patient> userList = patientService.findByInsurance(Boolean.valueOf(insurance));
             request.setAttribute(USER_LIST, userList);
-            request.setAttribute(PATIENT, Boolean.TRUE);
+            request.setAttribute(PATIENT_REQ, Boolean.TRUE);
             router.setPage(SELECT_PATIENT_PAGE);
         } catch (ServiceException e) {
             logger.error("Failed at AdminTakePatientByInsuranceCommand ", e);

@@ -3,7 +3,7 @@ import java.util.Date;
 
 public class User extends Entity {
     private long id;
-    private Role role;
+    private AccessRole role;
     private String login;
     private String password;
     private String firstName;
@@ -17,7 +17,7 @@ public class User extends Entity {
     public User() {
     }
 
-    public User(Role role, String login, String password, String firstName,
+    public User(AccessRole role, String login, String password, String firstName,
                 String lastName, Date dataBirthday, String address, String phoneNumber, String email) {
         this.role = role;
         this.login = login;
@@ -30,7 +30,7 @@ public class User extends Entity {
         this.email = email;
     }
 
-    public User(Role role, String login, String password, String firstName, String lastName, Date dataBirthday,
+    public User(AccessRole role, String login, String password, String firstName, String lastName, Date dataBirthday,
                 String address, String phoneNumber, String email, Archiv archiv) {
         this.role = role;
         this.login = login;
@@ -44,7 +44,7 @@ public class User extends Entity {
         this.archiv = archiv;
     }
 
-    public User(long id, Role role, String login, String password, String firstName, String lastName,
+    public User(long id, AccessRole role, String login, String password, String firstName, String lastName,
                 Date dataBirthday, String address, String phoneNumber, String email, Archiv archiv) {
         this.id = id;
         this.role = role;
@@ -67,11 +67,11 @@ public class User extends Entity {
         this.id = id;
     }
 
-    public Role getRole() {
+    public AccessRole getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(AccessRole role) {
         this.role = role;
     }
 
@@ -212,7 +212,7 @@ public class User extends Entity {
             return this;
         }
 
-        public UserBuilder setRole(Role role) {
+        public UserBuilder setRole(AccessRole role) {
             user.setRole(role);
             return this;
         }

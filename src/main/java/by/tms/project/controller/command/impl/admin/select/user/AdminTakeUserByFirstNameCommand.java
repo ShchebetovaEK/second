@@ -14,12 +14,13 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
 import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class AdminTakeUserByFirstNameCommand
  */
 public class AdminTakeUserByFirstNameCommand implements Command {
@@ -27,7 +28,6 @@ public class AdminTakeUserByFirstNameCommand implements Command {
     private UserService userService = UserServiceImpl.getInstance();
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException
@@ -37,6 +37,10 @@ public class AdminTakeUserByFirstNameCommand implements Command {
         Router router = new Router();
         User user;
         String firstName = request.getParameter(RequestParameter.FIRST_NAME);
+        if (firstName.isEmpty()) {
+            router.setPage(FAIL_PAGE);
+            return router;
+        }
         try {
             List<User> userList = userService.findByFirstName(firstName);
             request.setAttribute(USER_LIST, userList);

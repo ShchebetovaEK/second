@@ -16,42 +16,47 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
 import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
 /**
  * @author ShchebetovaEk
- *
+ * <p>
  * class AdminTakeUserByIdCommand
  */
 public class AdminTakeUserByIdCommand implements Command {
-        private static final Logger logger = LogManager.getLogger();
-        private UserService userService = UserServiceImpl.getInstance();
+    private static final Logger logger = LogManager.getLogger();
+    private UserService userService = UserServiceImpl.getInstance();
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException
      */
-        @Override
-        public Router execute(HttpServletRequest request) throws CommandException {
-            Router router = new Router();
-            User user;
-            Long id = Long.valueOf(request.getParameter(RequestParameter.ID));
-            try {
-                Optional<User> optionalUser = userService.findUserById(id);
-                if (optionalUser.isPresent()) {
-                    user = optionalUser.get();
-                    List<User> userList = new ArrayList<>();
-                    userList.add(user);
-                    request.setAttribute(USER_LIST, userList);
-                    router.setPage(USER_MANAGER_PAGE);
-                }
-            } catch (ServiceException e) {
-                logger.error("Failed at AdminTakeUserByLoginCommand",e);
-                throw new CommandException("Failed at AdminTakeUserByLoginCommand", e);
-            }
+    @Override
+    public Router execute(HttpServletRequest request) throws CommandException {
+        Router router = new Router();
+        User user;
+        String strId= request.getParameter(RequestParameter.ID);
+        if (strId.isEmpty()) {
+            router.setPage(FAIL_PAGE);
             return router;
         }
+        Long id = Long.valueOf(strId);
+        try {
+            Optional<User> optionalUser = userService.findUserById(id);
+            if (optionalUser.isPresent()) {
+                user = optionalUser.get();
+                List<User> userList = new ArrayList<>();
+                userList.add(user);
+                request.setAttribute(USER_LIST, userList);
+                router.setPage(USER_MANAGER_PAGE);
+            }
+        } catch (ServiceException e) {
+            logger.error("Failed at AdminTakeUserByLoginCommand", e);
+            throw new CommandException("Failed at AdminTakeUserByLoginCommand", e);
+        }
+        return router;
     }
+}

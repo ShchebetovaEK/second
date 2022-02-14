@@ -1,7 +1,7 @@
 package by.tms.project.model.entity;
 
 public enum Experience {
-    ONE_YEAR,
+    ONE_YEARS,
     TWO_YEARS,
     THREE_YEARS,
     FOUR_YEARS,
