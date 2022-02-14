@@ -1,6 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../../imports.jspf" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<fmt:message key="patientviewdoc.title" var="title"/>
+<fmt:message key="patientviewdoc.message" var="message"/>
+<fmt:message key="patientviewdoc.back" var="back"/>
+<fmt:message key="patientviewdoc.id" var="id"/>
+<fmt:message key="patientviewdoc.firstName" var="firstName"/>
+<fmt:message key="patientviewdoc.lastName" var="lastName"/>
+<fmt:message key="patientviewdoc.category" var="icategoryd"/>
+<fmt:message key="patientviewdoc.experience" var="experience"/>
+<fmt:message key="patientviewdoc.speciality" var="speciality"/>
 <html>
 <header>
     <%@include file="../header/header.jsp" %>
@@ -18,25 +27,19 @@
 <body>
 <div class="text-center">
     <form action="${abs}/controller" method="get">
-        <label class="form-label">view all doctor's </label>
+        <label class="form-label">${message} </label>
         <input type="hidden" name="command" value="patient_view_all_doctor_command">
         <input type="submit"  >
     </form>
 
     <table class="table text-danger">
         <tr>
-            <th scope="col">id</th>
-            <th scope="col">role</th>
-            <th scope="col">login</th>
-            <th scope="col">first name</th>
-            <th scope="col">last name</th>
-            <th scope="col">address</th>
-            <th scope="col">email</th>
-            <th scope="col">phone number</th>
-            <th scope="col">data birthday</th>
-            <th scope="col">category</th>
-            <th scope="col">experience</th>
-            <th scope="col"> speciality</th>
+            <th scope="col">${id}</th>
+            <th scope="col">${firstName}</th>
+            <th scope="col">${lastName} </th>
+            <th scope="col">${category}</th>
+            <th scope="col">${experience}</th>
+            <th scope="col">${speciality} </th>
 
         </tr>
 
@@ -44,14 +47,9 @@
 
             <tr>
                 <td>${user.id}</td>
-                <td>${user.role}</td>
-                <td>${user.login}</td>
                 <td>${user.firstName}</td>
                 <td>${user.lastName}</td>
-                <td>${user.address}</td>
-                <td>${user.email}</td>
-                <td>${user.phoneNumber}</td>
-                <td>${user.dataBirthday}</td>
+
                 <c:if test="${doctor_req}">
                     <td> ${user.category}</td>
                     <td> ${user.experience}</td>
@@ -62,8 +60,8 @@
         </c:forEach>
 
     </table>
-    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/patient/chooseDoctor.jsp"
-       role="button">Back to choose doctor page</a>
+    <a class="btn btn-success text-center" href="${pageContext.request.contextPath}/jsp/patient/chooseDoctor.jsp"
+       role="button">${back}</a>
 
 </div>
 <footer><div class="text-center"> <ctg:footer/> </div></footer>
