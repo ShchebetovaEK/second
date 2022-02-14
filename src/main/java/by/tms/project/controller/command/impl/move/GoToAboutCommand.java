@@ -9,13 +9,12 @@ import static by.tms.project.controller.command.PagePath.ABOUT_PAGE;
 
 /**
  * @author ShchebetovaEK
- *
- *  class GoToAboutCommand
+ * <p>
+ * class GoToAboutCommand
  */
 public class GoToAboutCommand implements Command {
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException

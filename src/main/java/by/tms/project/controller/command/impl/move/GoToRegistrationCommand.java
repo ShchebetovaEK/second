@@ -9,13 +9,12 @@ import static by.tms.project.controller.command.PagePath.REGISTRATION_PAGE;
 
 /**
  * @author ShchebetovaEK
- *
- *  class GoToRegistrationCommand
+ * <p>
+ * class GoToRegistrationCommand
  */
 public class GoToRegistrationCommand implements Command {
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException

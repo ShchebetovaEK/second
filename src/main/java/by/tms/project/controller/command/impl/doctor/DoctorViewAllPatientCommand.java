@@ -4,11 +4,8 @@ import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
 import by.tms.project.exception.ServiceException;
-import by.tms.project.model.entity.Doctor;
 import by.tms.project.model.entity.Patient;
-import by.tms.project.model.service.DoctorService;
 import by.tms.project.model.service.PatientService;
-import by.tms.project.model.service.impl.DoctorServiceImpl;
 import by.tms.project.model.service.impl.PatientServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
@@ -16,13 +13,13 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-import static by.tms.project.controller.command.PagePath.VIEW_ALL_DOCTOR;
 import static by.tms.project.controller.command.PagePath.VIEW_ALL_PATIENT_PAGE;
-import static by.tms.project.controller.command.RequestAttribute.*;
+import static by.tms.project.controller.command.RequestAttribute.PATIENT_REQ;
+import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class DoctorViewAllPatientCommand
  */
 public class DoctorViewAllPatientCommand implements Command {

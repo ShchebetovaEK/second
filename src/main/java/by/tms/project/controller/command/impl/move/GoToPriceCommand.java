@@ -9,13 +9,12 @@ import static by.tms.project.controller.command.PagePath.PRICE_PAGE;
 
 /**
  * @author ShchebetovaEK
- *
- *  class GoToPriceCommand
+ * <p>
+ * class GoToPriceCommand
  */
 public class GoToPriceCommand implements Command {
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException

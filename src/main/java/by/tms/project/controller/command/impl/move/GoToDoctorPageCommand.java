@@ -9,7 +9,7 @@ import static by.tms.project.controller.command.PagePath.DOCTOR_PAGE;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class GoToDoctorPageCommand
  */
 public class GoToDoctorPageCommand implements Command {

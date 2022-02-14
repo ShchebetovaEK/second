@@ -9,7 +9,7 @@ import static by.tms.project.controller.command.PagePath.CHOOSE_DOCTOR;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class GoToChooseCommand
  */
 public class GoToChooseCommand implements Command {

@@ -9,13 +9,12 @@ import static by.tms.project.controller.command.PagePath.WELCOME_PAGE;
 
 /**
  * @author ShchebetovaEK
- *
- *  class GoToWelcomeCommand.
+ * <p>
+ * class GoToWelcomeCommand.
  */
 public class GoToWelcomeCommand implements Command {
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException

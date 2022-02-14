@@ -9,13 +9,12 @@ import static by.tms.project.controller.command.PagePath.PEDIATRIC_PAGE;
 
 /**
  * @author ShchebetovaEK
- *
- *  class GoToPediatricCommand
+ * <p>
+ * class GoToPediatricCommand
  */
 public class GoToPediatricCommand implements Command {
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException

@@ -9,7 +9,7 @@ import static by.tms.project.controller.command.PagePath.ADMIN_PAGE;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class GoToAdminPageCommand
  */
 public class GoToAdminPageCommand implements Command {

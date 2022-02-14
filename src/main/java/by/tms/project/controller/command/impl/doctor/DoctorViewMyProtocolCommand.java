@@ -15,18 +15,18 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-import static by.tms.project.controller.command.PagePath.VIEW_MY_PROTOCOL;
 import static by.tms.project.controller.command.PagePath.VIEW_PROTOCOL_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.*;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class DoctorViewMyProtocolCommand
  */
 public class DoctorViewMyProtocolCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
+
     /**
      * @param request the request
      * @return the router.
