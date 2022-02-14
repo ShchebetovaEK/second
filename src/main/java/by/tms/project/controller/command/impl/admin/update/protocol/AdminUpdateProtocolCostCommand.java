@@ -10,7 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static by.tms.project.controller.command.PagePath.*;
+import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
+import static by.tms.project.controller.command.PagePath.SUCCESS_PAGE;
 import static by.tms.project.controller.command.RequestParameter.PROTOCOL_COST;
 import static by.tms.project.controller.command.RequestParameter.PROTOCOL_ID;
 

@@ -5,11 +5,8 @@ import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.Patient;
-import by.tms.project.model.entity.User;
 import by.tms.project.model.service.PatientService;
-import by.tms.project.model.service.UserService;
 import by.tms.project.model.service.impl.PatientServiceImpl;
-import by.tms.project.model.service.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
@@ -18,8 +15,8 @@ import org.apache.logging.log4j.Logger;
 import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
 import static by.tms.project.controller.command.PagePath.SUCCESS_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.SESSION_PATIENT;
-import static by.tms.project.controller.command.RequestAttribute.SESSION_USER;
-import static by.tms.project.controller.command.RequestParameter.*;
+import static by.tms.project.controller.command.RequestParameter.INSURANCE;
+import static by.tms.project.controller.command.RequestParameter.USERS_ID;
 
 /**
  * @author ShchebetovaEK
@@ -53,8 +50,7 @@ public class UpdatePatientInsuranceCommand implements Command {
             if (insurance != null) {
                 patientService.updateInsurance(id, insurance);
                 router.setPage(SUCCESS_PAGE);
-            }
-            else {
+            } else {
                 router.setPage(FAIL_PAGE);
             }
 

@@ -15,12 +15,12 @@ import org.apache.logging.log4j.Logger;
 import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
 import static by.tms.project.controller.command.PagePath.SUCCESS_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.SESSION_PATIENT;
-import static by.tms.project.controller.command.RequestAttribute.SESSION_USER;
-import static by.tms.project.controller.command.RequestParameter.*;
+import static by.tms.project.controller.command.RequestParameter.DISCOUNT;
+import static by.tms.project.controller.command.RequestParameter.USERS_ID;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class UpdatePatientDiscountCommand
  */
 public class UpdatePatientDiscountCommand implements Command {
@@ -47,11 +47,10 @@ public class UpdatePatientDiscountCommand implements Command {
         HttpSession session = request.getSession();
         Patient patient = (Patient) session.getAttribute(SESSION_PATIENT);
         try {
-            if(discount != null){
+            if (discount != null) {
                 patientService.updateDiscount(id, discount);
                 router.setPage(SUCCESS_PAGE);
-            }
-            else {
+            } else {
                 router.setPage(FAIL_PAGE);
             }
 

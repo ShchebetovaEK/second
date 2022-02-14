@@ -48,12 +48,10 @@ public class AdminUpdateProtocolStatusCommand implements Command {
             } else {
                 router.setPage(FAIL_PAGE);
             }
-
         } catch (ServiceException e) {
             logger.error("Failed at AdminUpdateProtocolStatusCommand ", e);
             throw new CommandException("Failed at AdminUpdateProtocolStatusCommand", e);
         }
-
         return router;
     }
 }

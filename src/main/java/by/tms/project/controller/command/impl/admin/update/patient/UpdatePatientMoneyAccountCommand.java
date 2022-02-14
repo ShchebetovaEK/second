@@ -17,8 +17,8 @@ import java.math.BigDecimal;
 import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
 import static by.tms.project.controller.command.PagePath.SUCCESS_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.SESSION_PATIENT;
-import static by.tms.project.controller.command.RequestAttribute.SESSION_USER;
-import static by.tms.project.controller.command.RequestParameter.*;
+import static by.tms.project.controller.command.RequestParameter.MONEY_ACCOUNT;
+import static by.tms.project.controller.command.RequestParameter.USERS_ID;
 
 /**
  * @author ShchebetovaEK
