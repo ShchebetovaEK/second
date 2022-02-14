@@ -7,19 +7,19 @@ import java.util.concurrent.Executor;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class ProxyConnection
  */
-class ProxyConnection  implements Connection{
+class ProxyConnection implements Connection {
     private Connection connection;
 
-    ProxyConnection(Connection connection){
-        this.connection=connection;
+    ProxyConnection(Connection connection) {
+        this.connection = connection;
     }
 
     @Override
     public void close() throws SQLException {
-        if(! this.getAutoCommit()){
+        if (!this.getAutoCommit()) {
             this.setAutoCommit(true);
         }
         ConnectionPool connectionPool = ConnectionPool.getInstance();
