@@ -16,7 +16,7 @@ import java.util.Properties;
 public class Mail {
     private static final Logger logger = LogManager.getLogger();
     private static final String MAIL_PROP_PATH = "mail.properties";
-    private static final String SUBJECT = "Verification";
+    private static final String SUBJECT = "registration";
     private static final Properties properties = PropertyLoader.getProperty(MAIL_PROP_PATH);
     private MimeMessage mimeMessage;
 
@@ -36,7 +36,7 @@ public class Mail {
         mimeMessage = new MimeMessage(session);
         try {
             mimeMessage.setSubject(SUBJECT);
-            mimeMessage.setContent("Click on <a href='http://localhost:8080/second_war_exploded/controller?command=verification&userId=" + id + "'>verification</a> to verify your account","text/html");
+            mimeMessage.setContent("registration success","text/html");
             mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
         } catch (MessagingException e) {
             logger.error(e);
