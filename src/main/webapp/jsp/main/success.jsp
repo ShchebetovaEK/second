@@ -1,5 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../../imports.jspf" %>
+<fmt:message key="success.title" var="title"/>
+<fmt:message key="success.message" var="message"/>
+<fmt:message key="success.back" var="back"/>
+
+
 <html>
 <header>
     <%@include file="../header/header.jsp" %>
@@ -20,10 +25,10 @@
     <div class="mb-3">
         <form method="POST" action="${abs}/controller">
             <h2 class="text-center text-black">
-                OPERATION WAS SUCCESSFUL</h2>
+                ${message}</h2>
             <br/>
             <a class="btn btn-warning" href="${pageContext.request.contextPath}/jsp/move/main.jsp"
-               role="button">Back to main</a>
+               role="button">${back}</a>
         </form>
     </div>
 </div>

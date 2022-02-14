@@ -1,8 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../../imports.jspf" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<fmt:message key="updateprotocol.title" var="title" />
+<fmt:message key="updateprotocol.message1" var="message1" />
+<fmt:message key="updateprotocol.message2" var="message2" />
+<fmt:message key="updateprotocol.message3" var="message3" />
+<fmt:message key="updateprotocol.message4" var="message4" />
+<fmt:message key="updateprotocol.back1" var="back1" />
 <html>
-<header>
+<header id="header">
     <%@include file="../header/header.jsp" %>
 </header>
 <head>
@@ -19,20 +25,20 @@
 <div class="text-center">
     <form action="${abs}/controller" method="get">
         <input type="hidden" name="command" value="admin_update_protocol_cost_command">
-        <label class="form-label">  please, input protocol_cost:</label>
-        <input type="text" name="protocol_cost">
-        <label class="form-label"> please, input protocol's id:</label>
-        <input type="text" name="protocol_id">
+        <label class="form-label">  ${message2}</label>
+        <input type="text"  required  pattern="([0-9]{1,10})"name="protocol_cost">
+        <label class="form-label"> ${message1}</label>
+        <input type="text" required pattern="([0-9]{1,10})"name="protocol_id">
         <input type="submit">
         <br/>
     </form>
 
     <form action="${abs}/controller" method="get">
         <input type="hidden" name="command" value="admin_update_protocol_status_command">
-        <label class="form-label"> please, input protocol's id:</label>
-        <input type="text" name="protocol_id">
-        <label class="form-label">  please, input protocol status:</label>
-        <input type="text" name="status">
+        <label class="form-label"> ${message1}</label>
+        <input type="text"  required pattern="([0-9]{1,10})"  name="protocol_id">
+        <label class="form-label"> ${message3}</label>
+        <input type="text" required  pattern="(?i)(paid)|(duty)" name="status">
         <input type="submit">
         <br/>
     </form>
@@ -41,20 +47,20 @@
 
     <form action="${abs}/controller" method="get">
         <input type="hidden" name="command" value="admin_update_protocol_application_command">
-        <label class="form-label"> please, input protocol's id:</label>
-        <input type="text" name="protocol_id">
-        <label class="form-label">  please, input protocol application:</label>
-        <input type="text" name="application">
+        <label class="form-label"> ${message1}</label>
+        <input type="text"  required pattern="([0-9]{1,10})" name="protocol_id">
+        <label class="form-label">  ${message4}</label>
+        <input type="text" required  pattern="(?i)(approved)|(active)" name="application">
         <input type="submit">
         <br/>
     </form>
-
-
-
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/update.jsp"
+       role="button">${back1}</a>
 
     <br/>
     </form>
 </div>
+<a href="#header" class="btn-lg btn-danger">UP</a>
 <footer><div class="text-center"> <ctg:footer/> </div></footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>

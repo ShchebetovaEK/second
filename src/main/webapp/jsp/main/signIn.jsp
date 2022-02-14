@@ -1,5 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../../imports.jspf" %>
+<fmt:message key="sign.title" var="title"/>
+<fmt:message key="sign.login" var="login"/>
+<fmt:message key="sign.password" var="password"/>
+<fmt:message key="sign.registration" var="registration"/>
+<fmt:message key="sign.greeting" var="greeting"/>
+
 <html>
 <header>
     <%@include file="../header/headerLogIn.jsp" %>
@@ -12,26 +18,36 @@
           type="image/x-icon">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/fontello.css">
-    <title>SIGN IN</title>
+
+    <title>${title}</title>
 </head>
 <body>
+
 <br/>
 <div class="text-center">
     <div class="text-center ">
         <form method="POST" action="${abs}/controller">
-            <h2 class="text-center"> Hello , User! Please, LogIn or registrate!</h2>
+            <h2 class="text-center"> ${greeting}</h2>
             <br/>
             <input type="hidden" name="command" value="log_in_command">
-            <label class="form-label"> Login </label>
-            <input type="text" name="login" placeholder="login" pattern="(\w)[\w_-]{1,18}(\w)">
-            <br/>
-            <label class="form-label"> Password </label>
-            <input name="password" type="password" placeholder="password" pattern="(.{4,40})">
-            <br/>
-            <p><input type="submit"></p>
+            <div class="row align-items-center">
+                <div class="col">
+                    <label class="form-label"> ${login} </label>
+                    <input type="text" name="login" placeholder="login" required pattern="(\w)[\w_-]{1,18}(\w)">
+                </div>
+                <div class="col">
+                    <label class="form-label"> ${password} </label>
+                    <input name="password" type="password" placeholder="password" required pattern="(.{4,40})">
+                    <br/>
+                </div>
+                <div class="col">
+                    <p><input type="submit"></p>
+                </div>
+                <br/>
+            </div>
             <br/>
             <a class="btn btn-primary" href="${pageContext.request.contextPath}/jsp/main/registration.jsp"
-               role="button">Registration</a>
+               role="button">${registration}</a>
         </form>
     </div>
 </div>
