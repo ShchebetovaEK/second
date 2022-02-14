@@ -20,7 +20,7 @@ import static by.tms.project.controller.command.RequestAttribute.*;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class PatientViewMyProtocolCommand
  */
 public class PatientViewMyProtocolCommand implements Command {
@@ -29,7 +29,7 @@ public class PatientViewMyProtocolCommand implements Command {
 
     /**
      * @param request the request
-     * @return  the router.
+     * @return the router.
      * @throws CommandException
      */
     @Override
@@ -41,7 +41,7 @@ public class PatientViewMyProtocolCommand implements Command {
         try {
             List<Protocol> protocolList = protocolService.findByPatient(patientId);
             request.setAttribute(PROTOCOL_LIST, protocolList);
-            request.setAttribute(PROTOCOL,Boolean.TRUE);
+            request.setAttribute(PROTOCOL, Boolean.TRUE);
             router.setPage(VIEW_MY_PROTOCOL);
         } catch (ServiceException e) {
             logger.error("Failed at PatientViewMyProtocolCommand");

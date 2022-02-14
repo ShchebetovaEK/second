@@ -19,6 +19,6 @@ public interface Command {
      * @throws CommandException the command exception
      */
 
-    Router execute (HttpServletRequest request) throws CommandException;
+    Router execute(HttpServletRequest request) throws CommandException;
 }
 

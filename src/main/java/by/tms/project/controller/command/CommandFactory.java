@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class CommandFactory
  */
 public class CommandFactory {

@@ -5,7 +5,8 @@ import by.tms.project.controller.command.RequestParameter;
 import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
 import by.tms.project.exception.ServiceException;
-import by.tms.project.model.entity.*;
+import by.tms.project.model.entity.Doctor;
+import by.tms.project.model.entity.Speciality;
 import by.tms.project.model.service.DoctorService;
 import by.tms.project.model.service.PatientService;
 import by.tms.project.model.service.ProtocolService;
@@ -13,24 +14,18 @@ import by.tms.project.model.service.impl.DoctorServiceImpl;
 import by.tms.project.model.service.impl.PatientServiceImpl;
 import by.tms.project.model.service.impl.ProtocolServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static by.tms.project.controller.command.PagePath.CHOOSE_DOCTOR;
-import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
-import static by.tms.project.controller.command.RequestAttribute.*;
-import static by.tms.project.controller.command.RequestParameter.*;
-import static by.tms.project.controller.command.RequestParameter.PROTOCOL_PATIENTS_USERS_ID;
-import static by.tms.project.controller.command.SessionAttribute.*;
+import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
+import static by.tms.project.controller.command.SessionAttribute.DOCTOR;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class PatientChooseDoctorCommand
  */
 public class PatientChooseDoctorCommand implements Command {
@@ -38,20 +33,21 @@ public class PatientChooseDoctorCommand implements Command {
     private PatientService patientService = PatientServiceImpl.getInstance();
     private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
     private DoctorService doctorService = DoctorServiceImpl.getInstance();
+
     /**
      * @param request the request
-     * @return  the router.
+     * @return the router.
      * @throws CommandException
      */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         String strSpeciality = request.getParameter(RequestParameter.SPECIALITY);
-        if (strSpeciality == null){
+        if (strSpeciality == null) {
             throw new CommandException("Failed at PatientChooseDoctorCommand ");
         }
-         try {
-             String speciality = strSpeciality.toUpperCase();
+        try {
+            String speciality = strSpeciality.toUpperCase();
             List<Doctor> chooseDoctor = doctorService.findDoctorBySpeciality(Speciality.valueOf(speciality));
             request.setAttribute(USER_LIST, chooseDoctor);
             request.setAttribute(DOCTOR, Boolean.TRUE);

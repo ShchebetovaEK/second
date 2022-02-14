@@ -37,7 +37,7 @@ public final class RequestParameter {
     public static final String PROTOCOL_ID_SUM = "forestmed.capabilities.protocols_protocol_id";
 
     public static final String TRUE = "true";
-    public static final String FALSE= "false";
+    public static final String FALSE = "false";
 
     public static final String INVALID_LOGIN = "invalidLogin";
     public static final String INVALID_PASSWORD = "invalidPassword";

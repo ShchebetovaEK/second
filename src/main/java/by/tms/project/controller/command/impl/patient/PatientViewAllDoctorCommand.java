@@ -19,7 +19,7 @@ import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class PatientViewAllDoctorCommand
  */
 public class PatientViewAllDoctorCommand implements Command {
