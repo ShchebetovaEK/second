@@ -16,7 +16,6 @@ import org.apache.logging.log4j.Logger;
 import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
 import static by.tms.project.controller.command.PagePath.SUCCESS_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.SESSION_DOCTOR;
-import static by.tms.project.controller.command.RequestAttribute.SESSION_USER;
 import static by.tms.project.controller.command.RequestParameter.CATEGORY;
 import static by.tms.project.controller.command.RequestParameter.USERS_ID;
 
