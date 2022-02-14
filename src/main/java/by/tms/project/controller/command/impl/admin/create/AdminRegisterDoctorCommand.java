@@ -15,9 +15,9 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.tms.project.controller.command.PagePath.*;
+import static by.tms.project.controller.command.PagePath.ADMIN_PAGE;
+import static by.tms.project.controller.command.PagePath.REGISTRATION_PAGE;
 import static by.tms.project.controller.command.RequestParameter.*;
-import static by.tms.project.controller.command.RequestParameter.EMAIL;
 
 /**
  * @author ShchebetovaEK

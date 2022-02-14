@@ -4,10 +4,8 @@ import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
 import by.tms.project.exception.ServiceException;
-import by.tms.project.model.service.DoctorService;
 import by.tms.project.model.service.PatientService;
 import by.tms.project.model.service.UserService;
-import by.tms.project.model.service.impl.DoctorServiceImpl;
 import by.tms.project.model.service.impl.PatientServiceImpl;
 import by.tms.project.model.service.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +18,6 @@ import java.util.Map;
 import static by.tms.project.controller.command.PagePath.ADMIN_PAGE;
 import static by.tms.project.controller.command.PagePath.REGISTRATION_PAGE;
 import static by.tms.project.controller.command.RequestParameter.*;
-import static by.tms.project.controller.command.RequestParameter.SPECIALITY;
 
 public class AdminRegisterPatientCommand implements Command {
 
