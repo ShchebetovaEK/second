@@ -1,10 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@include file="../../imports.jspf" %>
 <fmt:message key="registration.title" var="registration_title"/>
-<fmt:message key="registration.sign_up_1" var="sign_up"/>
+<fmt:message key="registration.greeting" var="greeting"/>
 <fmt:message key="registration.login" var="login"/>
 <fmt:message key="registration.password" var="psw"/>
-<%--<fmt:message key="registration.confirm_password" var="confirm_psw"/>--%>
 <fmt:message key="registration.first_name" var="first_name"/>
 <fmt:message key="registration.last_name" var="last_name"/>
 <fmt:message key="registration.address" var="address"/>
@@ -19,13 +18,8 @@
 <fmt:message key="registration.invalid_databirthday" var="invalid_databirthday_message"/>
 <fmt:message key="registration.invalid_email" var="invalid_email_message"/>
 <fmt:message key="registration.invalid_phone_number" var="invalid_phone_number_message"/>
-<fmt:message key="registration.not_unique_login" var="not_unique_login_message"/>
-<fmt:message key="registration.password_mismatch" var="psw_mismatch_message"/>
-<fmt:message key="registration.not_unique_email" var="not_unique_email_message"/>
-<fmt:message key="registration.not_unique_mobile_number" var="not_unique_mobile_number_message"/>
-
 <html>
-<header>
+<header id="header">
     <%@include file="../header/header.jsp" %>
 </header>
 <head>
@@ -39,30 +33,25 @@
     <title>${title}</title>
 </head>
 <body>
-<h1>registration</h1>
+<h1 class="text-center">${greeting}</h1>
 <div class="text-center">
     <div class="container-fluid" id="container-fluid">
         <form action="${abs}/controller" method="post">
             <input type="hidden" name="command" value="registration_command">
 
-            Login: <input type="text" id="login" class="form-control" name="login" pattern="(\w)[\w_-]{1,18}(\w)" value="${valid_login}">
+            Login: <input type="text" id="login" class="form-control" required name="login"  pattern="(\w)[\w_-]{1,18}(\w)" value="${valid_login}">
             <c:choose>
                 <c:when test="${invalid_login eq 'invalid_message'}">
                     <div id="message1"><b>${invalid_login_message}</b></div>
                 </c:when>
             </c:choose>
             <br/><br/>
-            Password: <input type="password" id="password" class="form-control" name="password" pattern="(.{4,40})">
+            Password: <input type="password" id="password" class="form-control"  required name="password" pattern="(.{4,40})">
             <c:if test="${invalid_passport eq 'invalid_message'}">
                 <div id="message2"><b>${invalid_psw_message}</b></div>
             </c:if>
             <br/><br/>
-            <%--        Confirm password: <input type="password" id="confirm-password" class="form-control" name="confirm_password">--%>
-            <%--        <c:if test="${invalid_passport eq 'password_mismatch'}">--%>
-            <%--            <div id="message2"><b>${psw_mismatch_message}</b></div>--%>
-            <%--        </c:if>--%>
-            <br/><br/>
-            First name: <input type="first_name" id="first_name" class="form-control" name="first_name"
+            First name: <input type="first_name" id="first_name" class="form-control" required name="first_name"
                                pattern="([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})">
             <c:choose>
                 <c:when test="${invalid_first_name eq 'invalid_message'}">
@@ -70,7 +59,7 @@
                 </c:when>
             </c:choose>
             <br/><br/>
-            Last name: <input type="last_name" id="last_name" class="form-control" name="last_name"
+            Last name: <input type="last_name" id="last_name" class="form-control"  required name="last_name"
         pattern="([А-Я]{1}[а-яё]{1,30}|[A-Z]{1}[a-z]{1,30})">
             <c:choose>
                 <c:when test="${invalid_last_name eq 'invalid_message'}">
@@ -78,7 +67,7 @@
                 </c:when>
             </c:choose>
             <br/><br/>
-            Data birthday: <input type="date" id="data_birthday" class="form-control" name="data_birthday"
+            Data birthday: <input type="date" id="data_birthday" class="form-control" required name="data_birthday"
         pattern="\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])">
             <c:choose>
                 <c:when test="${invalid_databirthday eq 'invalid_message'}">
@@ -86,7 +75,7 @@
                 </c:when>
             </c:choose>
             <br/><br/>
-            Address: <input type="address" id="address" class="form-control" name="address"
+            Address: <input type="address" id="address" class="form-control"  required name="address"
         pattern="([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})(\s)(\d{1,3})\-(\d{1,3})">
             <c:choose>
                 <c:when test="${invalid_address eq 'invalid_message'}">
@@ -94,7 +83,7 @@
                 </c:when>
             </c:choose>
             <br/><br/>
-            Phone number: <input type="phone_number" id="phone_number" class="form-control" name="phone_number"
+            Phone number: <input type="phone_number" id="phone_number" class="form-control" required name="phone_number"
         pattern="((\+375|80)(25|29|33|44)\d{7})">
             <c:choose>
                 <c:when test="${invalid_phone_number eq 'invalid_message'}">
@@ -102,7 +91,7 @@
                 </c:when>
             </c:choose>
             <br/><br/>
-            Email: <input type="email" id="email-address" class="form-control" name="email"  pattern="((\w|[-+])+(\.(\w|[-+])*)*@[a-z]+\.[a-z]+)" >
+            Email: <input type="email" id="email-address" class="form-control" name="email" required pattern="((\w|[-+])+(\.(\w|[-+])*)*@[a-z]+\.[a-z]+)" >
 
             <c:choose>
                 <c:when test="${invalid_email eq 'invalid_message'}">
@@ -114,7 +103,7 @@
         </form>
     </div>
 </div>
-
+<a href="#header" class="btn-lg btn-danger">UP</a>
 <footer><div class="text-center"> <ctg:footer/> </div></footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>

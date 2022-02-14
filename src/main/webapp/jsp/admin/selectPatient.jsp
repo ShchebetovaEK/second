@@ -1,8 +1,30 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../../imports.jspf" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<fmt:message key="selectpatient.title" var="title" />
+<fmt:message key="selectpatient.message1" var="message1" />
+<fmt:message key="selectpatient.message2" var="message2" />
+<fmt:message key="selectpatient.message3" var="message3" />
+<fmt:message key="selectpatient.message4" var="message4" />
+<fmt:message key="selectpatient.back1" var="back1" />
+<fmt:message key="selectpatient.back2" var="back2" />
+<fmt:message key="selectpatient.back3" var="back3" />
+<fmt:message key="selectpatient.back4" var="back4" />
+<fmt:message key="selectpatient.id" var="id"/>
+<fmt:message key="selectpatient.role" var="role"/>
+<fmt:message key="selectpatient.login" var="login"/>
+<fmt:message key="selectpatient.firstName" var="firstName"/>
+<fmt:message key="selectpatient.lastName" var="lastName"/>
+<fmt:message key="selectpatient.address" var="address"/>
+<fmt:message key="selectpatient.email" var="email"/>
+<fmt:message key="selectpatient.phoneNumber" var="phoneNumber"/>
+<fmt:message key="selectpatient.databirthday" var="dataBirthday"/>
+<fmt:message key="selectpatient.archiv" var="archiv"/>
+<fmt:message key="selectpatient.discount" var="discount"/>
+<fmt:message key="selectpatient.insurance" var="insurance"/>
+<fmt:message key="selectpatient.moneyAccount" var="moneyAccount"/>
 <html>
-<header>
+<header id="header">
     <%@include file="../header/header.jsp" %>
 </header>
 <head>
@@ -17,42 +39,46 @@
 </head>
 <div class="text-center">
 <form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_take_all_patients_command">
+    <label class="form-label">${message1}</label>
+    <input type="hidden" name="command" required value="admin_take_all_patients_command">
     <input type="submit"  >
 </form>
 <br/>
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_take_all_patients_by_insurance_command">
-    please, input desired insurance: <input type="text" name="insurance" value="1" >
+   <label>${message2}</label>  <input type="text" name="insurance" required pattern="(?i)(true|false)" >
     <input type="submit" >
 </form>
 <br/>
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_take_all_patients_by_discount_command">
-    please, input desired discount: <input type="text" name="discount" value="5">
+    <label>${message3}</label>
+    <input type="text" name="discount" value="5" required pattern="[0-9]{1,2}" >
     <input type="submit" >
 </form>
 <br/>
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_take_all_patients_by_login_command">
-    please, input desired login: <input type="text" name="login" >
+    <label>${message4}</label>
+    <input type="text" name="login" required pattern="(\w)[\w_-]{1,18}(\w)">
     <input type="submit" >
 </form>
 <br/>
 <table class="table text-primary">
     <tr>
-        <th scope="col">id</th>
-        <th scope="col">role</th>
-        <th scope="col">login</th>
-        <th scope="col">first name</th>
-        <th scope="col">last name</th>
-        <th scope="col">address</th>
-        <th scope="col">email</th>
-        <th scope="col">phone number</th>
-        <th scope="col">data birthday</th>
-        <th scope="col">insurance</th>
-        <th scope="col">money account</th>
-        <th scope="col">discount</th>
+        <th scope="col">${id}</th>
+        <th scope="col">${role}</th>
+        <th scope="col">${login}</th>
+        <th scope="col">${firstName} </th>
+        <th scope="col">${lastName} </th>
+        <th scope="col">${address}</th>
+        <th scope="col">${email}</th>
+        <th scope="col">${phoneNumber}</th>
+        <th scope="col">${dataBirthday}</th>
+        <th scope="col">${archiv}</th>
+        <th scope="col">${insurance}</th>
+        <th scope="col">${moneyAccount}</th>
+        <th scope="col">${discount}</th>
 
     </tr>
 
@@ -68,6 +94,8 @@
             <td>${user.email}</td>
             <td>${user.phoneNumber}</td>
             <td>${user.dataBirthday}</td>
+            <td>${user.archiv}</td>
+
 
             <c:if test="${patient_req}">
                 <td> ${user.insurance}</td>
@@ -80,15 +108,15 @@
 
 </table>
     <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/user_manager.jsp"
-       role="button">Back to manager</a>
+       role="button">${back1}</a>
     <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/select.jsp"
-       role="button">Back to  select user page</a>
+       role="button">${back2}</a>
     <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/selectDoctor.jsp"
-       role="button">Back to select  doctor page</a>
+       role="button">${back3}</a>
     <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/selectPatient.jsp"
-       role="button">Back to select patient page</a>
+       role="button">${back4}</a>
 </div>
-
+<a href="#header" class="btn-lg btn-danger">UP</a>
 <footer><div class="text-center"> <ctg:footer/> </div></footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>

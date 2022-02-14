@@ -1,9 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../../imports.jspf" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<header>
+<header id="header">
     <%@include file="../header/header.jsp" %>
 </header>
 <head>
@@ -63,22 +62,11 @@
             <td>${user.phoneNumber}</td>
             <td>${user.dataBirthday}</td>
 
-<%--            <c:if test="${doctor}">--%>
-<%--                <td> ${user.category}</td>--%>
-<%--                <td> ${user.experience}</td>--%>
-<%--                <td> ${user.speciality}</td>--%>
-<%--            </c:if>--%>
-
-<%--            <c:if test="${patient}">--%>
-<%--                <td> ${user.insurance}</td>--%>
-<%--                <td> ${user.moneyAccount}</td>--%>
-<%--                <td> ${user.discount}</td>--%>
-<%--            </c:if>--%>
-
         </tr>
     </c:forEach>
 
 </table>
+    <a href="#header" class="btn-lg btn-danger">UP</a>
 <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/main/user_manager.jsp"
    role="button">Back to manager</a>
 <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/select.jsp"
@@ -88,7 +76,7 @@
 <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/selectPatient.jsp"
    role="button">Back to select patient page</a>
 </div>
-<footer><div class="text-center"> <ctg:footer/> </div></footer>
+<footer ><div class="text-center"> <ctg:footer/> </div></footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

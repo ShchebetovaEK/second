@@ -1,18 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../../imports.jspf" %>
+<fmt:message key="price.title" var="title"/>
 <html>
 <header>
     <%@include file="../header/header.jsp" %>
 </header>
 <head>
-
-
-    <title>Price</title>
+    <title>${titile}</title>
 </head>
-
 <body>
-price
-
 <nav aria-label="Page navigation example">
     <ul class="pagination">
         <li class="page-item">

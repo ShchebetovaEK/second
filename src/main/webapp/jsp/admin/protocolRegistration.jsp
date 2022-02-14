@@ -1,10 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@include file="../../imports.jspf" %>
-<fmt:message key="registration.title" var="registration_title"/>
-<fmt:message key="registration.sign_up_1" var="sign_up"/>
+<fmt:message key="protocolregistration.title" var="title"/>
 <fmt:message key="registration.login" var="login"/>
 <fmt:message key="registration.password" var="psw"/>
-<%--<fmt:message key="registration.confirm_password" var="confirm_psw"/>--%>
 <fmt:message key="registration.first_name" var="first_name"/>
 <fmt:message key="registration.last_name" var="last_name"/>
 <fmt:message key="registration.address" var="address"/>
@@ -19,13 +17,8 @@
 <fmt:message key="registration.invalid_databirthday" var="invalid_databirthday_message"/>
 <fmt:message key="registration.invalid_email" var="invalid_email_message"/>
 <fmt:message key="registration.invalid_phone_number" var="invalid_phone_number_message"/>
-<fmt:message key="registration.not_unique_login" var="not_unique_login_message"/>
-<fmt:message key="registration.password_mismatch" var="psw_mismatch_message"/>
-<fmt:message key="registration.not_unique_email" var="not_unique_email_message"/>
-<fmt:message key="registration.not_unique_mobile_number" var="not_unique_mobile_number_message"/>
-
 <html>
-<header>
+<header id="header">
     <%@include file="../header/header.jsp" %>
 </header>
 <head>
@@ -36,7 +29,7 @@
           type="image/x-icon">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/fontello.css">
-    <title>${title}</title>
+    <title>PROTOCOL REGISTRATION</title>
 </head>
 <body>
 <div class="text-center">
@@ -96,7 +89,7 @@
         </form>
     </div>
 </div>
-
+<a href="#header" class="btn-lg btn-danger">UP</a>
 <footer><div class="text-center"> <ctg:footer/> </div></footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>

@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../../imports.jspf" %>
+<fmt:message key="search.title" var="title"/>
 <html>
-<header>
+<header id="header">
     <%@include file="../header/header.jsp" %>
 </header>
 <head>
@@ -18,15 +19,36 @@
 <br/>
 <div class="text-center">
     <div class="mb-3">
-        <form method="POST" action="${abs}/controller">
-            <h2 class="text-center text-black">
-                OPERATION WAS SUCCESSFUL</h2>
-            <br/>
 
-        </form>
+
+<table class="table text-success table-hover">
+<tr>
+    <th scope="col">id</th>
+    <th scope="col">role</th>
+    <th scope="col">login</th>
+    <th scope="col">first name</th>
+    <th scope="col">last name</th>
+
+</tr>
+
+<c:forEach items="${users}" var="user">
+
+    <tr>
+    <td>${user.id}</td>
+    <td>${user.role}</td>
+    <td>${user.login}</td>
+    <td>${user.firstName}</td>
+    <td>${user.lastName}</td>
+
+
+    </tr>
+</c:forEach>
+
+</table>
     </div>
 </div>
-</body>
+<a href="#header" class="btn-lg btn-danger">UP</a>
 <footer><div class="text-center"> <ctg:footer/> </div></footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>
