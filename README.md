@@ -9,6 +9,7 @@ ___
 * Go to price page  
 * Go to our doctors page  
 * Go to about page  
+* Go to account page  
 * Change locale  
 * Log In  
 * Log out  
@@ -67,6 +68,7 @@ ___
 * Archiv doctor  
 * Archiv patient  
 * Archiv admin  
+* Search by last name  
 ***    
 
 
@@ -84,6 +86,7 @@ _Patient role_
 * Application protocol's  
 * View all doctor's  
 * View all patient's protocol  
+* Search by last name  
 
 _Doctor role_  
  --- 
@@ -95,7 +98,8 @@ _Doctor role_
 * Log in  
 * Log out  
 * View all patient's  
-* View all doctor's protocol
+* View all doctor's protocol  
+* Search by last name  
 ***    
 
 ![CLINIC SCHEME](forestmed.png)
