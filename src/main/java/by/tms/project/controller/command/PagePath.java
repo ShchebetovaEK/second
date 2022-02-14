@@ -4,7 +4,7 @@ public final class PagePath {
 
     public static final String INDEX_PAGE = "/index.jsp";
     /* package admin*/
-    public static final String ADMIN_PAGE = "/jsp/admin/admin.jsp";
+    public static final String ADMIN_PAGE = "/jsp/admin/adminPage.jsp";
     public static final String ADMIN_REGISTRATION_PAGE = "/jsp/admin/adminRegistration.jsp";
     public static final String APPLICATION_PAGE = "/jsp/admin/application.jsp";
     public static final String DELETE_PAGE = "/jsp/admin/delete.jsp";
@@ -20,6 +20,8 @@ public final class PagePath {
     public static final String UPDATE_PROTOCOL_PAGE = "/jsp/admin/updateProtocol.jsp";
     /* package doctor*/
     public static final String DOCTOR_PAGE = "/jsp/doctor/doctor.jsp";
+    public static final String VIEW_ALL_PATIENT_PAGE = "/jsp/doctor/viewAllPatient.jsp";
+    public static final String VIEW_PROTOCOL_PAGE = "/jsp/doctor/viewProtocol.jsp";
     /*package error*/
     public static final String ERROR_400_PAGE = "/jsp/error/error400.jsp";
     public static final String ERROR_404_PAGE = "/jsp/error/error404.jsp";
@@ -27,7 +29,8 @@ public final class PagePath {
     /* package main*/
     public static final String ACCOUNT_PAGE = "/jsp/main/account.jsp";
     public static final String AUTHENTICATION_PAGE = "/jsp/main/authentication.jsp";
-    public static final String AUTHORIZATION_PAGE = "/jsp/main/authorization.jsp";
+    public static final String FAIL_PAGE = "/jsp/main/fail.jsp";
+    public static final String NO_MATCH_PAGE = "/jsp/main/noMatch.jsp";
     public static final String LOGIN_PAGE = "/jsp/main/login.jsp";
     public static final String REGISTRATION_PAGE = "/jsp/main/registration.jsp";
     public static final String SEARCH_PAGE = "/jsp/main/search.jsp";
@@ -38,6 +41,7 @@ public final class PagePath {
     public static final String WELCOME_PAGE = "/jsp/main/welcome.jsp";
     /* package patient*/
     public static final String CHOOSE_DOCTOR = "/jsp/patient/chooseDoctor.jsp";
+    public static final String IMPOSSIBLE_PAGE = "/jsp/patient/impossible.jsp";
     public static final String VIEW_ALL_DOCTOR = "/jsp/patient/viewAllDoctor.jsp";
     public static final String VIEW_MY_PROTOCOL = "/jsp/patient/viewMyProtocol.jsp";
     /* package move*/

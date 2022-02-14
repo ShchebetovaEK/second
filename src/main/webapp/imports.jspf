@@ -3,5 +3,5 @@
 <%@taglib prefix="ctg" uri="/WEB-INF/customTag.tld"  %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <c:set var="abs">${pageContext.request.contextPath}</c:set>
-<fmt:setBundle basename="localization/locale"/>
+<fmt:setBundle basename="prop.locale.locale"/>
 

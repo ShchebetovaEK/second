@@ -1,5 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../../imports.jspf" %>
+<fmt:message key="logIn.title" var="title"/>
+<fmt:message key="logIn.login" var="login"/>
+<fmt:message key="logIn.password" var="password"/>
+
 <html>
 <header>
     <%@include file="../header/header.jsp" %>
@@ -12,18 +16,18 @@
           type="image/x-icon">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/fontello.css">
-    <title>LOGIN</title>
+    <title>${title}</title>
 </head>
 <body>
 <div class="text-center">
     <form method="POST" action="${abs}/controller">
         <br/>
         <input type="hidden" name="command" value="log_in_command">
-        <label class="form-label"> Login </label>
-        <input name="login">
+        <label class="form-label"> ${login} </label>
+        <input name="login" required pattern="(\w)[\w_-]{1,18}(\w)">
         <br/>
-        <label class="form-label"> Password </label>
-        <input name="password" type="password">
+        <label class="form-label"> ${password} </label>
+        <input name="password" type="password" required pattern="(.{4,40})">
         <br/>
         <p><input type="submit"></p>
     </form>

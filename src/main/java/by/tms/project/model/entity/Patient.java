@@ -1,7 +1,6 @@
 package by.tms.project.model.entity;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Date;
 
 public class Patient extends User {
@@ -19,7 +18,7 @@ public class Patient extends User {
         this.discount = discount;
     }
 
-    public Patient(Role role, String login, String password, String firstName, String lastName, Date dataBirthday,
+    public Patient(AccessRole role, String login, String password, String firstName, String lastName, Date dataBirthday,
                    String address, String phoneNumber, String email, boolean insurance, BigDecimal moneyAccount, int discount) {
         super(role, login, password, firstName, lastName, dataBirthday, address, phoneNumber, email);
         this.insurance = insurance;
@@ -27,7 +26,7 @@ public class Patient extends User {
         this.discount = discount;
     }
 
-    public Patient(Role role, String login, String password, String firstName, String lastName, Date dataBirthday, String address,
+    public Patient(AccessRole role, String login, String password, String firstName, String lastName, Date dataBirthday, String address,
                    String phoneNumber, String email, Archiv archiv, boolean insurance, BigDecimal moneyAccount, int discount) {
         super(role, login, password, firstName, lastName, dataBirthday, address, phoneNumber, email, archiv);
         this.insurance = insurance;
@@ -102,7 +101,7 @@ public class Patient extends User {
             return this;
         }
 
-        public PatientBuilder setRole(Role role) {
+        public PatientBuilder setRole(AccessRole role) {
             patient.setRole(role);
             return this;
         }

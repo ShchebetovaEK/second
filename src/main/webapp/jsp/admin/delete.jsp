@@ -1,8 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../../imports.jspf" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<fmt:message key="delete.title" var="title"/>
+<fmt:message key="delete.message1" var="message1"/>
+<fmt:message key="delete.message2" var="message2"/>
+<fmt:message key="delete.message3" var="message3"/>
+<fmt:message key="delete.message4" var="message4"/>
+<fmt:message key="delete.message5" var="message5"/>
 <html>
-<header>
+<header id="header">
     <%@include file="../header/header.jsp" %>
 </header>
 <head>
@@ -18,42 +24,41 @@
 
 <div class="text-center">
 <form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_delete_patient_command">
-    <label class="form-label"> please, input  id patient to delete:</label>
-    <input type="text" name="users_id" placeholder="id" >
+    <input type="hidden" name="command" value="admin_archiv_doctor_command">
+    <label class="form-label"> ${message1}</label>
+    <input type="text" name="users_id" required placeholder="id" >
     <input type="submit" name="delete" >
 </form>
 <br/>
 <form action="${abs}/controller" method="get">
   archiv  <input type="hidden" name="command" value="admin_archiv_patient_command">
-    <label class="form-label">   please, input  id patient to arhiv: </label>
-  <input type="text" name="users_id" placeholder="id" >
+    <label class="form-label">   ${message2} </label>
+  <input type="text" name="users_id" required placeholder="id" >
     <input type="submit" >
 </form>
 
 <form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_delete_doctor_command">
-    <label class="form-label">  please, input  id doctor to delete:</label>
-    <input type="text" name="users_id" placeholder="id" >
+    <input type="hidden" name="command" value="admin_archiv_user_command">
+    <label class="form-label">  ${message3} </label>
+   <input type="text" name="users_id"  required placeholder="id" >
     <input type="submit" name="delete" >
 </form>
-
 
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_archiv_user_command">
-    <label class="form-label">  please, input  id user to archiv: </label>
-   <input type="text" name="users_id" placeholder="id" >
+    <label class="form-label">   ${message4}</label>
+   <input type="text" name="users_id" required placeholder="id" >
     <input type="submit" name="delete" >
 </form>
 
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_delete_admin_command">
-    <label class="form-label">   please, input  id admin to delete:</label>
-   <input type="text" name="users_id" placeholder="id" >
-    <input type="submit" name="delete" >
-</form>
+    <form action="${abs}/controller" method="get">
+        <input type="hidden" name="command" value="admin_delete_admin_command">
+        <label class="form-label"> ${message5} </label>
+        <input type="text" name="users_id" required placeholder="id" >
+        <input type="submit" name="delete" >
+    </form>
 </div>
-
+<a href="#header" class="btn-lg btn-danger">UP</a>
 <footer><div class="text-center"> <ctg:footer/> </div></footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>

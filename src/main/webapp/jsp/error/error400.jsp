@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../../imports.jspf" %>
+<fmt:message key="error400.title" var="title"/>
+<fmt:message key="error400.back" var="back"/>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -14,17 +16,7 @@
 <body>
 <div class="text-center">
     <img src='<%=request.getContextPath() %>/img/error2.jpeg'/>
-    <a href="${pageContext.request.contextPath}/index.jsp">Back to homepage</a>
-    <div style="font-size: 24px">Request from ${pageContext.errorData.requestURI} is failed</div>
-    <br/>
-    <div style="font-size: 20px">Servlet name: ${pageContext.errorData.servletName} </div>
-    <br/>
-    <hr/>
-    <div style="font-size: 14px">Exception: ${pageContext.exception}</div>
-    <br/>
-    <hr/>
-    <div style="font-size: 14px">Message from exception: ${pageContext.exception}</div>
-    <br>
+    <a href="${pageContext.request.contextPath}/index.jsp">${back}</a>
 </div>
 
 

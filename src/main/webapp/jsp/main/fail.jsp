@@ -1,11 +1,12 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
-<%@include file="../../imports.jspf" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<fmt:message key="doctor.title" var="ttile"/>
-<fmt:message key="doctor.message1" var="message1"/>
-<fmt:message key="doctor.message2" var="message2"/>
+<%@include file="../../imports.jspf" %>
+<fmt:message key="fail.title" var="title"/>
+<fmt:message key="fail.message" var="message"/>
+<fmt:message key="fail.back" var="back"/>
+
+
 <html>
-<header id="header">
+<header>
     <%@include file="../header/header.jsp" %>
 </header>
 <head>
@@ -19,21 +20,18 @@
     <title>${title}</title>
 </head>
 <body>
-
-<br>
-<div class="flex-column text-center">
-    <div class="md-3">
+<br/>
+<div class="text-center">
+    <div class="mb-3">
         <form method="POST" action="${abs}/controller">
-
-            <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/doctor/viewAllPatient.jsp"
-               role="button">${message1}</a>
-
-        <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/doctor/viewProtocol.jsp"
-           role="button">${message2}l</a>
+            <h2 class="text-center text-black">
+                ${message}</h2>
+            <br/>
+            <a class="btn btn-warning" href="${pageContext.request.contextPath}/jsp/move/main.jsp"
+               role="button">${back}</a>
         </form>
     </div>
 </div>
-<a href="#header" class="btn-lg btn-danger">UP</a>
 <footer><div class="text-center"> <ctg:footer/> </div></footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>

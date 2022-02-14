@@ -1,10 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@include file="../../imports.jspf" %>
-<fmt:message key="registration.title" var="registration_title"/>
-<fmt:message key="registration.sign_up_1" var="sign_up"/>
+<fmt:message key="admninregistration.title" var="title"/>
+<fmt:message key="admninregistration.message" var="message"/>
 <fmt:message key="registration.login" var="login"/>
 <fmt:message key="registration.password" var="psw"/>
-<%--<fmt:message key="registration.confirm_password" var="confirm_psw"/>--%>
 <fmt:message key="registration.first_name" var="first_name"/>
 <fmt:message key="registration.last_name" var="last_name"/>
 <fmt:message key="registration.address" var="address"/>
@@ -19,13 +18,9 @@
 <fmt:message key="registration.invalid_databirthday" var="invalid_databirthday_message"/>
 <fmt:message key="registration.invalid_email" var="invalid_email_message"/>
 <fmt:message key="registration.invalid_phone_number" var="invalid_phone_number_message"/>
-<fmt:message key="registration.not_unique_login" var="not_unique_login_message"/>
-<fmt:message key="registration.password_mismatch" var="psw_mismatch_message"/>
-<fmt:message key="registration.not_unique_email" var="not_unique_email_message"/>
-<fmt:message key="registration.not_unique_mobile_number" var="not_unique_mobile_number_message"/>
 
 <html>
-<header>
+<header id="header">
     <%@include file="../header/header.jsp" %>
 </header>
 <head>
@@ -38,13 +33,13 @@
     <title>${title}</title>
 </head>
 <body>
-<h1 class="text-center">registration</h1>
+<h1 class="text-center">${message}</h1>
 <div class="text-center">
 <div class="container-fluid" id="container-fluid">
     <form action="${abs}/controller" method="post">
         <input type="hidden" name="command" value="admin_register_admin_command">
 
-        Login: <input type="text" id="login" class="form-control" name="login" value="${valid_login}">
+        Login: <input type="text" id="login" class="form-control"  name="login" value="${valid_login}">
         <c:choose>
             <c:when test="${invalid_login eq 'invalid_message'}">
                 <div id="message1"><b>${invalid_login_message}</b></div>
@@ -100,6 +95,7 @@
         <br/><br/>
         <input type="submit" class="form-control" id="sign_up" name="submit"><br/>
     </form>
+    <a href="#header" class="btn-lg btn-danger">UP</a>
 </div>
 </div>
 <footer><div class="text-center"> <ctg:footer/> </div></footer>

@@ -12,7 +12,7 @@ import static by.tms.project.controller.command.PagePath.OUR_DOCTORS_PAGE;
  *
  *  class GoToDoctorsCommand
  */
-public class GoToDoctorsCommand implements Command {
+public class GoToOurDoctorsCommand implements Command {
 
     /**
      *
