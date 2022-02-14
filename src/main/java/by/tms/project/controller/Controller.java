@@ -18,12 +18,11 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 import static by.tms.project.controller.command.RequestParameter.COMMAND;
-import static jakarta.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class Controller
  */
 @WebServlet(urlPatterns = "/controller")
@@ -49,7 +48,7 @@ public class Controller extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (CommandException e) {
-            logger.error("Failed at doGet method Controller",e);
+            logger.error("Failed at doGet method Controller", e);
         }
     }
 
@@ -65,7 +64,7 @@ public class Controller extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (CommandException e) {
-            logger.error("Failed at doPost method Controller",e);
+            logger.error("Failed at doPost method Controller", e);
         }
     }
 
@@ -96,7 +95,6 @@ public class Controller extends HttpServlet {
 
         }
     }
-
 }
 
 

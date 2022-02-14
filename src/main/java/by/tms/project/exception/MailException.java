@@ -2,10 +2,10 @@ package by.tms.project.exception;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class MailException
  */
-public class MailException extends Exception{
+public class MailException extends Exception {
     public MailException() {
         super();
     }

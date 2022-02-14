@@ -2,10 +2,10 @@ package by.tms.project.exception;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class CommandException
  */
-public class CommandException extends Exception{
+public class CommandException extends Exception {
     public CommandException() {
         super();
     }

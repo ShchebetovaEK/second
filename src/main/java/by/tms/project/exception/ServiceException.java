@@ -2,10 +2,10 @@ package by.tms.project.exception;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class ServiceException
  */
-public class ServiceException extends Exception{
+public class ServiceException extends Exception {
     public ServiceException() {
         super();
     }
