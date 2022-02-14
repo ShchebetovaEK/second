@@ -19,15 +19,14 @@ import static by.tms.project.controller.command.RequestParameter.*;
 
 /**
  * @author ShchebetovaEK
- *
- *  class RegistrationCommand
+ * <p>
+ * class RegistrationCommand
  */
 public class RegistrationCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private UserService userService = UserServiceImpl.getInstance();
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException
@@ -48,7 +47,7 @@ public class RegistrationCommand implements Command {
         try {
             boolean registration = userService.registerNewUser(checkData);
             router.setPage(registration ? WELCOME_PAGE : REGISTRATION_PAGE);
-           return router;
+            return router;
         } catch (ServiceException e) {
             logger.error("Failed at RegistrationCommand", e);
             throw new CommandException("Failed at RegistrationCommand", e);

@@ -19,15 +19,14 @@ import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 
 /**
  * @author ShchebetovaEK
- *
- *  class UserManagerCommand
+ * <p>
+ * class UserManagerCommand
  */
 public class UserManagerCommand implements Command {
     public static final Logger logger = LogManager.getLogger();
     private UserService userService = UserServiceImpl.getInstance();
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException
@@ -35,16 +34,16 @@ public class UserManagerCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
 
-            Router router = new Router();
-            HttpSession session = request.getSession();
-            try {
-                List<User> userList = userService.findAll();
-                session.setAttribute(USER_LIST, userList);
-                router.setPage(USER_MANAGER_PAGE);
-                return router;
-            } catch (ServiceException e) {
-                logger.error( "Users cannot be found:", e);
-                throw new CommandException("Users cannot be found:", e);
-            }
+        Router router = new Router();
+        HttpSession session = request.getSession();
+        try {
+            List<User> userList = userService.findAll();
+            session.setAttribute(USER_LIST, userList);
+            router.setPage(USER_MANAGER_PAGE);
+            return router;
+        } catch (ServiceException e) {
+            logger.error("Users cannot be found:", e);
+            throw new CommandException("Users cannot be found:", e);
+        }
     }
 }

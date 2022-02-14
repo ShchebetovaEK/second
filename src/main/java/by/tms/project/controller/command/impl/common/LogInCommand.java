@@ -14,22 +14,21 @@ import org.apache.logging.log4j.Logger;
 import java.util.Optional;
 
 import static by.tms.project.controller.command.PagePath.*;
-import static by.tms.project.controller.command.RequestAttribute.*;
+import static by.tms.project.controller.command.RequestAttribute.SESSION_USER;
 import static by.tms.project.controller.command.RequestParameter.LOGIN;
 import static by.tms.project.controller.command.RequestParameter.PASSWORD;
 import static by.tms.project.controller.command.SessionAttribute.*;
 
 /**
  * @author ShchebetovaEK
- *
- *  class LogInCommand
+ * <p>
+ * class LogInCommand
  */
 public class LogInCommand implements Command {
     public static final Logger logger = LogManager.getLogger();
     UserServiceImpl userService = UserServiceImpl.getInstance();
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException

@@ -9,19 +9,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static by.tms.project.controller.command.PagePath.MAIN_PAGE;
-import static by.tms.project.controller.command.PagePath.WELCOME_PAGE;
 import static by.tms.project.controller.command.SessionAttribute.*;
 
 /**
  * @author ShchebetovaEK
- *
- *  class LogOutCommand
+ * <p>
+ * class LogOutCommand
  */
 public class LogOutCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException

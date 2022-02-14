@@ -25,15 +25,14 @@ import static java.lang.Boolean.TRUE;
 
 /**
  * @author ShchebetovaEK
- *
- *  class AuthenticationCommand
+ * <p>
+ * class AuthenticationCommand
  */
 public class AuthenticationCommand implements Command {
     public static final Logger logger = LogManager.getLogger();
     private UserService userService = UserServiceImpl.getInstance();
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException

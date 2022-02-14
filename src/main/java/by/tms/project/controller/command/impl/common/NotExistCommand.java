@@ -11,22 +11,21 @@ import static java.lang.Boolean.TRUE;
 
 /**
  * @author ShchebetovaEK
- *
- *  class NotExistCommand
+ * <p>
+ * class NotExistCommand
  */
 public class NotExistCommand implements Command {
 
     /**
-     *
      * @param request the request
      * @return the router.
      * @throws CommandException
      */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
-       Router router = new Router();
-       request.setAttribute(WRONG_COMMAND,TRUE);
-       router.setPage(ERROR_404_PAGE);
-       return router;
+        Router router = new Router();
+        request.setAttribute(WRONG_COMMAND, TRUE);
+        router.setPage(ERROR_404_PAGE);
+        return router;
     }
 }
