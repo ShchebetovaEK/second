@@ -1,7 +1,6 @@
 package by.tms.project.controller.command.impl.admin.delete;
 
 import by.tms.project.controller.command.Command;
-import by.tms.project.controller.command.RequestParameter;
 import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
 import by.tms.project.exception.ServiceException;
@@ -13,16 +12,14 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
-
+import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
 import static by.tms.project.controller.command.PagePath.SUCCESS_PAGE;
-import static by.tms.project.controller.command.PagePath.USER_MANAGER_PAGE;
-import static by.tms.project.controller.command.RequestAttribute.*;
+import static by.tms.project.controller.command.RequestAttribute.SESSION_PATIENT;
 import static by.tms.project.controller.command.RequestParameter.USERS_ID;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class AdminDeletePatientCommand
  */
 public class AdminDeletePatientCommand implements Command {
@@ -38,8 +35,9 @@ public class AdminDeletePatientCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         String strId = request.getParameter(USERS_ID);
-        if (strId == null){
-            throw new CommandException("Failed at AdminDeletePatientCommand");
+        if (strId.isEmpty()) {
+           router.setPage(FAIL_PAGE);
+           return router;
         }
         Long id = Long.valueOf(strId);
         HttpSession session = request.getSession();
