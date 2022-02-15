@@ -16,6 +16,11 @@ import java.util.*;
 
 import static by.tms.project.controller.command.RequestParameter.*;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class ProtocolServiceImpl
+ */
 public class ProtocolServiceImpl implements ProtocolService {
     private static final Logger logger = LogManager.getLogger();
     private ProtocolDao protocolDao = ProtocolDaoImpl.getInstance();

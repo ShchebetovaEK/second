@@ -56,7 +56,7 @@ public class AdminRegisterDoctorCommand  implements Command {
         try {
             boolean registration = doctorService.registerNewDoctor(checkData);
             router.setPage(registration ? ADMIN_PAGE : REGISTRATION_PAGE);
-            router.setRouterType(Router.RouteType.REDIRECT);
+
             return router;
         } catch (ServiceException e) {
             logger.error("Failed at AdminRegisterDoctorCommand", e);

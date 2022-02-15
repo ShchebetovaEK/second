@@ -471,7 +471,7 @@ public class ProtocolDaoImpl implements ProtocolDao {
     }
 
     /**
-     * update protocolstatus
+     * update protocol status
      *
      * @param protocolId
      * @param status

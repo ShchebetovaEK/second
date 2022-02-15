@@ -56,7 +56,7 @@ public class UpdateDoctorExperienceCommand implements Command {
             logger.error("Failed at UpdateDoctorExperienceCommand", e);
             throw new CommandException("Failed at UpdateDoctorExperienceCommand", e);
         }
-        router.setRouterType(Router.RouteType.REDIRECT);
+
         return router;
     }
 }

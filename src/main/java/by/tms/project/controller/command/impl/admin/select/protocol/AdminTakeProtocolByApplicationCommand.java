@@ -56,7 +56,7 @@ public class AdminTakeProtocolByApplicationCommand implements Command {
             logger.error("Failed at AdminTakeProtocolByApplicationCommand");
             throw new CommandException("Failed at AdminTakeProtocolByApplicationCommand", e);
         }
-        router.setRouterType(Router.RouteType.REDIRECT);
+
         return router;
     }
 }

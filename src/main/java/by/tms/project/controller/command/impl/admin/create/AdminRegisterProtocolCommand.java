@@ -49,7 +49,7 @@ public class AdminRegisterProtocolCommand implements Command {
             logger.error("Failed at AdminRegisterProtocolCommand", e);
             throw new CommandException("Failed at AdminRegisterProtocolCommand", e);
         }
-        router.setRouterType(Router.RouteType.REDIRECT);
+
         return router;
     }
 }

@@ -57,7 +57,7 @@ public class UpdateDoctorSpecialityCommand implements Command {
             logger.error("Failed at UpdateDoctorSpecialityCommand", e);
             throw new CommandException("Failed at UpdateDoctorSpecialityCommand", e);
         }
-        router.setRouterType(Router.RouteType.REDIRECT);
+
         return router;
     }
 }

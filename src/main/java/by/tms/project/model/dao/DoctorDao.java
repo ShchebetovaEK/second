@@ -29,7 +29,4 @@ public interface DoctorDao extends BaseDao<Long, Doctor>{
 
     List<Doctor> chooseDoctor (Category category,Experience experience,Speciality speciality) throws DaoException;
 
-
-
-
 }

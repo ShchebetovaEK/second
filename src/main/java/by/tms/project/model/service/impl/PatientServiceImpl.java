@@ -19,6 +19,11 @@ import java.util.*;
 
 import static by.tms.project.controller.command.RequestParameter.*;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class PatientServiceImpl
+ */
 public class PatientServiceImpl implements PatientService {
     private static final Logger logger = LogManager.getLogger();
     private PatientDao patientDao = PatientDaoImpl.getInstance();
@@ -128,44 +133,52 @@ public class PatientServiceImpl implements PatientService {
         return patientList;
     }
 
+    /**
+     * create patient
+     * @param userCheck
+     * @return the boolean
+     * @throws ServiceException
+     */
     @Override
     public boolean create(Map<String, String> userCheck) throws ServiceException {
         boolean resultOne;
 
-//        Map<String, String> mapPatientCheck = new HashMap<>();
-//        String strInsurance = userCheck.get(INSURANCE);
-//        Boolean insurance = Boolean.valueOf(strInsurance);
-//        String strMoney = userCheck.get(MONEY_ACCOUNT);
-        // todo
-//        BigInteger moneyAccount = BigDecimal.valueOf(strMoney);
+        Map<String, String> mapPatientCheck = new HashMap<>();
+        String strInsurance = userCheck.get(INSURANCE);
+        Boolean insurance = Boolean.valueOf(strInsurance);
+        String strMoney = userCheck.get(MONEY_ACCOUNT);
+        BigDecimal moneyAccount = BigDecimal.valueOf(Long.parseLong(strMoney));
+        String strDiscount = userCheck.get(DISCOUNT);
+        Integer discount = Integer.valueOf(strDiscount);
+        mapPatientCheck.put(INSURANCE, String.valueOf(insurance));
+        mapPatientCheck.put(MONEY_ACCOUNT, String.valueOf(moneyAccount));
+        mapPatientCheck.put(DISCOUNT, String.valueOf(discount));
 
-//        String strDiscount = userCheck.get(DISCOUNT);
+        try {
+            resultOne = PatientValidatorImpl.getInstance().checkUserPatientData(mapPatientCheck);
+            if (resultOne) {
+                Patient patient = new Patient(insurance,
+                        moneyAccount,discount);
+                patientDao.create(patient);
+            }
 
-//        Integer discount = Integer.valueOf(strDiscount);
-//
-//        mapPatientCheck.put(INSURANCE, String.valueOf(insurance));
-//        mapPatientCheck.put(MONEY_ACCOUNT, String.valueOf(moneyAccount));
-//        mapPatientCheck.put(DISCOUNT, String.valueOf(discount));
-//
-//        try {
-//            resultOne = PatientValidatorImpl.getInstance().checkUserPatientData(mapPatientCheck);
-//            if (resultOne) {
-//                Patient patient = new Patient(insurance,
-//                        moneyAccount,discount);
-//                patientDao.create(patient);
-//            }
-//
-//        } catch (DaoException e) {
-//            logger.error("Failed at PatientServiceImpl at method create", e);
-//            throw new ServiceException("Failed at PatientServiceImpl at method create", e);
-//        } catch (IllegalArgumentException e) {
-//            logger.error("IllegalArgumentException at PatientServiceImpl in create ", e);
-//            return false;
-//        }
+        } catch (DaoException e) {
+            logger.error("Failed at PatientServiceImpl at method create", e);
+            throw new ServiceException("Failed at PatientServiceImpl at method create", e);
+        } catch (IllegalArgumentException e) {
+            logger.error("IllegalArgumentException at PatientServiceImpl in create ", e);
+            return false;
+        }
         return true;
     }
 
-
+    /**
+     * update insurance
+     * @param id
+     * @param insurance
+     * @return the boolean
+     * @throws ServiceException
+     */
     @Override
     public boolean updateInsurance(long id, Boolean insurance) throws ServiceException {
         try {
@@ -176,6 +189,13 @@ public class PatientServiceImpl implements PatientService {
         }
     }
 
+    /**
+     * update discount
+     * @param id
+     * @param discount
+     * @return the boolean
+     * @throws ServiceException
+     */
     @Override
     public boolean updateDiscount(long id, Integer discount) throws ServiceException {
         try {
@@ -187,6 +207,13 @@ public class PatientServiceImpl implements PatientService {
         }
     }
 
+    /**
+     * update money account
+     * @param id
+     * @param moneyAccount
+     * @return the boolean
+     * @throws ServiceException
+     */
     @Override
     public boolean updateMoneyAccount(long id, BigDecimal moneyAccount) throws ServiceException {
         try {
@@ -198,6 +225,12 @@ public class PatientServiceImpl implements PatientService {
         }
     }
 
+    /**
+     * delete patient
+     * @param id
+     * @return
+     * @throws ServiceException
+     */
     @Override
     public boolean deletePatient(long id) throws ServiceException {
         try {

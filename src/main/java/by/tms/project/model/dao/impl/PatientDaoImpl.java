@@ -360,6 +360,13 @@ public class PatientDaoImpl implements PatientDao {
         return optionalPatient;
     }
 
+    /**
+     * update insurance
+     * @param id
+     * @param insurance
+     * @return the boolean
+     * @throws DaoException
+     */
     @Override
     public boolean updateInsurance(long id, Boolean insurance) throws DaoException {
         boolean result;
@@ -375,6 +382,13 @@ public class PatientDaoImpl implements PatientDao {
         return result;
     }
 
+    /**
+     * update discount
+     * @param id
+     * @param discount
+     * @return the boolean
+     * @throws DaoException
+     */
     @Override
     public boolean updateDiscount(long id, Integer discount) throws DaoException {
         boolean result;
@@ -391,6 +405,13 @@ public class PatientDaoImpl implements PatientDao {
         return result;
     }
 
+    /**
+     * update money account
+     * @param id
+     * @param moneyAccount
+     * @return the boolean
+     * @throws DaoException
+     */
     @Override
     public boolean updateMoneyAccount(long id, BigDecimal moneyAccount) throws DaoException {
         boolean result;
@@ -407,6 +428,12 @@ public class PatientDaoImpl implements PatientDao {
         return result;
     }
 
+    /**
+     * delete patient
+     * @param id
+     * @return the boolean
+     * @throws DaoException
+     */
     @Override
     public boolean deletePatient(long id) throws DaoException {
         boolean result;

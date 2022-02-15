@@ -16,6 +16,11 @@ import java.util.*;
 
 import static by.tms.project.controller.command.RequestParameter.*;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class UserServiceImpl
+ */
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LogManager.getLogger();
     private UserDao userDao = UserDaoImpl.getInstance();
@@ -154,6 +159,12 @@ public class UserServiceImpl implements UserService {
         return userList;
     }
 
+    /**
+     * search by last name
+     * @param lastName
+     * @return
+     * @throws ServiceException
+     */
     @Override
     public List<User> searchByLastName(String lastName) throws ServiceException {
         List<User> userList = new ArrayList<>();

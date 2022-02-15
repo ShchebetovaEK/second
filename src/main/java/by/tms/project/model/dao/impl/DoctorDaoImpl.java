@@ -13,6 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class DoctorDaoImpl
+ */
 public class DoctorDaoImpl implements DoctorDao {
     private static final Logger logger = LogManager.getLogger();
     private static final String DOCTOR = "doctor";
@@ -85,7 +90,6 @@ public class DoctorDaoImpl implements DoctorDao {
             UPDATE users 
             SET users.last_name=?,users.address=?,users.phone_number=?,users.email=? 
             WHERE users.id=?""";
-
     private static final String SQL_UPDATE_DOCTOR_FIELD = """
             UPDATE users 
             SET users.last_name=?,users.address=?,users.phone_number=?,users.email=? 
@@ -396,6 +400,13 @@ public class DoctorDaoImpl implements DoctorDao {
         return optionalDoctor;
     }
 
+    /**
+     * update category
+     * @param id
+     * @param category
+     * @return the boolean
+     * @throws DaoException
+     */
     @Override
     public boolean updateCategory(long id, Category category) throws DaoException {
         boolean result;
@@ -407,11 +418,18 @@ public class DoctorDaoImpl implements DoctorDao {
 
         } catch (SQLException e) {
             logger.error("Failed at DoctorDaoImpl at method updateCategory ", e);
-            throw new DaoException("Failed at  DoctorDaoImplat method updateCategory", e);
+            throw new DaoException("Failed at  DoctorDaoImpl at method updateCategory", e);
         }
         return result;
     }
 
+    /**
+     * updateExperience
+     * @param id
+     * @param experience
+     * @return the boolean
+     * @throws DaoException
+     */
     @Override
     public boolean updateExperience(long id, Experience experience) throws DaoException {
         boolean result;
@@ -428,6 +446,13 @@ public class DoctorDaoImpl implements DoctorDao {
         return result;
     }
 
+    /**
+     * update speciality
+     * @param id
+     * @param speciality
+     * @return the boolean
+     * @throws DaoException
+     */
     @Override
     public boolean updateSpeciality(long id, Speciality speciality) throws DaoException {
         boolean result;
@@ -444,6 +469,12 @@ public class DoctorDaoImpl implements DoctorDao {
         return result;
     }
 
+    /**
+     * delete doctor
+     * @param id
+     * @return the boolean
+     * @throws DaoException
+     */
     @Override
     public boolean deleteDoctor(long id) throws DaoException {
         boolean result;
@@ -479,7 +510,14 @@ public class DoctorDaoImpl implements DoctorDao {
         return result;
     }
 
-
+    /**
+     * patient choose doctor
+     * @param category
+     * @param experience
+     * @param speciality
+     * @return doctorList
+     * @throws DaoException
+     */
     @Override
     public List<Doctor> chooseDoctor(Category category,  Experience experience,Speciality speciality) throws DaoException {
         List<Doctor> doctorList = new ArrayList<>();

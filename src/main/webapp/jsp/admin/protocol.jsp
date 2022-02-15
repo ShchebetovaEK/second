@@ -72,14 +72,14 @@
     <form action="${abs}/controller" method="get">
         <label class="form-label"> ${message_6}</label>
         <input type="hidden" name="command" value="admin_take_protocol_by_status_command">
-        <input type="text" name="status" required value="paid"  >
+        <input type="text" name="status" required  value="duty" pattern="(?i)(duty)|(paid)" >
         <input type="submit">
     </form>
 <br/>
     <form action="${abs}/controller" method="get">
         <label class="form-label"> ${message_7}</label>
         <input type="hidden" name="command" value="admin_take_protocol_by_application_command">
-        <input type="text" name="application" required value="active"  >
+        <input type="text" name="application"  value="active"  pattern="(?i)(active)|(approved)" >
         <input type="submit">
     </form>
 <br/>

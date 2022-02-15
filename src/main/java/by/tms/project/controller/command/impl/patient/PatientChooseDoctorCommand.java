@@ -20,6 +20,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 import static by.tms.project.controller.command.PagePath.CHOOSE_DOCTOR;
+import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
 import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 import static by.tms.project.controller.command.SessionAttribute.DOCTOR;
 
@@ -43,8 +44,9 @@ public class PatientChooseDoctorCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         String strSpeciality = request.getParameter(RequestParameter.SPECIALITY);
-        if (strSpeciality == null) {
-            throw new CommandException("Failed at PatientChooseDoctorCommand ");
+        if (strSpeciality.isEmpty()) {
+           router.setPage(FAIL_PAGE);
+           return router;
         }
         try {
             String speciality = strSpeciality.toUpperCase();

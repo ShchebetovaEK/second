@@ -56,7 +56,7 @@ public class UpdateDoctorCategoryCommand implements Command {
             logger.error("Failed at UpdateDoctorCategoryCommand", e);
             throw new CommandException("Failed at UpdateDoctorCategoryCommand", e);
         }
-        router.setRouterType(Router.RouteType.REDIRECT);
+
         return router;
     }
 }

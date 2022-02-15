@@ -45,18 +45,19 @@ public class AdminTakeProtocolByStatusCommand implements Command {
         if (strProtocolStatus.isEmpty()) {
             router.setPage(FAIL_PAGE);
             return router;
-        }
-        try {
-            String status = strProtocolStatus.toUpperCase();
-            if (protocolValidator.isStatusValid(status)) {
-                List<Protocol> protocolList = protocolService.findByStatus(Status.valueOf(status));
-                request.setAttribute(PROTOCOL_LIST, protocolList);
-                request.setAttribute(PROTOCOL, Boolean.TRUE);
-                router.setPage(PROTOCOL_PAGE);
+        } else {
+            try {
+                String status = strProtocolStatus.toUpperCase();
+                if (protocolValidator.isStatusValid(status)) {
+                    List<Protocol> protocolList = protocolService.findByStatus(Status.valueOf(status));
+                    request.setAttribute(PROTOCOL_LIST, protocolList);
+                    request.setAttribute(PROTOCOL, Boolean.TRUE);
+                    router.setPage(PROTOCOL_PAGE);
+                }
+            } catch (ServiceException e) {
+                logger.error("Failed at AdminTakeProtocolByStatusCommand");
+                throw new CommandException("Failed at AdminTakeProtocolByStatusCommand", e);
             }
-        } catch (ServiceException e) {
-            logger.error("Failed at AdminTakeProtocolByStatusCommand");
-            throw new CommandException("Failed at AdminTakeProtocolByStatusCommand", e);
         }
         return router;
     }

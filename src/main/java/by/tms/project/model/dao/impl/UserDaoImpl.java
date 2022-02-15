@@ -59,12 +59,7 @@ public class UserDaoImpl implements UserDao {
             data_birthday,address,phone_number,email,archiv 
             FROM users 
             WHERE users.email =?""";
-    private static final String SQL_SELECT_BY_DATA_BIRTHDAY = """
-            SELECT id,role,login,password,first_name,last_name,
-            data_birthday,address,phone_number,email,archiv 
-            FROM users 
-            WHERE users.data_birthday =?""";
-    private static final String SQL_SELECT_BY_PHONE_NUMBER = """
+       private static final String SQL_SELECT_BY_PHONE_NUMBER = """
             SELECT id,role,login,password,first_name,last_name,
             data_birthday,address,phone_number,email,archiv 
             FROM users
@@ -106,25 +101,10 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_DELETE_USER_BY_ID = """
             DELETE FROM users 
             WHERE users.id =?""";
-    private static final String SQL_DELETE_ADMIN_BY_ID = """
-            DELETE FROM users 
-            WHERE users.id =?""";
-    private static final String SQL_CHECK_BY_LOGIN_PASSWORD = """ 
-            SELECT users.id,users.role,users.login,users.password,users.first_name,users.last_name,
-            users.data_birthday,users.address,users.phone_number,users.email,users.archiv
-            FROM users
-            WHERE users.login =?
-            AND  users.password =?""";
-    private static final String SQL_CHECK_OLD_PASSWORD = """
-            SELECT users.password
-            FROM users 
-            WHERE users.id=? 
-            AND users.login=?""";
-    private static final String SQL_BY_CURRENT_LOGIN = """
+        private static final String SQL_BY_CURRENT_LOGIN = """
             SELECT users.id,users.login 
             FROM users 
             WHERE users.login=?""";
-
     private static final String SQL_UPDATE_USER_FIRST_NAME = """
             UPDATE users 
             SET first_name=?
@@ -265,13 +245,13 @@ public class UserDaoImpl implements UserDao {
         int result;
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER)) {
-            //    preparedStatement.setString(1, String.valueOf(entity.getRole()));
-            //   preparedStatement.setString(2, entity.getLogin());
-            //   preparedStatement.setString(3, entity.getPassword());
+            preparedStatement.setString(1, String.valueOf(entity.getRole()));
+            preparedStatement.setString(2, entity.getLogin());
+            preparedStatement.setString(3, entity.getPassword());
             long id = entity.getId();
             preparedStatement.setString(5, entity.getLastName());
-            //      Date dataBirthday = new Date(entity.getDataBirthday().getTime());//
-            //     preparedStatement.setDate(6, dataBirthday);
+            Date dataBirthday = new Date(entity.getDataBirthday().getTime());//
+            preparedStatement.setDate(6, dataBirthday);
             preparedStatement.setString(7, entity.getAddress());
             preparedStatement.setString(8, entity.getPhoneNumber());
             preparedStatement.setString(9, entity.getEmail());
@@ -437,7 +417,7 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SEARCH_BY_LAST_NAME)) {
             String first = "%";
             String end = "%";
-            String strLastname = first+lastName+end;
+            String strLastname = first + lastName + end;
             preparedStatement.setString(1, strLastname);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
@@ -918,6 +898,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * input user in archiv
+     *
      * @param id
      * @return the boolean.
      * @throws DaoException

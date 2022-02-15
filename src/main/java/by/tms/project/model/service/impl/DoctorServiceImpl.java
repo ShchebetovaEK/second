@@ -18,6 +18,11 @@ import java.util.*;
 import static by.tms.project.controller.command.RequestParameter.*;
 import static by.tms.project.controller.command.RequestParameter.EMAIL;
 
+/**
+ * @author ShchebetovaEK
+ *
+ * class DoctorServiceImpl
+ */
 public class DoctorServiceImpl implements DoctorService {
     private static final Logger logger = LogManager.getLogger();
     private static DoctorServiceImpl instance;
