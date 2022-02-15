@@ -27,6 +27,7 @@ import static by.tms.project.controller.command.RequestParameter.*;
  */
 public class PatientTakeProtocolCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
+    private static final String INACTIV = "inactiv";
     private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
 
     /**
@@ -41,7 +42,7 @@ public class PatientTakeProtocolCommand implements Command {
         User user = (User) session.getAttribute(SESSION_USER);
         String strArchiv = String.valueOf(user.getArchiv());
         String archiv = strArchiv.toLowerCase();
-        if (archiv.equals("inactiv")) {
+        if (archiv.equals(INACTIV)) {
             router.setPage(IMPOSSIBLE_PAGE);
         } else {
             Long patientId = user.getId();
