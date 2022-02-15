@@ -43,6 +43,7 @@ public class AdminRegisterPatientCommand implements Command {
         try {
             boolean registration = patientService.create(checkData);
             router.setPage(registration ? ADMIN_PAGE : REGISTRATION_PAGE);
+            router.setRouterType(Router.RouteType.REDIRECT);
             return router;
         } catch (ServiceException e) {
             logger.error("Failed at AdminRegisterPatientCommand", e);

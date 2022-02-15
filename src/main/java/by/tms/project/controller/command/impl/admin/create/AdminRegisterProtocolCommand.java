@@ -44,10 +44,12 @@ public class AdminRegisterProtocolCommand implements Command {
         try {
             boolean registration = protocolService.adminRegistrationProtocol(checkData);
             router.setPage(registration ? PROTOCOL_PAGE : PROTOCOL_REGISTRATION_PAGE);
-            return router;
+
         } catch (ServiceException e) {
             logger.error("Failed at AdminRegisterProtocolCommand", e);
             throw new CommandException("Failed at AdminRegisterProtocolCommand", e);
         }
+        router.setRouterType(Router.RouteType.REDIRECT);
+        return router;
     }
 }

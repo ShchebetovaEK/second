@@ -455,29 +455,4 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Failed at UserServiceImpl at method archivUser", e);
         }
     }
-
-//    @Override
-//    public boolean edit(Map<String, String> editCheck) throws ServiceException {
-//        boolean result;
-//        Map<String, String> mapUserCheck = new HashMap<>();
-//        String login = editCheck.get(LOGIN);
-//        String firstName = editCheck.get(FIRST_NAME);
-//        String lastName = editCheck.get(LAST_NAME);
-//        String address = editCheck.get(ADDRESS);
-//        String phoneNumber = editCheck.get(PHONE_NUMBER);
-//        String email = editCheck.get(EMAIL);
-//
-//        mapUserCheck.put(LOGIN, login);
-//        mapUserCheck.put(FIRST_NAME, firstName);
-//        mapUserCheck.put(LAST_NAME, lastName);
-//        mapUserCheck.put(ADDRESS, address);
-//        mapUserCheck.put(PHONE_NUMBER, phoneNumber);
-//        mapUserCheck.put(EMAIL, email);
-//        try{
-//           result = UserValidatorImpl.getInstance().checkUserData(mapUserCheck);
-//           if (result){
-//               userDao.update()
-//           }
-//        }
-//    }
 }

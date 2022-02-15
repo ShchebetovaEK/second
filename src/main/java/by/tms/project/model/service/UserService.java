@@ -1,10 +1,8 @@
 package by.tms.project.model.service;
 
-import by.tms.project.exception.DaoException;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.User;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -29,14 +27,6 @@ public interface UserService {
 
     Optional<User> findByPhoneNumber(String phoneNumber) throws ServiceException;
 
-    boolean checkIfUserValidForRegistration(String login, String email) throws ServiceException;
-
-    void sendMessageRegistrationOnUserEmail(String login, String email, String currentLocale) throws ServiceException;
-
-    void setUserNewLogin(String login, String newLogin) throws ServiceException;
-
-    void setUserNewPassword(String login, String newPassword) throws ServiceException;
-
     boolean registerNewUser(Map<String, String> userCheck) throws ServiceException;
 
     boolean registerNewAdmin(Map<String, String> userCheck) throws ServiceException;
@@ -52,8 +42,6 @@ public interface UserService {
     boolean  updateEmailById(long id, String email) throws ServiceException;
 
     boolean  updateDataBirthdayById(long id, String dataBirthday) throws ServiceException;
-
-    boolean verify(long userId) throws ServiceException;
 
     boolean delete(long id) throws ServiceException;
 

@@ -48,6 +48,7 @@ public class AdminRegisterAdminCommand implements Command {
         try {
             boolean registration = userService.registerNewAdmin(checkData);
             router.setPage(registration ? SUCCESS_PAGE : REGISTRATION_PAGE);
+            router.setRouterType(Router.RouteType.REDIRECT);
             return router;
         } catch (ServiceException e) {
             logger.error("Failed at RegistrationCommand", e);
