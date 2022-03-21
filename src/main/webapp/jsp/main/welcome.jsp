@@ -1,4 +1,3 @@
-<%@ taglib prefix="ftm" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../../imports.jspf" %>
 <fmt:message key="welcome.title" var="title"/>
@@ -55,7 +54,7 @@
         </div>
     </div>
 </div>
-<a href="#header" class="btn-lg btn-danger">UP</a>
+<a href="#header" class = "text-center" class="btn-lg btn-danger" >UP</a>
 <footer><div class="text-center"> <ctg:footer/> </div></footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 

@@ -1,8 +1,9 @@
 package by.tms.project.model.service;
 
-import by.tms.project.exception.DaoException;
 import by.tms.project.exception.ServiceException;
-import by.tms.project.model.entity.*;
+import by.tms.project.model.entity.Category;
+import by.tms.project.model.entity.Doctor;
+import by.tms.project.model.entity.Speciality;
 
 import java.util.List;
 import java.util.Map;
@@ -16,15 +17,11 @@ public interface DoctorService {
 
     List<Doctor> findDoctorByCategory(Category category) throws ServiceException;
 
-    List<Doctor> findDoctorByExperience(Experience experience) throws ServiceException;
-
     List<Doctor> findDoctorBySpeciality(Speciality speciality) throws ServiceException;
 
     boolean registerNewDoctor(Map<String, String> userCheck) throws ServiceException;
 
     boolean updateCategory(long id, Category category) throws ServiceException;
-
-    boolean updateExperience(long id, Experience experience) throws ServiceException;
 
     boolean updateSpeciality(long id, Speciality speciality) throws ServiceException;
 

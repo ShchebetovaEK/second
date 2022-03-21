@@ -8,11 +8,11 @@ import by.tms.project.model.entity.*;
 import by.tms.project.model.service.DoctorService;
 import by.tms.project.model.util.security.PasswordHash;
 import by.tms.project.model.validator.DoctorValidator;
-import by.tms.project.model.validator.impl.DoctorValidatorImpl;
-import by.tms.project.model.validator.impl.UserValidatorImpl;
+import by.tms.project.model.validator.UserValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.SQLException;
 import java.util.*;
 
 import static by.tms.project.controller.command.RequestParameter.*;
@@ -20,14 +20,14 @@ import static by.tms.project.controller.command.RequestParameter.EMAIL;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class DoctorServiceImpl
  */
 public class DoctorServiceImpl implements DoctorService {
     private static final Logger logger = LogManager.getLogger();
     private static DoctorServiceImpl instance;
     private DoctorDao doctorDao = DoctorDaoImpl.getInstance();
-    private DoctorValidator doctorValidator = DoctorValidatorImpl.getInstance();
+    private DoctorValidator doctorValidator = DoctorValidator.getInstance();
 
     private DoctorServiceImpl() {
     }
@@ -51,7 +51,6 @@ public class DoctorServiceImpl implements DoctorService {
         try {
             doctorList = doctorDao.findAll();
         } catch (DaoException e) {
-            logger.error("Failed at DoctorServiceImpl at method findAll", e);
             throw new ServiceException("Failed at DoctorServiceImpl at method findAll", e);
         }
         return doctorList;
@@ -70,7 +69,6 @@ public class DoctorServiceImpl implements DoctorService {
         try {
             optionalDoctor = doctorDao.findDoctorByLogin(login);
         } catch (DaoException e) {
-            logger.error("Failed at DoctorServiceImpl at method findDoctorByLogin", e);
             throw new ServiceException("Failed at DoctorServiceImpl at method findDoctorByLogin", e);
         }
         return optionalDoctor;
@@ -91,29 +89,7 @@ public class DoctorServiceImpl implements DoctorService {
                 doctorList = doctorDao.findByCategory(category);
             }
         } catch (DaoException e) {
-            logger.error("Failed at DoctorServiceImpl at method findDoctorByCategory", e);
             throw new ServiceException("Failed at DoctorServiceImpl at method findDoctorByCategory", e);
-        }
-        return doctorList;
-    }
-
-    /**
-     * find doctor by experience.
-     *
-     * @param experience
-     * @return doctorList.
-     * @throws ServiceException
-     */
-    @Override
-    public List<Doctor> findDoctorByExperience(Experience experience) throws ServiceException {
-        List<Doctor> doctorList = new ArrayList<>();
-        try {
-            if (doctorValidator.isExperienceValid(experience.name())) {
-                doctorList = doctorDao.findByExperience(experience);
-            }
-        } catch (DaoException e) {
-            logger.error("Failed at DoctorServiceImpl at method findDoctorByExperience", e);
-            throw new ServiceException("Failed at DoctorServiceImpl at method findDoctorByExperience", e);
         }
         return doctorList;
     }
@@ -131,7 +107,6 @@ public class DoctorServiceImpl implements DoctorService {
         try {
             doctorList = doctorDao.findBySpeciality(speciality);
         } catch (DaoException e) {
-            logger.error("Failed at DoctorServiceImpl at method findDoctorBySpeciality ", e);
             throw new ServiceException("Failed at DoctorServiceImpl at method findDoctorBySpeciality ", e);
         }
         return doctorList;
@@ -161,8 +136,6 @@ public class DoctorServiceImpl implements DoctorService {
         String email = userCheck.get(EMAIL);
         String strCategory = userCheck.get(CATEGORY);
         Category category = Category.valueOf(strCategory.toUpperCase());
-        String strExperience = userCheck.get(EXPERIENCE);
-        Experience experience = Experience.valueOf(strExperience.toUpperCase());
         String strSpeciality = userCheck.get(SPECIALITY);
         Speciality speciality = Speciality.valueOf(strSpeciality.toUpperCase());
 
@@ -175,27 +148,24 @@ public class DoctorServiceImpl implements DoctorService {
         mapUserCheck.put(PHONE_NUMBER, phoneNumber);
         mapUserCheck.put(EMAIL, email);
         mapDoctorCheck.put(CATEGORY, String.valueOf(category));
-        mapDoctorCheck.put(EXPERIENCE, String.valueOf(experience));
-        mapDoctorCheck.put(SPECIALITY, String.valueOf(strSpeciality));
+        mapDoctorCheck.put(SPECIALITY, String.valueOf(speciality));
 
 
         try {
-            resultOne = UserValidatorImpl.getInstance().checkUserData(mapUserCheck);
-            resultTwo = DoctorValidatorImpl.getInstance().checkUserDoctorData(mapDoctorCheck);
+            resultOne = UserValidator.getInstance().checkUserData(mapUserCheck);
+            resultTwo = DoctorValidator.getInstance().checkUserDoctorData(mapDoctorCheck);
             if (resultOne && resultTwo) {
-                AccessRole role = AccessRole.DOCTOR;
+                Role role = Role.DOCTOR;
                 String passwordHash = PasswordHash.encrypt(password);
                 Doctor doctor = new Doctor(role, login, passwordHash, firstName, lastName, dataBirthday,
-                        address, phoneNumber, email, category, experience, speciality);
+                        address, phoneNumber, email, category, speciality);
                 doctorDao.create(doctor);
             }
 
         } catch (DaoException e) {
-            logger.error("Failed at DoctorServiceImpl at method registerNewDoctor", e);
             throw new ServiceException("Failed at DoctorServiceImpl at method registerNewDoctor", e);
         } catch (IllegalArgumentException e) {
             logger.error("IllegalArgumentException at DoctorServiceImpl in registerNewDoctor ", e);
-            return false;
         }
         return true;
     }
@@ -211,30 +181,10 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public boolean updateCategory(long id, Category category) throws ServiceException {
         try {
-            return DoctorValidatorImpl.getInstance().isCategoryValid(category.name())
+            return DoctorValidator.getInstance().isCategoryValid(category.name())
                     && doctorDao.updateCategory(id, category);
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method updateCategory", e);
             throw new ServiceException("Failed at UserServiceImpl at method updateCategory", e);
-        }
-    }
-
-    /**
-     * update  doctor's Experience
-     *
-     * @param id
-     * @param experience
-     * @return the boolean
-     * @throws ServiceException
-     */
-    @Override
-    public boolean updateExperience(long id, Experience experience) throws ServiceException {
-        try {
-            return DoctorValidatorImpl.getInstance().isExperienceValid(experience.name())
-                    && doctorDao.updateExperience(id, experience);
-        } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method updateExperience", e);
-            throw new ServiceException("Failed at UserServiceImpl at method updateExperience", e);
         }
     }
 
@@ -249,10 +199,9 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public boolean updateSpeciality(long id, Speciality speciality) throws ServiceException {
         try {
-            return DoctorValidatorImpl.getInstance().isSpecialityValid(speciality.name())
+            return DoctorValidator.getInstance().isSpecialityValid(speciality.name())
                     && doctorDao.updateSpeciality(id, speciality);
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method updateExperience", e);
             throw new ServiceException("Failed at UserServiceImpl at method updateExperience ", e);
         }
     }
@@ -269,7 +218,6 @@ public class DoctorServiceImpl implements DoctorService {
         try {
             return doctorDao.deleteDoctor(id);
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method deleteDoctor", e);
             throw new ServiceException("Failed at UserServiceImpl at method deleteDoctor", e);
         }
     }
@@ -286,7 +234,6 @@ public class DoctorServiceImpl implements DoctorService {
         try {
             return doctorDao.archivDoctor(id);
         } catch (DaoException e) {
-            logger.error("Failed at DoctorServiceImpl at archivDoctor ", e);
             throw new ServiceException("Failed at DoctorServiceImpl at archivDoctor", e);
         }
     }

@@ -4,6 +4,7 @@ import by.tms.project.exception.DaoException;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.*;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,15 +12,11 @@ public interface DoctorDao extends BaseDao<Long, Doctor>{
 
     List<Doctor> findByCategory(Category category) throws DaoException;
 
-    List<Doctor> findByExperience(Experience experience) throws DaoException;
-
     List<Doctor> findBySpeciality (Speciality speciality) throws DaoException;
 
     Optional<Doctor> findDoctorByLogin(String login) throws DaoException;
 
     boolean updateCategory(long id, Category category) throws DaoException;
-
-    boolean updateExperience(long id, Experience experience) throws DaoException;
 
     boolean updateSpeciality(long id, Speciality speciality) throws DaoException;
 
@@ -27,6 +24,5 @@ public interface DoctorDao extends BaseDao<Long, Doctor>{
 
     boolean archivDoctor(long id) throws DaoException;
 
-    List<Doctor> chooseDoctor (Category category,Experience experience,Speciality speciality) throws DaoException;
 
 }

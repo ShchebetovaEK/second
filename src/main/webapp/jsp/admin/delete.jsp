@@ -7,6 +7,7 @@
 <fmt:message key="delete.message3" var="message3"/>
 <fmt:message key="delete.message4" var="message4"/>
 <fmt:message key="delete.message5" var="message5"/>
+
 <html>
 <header id="header">
     <%@include file="../header/header.jsp" %>
@@ -15,7 +16,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../../img/png-transparent-graphy-logo-tree-leaf-branch-logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../img/png-transparent-graphy-logo-tree-leaf-branch-logo.png"
+          type="image/x-icon">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/fontello.css">
     <title>${title}</title>
@@ -23,43 +25,26 @@
 <body>
 
 <div class="text-center">
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_archiv_doctor_command">
-    <label class="form-label"> ${message1}</label>
-    <input type="text" name="users_id" required placeholder="id" >
-    <input type="submit" name="delete" >
-</form>
-<br/>
-<form action="${abs}/controller" method="get">
-  archiv  <input type="hidden" name="command" value="admin_archiv_patient_command">
-    <label class="form-label">   ${message2} </label>
-  <input type="text" name="users_id" required placeholder="id" >
-    <input type="submit" >
-</form>
-
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_archiv_user_command">
-    <label class="form-label">  ${message3} </label>
-   <input type="text" name="users_id"  required placeholder="id" >
-    <input type="submit" name="delete" >
-</form>
-
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_archiv_user_command">
-    <label class="form-label">   ${message4}</label>
-   <input type="text" name="users_id" required placeholder="id" >
-    <input type="submit" name="delete" >
-</form>
+    <form action="${abs}/controller" method="get">
+        <input type="hidden" name="command" value="admin_archiv_user_command">
+        <label class="form-label"> ${message3} </label>
+        <input type="text" name="users_id" required placeholder="id">
+        <input type="submit" name="delete">
+    </form>
 
     <form action="${abs}/controller" method="get">
         <input type="hidden" name="command" value="admin_delete_admin_command">
         <label class="form-label"> ${message5} </label>
-        <input type="text" name="users_id" required placeholder="id" >
-        <input type="submit" name="delete" >
+        <input type="text" name="users_id" required placeholder="id">
+        <input type="submit" name="delete">
     </form>
 </div>
+
 <a href="#header" class="btn-lg btn-danger">UP</a>
-<footer><div class="text-center"> <ctg:footer/> </div></footer>
+
+<footer>
+    <div class="text-center"><ctg:footer/></div>
+</footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

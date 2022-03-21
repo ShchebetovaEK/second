@@ -3,7 +3,7 @@ package by.tms.project.controller.command.impl.common;
 import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
-import by.tms.project.model.validator.impl.LocaleValidatorImpl;
+import by.tms.project.model.validator.LocaleValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
@@ -31,7 +31,7 @@ public class ChangeLocaleCommand implements Command {
         HttpSession session = request.getSession();
         String currentPage = (String) session.getAttribute(CURRENT_PAGE);
         String newLocale = request.getParameter(SESSION_LOCALE);
-        if (LocaleValidatorImpl.getInstance().isLocaleExist(newLocale)) {
+        if (LocaleValidator.getInstance().isLocaleExist(newLocale)) {
             session.setAttribute(SESSION_LOCALE, newLocale);
 
         } else {

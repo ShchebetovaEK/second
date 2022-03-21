@@ -36,16 +36,22 @@ public class UpdateUserFirstNameCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         String upFirstName = request.getParameter(FIRST_NAME);
-        String strId = request.getParameter(ID);
-        if (upFirstName.isEmpty() && strId.isEmpty()) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(SESSION_USER);
+        Long userId = user.getId();
+//        String strId = request.getParameter(ID);
+//        if (upFirstName.isEmpty() && strId.isEmpty()) {
+        if (upFirstName.isEmpty() ) {
             router.setPage(FAIL_PAGE);
             return router;
         }
-        Long id = Long.valueOf(strId);
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(SESSION_USER);
+//        Long id = Long.valueOf(strId);
+        Long id = Long.valueOf(userId);
+//        HttpSession session = request.getSession();
+//        User user = (User) session.getAttribute(SESSION_USER);
         try {
-            if (upFirstName != null && strId != null) {
+//            if (upFirstName != null && strId != null) {
+            if (upFirstName != null ) {
                 userService.updateFirstNameById(id, upFirstName);
                 router.setPage(SUCCESS_PAGE);
             } else {

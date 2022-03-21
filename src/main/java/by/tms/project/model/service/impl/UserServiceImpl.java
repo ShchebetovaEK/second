@@ -1,14 +1,16 @@
 package by.tms.project.model.service.impl;
 
 import by.tms.project.exception.DaoException;
+import by.tms.project.exception.MailException;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.dao.UserDao;
 import by.tms.project.model.dao.impl.UserDaoImpl;
-import by.tms.project.model.entity.AccessRole;
+import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
 import by.tms.project.model.service.UserService;
+import by.tms.project.model.util.mail.Mail;
 import by.tms.project.model.util.security.PasswordHash;
-import by.tms.project.model.validator.impl.UserValidatorImpl;
+import by.tms.project.model.validator.UserValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +20,7 @@ import static by.tms.project.controller.command.RequestParameter.*;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class UserServiceImpl
  */
 public class UserServiceImpl implements UserService {
@@ -48,7 +50,6 @@ public class UserServiceImpl implements UserService {
         try {
             userList = userDao.findAll();
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method findAll", e);
             throw new ServiceException("Failed at UserServiceImpl at method findAll", e);
         }
         return userList;
@@ -66,12 +67,11 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findUserByLoginAndPassword(String login, String password) throws ServiceException {
         Optional<User> optionalUser = Optional.empty();
         try {
-            if (UserValidatorImpl.getInstance().isLoginValid(login) && UserValidatorImpl.getInstance().isPasswordValid(password)) {
+            if (UserValidator.getInstance().isLoginValid(login) && UserValidator.getInstance().isPasswordValid(password)) {
                 String passwordHash = PasswordHash.encrypt(password);
                 optionalUser = userDao.findByLoginAndPassword(login, passwordHash);
             }
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method findUserByLoginAndPassword", e);
             throw new ServiceException("Failed at UserServiceImpl at method findUserByLoginAndPassword", e);
         }
         return optionalUser;
@@ -88,11 +88,10 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findByLogin(String login) throws ServiceException {
         Optional<User> optionalUser = Optional.empty();
         try {
-            if (UserValidatorImpl.getInstance().isLoginValid(login)) {
+            if (UserValidator.getInstance().isLoginValid(login)) {
                 optionalUser = userDao.findByLogin(login);
             }
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method findByLogin", e);
             throw new ServiceException("Failed at UserServiceImpl at method findByLogin", e);
         }
         return optionalUser;
@@ -111,7 +110,6 @@ public class UserServiceImpl implements UserService {
         try {
             optionalUser = userDao.findById(id);
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method findUserById", e);
             throw new ServiceException("Failed at UserServiceImpl at method findUserById", e);
         }
         return optionalUser;
@@ -128,11 +126,10 @@ public class UserServiceImpl implements UserService {
     public List<User> findByFirstName(String firstName) throws ServiceException {
         List<User> userList = new ArrayList<>();
         try {
-            if (UserValidatorImpl.getInstance().isFirstNameValid(firstName)) {
+            if (UserValidator.getInstance().isFirstNameValid(firstName)) {
                 userList = userDao.findByFirstName(firstName);
             }
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method findByFirstName", e);
             throw new ServiceException("Failed at UserServiceImpl at method findByFirstName", e);
         }
         return userList;
@@ -149,18 +146,31 @@ public class UserServiceImpl implements UserService {
     public List<User> findByLastName(String lastName) throws ServiceException {
         List<User> userList = new ArrayList<>();
         try {
-            if (UserValidatorImpl.getInstance().isLastNameValid(lastName)) {
+            if (UserValidator.getInstance().isLastNameValid(lastName)) {
                 userList = userDao.findByLastName(lastName);
             }
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method findByLastName", e);
             throw new ServiceException("Failed at UserServiceImpl at method  findByLastName", e);
+        }
+        return userList;
+    }
+
+    @Override
+    public List<User> findByDataBirthday(String dataBirthday) throws ServiceException {
+        List<User> userList = new ArrayList<>();
+        try {
+            if (UserValidator.getInstance().isDataBirthdayValid(dataBirthday)) {
+                userList = userDao.findByDataBirthday(dataBirthday);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException("Failed at UserServiceImpl at method findByDataBirthday ", e);
         }
         return userList;
     }
 
     /**
      * search by last name
+     *
      * @param lastName
      * @return
      * @throws ServiceException
@@ -169,11 +179,10 @@ public class UserServiceImpl implements UserService {
     public List<User> searchByLastName(String lastName) throws ServiceException {
         List<User> userList = new ArrayList<>();
         try {
-            if (UserValidatorImpl.getInstance().isLastNameValid(lastName)) {
+            if (UserValidator.getInstance().isLastNameValid(lastName)) {
                 userList = userDao.searchByLastName(lastName);
             }
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method searchByLastName", e);
             throw new ServiceException("Failed at UserServiceImpl at method  searchByLastName", e);
         }
         return userList;
@@ -190,11 +199,10 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findByEmail(String email) throws ServiceException {
         Optional<User> optionalUser = Optional.empty();
         try {
-            if (UserValidatorImpl.getInstance().isEmailValid(email)) {
+            if (UserValidator.getInstance().isEmailValid(email)) {
                 optionalUser = userDao.findByEmail(email);
             }
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method findByEmail", e);
             throw new ServiceException("Failed at UserServiceImpl at method findByEmail", e);
         }
         return optionalUser;
@@ -212,11 +220,10 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findByPhoneNumber(String phoneNumber) throws ServiceException {
         Optional<User> optionalUser = Optional.empty();
         try {
-            if (UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber)) {
+            if (UserValidator.getInstance().isPhoneNumberValid(phoneNumber)) {
                 optionalUser = userDao.findByPhoneNumber(phoneNumber);
             }
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method findByPhoneNumber", e);
             throw new ServiceException("Failed at UserServiceImpl at method findByPhoneNumber", e);
         }
         return optionalUser;
@@ -224,6 +231,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * register New user
+     *
      * @param userCheck
      * @return
      * @throws ServiceException
@@ -252,16 +260,15 @@ public class UserServiceImpl implements UserService {
         mapUserCheck.put(EMAIL, email);
 
         try {
-            result = UserValidatorImpl.getInstance().checkUserData(mapUserCheck);
+            result = UserValidator.getInstance().checkUserData(mapUserCheck);
             if (result) {
-                AccessRole role = AccessRole.PATIENT;
+                Role role = Role.PATIENT;
                 String passwordHash = PasswordHash.encrypt(password);
                 User user = new User(role, login, passwordHash, firstName, lastName, dataBirthday, address, phoneNumber, email);
                 userDao.create(user);
             }
 
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method registerNewUser", e);
             throw new ServiceException("Failed at UserServiceImpl at method registerNewUser", e);
         } catch (IllegalArgumentException e) {
             logger.error("IllegalArgumentException at UserServiceImpl in registerNewUser ", e);
@@ -272,6 +279,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * register New Admin
+     *
      * @param userCheck
      * @return
      * @throws ServiceException
@@ -300,9 +308,9 @@ public class UserServiceImpl implements UserService {
         mapUserCheck.put(EMAIL, email);
 
         try {
-            result = UserValidatorImpl.getInstance().checkUserData(mapUserCheck);
+            result = UserValidator.getInstance().checkUserData(mapUserCheck);
             if (result) {
-                AccessRole role = AccessRole.ADMIN;
+                Role role = Role.ADMIN;
                 String passwordHash = PasswordHash.encrypt(password);
                 User user = new User(role, login, passwordHash, firstName, lastName, dataBirthday, address, phoneNumber, email);
                 userDao.create(user);
@@ -310,13 +318,52 @@ public class UserServiceImpl implements UserService {
             }
 
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method registerNewAdmin", e);
             throw new ServiceException("Failed at UserServiceImpl at method registerNewAdmin", e);
         } catch (IllegalArgumentException e) {
             logger.error("IllegalArgumentException at UserServiceImpl in registerNewAdmin ", e);
             return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean setLogin(User user, String login) throws ServiceException {
+        try{
+            return UserValidator.getInstance().isLoginValid(user.getLogin())
+                    && userDao.setLogin(user, login);
+        }
+        catch (DaoException e){
+            throw new ServiceException("Failed at UserServiceImpl at method setLogin", e);
+        }
+    }
+
+    @Override
+    public void sendMessage(String subject,String login) throws ServiceException {
+        try {
+            Optional<User> optionalUser = userDao.findByLogin(login);
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                String firstName = user.getFirstName();
+                String lastName = user.getLastName();
+                String email = user.getEmail();
+                Mail mail = new Mail();
+                mail.sendMessage(subject,firstName,lastName, email);
+
+            }
+        } catch ( MailException |DaoException e) {
+            throw new ServiceException("Failed at UserServiceImpl at method send message",e);
+        }
+    }
+
+    @Override
+    public boolean setPassword(User user, String password) throws ServiceException {
+        try{
+            return UserValidator.getInstance().isPasswordValid(password)
+                    && userDao.setPassword(user,password);
+        }
+        catch (DaoException e){
+            throw new ServiceException("Failed at UserServiceImpl at method setPassword", e);
+        }
     }
 
     /**
@@ -330,10 +377,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateFirstNameById(long id, String firstName) throws ServiceException {
         try {
-            return UserValidatorImpl.getInstance().isFirstNameValid(firstName)
+            return UserValidator.getInstance().isFirstNameValid(firstName)
                     && userDao.updateFirstNameById(id, firstName);
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method updateFirstNameById", e);
             throw new ServiceException("Failed at UserServiceImpl at method updateFirstNameById", e);
         }
     }
@@ -349,10 +395,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateLastNameById(long id, String lastName) throws ServiceException {
         try {
-            return UserValidatorImpl.getInstance().isLastNameValid(lastName)
+            return UserValidator.getInstance().isLastNameValid(lastName)
                     && userDao.updateLastNameById(id, lastName);
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method updateLastNameById", e);
             throw new ServiceException("Failed at UserServiceImpl at method updateLastNameById", e);
         }
     }
@@ -368,10 +413,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updatePhoneNumberById(long id, String phoneNumber) throws ServiceException {
         try {
-            return UserValidatorImpl.getInstance().isPhoneNumberValid(phoneNumber)
+            return UserValidator.getInstance().isPhoneNumberValid(phoneNumber)
                     && userDao.updatePhoneNumberById(id, phoneNumber);
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method updatePhoneNumberById", e);
             throw new ServiceException("Failed at UserServiceImpl at method updatePhoneNumberById", e);
         }
     }
@@ -387,10 +431,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateAddressById(long id, String address) throws ServiceException {
         try {
-            return UserValidatorImpl.getInstance().isAddressValid(address)
+            return UserValidator.getInstance().isAddressValid(address)
                     && userDao.updateAddressById(id, address);
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method updateAddressById", e);
             throw new ServiceException("Failed at UserServiceImpl at method updateAddressById", e);
         }
     }
@@ -406,10 +449,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateEmailById(long id, String email) throws ServiceException {
         try {
-            return UserValidatorImpl.getInstance().isEmailValid(email)
+            return UserValidator.getInstance().isEmailValid(email)
                     && userDao.updateEmailById(id, email);
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method updateEmailById", e);
             throw new ServiceException("Failed at UserServiceImpl at method updateEmailById", e);
         }
     }
@@ -425,10 +467,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateDataBirthdayById(long id, String dataBirthday) throws ServiceException {
         try {
-            return UserValidatorImpl.getInstance().isDataBirthdayValid(dataBirthday)
+            return UserValidator.getInstance().isDataBirthdayValid(dataBirthday)
                     && userDao.updateDataBirthdayById(id, dataBirthday);
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method updateDataBirthdayById", e);
             throw new ServiceException("Failed at UserServiceImpl at method updateDataBirthdayById", e);
         }
     }
@@ -445,7 +486,6 @@ public class UserServiceImpl implements UserService {
         try {
             return userDao.delete(id);
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method delete", e);
             throw new ServiceException("Failed at UserServiceImpl at method delete", e);
         }
     }
@@ -462,7 +502,6 @@ public class UserServiceImpl implements UserService {
         try {
             return userDao.archivUser(id);
         } catch (DaoException e) {
-            logger.error("Failed at UserServiceImpl at method archivUser", e);
             throw new ServiceException("Failed at UserServiceImpl at method archivUser", e);
         }
     }

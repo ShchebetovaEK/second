@@ -28,7 +28,7 @@
         <label class="form-label">${message1}</label>
         <input type="text" required pattern="([0-9]{1,10})" name="users_id">
         <label class="form-label">${message2}</label>
-        <input type="text"  required name="insurance">
+        <input type="text"  required  pattern="(?i)(true)(false)" name="insurance">
         <input type="submit">
     </form>
     <br/>
@@ -46,7 +46,17 @@
         <label class="form-label"> ${message1}</label>
         <input type="text" required pattern="([0-9]{1,10})" name="users_id">
         <label class="form-label"> ${message4}</label>
-        <input type="text" required name="money_account">
+        <input type="text" required  pattern="([0-9]{1,10})" name="money_account">
+        <input type="submit">
+    </form>
+
+
+    <form action="${abs}/controller" method="get">
+        <input type="hidden" name="command" value="update_patient_balance_command">
+        <label class="form-label"> ${message1}</label>
+        <input type="text" required pattern="([0-9]{1,10})" name="users_id">
+        <label class="form-label"> ${message4}</label>
+        <input type="text" required  pattern="([0-9]{1,10})" name="balance">
         <input type="submit">
     </form>
     <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/update.jsp"

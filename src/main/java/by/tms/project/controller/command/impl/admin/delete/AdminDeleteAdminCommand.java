@@ -4,6 +4,7 @@ import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
 import by.tms.project.exception.ServiceException;
+import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
 import by.tms.project.model.service.UserService;
 import by.tms.project.model.service.impl.UserServiceImpl;
@@ -11,6 +12,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.lang.management.OperatingSystemMXBean;
+import java.util.Optional;
 
 import static by.tms.project.controller.command.PagePath.FAIL_PAGE;
 import static by.tms.project.controller.command.PagePath.SUCCESS_PAGE;
@@ -40,11 +44,17 @@ public class AdminDeleteAdminCommand implements Command {
            return router;
         }
         Long id = Long.valueOf(strId);
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(SESSION_USER);
+
         try {
-            userService.delete(id);
-            router.setPage(SUCCESS_PAGE);
+         Optional<User> userOptional =  userService.findUserById(id);
+         Role userRole = userOptional.get().getRole();
+         if (userRole == Role.ADMIN){
+             userService.delete(id);
+             router.setPage(SUCCESS_PAGE);
+         }
+         else {
+             router.setPage(FAIL_PAGE);
+         }
         } catch (ServiceException e) {
             logger.error("Failed at AdminDeleteAdminCommand", e);
             throw new CommandException("Failed at AdminDeleteAdminCommand", e);

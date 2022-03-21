@@ -1,12 +1,13 @@
 package by.tms.project.model.entity;
 
-public enum AccessRole {
+public enum Role {
+    GUEST("Guest"),
     ADMIN("Admin"),
     PATIENT("Patient"),
     DOCTOR("Doctor");
     private final String role;
 
-    AccessRole(String role) {
+    Role(String role) {
         this.role = role;
     }
 
@@ -14,8 +15,8 @@ public enum AccessRole {
         return role;
     }
 
-    public static AccessRole getRoleType(String role){
-        for(AccessRole accessRole: AccessRole.values()){
+    public static Role getRoleType(String role){
+        for(Role accessRole: Role.values()){
             if(accessRole.getRole().equals(role)){
                 return accessRole;
             }

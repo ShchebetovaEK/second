@@ -47,7 +47,7 @@ public class UpdatePatientInsuranceCommand implements Command {
         HttpSession session = request.getSession();
         Patient patient = (Patient) session.getAttribute(SESSION_PATIENT);
         try {
-            if (insurance != null) {
+            if (insurance != null && insurance.booleanValue()) {
                 patientService.updateInsurance(id, insurance);
                 router.setPage(SUCCESS_PAGE);
             } else {

@@ -40,8 +40,7 @@ public class AdminArchivUserCommand implements Command {
             return router;
         }
         Long id = Long.valueOf(strId);
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(SESSION_USER);
+
         try {
             userService.archivUser(id);
             router.setPage(SUCCESS_PAGE);

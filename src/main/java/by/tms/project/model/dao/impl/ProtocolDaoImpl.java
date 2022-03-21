@@ -18,55 +18,55 @@ public class ProtocolDaoImpl implements ProtocolDao {
     private static final Logger logger = LogManager.getLogger();
     private static final String SQL_SELECT_ALL_PROTOCOL = """
             SELECT protocol_id, protocol_data, protocol_payer, protocol_cost,application,status, patients_users_id, doctors_users_id,
-                      insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
+                      insurance, money_account, discount, doctors.users_id, doctors.category, doctors.speciality, doctors.users_id
             FROM protocols
             INNER JOIN patients on protocols.patients_users_id = patients.users_id
             INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id""";
     private static final String SQL_SELECT_PROTOCOL_BY_ID = """
             SELECT protocol_id, protocol_data, protocol_payer, protocol_cost,application,status, patients_users_id, doctors_users_id,
-                      insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
+                      insurance, money_account, discount, doctors.users_id, doctors.category, doctors.speciality, doctors.users_id
             FROM protocols
             INNER JOIN patients on protocols.patients_users_id = patients.users_id
             INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
             WHERE protocols.protocol_id=? """;
     private static final String SQL_SELECT_ALL_PROTOCOL_BY_DATA = """
             SELECT protocol_id, protocol_data, protocol_payer, protocol_cost,application,status, patients_users_id, doctors_users_id,
-                      insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
+                      insurance, money_account, discount, doctors.users_id, doctors.category, doctors.speciality, doctors.users_id
             FROM protocols
             INNER JOIN patients on protocols.patients_users_id = patients.users_id
             INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
             WHERE protocols.protocol_data=? """;
     private static final String SQL_SELECT_ALL_PROTOCOL_BY_PAYER = """
             SELECT protocol_id, protocol_data, protocol_payer, protocol_cost,application,status, patients_users_id, doctors_users_id,
-                   insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
+                   insurance, money_account, discount, doctors.users_id, doctors.category, doctors.speciality, doctors.users_id
             FROM protocols
             INNER JOIN patients on protocols.patients_users_id = patients.users_id
             INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
             WHERE protocols.protocol_payer=? """;
     private static final String SQL_SELECT_ALL_PROTOCOL_BY_APPLICATION = """
             SELECT protocol_id, protocol_data, protocol_payer, protocol_cost,application,status, patients_users_id, doctors_users_id,
-                   insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
+                   insurance, money_account, discount, doctors.users_id, doctors.category,  doctors.speciality, doctors.users_id
             FROM protocols
             INNER JOIN patients on protocols.patients_users_id = patients.users_id
             INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
             WHERE protocols.application=? """;
     private static final String SQL_SELECT_ALL_PROTOCOL_BY_STATUS = """
             SELECT protocol_id, protocol_data, protocol_payer, protocol_cost,application,status, patients_users_id, doctors_users_id,
-                   insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
+                   insurance, money_account, discount, doctors.users_id, doctors.category, doctors.speciality, doctors.users_id
             FROM protocols
             INNER JOIN patients on protocols.patients_users_id = patients.users_id
             INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
             WHERE protocols.status=? """;
     private static final String SQL_SELECT_ALL_PROTOCOL_BY_PATIENT = """
             SELECT protocol_id, protocol_data, protocol_payer, protocol_cost,application,status, patients_users_id, doctors_users_id,
-                   insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
+                   insurance, money_account, discount, doctors.users_id, doctors.category, doctors.speciality, doctors.users_id
             FROM protocols
             INNER JOIN patients on protocols.patients_users_id = patients.users_id
             INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
             WHERE patients_users_id=?;""";
     private static final String SQL_SELECT_ALL_PROTOCOL_BY_DOCTOR = """
             SELECT protocol_id, protocol_data, protocol_payer, protocol_cost,application,status, patients_users_id, doctors_users_id,
-                   insurance, money_account, discount, doctors.users_id, doctors.category, doctors.experience, doctors.speciality, doctors.users_id
+                   insurance, money_account, discount, doctors.users_id, doctors.category, doctors.speciality, doctors.users_id
             FROM protocols
             INNER JOIN patients on protocols.patients_users_id = patients.users_id
             INNER JOIN doctors on protocols.doctors_users_id = doctors.users_id
@@ -137,7 +137,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl at method findAll", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method findAll", e);
         }
         return protocolList;
@@ -162,7 +161,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl at method findById", e);
             throw new DaoException("Failed at ProtocolDaoImpl  at method findById", e);
         }
         return optionalProtocol;
@@ -180,7 +178,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
             preparedStatement.setLong(4, entity.getPatientsUsersId());
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl at method create", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method create", e);
         }
         return (result > 0);
@@ -200,7 +197,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
             preparedStatement.setString(6, String.valueOf(entity.getApplication()));
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl at method createProtocolByAdmin", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method createProtocolByAdmin", e);
         }
         return (result > 0);
@@ -226,7 +222,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
             preparedStatement.setString(8, String.valueOf(entity.getStatus()));
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl at method update", e);
             throw new DaoException("Failed at  ProtocolDaoImpl at method update", e);
         }
         return (result > 0);
@@ -246,7 +241,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
             preparedStatement.setLong(1, protocolId);
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl at method delete", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method delete", e);
         }
         return (result > 0);
@@ -266,7 +260,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
             preparedStatement.setLong(1, entity.getProtocolId());
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl  at method delete entity", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method delete entity", e);
         }
         return (result > 0);
@@ -292,7 +285,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl at method findByPayer", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method findByPayer", e);
         }
         return protocolList;
@@ -317,7 +309,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl at method findByData", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method findByData", e);
         }
         return protocolList;
@@ -342,7 +333,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl at method findByApplication ", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method findByApplication ", e);
         }
         return protocolList;
@@ -367,7 +357,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl at method findByStatus", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method findByStatus", e);
         }
         return protocolList;
@@ -393,7 +382,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
             }
         } catch (
                 SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl at method findByPatient", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method findByPatient", e);
         }
         return protocolList;
@@ -418,7 +406,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
                 }
             }
         } catch (SQLException e) {
-            logger.error("Failed at  ProtocolDaoImpl at method findByDoctor", e);
             throw new DaoException("Failed at ProtocolDaoImpl  at method findByDoctor", e);
         }
         return protocolList;
@@ -441,7 +428,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
             preparedStatement.setLong(2, protocolId);
             result = preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl  at method updateProtocolCost", e);
             throw new DaoException("Failed at  ProtocolDaoImpl at method updateProtocolCost", e);
         }
         return result;
@@ -464,7 +450,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
             preparedStatement.setLong(2, protocolId);
             result = preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl  at method updateProtocolApplication", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method updateProtocolApplication", e);
         }
         return result;
@@ -487,7 +472,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
             preparedStatement.setLong(2, protocolId);
             result = preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl  at method updateProtocolStatus", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method updateProtocolStatus", e);
         }
         return result;
@@ -512,7 +496,6 @@ public class ProtocolDaoImpl implements ProtocolDao {
                 cost = result.getLong(1);
             }
         } catch (SQLException e) {
-            logger.error("Failed at ProtocolDaoImpl at method takeProtocolCost", e);
             throw new DaoException("Failed at ProtocolDaoImpl at method takeProtocolCost", e);
         }
         return cost;

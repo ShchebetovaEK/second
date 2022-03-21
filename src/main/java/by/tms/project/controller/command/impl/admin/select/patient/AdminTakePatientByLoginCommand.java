@@ -9,7 +9,6 @@ import by.tms.project.model.entity.Patient;
 import by.tms.project.model.service.PatientService;
 import by.tms.project.model.service.impl.PatientServiceImpl;
 import by.tms.project.model.validator.UserValidator;
-import by.tms.project.model.validator.impl.UserValidatorImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +30,7 @@ import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 public class AdminTakePatientByLoginCommand implements Command {
     public static final Logger logger = LogManager.getLogger();
     private PatientService patientService = PatientServiceImpl.getInstance();
-    private UserValidator userValidator = UserValidatorImpl.getInstance();
+    private UserValidator userValidator = UserValidator.getInstance();
 
     /**
      * @param request the request

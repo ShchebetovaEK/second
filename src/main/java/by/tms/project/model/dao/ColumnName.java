@@ -23,7 +23,6 @@ public final class ColumnName {
 
     /*TABLE DOCTORS*/
     public static final String DOCTORS_CATEGORY = "category";
-    public static final String DOCTORS_EXPERIENCE = "experience";
     public static final String DOCTORS_SPECIALITY = "speciality";
     public static final String DOCTORS_USERS_ID = "users_id";
 

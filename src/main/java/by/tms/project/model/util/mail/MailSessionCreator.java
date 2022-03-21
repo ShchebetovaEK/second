@@ -14,11 +14,12 @@ public class MailSessionCreator {
     public static Session createSession(Properties properties){
         String name = properties.getProperty(NAME);
         String password = properties.getProperty(PASSWORD);
-        return Session.getDefaultInstance(properties, new Authenticator() {
+        Authenticator authenticator = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(name, password);
             }
-        });
+        };
+        return Session.getDefaultInstance(properties, authenticator);
     }
 }

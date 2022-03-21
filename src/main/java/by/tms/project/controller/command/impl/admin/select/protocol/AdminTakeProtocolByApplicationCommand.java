@@ -10,7 +10,6 @@ import by.tms.project.model.entity.Protocol;
 import by.tms.project.model.service.ProtocolService;
 import by.tms.project.model.service.impl.ProtocolServiceImpl;
 import by.tms.project.model.validator.ProtocolValidator;
-import by.tms.project.model.validator.impl.ProtocolValidatorImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,7 +28,7 @@ import static by.tms.project.controller.command.RequestAttribute.PROTOCOL_LIST;
 public class AdminTakeProtocolByApplicationCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
-    private ProtocolValidator protocolValidator = ProtocolValidatorImpl.getInstance();
+    private ProtocolValidator protocolValidator = ProtocolValidator.getInstance();
 
     /**
      * @param request the request

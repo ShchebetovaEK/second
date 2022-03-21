@@ -8,7 +8,6 @@
 <fmt:message key="patientviewdoc.firstName" var="firstName"/>
 <fmt:message key="patientviewdoc.lastName" var="lastName"/>
 <fmt:message key="patientviewdoc.category" var="icategoryd"/>
-<fmt:message key="patientviewdoc.experience" var="experience"/>
 <fmt:message key="patientviewdoc.speciality" var="speciality"/>
 <html>
 <header>
@@ -29,7 +28,7 @@
     <form action="${abs}/controller" method="get">
         <label class="form-label">${message} </label>
         <input type="hidden" name="command" value="patient_view_all_doctor_command">
-        <input type="submit"  >
+        <input type="submit">
     </form>
 
     <table class="table text-danger">
@@ -38,7 +37,6 @@
             <th scope="col">${firstName}</th>
             <th scope="col">${lastName} </th>
             <th scope="col">${category}</th>
-            <th scope="col">${experience}</th>
             <th scope="col">${speciality} </th>
 
         </tr>
@@ -52,7 +50,6 @@
 
                 <c:if test="${doctor_req}">
                     <td> ${user.category}</td>
-                    <td> ${user.experience}</td>
                     <td> ${user.speciality}</td>
                 </c:if>
 
@@ -64,7 +61,9 @@
        role="button">${back}</a>
 
 </div>
-<footer><div class="text-center"> <ctg:footer/> </div></footer>
+<footer>
+    <div class="text-center"><ctg:footer/></div>
+</footer>
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

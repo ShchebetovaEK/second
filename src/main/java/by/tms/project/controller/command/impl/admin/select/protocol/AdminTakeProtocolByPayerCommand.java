@@ -12,7 +12,6 @@ import by.tms.project.model.service.UserService;
 import by.tms.project.model.service.impl.ProtocolServiceImpl;
 import by.tms.project.model.service.impl.UserServiceImpl;
 import by.tms.project.model.validator.ProtocolValidator;
-import by.tms.project.model.validator.impl.ProtocolValidatorImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,7 +31,7 @@ public class AdminTakeProtocolByPayerCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private UserService userService = UserServiceImpl.getInstance();
     private ProtocolService protocolService = ProtocolServiceImpl.getInstance();
-    private ProtocolValidator protocolValidator = ProtocolValidatorImpl.getInstance();
+    private ProtocolValidator protocolValidator = ProtocolValidator.getInstance();
 
     /**
      * @param request the request

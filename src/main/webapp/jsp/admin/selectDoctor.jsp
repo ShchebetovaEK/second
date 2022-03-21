@@ -1,6 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../../imports.jspf" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:message key="selectdoctor.title" var="title" />
 <fmt:message key="selectdoctor.message1" var="message1" />
 <fmt:message key="selectdoctor.message2" var="message2" />
@@ -21,8 +21,31 @@
 <fmt:message key="selectdoctor.databirthday" var="dataBirthday"/>
 <fmt:message key="selectdoctor.archiv" var="archiv"/>
 <fmt:message key="selectdoctor.category" var="category"/>
-<fmt:message key="selectdoctor.experience" var="experience"/>
 <fmt:message key="selectdoctor.speciality" var="speciality"/>
+<fmt:message key="selectdoctor.categoryfirst" var="first"/>
+<fmt:message key="selectdoctor.categoryhigh" var="high"/>
+<fmt:message key="selectdoctor.categorysecond" var="second"/>
+<fmt:message key="selectdoctor.THERAPY" var="THERAPY"/>
+<fmt:message key="selectdoctor.PEDIATRICS" var="PEDIATRICS"/>
+<fmt:message key="selectdoctor.SURGERY" var="SURGERY"/>
+<fmt:message key="selectdoctor.DENTISTRY" var="DENTISTRY"/>
+<fmt:message key="selectdoctor.NEUROLOGY" var="NEUROLOGY"/>
+<fmt:message key="selectdoctor.CARDIOLOGY" var="CARDIOLOGY"/>
+<fmt:message key="selectdoctor.OTOLARYNGOLOGY" var="OTOLARYNGOLOGY"/>
+<fmt:message key="selectdoctor.OPHTHALMOLOGY" var="OPHTHALMOLOGY"/>
+<fmt:message key="selectdoctor.GASTROENTEROLOGY" var="GASTROENTEROLOGY"/>
+<fmt:message key="selectdoctor.PULMONOLOGY" var="PULMONOLOGY"/>
+<fmt:message key="selectdoctor.ALLERGOLOGY" var="ALLERGOLOGY"/>
+<fmt:message key="selectdoctor.DERMATOLOGY" var="DERMATOLOGY"/>
+<fmt:message key="selectdoctor.GYNECOLOGY" var="GYNECOLOGY"/>
+<fmt:message key="selectdoctor.UROLOGY" var="UROLOGY"/>
+<fmt:message key="selectdoctor.ONCOLOGY" var="ONCOLOGY"/>
+<fmt:message key="selectdoctor.PSYCHIATRY" var="PSYCHIATRY"/>
+<fmt:message key="selectdoctor.IMMUNOLOGY" var="IMMUNOLOGY"/>
+<fmt:message key="selectdoctor.ENDOCRINOLOGY" var="ENDOCRINOLOGY"/>
+<fmt:message key="selectdoctor.NEPHROLOGY" var="NEPHROLOGY"/>
+<fmt:message key="selectdoctor.ORTHOPEDICS" var="ORTHOPEDICS"/>
+<fmt:message key="selectdoctor.TRAUMATOLOGY" var="TRAUMATOLOGY"/>
 <html>
 <header id="header">
     <%@include file="../header/header.jsp" %>
@@ -42,31 +65,48 @@
 <form action="${abs}/controller" method="get">
     <label class="form-label">${message1} </label>
     <input type="hidden" name="command" value="admin_take_all_doctors_command">
-    <input type="submit"  >
+    <input type="submit" value="submit">
 </form>
 
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_take_doctors_by_category_command">
  <label class="form-label">${message2} </label>
-    <input type="text" name="category" placeholder="High" required pattern="(((S|s)(E|e)(C|c)(O|o)(N|n)(D|d))|((F|f)(I|i)(R|r)(S|s)(T|t))|((H|h)(I|i)(G|g)(H|h)))" >
-    <input type="submit" >
+    <label><input type="radio" name="category" value="second">second</label>
+    <label><input type="radio" name="category" value="high">high</label>
+    <label><input type="radio" name="category" value="first">first</label>
+    <input type="submit" value="submit" >
 </form>
 
-
-
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_take_doctors_by_experience_command">
-  <label class="form-label"> ${message3}</label>
-    <input type="text" name="experience" placeholder="FIVE_YEARS" required pattern="([A-z]{3,9})_(((Y|y)(E|e)(A|a)(R|r))(s|S))|(([A-z]{6})_([A-z]{3,5})_((Y|e)(E|e)(A|a)(R|r)(S|s)))">
-    <input type="submit" >
-</form>
-
-<form action="${abs}/controller" method="get">
+    <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_take_doctors_by_speciality_command">
     <label class="form-label">${message4}</label>
-    <input type="text" name="speciality" placeholder="UROLOGY"  required  pattern="(([A-z]){5,16})|(S|s)|(GY|gy)">
-    <input type="submit" >
+        <select name="speciality" id="speciality">
+            <option value="THERAPY">${THERAPY}</option>
+            <option value="PEDIATRICS">${PEDIATRICS}</option>
+            <option value="SURGERY">${SURGERY}</option>
+            <option value="DENTISTRY">${DENTISTRY}</option>
+            <option value="NEUROLOGY">${NEUROLOGY}</option>
+            <option value="CARDIOLOGY">${CARDIOLOGY}</option>
+            <option value="OTOLARYNGOLOGY">${OTOLARYNGOLOGY}</option>
+            <option value="OPHTHALMOLOGY">${OPHTHALMOLOGY}</option>
+            <option value="GASTROENTEROLOGY">${GASTROENTEROLOGY}</option>
+            <option value="PULMONOLOGY">${PULMONOLOGY}</option>
+            <option value="ALLERGOLOGY">${ALLERGOLOGY}</option>
+            <option value="DERMATOLOGY">${DERMATOLOGY}</option>
+            <option value="GYNECOLOGY">${GYNECOLOGY}</option>
+            <option value="UROLOGY">${UROLOGY}</option>
+            <option value="ONCOLOGY">${ONCOLOGY}</option>
+            <option value="PSYCHIATRY">${PSYCHIATRY}</option>
+            <option value="IMMUNOLOGY">${IMMUNOLOGY}</option>
+            <option value="ENDOCRINOLOGY">${ENDOCRINOLOGY}</option>
+            <option value="NEPHROLOGY">${NEPHROLOGY}</option>
+            <option value="ORTHOPEDICS">${ORTHOPEDICS}</option>
+            <option value="TRAUMATOLOGY">${TRAUMATOLOGY}</option>
+        </select>
+        <br><br>
+    <input type="submit" value="submit" >
 </form>
+
 <table class="table text-danger">
     <tr>
         <th scope="col">${id}</th>
@@ -80,9 +120,7 @@
         <th scope="col">${dataBirthday}</th>
         <th scope="col">${archiv}</th>
         <th scope="col">${category}</th>
-        <th scope="col">${experience}</th>
         <th scope="col"> ${speciality}</th>
-
     </tr>
 
     <c:forEach items="${users}" var="user">
@@ -101,7 +139,6 @@
 
               <c:if test="${doctor_req}">
                   <td> ${user.category}</td>
-                <td> ${user.experience}</td>
                 <td> ${user.speciality}</td>
             </c:if>
 

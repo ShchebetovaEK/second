@@ -3,7 +3,7 @@ import java.util.Date;
 
 public class User extends Entity {
     private long id;
-    private AccessRole role;
+    private Role role;
     private String login;
     private String password;
     private String firstName;
@@ -17,7 +17,7 @@ public class User extends Entity {
     public User() {
     }
 
-    public User(AccessRole role, String login, String password, String firstName,
+    public User(Role role, String login, String password, String firstName,
                 String lastName, Date dataBirthday, String address, String phoneNumber, String email) {
         this.role = role;
         this.login = login;
@@ -30,7 +30,7 @@ public class User extends Entity {
         this.email = email;
     }
 
-    public User(AccessRole role, String login, String password, String firstName, String lastName, Date dataBirthday,
+    public User(Role role, String login, String password, String firstName, String lastName, Date dataBirthday,
                 String address, String phoneNumber, String email, Archiv archiv) {
         this.role = role;
         this.login = login;
@@ -44,7 +44,7 @@ public class User extends Entity {
         this.archiv = archiv;
     }
 
-    public User(long id, AccessRole role, String login, String password, String firstName, String lastName,
+    public User(long id, Role role, String login, String password, String firstName, String lastName,
                 Date dataBirthday, String address, String phoneNumber, String email, Archiv archiv) {
         this.id = id;
         this.role = role;
@@ -67,11 +67,11 @@ public class User extends Entity {
         this.id = id;
     }
 
-    public AccessRole getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(AccessRole role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -189,7 +189,6 @@ public class User extends Entity {
         sb.append("id=").append(id);
         sb.append(", role=").append(role);
         sb.append(", login='").append(login).append('\'');
-        sb.append(", password='").append(password).append('\'');
         sb.append(", firstName='").append(firstName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", dataBirthday=").append(dataBirthday);
@@ -212,7 +211,7 @@ public class User extends Entity {
             return this;
         }
 
-        public UserBuilder setRole(AccessRole role) {
+        public UserBuilder setRole(Role role) {
             user.setRole(role);
             return this;
         }

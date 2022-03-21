@@ -18,6 +18,7 @@ public final class PagePath {
     public static final String UPDATE_DOCTOR_PAGE = "/jsp/admin/updateDoctor.jsp";
     public static final String UPDATE_PATIENT_PAGE = "/jsp/admin/updatePatient.jsp";
     public static final String UPDATE_PROTOCOL_PAGE = "/jsp/admin/updateProtocol.jsp";
+    public static final String DATA_MAIL = "/jsp/admin/dataMail.jsp";
     /* package doctor*/
     public static final String DOCTOR_PAGE = "/jsp/doctor/doctor.jsp";
     public static final String VIEW_ALL_PATIENT_PAGE = "/jsp/doctor/viewAllPatient.jsp";
@@ -39,6 +40,8 @@ public final class PagePath {
     public static final String TOTALSUM_PAGE = "/jsp/main/totalsumprotocol.jsp";
     public static final String USER_MANAGER_PAGE = "/jsp/main/user_manager.jsp";
     public static final String WELCOME_PAGE = "/jsp/main/welcome.jsp";
+    public static final String CHANGE_PASSWORD_PAGE = "/jsp/main/changePassword.jsp";
+
     /* package patient*/
     public static final String CHOOSE_DOCTOR = "/jsp/patient/chooseDoctor.jsp";
     public static final String IMPOSSIBLE_PAGE = "/jsp/patient/impossible.jsp";

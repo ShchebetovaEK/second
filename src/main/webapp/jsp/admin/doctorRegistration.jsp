@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@page import="by.tms.project.model.entity.Category"%>
 <%@include file="../../imports.jspf" %>
 <fmt:message key="doctorregistration.title" var="title"/>
 <fmt:message key="registration.title" var="registration_title"/>
@@ -19,6 +18,31 @@
 <fmt:message key="registration.invalid_databirthday" var="invalid_databirthday_message"/>
 <fmt:message key="registration.invalid_email" var="invalid_email_message"/>
 <fmt:message key="registration.invalid_phone_number" var="invalid_phone_number_message"/>
+
+<fmt:message key="selectdoctor.categoryfirst" var="first"/>
+<fmt:message key="selectdoctor.categoryhigh" var="high"/>
+<fmt:message key="selectdoctor.categorysecond" var="second"/>
+<fmt:message key="selectdoctor.THERAPY" var="THERAPY"/>
+<fmt:message key="selectdoctor.PEDIATRICS" var="PEDIATRICS"/>
+<fmt:message key="selectdoctor.SURGERY" var="SURGERY"/>
+<fmt:message key="selectdoctor.DENTISTRY" var="DENTISTRY"/>
+<fmt:message key="selectdoctor.NEUROLOGY" var="NEUROLOGY"/>
+<fmt:message key="selectdoctor.CARDIOLOGY" var="CARDIOLOGY"/>
+<fmt:message key="selectdoctor.OTOLARYNGOLOGY" var="OTOLARYNGOLOGY"/>
+<fmt:message key="selectdoctor.OPHTHALMOLOGY" var="OPHTHALMOLOGY"/>
+<fmt:message key="selectdoctor.GASTROENTEROLOGY" var="GASTROENTEROLOGY"/>
+<fmt:message key="selectdoctor.PULMONOLOGY" var="PULMONOLOGY"/>
+<fmt:message key="selectdoctor.ALLERGOLOGY" var="ALLERGOLOGY"/>
+<fmt:message key="selectdoctor.DERMATOLOGY" var="DERMATOLOGY"/>
+<fmt:message key="selectdoctor.GYNECOLOGY" var="GYNECOLOGY"/>
+<fmt:message key="selectdoctor.UROLOGY" var="UROLOGY"/>
+<fmt:message key="selectdoctor.ONCOLOGY" var="ONCOLOGY"/>
+<fmt:message key="selectdoctor.PSYCHIATRY" var="PSYCHIATRY"/>
+<fmt:message key="selectdoctor.IMMUNOLOGY" var="IMMUNOLOGY"/>
+<fmt:message key="selectdoctor.ENDOCRINOLOGY" var="ENDOCRINOLOGY"/>
+<fmt:message key="selectdoctor.NEPHROLOGY" var="NEPHROLOGY"/>
+<fmt:message key="selectdoctor.ORTHOPEDICS" var="ORTHOPEDICS"/>
+<fmt:message key="selectdoctor.TRAUMATOLOGY" var="TRAUMATOLOGY"/>
 
 
 <html>
@@ -41,7 +65,8 @@
     <form action="${abs}/controller" method="post">
         <input type="hidden" name="command" value="admin_register_doctors_command">
         <label class="form-label"> Login:</label>
-        <input type="text" id="login" class="form-control" name="login" value="${valid_login}" placeholder="login">
+<%--        value="${valid_login}"--%>
+        <input type="text" id="login" class="form-control" name="login" value="petrov"  placeholder="login">
         <c:choose>
             <c:when test="${invalid_login eq 'invalid_message'}">
                 <div id="message1"><b>${invalid_login_message}</b></div>
@@ -49,7 +74,7 @@
         </c:choose>
         <br/><br/>
         <label class="form-label">  Password:</label>
-       <input type="password" id="password" class="form-control" name="password" placeholder="password">
+       <input type="password" id="password" class="form-control" name="password" value="petrov" placeholder="password">
         <c:if test="${invalid_passport eq 'invalid_message'}">
             <div id="message2"><b>${invalid_psw_message}</b></div>
         </c:if>
@@ -60,7 +85,7 @@
         <%--        </c:if>--%>
         <br/><br/>
         <label class="form-label"> First name:</label>
-        <input type="first_name" id="first_name" class="form-control" name="first_name" placeholder="Сергей">
+        <input type="first_name" id="first_name" class="form-control" name="first_name" value="Сергей" placeholder="Сергей">
         <c:choose>
             <c:when test="${invalid_first_name eq 'invalid_message'}">
                 <div id="message4"><b><${invalid_first_name_message}></b></div>
@@ -68,7 +93,7 @@
         </c:choose>
         <br/><br/>
         <label class="form-label"> Last name: </label>
-       <input type="last_name" id="last_name" class="form-control" name="last_name" placeholder="Петров">
+       <input type="last_name" id="last_name" class="form-control" name="last_name"  value="Петров" placeholder="Петров">
         <c:choose>
             <c:when test="${invalid_last_name eq 'invalid_message'}">
                 <div id="message5"><b><${invalid_last_name_message}></b></div>
@@ -76,7 +101,7 @@
         </c:choose>
         <br/><br/>
         <label class="form-label"> Data birthday:</label>
-        <input type="date" id="data_birthday" class="form-control" name="data_birthday" >
+        <input type="date" id="data_birthday" class="form-control" name="data_birthday"  >
         <c:choose>
             <c:when test="${invalid_databirthday eq 'invalid_message'}">
                 <div id="message6"><b><${invalid_databirthday_message}></b></div>
@@ -84,7 +109,7 @@
         </c:choose>
         <br/><br/>
         <label class="form-label"> Address: </label>
-       <input type="address" id="address" class="form-control" name="address" placeholder="Карвата 12-15">
+       <input type="address" id="address" class="form-control" name="address" value="Васнецова 17-23" placeholder="Карвата 12-15">
         <c:choose>
             <c:when test="${invalid_address eq 'invalid_message'}">
                 <div id="message7"><b><${invalid_address_message}></b></div>
@@ -92,7 +117,7 @@
         </c:choose>
         <br/><br/>
         <label class="form-label"> Phone number:</label>
-        <input type="phone_number" id="phone_number" class="form-control" name="phone_number" placeholder="+375(25/29/44/33)XXXXXXX">
+        <input type="phone_number" id="phone_number" class="form-control" name="phone_number" value="+375254141556" placeholder="+375(25/29/44/33)XXXXXXX">
         <c:choose>
             <c:when test="${invalid_phone_number eq 'invalid_message'}">
                 <div id="message8"><b><${invalid_phone_number_message}></b></div>
@@ -100,7 +125,8 @@
         </c:choose>
         <br/><br/>
         <label class="form-label"> Email:</label>
-        <input type="email" id="email-address" class="form-control" name="email" value="${valid_email}" placeholder="petrov@mail.ru">
+<%--        value="${valid_email}"--%>
+        <input type="email" id="email-address" class="form-control" name="email" value="petrov@mail.ru" placeholder="petrov@mail.ru">
         <c:choose>
             <c:when test="${invalid_email eq 'invalid_message'}">
                 <div id="message9"><b>${invalid_email_message}</b></div>
@@ -108,23 +134,46 @@
         </c:choose>
         <br/><br/>
         <label class="form-label"> category:</label>
-        <input type="category" id="category" class="form-control" name="category" value="${valid_categoty}" placeholder="HIGH  SECOND  FIRST">
+<%--        "${valid_categoty}"--%>
+        <label class="form-label">${message2} </label>
+        <label><input type="radio" name="category" value="second">second</label>
+        <label><input type="radio" name="category" value="high">high</label>
+        <label><input type="radio" name="category" value="first">first</label>
         <c:choose>
             <c:when test="${invalid_category eq 'invalid_message'}">
                 <div id="message10"><b>${invalid_category_message}</b></div>
             </c:when>
         </c:choose>
-        <br/><br/>
-        <label class="form-label">experience:</label>
-         <input type="experience" id="experience" class="form-control" name="experience" value="${valid_experience}" placeholder="FIVE_YEARS">
-        <c:choose>
-            <c:when test="${invalid_experience eq 'invalid_message'}">
-                <div id="message12"><b>${invalid_experience_message}</b></div>
-            </c:when>
-        </c:choose>
+
         <br/><br/>
         <label class="form-label"> speciality:</label>
-        <input type="speciality" id="speciality" class="form-control" name="speciality" value="${valid_speciality}" placeholder="UROLOGY   THERAPY   PEDIATRICS">
+<%--        value="${valid_speciality}"--%>
+
+        <label class="form-label">${message4}</label>
+        <select name="speciality" id="speciality">
+            <option value="THERAPY">${THERAPY}</option>
+            <option value="PEDIATRICS">${PEDIATRICS}</option>
+            <option value="SURGERY">${SURGERY}</option>
+            <option value="DENTISTRY">${DENTISTRY}</option>
+            <option value="NEUROLOGY">${NEUROLOGY}</option>
+            <option value="CARDIOLOGY">${CARDIOLOGY}</option>
+            <option value="OTOLARYNGOLOGY">${OTOLARYNGOLOGY}</option>
+            <option value="OPHTHALMOLOGY">${OPHTHALMOLOGY}</option>
+            <option value="GASTROENTEROLOGY">${GASTROENTEROLOGY}</option>
+            <option value="PULMONOLOGY">${PULMONOLOGY}</option>
+            <option value="ALLERGOLOGY">${ALLERGOLOGY}</option>
+            <option value="DERMATOLOGY">${DERMATOLOGY}</option>
+            <option value="GYNECOLOGY">${GYNECOLOGY}</option>
+            <option value="UROLOGY">${UROLOGY}</option>
+            <option value="ONCOLOGY">${ONCOLOGY}</option>
+            <option value="PSYCHIATRY">${PSYCHIATRY}</option>
+            <option value="IMMUNOLOGY">${IMMUNOLOGY}</option>
+            <option value="ENDOCRINOLOGY">${ENDOCRINOLOGY}</option>
+            <option value="NEPHROLOGY">${NEPHROLOGY}</option>
+            <option value="ORTHOPEDICS">${ORTHOPEDICS}</option>
+            <option value="TRAUMATOLOGY">${TRAUMATOLOGY}</option>
+        </select>
+        <br><br>
         <c:choose>
             <c:when test="${invalid_speciality eq 'invalid_message'}">
                 <div id="message13"><b>${invalid_speciality_message}</b></div>

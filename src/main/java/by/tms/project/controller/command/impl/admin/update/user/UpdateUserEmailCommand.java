@@ -36,16 +36,22 @@ public class UpdateUserEmailCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         String upEmail = request.getParameter(EMAIL);
-        String strId = request.getParameter(ID);
-        if (upEmail.isEmpty() && strId.isEmpty()) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(SESSION_USER);
+        Long userId = user.getId();
+//        String strId = request.getParameter(ID);
+//        if (upEmail.isEmpty() && strId.isEmpty()) {
+        if (upEmail.isEmpty() ) {
             router.setPage(FAIL_PAGE);
             return router;
         }
-        Long id = Long.valueOf(strId);
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(SESSION_USER);
+//        Long id = Long.valueOf(strId);
+        Long id = Long.valueOf(userId);
+//        HttpSession session = request.getSession();
+//        User user = (User) session.getAttribute(SESSION_USER);
         try {
-            if (upEmail != null && strId != null) {
+//            if (upEmail != null && strId != null) {
+            if (upEmail != null ) {
                 userService.updateEmailById(id, upEmail);
                 router.setPage(SUCCESS_PAGE);
             } else {

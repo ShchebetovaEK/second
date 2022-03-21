@@ -10,7 +10,6 @@ import by.tms.project.model.entity.Speciality;
 import by.tms.project.model.service.DoctorService;
 import by.tms.project.model.service.impl.DoctorServiceImpl;
 import by.tms.project.model.validator.DoctorValidator;
-import by.tms.project.model.validator.impl.DoctorValidatorImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,7 +29,7 @@ import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 public class AdminTakeDoctorBySpecialityCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private DoctorService doctorService = DoctorServiceImpl.getInstance();
-    private DoctorValidator doctorValidator = DoctorValidatorImpl.getInstance();
+    private DoctorValidator doctorValidator = DoctorValidator.getInstance();
 
     /**
      * @param request the request

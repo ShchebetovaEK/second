@@ -35,17 +35,23 @@ public class UpdateUserAddressCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(SESSION_USER);
+        Long userId = user.getId();
         String upAddress = request.getParameter(ADDRESS);
-        String strId = request.getParameter(ID);
-        if (upAddress.isEmpty() && strId.isEmpty()) {
+//        String strId = request.getParameter(ID);
+//        if (upAddress.isEmpty() && strId.isEmpty()) {
+        if (upAddress.isEmpty()) {
             router.setPage(FAIL_PAGE);
             return router;
         }
-        Long id = Long.valueOf(strId);
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(SESSION_USER);
+//        Long id = Long.valueOf(strId);
+        Long id = Long.valueOf(userId);
+//        HttpSession session = request.getSession();
+//        User user = (User) session.getAttribute(SESSION_USER);
         try {
-            if (upAddress != null && strId != null) {
+//            if (upAddress != null && strId != null) {
+            if (upAddress != null ) {
                 userService.updateAddressById(id, upAddress);
                 router.setPage(SUCCESS_PAGE);
             } else {

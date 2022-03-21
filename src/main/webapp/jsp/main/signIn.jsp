@@ -5,6 +5,7 @@
 <fmt:message key="sign.password" var="password"/>
 <fmt:message key="sign.registration" var="registration"/>
 <fmt:message key="sign.greeting" var="greeting"/>
+<fmt:message key="sign.LogIn" var="LogIn"/>
 
 <html>
 <header>
@@ -31,21 +32,18 @@
             <br/>
             <input type="hidden" name="command" value="log_in_command">
             <div class="row align-items-center">
-                <div class="col">
+                <div class="row-cols-6">
                     <label class="form-label"> ${login} </label>
                     <input type="text" name="login" placeholder="login" required pattern="(\w)[\w_-]{1,18}(\w)">
                 </div>
-                <div class="col">
+                <div class="row-cols-6">
                     <label class="form-label"> ${password} </label>
                     <input name="password" type="password" placeholder="password" required pattern="(.{4,40})">
                     <br/>
                 </div>
-                <div class="col">
-                    <p><input type="submit"></p>
-                </div>
                 <br/>
+                    <p><input type="submit" value="${LogIn}"></p>
             </div>
-            <br/>
             <a class="btn btn-primary" href="${pageContext.request.contextPath}/jsp/main/registration.jsp"
                role="button">${registration}</a>
         </form>

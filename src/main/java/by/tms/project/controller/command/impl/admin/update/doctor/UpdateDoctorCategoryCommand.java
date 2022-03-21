@@ -8,6 +8,7 @@ import by.tms.project.model.entity.Category;
 import by.tms.project.model.entity.Doctor;
 import by.tms.project.model.service.DoctorService;
 import by.tms.project.model.service.impl.DoctorServiceImpl;
+import by.tms.project.model.validator.DoctorValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
@@ -27,6 +28,7 @@ import static by.tms.project.controller.command.RequestParameter.USERS_ID;
 public class UpdateDoctorCategoryCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private DoctorService doctorService = DoctorServiceImpl.getInstance();
+    private DoctorValidator doctorValidator = DoctorValidator.getInstance();
 
     /**
      * @param request the request
@@ -46,7 +48,7 @@ public class UpdateDoctorCategoryCommand implements Command {
         HttpSession session = request.getSession();
         Doctor doctor = (Doctor) session.getAttribute(SESSION_DOCTOR);
         try {
-            if (category != null) {
+            if (category != null && doctorValidator.isCategoryValid(category)) {
                 doctorService.updateCategory(id, Category.valueOf(category));
                 router.setPage(SUCCESS_PAGE);
             } else {

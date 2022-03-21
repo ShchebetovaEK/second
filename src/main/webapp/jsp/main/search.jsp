@@ -25,9 +25,10 @@
 <tr>
     <th scope="col">id</th>
     <th scope="col">role</th>
-    <th scope="col">login</th>
     <th scope="col">first name</th>
     <th scope="col">last name</th>
+    <th scope="col">speciality</th>
+    <th scope="col">category</th>
 
 </tr>
 
@@ -36,9 +37,10 @@
     <tr>
     <td>${user.id}</td>
     <td>${user.role}</td>
-    <td>${user.login}</td>
     <td>${user.firstName}</td>
     <td>${user.lastName}</td>
+        <td>${user.speciality}</td>
+        <td>${user.category}</td>
 
 
     </tr>

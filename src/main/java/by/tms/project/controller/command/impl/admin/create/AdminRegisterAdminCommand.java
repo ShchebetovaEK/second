@@ -4,9 +4,11 @@ import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
 import by.tms.project.exception.ServiceException;
+import by.tms.project.model.entity.User;
 import by.tms.project.model.service.UserService;
 import by.tms.project.model.service.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +17,7 @@ import java.util.Map;
 
 import static by.tms.project.controller.command.PagePath.REGISTRATION_PAGE;
 import static by.tms.project.controller.command.PagePath.SUCCESS_PAGE;
+import static by.tms.project.controller.command.RequestAttribute.SESSION_USER;
 import static by.tms.project.controller.command.RequestParameter.*;
 
 /**
@@ -35,6 +38,10 @@ public class AdminRegisterAdminCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(SESSION_USER);
+        String login = user.getLogin();
+
         Map<String, String> checkData = new HashMap<>();
         checkData.put(LOGIN, request.getParameter(LOGIN));
         checkData.put(PASSWORD, request.getParameter(PASSWORD));
@@ -48,6 +55,7 @@ public class AdminRegisterAdminCommand implements Command {
         try {
             boolean registration = userService.registerNewAdmin(checkData);
             router.setPage(registration ? SUCCESS_PAGE : REGISTRATION_PAGE);
+
 
             return router;
         } catch (ServiceException e) {

@@ -38,7 +38,7 @@
         <form action="${abs}/controller" method="post">
             <input type="hidden" name="command" value="admin_register_protocol_command">
             <label class="text-center">protocol_data</label>
-            <input type="date" id="protocol_data" class="form-control" name="protocol_data">
+            <input type="date" id="protocol_data" class="form-control" name="protocol_data" required pattern="\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])">
             <%--        value="${valid_protocol_data}">--%>
             <%--        <c:choose>--%>
             <%--            <c:when test="${invalid_protocol_data eq 'invalid_message'}">--%>
@@ -47,7 +47,7 @@
             <%--        </c:choose>--%>
             <br/><br/>
             <label class="text-center">protocol_payer:</label>
-            <input type="text" id="protocol_payer" class="form-control" name="protocol_payer"
+            <input type="text" id="protocol_payer" class="form-control"  required name="protocol_payer" pattern="(?i)(insurance)|(patient)
                    placeholder="patient  insurance">
             <%--        <c:if test="${invalid_passport eq 'invalid_message'}">--%>
             <%--            <div id="message2"><b>${invalid_psw_message}</b></div>--%>
@@ -58,7 +58,7 @@
             <%--        </c:if>--%>
             <br/><br/>
             <label class="text-center">protocol_cost:</label>
-            <input type="text" id="protocol_cost" class="form-control" name="protocol_cost"
+            <input type="text" id="protocol_cost" class="form-control" name="protocol_cost" required pattern="[0-9]{1,10}"
                    placeholder="protocol_cost">
             <%--        <c:choose>--%>
             <%--            <c:when test="${invalid_first_name eq 'invalid_message'}">--%>
@@ -67,7 +67,7 @@
             <%--        </c:choose>--%>
             <br/><br/>
             <label class="text-center">patients_users_id:</label>
-            <input type="text" id="patients_users_id" class="form-control" name="patients_users_id">
+            <input type="text" id="patients_users_id" class="form-control"  required pattern="[0-9]{1,10}" name="patients_users_id">
             <%--        <c:choose>--%>
             <%--            <c:when test="${invalid_last_name eq 'invalid_message'}">--%>
             <%--                <div id="message5"><b><${invalid_last_name_message}></b></div>--%>
@@ -75,7 +75,7 @@
             <%--        </c:choose>--%>
             <br/><br/>
             <label class="text-center"> doctors_users_id:</label>
-            <input type="text" id="doctors_users_id" class="form-control" name="doctors_users_id">
+            <input type="text" id="doctors_users_id" class="form-control" required pattern="[0-9]{1,10}" name="doctors_users_id">
             <%--        <c:choose>--%>
             <%--            <c:when test="${invalid_databirthday eq 'invalid_message'}">--%>
             <%--                <div id="message6"><b><${invalid_databirthday_message}></b></div>--%>
@@ -83,7 +83,7 @@
             <%--        </c:choose>--%>
             <br/><br/>
             <label class="text-center"> application:</label>
-            <input type="text" id="application" class="form-control" name="application">
+            <input type="text" id="application" class="form-control"  required name="application" pattern="(?i)(active)|(approved)>
             <br/>
             <input type="submit" class="form-control" id="sign_up" name="submit"><br/>
         </form>

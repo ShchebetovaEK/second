@@ -38,8 +38,12 @@
         <label class="form-label"> ${message1}</label>
         <input type="text"  required pattern="([0-9]{1,10})"  name="protocol_id">
         <label class="form-label"> ${message3}</label>
-        <input type="text" required  pattern="(?i)(paid)|(duty)" name="status">
-        <input type="submit">
+<%--        <input type="text" required  pattern="(?i)(paid)|(duty)" name="status">--%>
+<%--        <input type="submit">--%>
+
+        <label><input type="radio" name="status" value="paid">paid</label>
+        <label><input type="radio" name="status" value="duty">duty</label>
+        <input type="submit" value="submit" >
         <br/>
     </form>
 
@@ -50,10 +54,19 @@
         <label class="form-label"> ${message1}</label>
         <input type="text"  required pattern="([0-9]{1,10})" name="protocol_id">
         <label class="form-label">  ${message4}</label>
-        <input type="text" required  pattern="(?i)(approved)|(active)" name="application">
-        <input type="submit">
+        <label><input type="radio" name="application" value="approved">approved</label>
+        <label><input type="radio" name="application" value="active">active</label>
+        <input type="submit" value="submit" >
         <br/>
     </form>
+
+    <form action="${abs}/controller" method="get">
+        <input type="hidden" name="command" value="application_mail_command">
+        <label>application </label>>
+        <input type="submit" value="mail"  >
+        <br/>
+    </form>
+
     <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/update.jsp"
        role="button">${back1}</a>
 

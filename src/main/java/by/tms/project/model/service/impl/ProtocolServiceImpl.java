@@ -7,7 +7,6 @@ import by.tms.project.model.dao.impl.ProtocolDaoImpl;
 import by.tms.project.model.entity.*;
 import by.tms.project.model.service.ProtocolService;
 import by.tms.project.model.validator.ProtocolValidator;
-import by.tms.project.model.validator.impl.ProtocolValidatorImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,13 +17,13 @@ import static by.tms.project.controller.command.RequestParameter.*;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * class ProtocolServiceImpl
  */
 public class ProtocolServiceImpl implements ProtocolService {
     private static final Logger logger = LogManager.getLogger();
     private ProtocolDao protocolDao = ProtocolDaoImpl.getInstance();
-    private ProtocolValidator protocolValidator = ProtocolValidatorImpl.getInstance();
+    private ProtocolValidator protocolValidator = ProtocolValidator.getInstance();
     private static ProtocolServiceImpl instance;
 
     private ProtocolServiceImpl() {
@@ -49,7 +48,6 @@ public class ProtocolServiceImpl implements ProtocolService {
         try {
             protocolList = protocolDao.findAll();
         } catch (DaoException e) {
-            logger.error("Failed at ProtocolServiceImpl at method findAll", e);
             throw new ServiceException("Failed at ProtocolServiceImpl at method findAll", e);
         }
         return protocolList;
@@ -70,7 +68,6 @@ public class ProtocolServiceImpl implements ProtocolService {
                 protocolList = protocolDao.findByPayer(payer);
             }
         } catch (DaoException e) {
-            logger.error("Failed at ProtocolServiceImpl at method findByPayer ", e);
             throw new ServiceException("Failed at ProtocolServiceImpl at method findByPayer", e);
         }
         return protocolList;
@@ -88,7 +85,6 @@ public class ProtocolServiceImpl implements ProtocolService {
         try {
             protocolList = protocolDao.findByData(protocolData);
         } catch (DaoException e) {
-            logger.error("Failed at ProtocolServiceImpl at method findByData", e);
             throw new ServiceException("Failed at ProtocolServiceImpl at method findByData", e);
         }
         return protocolList;
@@ -109,7 +105,6 @@ public class ProtocolServiceImpl implements ProtocolService {
                 protocolList = protocolDao.findByApplication(application);
             }
         } catch (DaoException e) {
-            logger.error("Failed at ProtocolServiceImpl at method  findByApplication", e);
             throw new ServiceException("Failed at ProtocolServiceImpl at method findByApplication", e);
         }
         return protocolList;
@@ -126,11 +121,10 @@ public class ProtocolServiceImpl implements ProtocolService {
     public List<Protocol> findByStatus(Status status) throws ServiceException {
         List<Protocol> protocolList = new ArrayList<>();
         try {
-            if(protocolValidator.isStatusValid(status.name())) {
+            if (protocolValidator.isStatusValid(status.name())) {
                 protocolList = protocolDao.findByStatus(status);
             }
         } catch (DaoException e) {
-            logger.error("Failed at ProtocolServiceImpl at method findByStatus ", e);
             throw new ServiceException("Failed at ProtocolServiceImpl at method findByStatus", e);
         }
         return protocolList;
@@ -148,7 +142,6 @@ public class ProtocolServiceImpl implements ProtocolService {
         try {
             protocolList = protocolDao.findByPatient(patientId);
         } catch (DaoException e) {
-            logger.error("Failed at ProtocolServiceImpl at method findByPatient", e);
             throw new ServiceException("Failed at ProtocolServiceImpl at method findByPatient", e);
         }
         return protocolList;
@@ -166,7 +159,6 @@ public class ProtocolServiceImpl implements ProtocolService {
         try {
             protocolList = protocolDao.findByDoctor(doctorId);
         } catch (DaoException e) {
-            logger.error("Failed at ProtocolServiceImpl at method findByDoctor", e);
             throw new ServiceException("Failed at ProtocolServiceImpl at method findByDoctor", e);
         }
         return protocolList;
@@ -198,14 +190,13 @@ public class ProtocolServiceImpl implements ProtocolService {
         mapProtocolCheck.put(PROTOCOL_PATIENTS_USERS_ID, String.valueOf(patientsUsersId));
 
         try {
-            result = ProtocolValidatorImpl.getInstance().isPayerValid(protocolPayer.name());
+            result = ProtocolValidator.getInstance().isPayerValid(protocolPayer.name());
             if (result) {
                 Protocol protocol = new Protocol(protocolData, protocolPayer, patientsUsersId, doctorsUsersId);
                 protocolDao.create(protocol);
             }
 
         } catch (DaoException e) {
-            logger.error("Failed at ProtocolServiceImpl at method registerProtocol", e);
             throw new ServiceException("Failed at ProtocolServiceImpl at method registerProtocol ", e);
         } catch (IllegalArgumentException e) {
             logger.error("IllegalArgumentException at ProtocolServiceImpl at  registerProtocol", e);
@@ -246,7 +237,7 @@ public class ProtocolServiceImpl implements ProtocolService {
         mapProtocolCheck.put(PROTOCOL_APPLICATION, String.valueOf(protocolApplication));
 
         try {
-            result = ProtocolValidatorImpl.getInstance().isPayerValid(protocolPayer.name());
+            result = ProtocolValidator.getInstance().isPayerValid(protocolPayer.name());
             if (result) {
                 Protocol protocol = new Protocol(protocolData, protocolPayer,
                         protocolCost, patientsUsersId, doctorsUsersId, protocolApplication);
@@ -254,7 +245,6 @@ public class ProtocolServiceImpl implements ProtocolService {
             }
 
         } catch (DaoException e) {
-            logger.error("Failed at ProtocolServiceImpl at method adminRegistrationProtocol", e);
             throw new ServiceException("Failed at ProtocolServiceImpl at method adminRegistrationProtocol ", e);
         } catch (IllegalArgumentException e) {
             logger.error("IllegalArgumentException at ProtocolServiceImpl at  adminRegistrationProtocol", e);
@@ -276,7 +266,6 @@ public class ProtocolServiceImpl implements ProtocolService {
         try {
             return protocolDao.updateProtocolCost(protocolCost, protocolId);
         } catch (DaoException e) {
-            logger.error("Failed at ProtocolServiceImpl  at method updateProtocolCost", e);
             throw new ServiceException("Failed at ProtocolServiceImpl  at method updateProtocolCost ", e);
         }
     }
@@ -294,7 +283,6 @@ public class ProtocolServiceImpl implements ProtocolService {
         try {
             return protocolDao.updateProtocolApplication(protocolId, application);
         } catch (DaoException e) {
-            logger.error("Failed at ProtocolServiceImpl  at method updateProtocolApplication", e);
             throw new ServiceException("Failed at ProtocolServiceImpl  at method updateProtocolApplication", e);
         }
     }
@@ -312,7 +300,6 @@ public class ProtocolServiceImpl implements ProtocolService {
         try {
             return protocolDao.updateProtocolStatus(protocolId, status);
         } catch (DaoException e) {
-            logger.error("Failed at ProtocolServiceImpl at method updateProtocolStatus", e);
             throw new ServiceException("Failed at ProtocolServiceImpl  at method updateProtocolStatus", e);
         }
     }
@@ -329,7 +316,6 @@ public class ProtocolServiceImpl implements ProtocolService {
         try {
             return protocolDao.takeProtocolCost(protocolId);
         } catch (DaoException e) {
-            logger.error("Failed at ProtocolServiceImpl  at method takeProtocolCost", e);
             throw new ServiceException("Failed at ProtocolServiceImpl  at method takeProtocolCost ", e);
         }
     }

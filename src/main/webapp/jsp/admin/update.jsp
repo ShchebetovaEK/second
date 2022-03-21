@@ -70,7 +70,7 @@
         <input type="text"  required pattern="((\w|[-+])+(\.(\w|[-+])*)*@[a-z]+\.[a-z]+)" name="email">
         <input type="submit">
     </form>
-    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/update.jsp"
+    <a class="btn btn-success" href="${abs}/jsp/admin/update.jsp"
        role="button">${back1}</a>
 </div>
 <a href="#header" class="btn-lg btn-danger">UP</a>

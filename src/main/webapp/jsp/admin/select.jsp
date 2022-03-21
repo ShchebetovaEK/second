@@ -44,28 +44,28 @@
     <form action="${abs}/controller" method="get">
         <input type="hidden" name="command" value="admin_take_user_by_login_command">
         <label class="form-label">${message2}</label>
-        <input type="text"  required name="login">
+        <input type="text"  required name="login" pattern="(\w)[\w_-]{1,18}(\w)">
         <input type="submit">
     </form>
     <br/>
     <form action="${abs}/controller" method="get">
         <input type="hidden" name="command" value="admin_take_user_by_first_name_command">
         <label class="form-label">${message3}</label>
-        <input type="text" required name="first_name">
+        <input type="text" required  pattern="([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})" name="first_name">
         <input type="submit">
     </form>
     <br/>
     <form action="${abs}/controller" method="get">
         <input type="hidden" name="command" value="admin_take_user_by_last_name_command">
         <label class="form-label">${message4}</label>
-        <input type="text"  required name="last_name">
+        <input type="text"  required  pattern="([А-Я]{1}[а-яё]{1,30}|[A-Z]{1}[a-z]{1,30})" name="last_name">
         <input type="submit">
     </form>
     <br/>
     <form action="${abs}/controller" method="get">
         <input type="hidden" name="command" value="admin_take_user_by_id_command">
         <label class="form-label">${message5}</label>
-        <input type="text"  required name="id" value="id">
+        <input type="text"  required pattern="[0-9]{1,10}" name="id" value="id">
         <input type="submit">
     </form>
     <br/>
@@ -102,7 +102,10 @@
        role="button">${back3}</a>
     <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/selectPatient.jsp"
        role="button">${back4}</a>
-
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/dataMail.jsp"
+       role="button"> data mail</a>
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/minBalance.jsp"
+       role="button"> min  mail</a>
 </div>
 <a href="#header" class="btn-lg btn-danger">UP</a>
 <footer id="footer">

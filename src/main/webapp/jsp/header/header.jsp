@@ -15,6 +15,27 @@
 <fmt:message key="header.russian" var="ru"/>
 <fmt:message key="header.english" var="en"/>
 <fmt:message key="header.account" var="account"/>
+<fmt:message key="selectdoctor.THERAPY" var="THERAPY"/>
+<fmt:message key="selectdoctor.PEDIATRICS" var="PEDIATRICS"/>
+<fmt:message key="selectdoctor.SURGERY" var="SURGERY"/>
+<fmt:message key="selectdoctor.DENTISTRY" var="DENTISTRY"/>
+<fmt:message key="selectdoctor.NEUROLOGY" var="NEUROLOGY"/>
+<fmt:message key="selectdoctor.CARDIOLOGY" var="CARDIOLOGY"/>
+<fmt:message key="selectdoctor.OTOLARYNGOLOGY" var="OTOLARYNGOLOGY"/>
+<fmt:message key="selectdoctor.OPHTHALMOLOGY" var="OPHTHALMOLOGY"/>
+<fmt:message key="selectdoctor.GASTROENTEROLOGY" var="GASTROENTEROLOGY"/>
+<fmt:message key="selectdoctor.PULMONOLOGY" var="PULMONOLOGY"/>
+<fmt:message key="selectdoctor.ALLERGOLOGY" var="ALLERGOLOGY"/>
+<fmt:message key="selectdoctor.DERMATOLOGY" var="DERMATOLOGY"/>
+<fmt:message key="selectdoctor.GYNECOLOGY" var="GYNECOLOGY"/>
+<fmt:message key="selectdoctor.UROLOGY" var="UROLOGY"/>
+<fmt:message key="selectdoctor.ONCOLOGY" var="ONCOLOGY"/>
+<fmt:message key="selectdoctor.PSYCHIATRY" var="PSYCHIATRY"/>
+<fmt:message key="selectdoctor.IMMUNOLOGY" var="IMMUNOLOGY"/>
+<fmt:message key="selectdoctor.ENDOCRINOLOGY" var="ENDOCRINOLOGY"/>
+<fmt:message key="selectdoctor.NEPHROLOGY" var="NEPHROLOGY"/>
+<fmt:message key="selectdoctor.ORTHOPEDICS" var="ORTHOPEDICS"/>
+<fmt:message key="selectdoctor.TRAUMATOLOGY" var="TRAUMATOLOGY"/>
 
 <html>
 <head>
@@ -44,20 +65,20 @@
                    href="${pageContext.request.contextPath}/controller?command=go_to_our_doctors_command">${our}</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link"
-                   href="${pageContext.request.contextPath}/controller?command=go_to_price_command">${price}</a>
-            </li>
+<%--            <li class="nav-item">--%>
+<%--                <a class="nav-link"--%>
+<%--                   href="${pageContext.request.contextPath}/controller?command=go_to_price_command">${price}</a>--%>
+<%--            </li>--%>
 
             <li class="nav-item">
                 <a class="nav-link"
                    href="${pageContext.request.contextPath}/controller?command=go_to_registration_page">${registration}</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link"
-                   href="${pageContext.request.contextPath}/controller?command=log_in_command">${login}</a>
-            </li>
+<%--            <li class="nav-item">--%>
+<%--                <a class="nav-link"--%>
+<%--                   href="${pageContext.request.contextPath}/controller?command=log_in_command">${login}</a>--%>
+<%--            </li>--%>
 
             <li class="nav-item">
                 <a class="nav-link"
@@ -91,9 +112,34 @@
             </c:if>
 
             <form class="d-flex">
-                <input class="form-control mr-2" type="text" name="last_name">
-                <input type="hidden" name="command" value="search_by_last_name_command"
-                      placeholder="Search by last name" aria-label="Search">
+<%--                <input class="form-control mr-2" type="text" name="last_name">--%>
+<%--                <input class="form-control mr-2" type="text" name="speciality">--%>
+<%--                <input type="hidden" name="command" value="search_by_last_name_command"--%>
+                <input type="hidden" name="command" value="search_by_speciality_command">
+    <select name="speciality" id="speciality">
+        <option value="THERAPY">${THERAPY}</option>
+        <option value="PEDIATRICS">${PEDIATRICS}</option>
+        <option value="SURGERY">${SURGERY}</option>
+        <option value="DENTISTRY">${DENTISTRY}</option>
+        <option value="NEUROLOGY">${NEUROLOGY}</option>
+        <option value="CARDIOLOGY">${CARDIOLOGY}</option>
+        <option value="OTOLARYNGOLOGY">${OTOLARYNGOLOGY}</option>
+        <option value="OPHTHALMOLOGY">${OPHTHALMOLOGY}</option>
+        <option value="GASTROENTEROLOGY">${GASTROENTEROLOGY}</option>
+        <option value="PULMONOLOGY">${PULMONOLOGY}</option>
+        <option value="ALLERGOLOGY">${ALLERGOLOGY}</option>
+        <option value="DERMATOLOGY">${DERMATOLOGY}</option>
+        <option value="GYNECOLOGY">${GYNECOLOGY}</option>
+        <option value="UROLOGY">${UROLOGY}</option>
+        <option value="ONCOLOGY">${ONCOLOGY}</option>
+        <option value="PSYCHIATRY">${PSYCHIATRY}</option>
+        <option value="IMMUNOLOGY">${IMMUNOLOGY}</option>
+        <option value="ENDOCRINOLOGY">${ENDOCRINOLOGY}</option>
+        <option value="NEPHROLOGY">${NEPHROLOGY}</option>
+        <option value="ORTHOPEDICS">${ORTHOPEDICS}</option>
+        <option value="TRAUMATOLOGY">${TRAUMATOLOGY}</option>
+    </select>
+
                 <button class="btn btn-outline-success"  type="submit">${search}</button>
             </form>
 

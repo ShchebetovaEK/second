@@ -6,7 +6,9 @@ import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.User;
+import by.tms.project.model.service.DoctorService;
 import by.tms.project.model.service.UserService;
+import by.tms.project.model.service.impl.DoctorServiceImpl;
 import by.tms.project.model.service.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
@@ -20,6 +22,7 @@ import static by.tms.project.controller.command.RequestAttribute.USER_LIST;
 public class SearchByLastNameCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private UserService userService = UserServiceImpl.getInstance();
+    private DoctorService doctorService = DoctorServiceImpl.getInstance();
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -30,6 +33,7 @@ public class SearchByLastNameCommand implements Command {
             return router;
         }
         try {
+
             List<User> userList = userService.searchByLastName(lastName);
             request.setAttribute(USER_LIST, userList);
             if (userList.isEmpty()) {
@@ -41,7 +45,6 @@ public class SearchByLastNameCommand implements Command {
             logger.error("Failed at SearchByLastNameCommand", e);
             throw new CommandException("Failed at SearchByLastNameCommand", e);
         }
-
         return router;
     }
 }

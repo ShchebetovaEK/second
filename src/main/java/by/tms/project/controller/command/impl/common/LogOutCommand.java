@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static by.tms.project.controller.command.PagePath.MAIN_PAGE;
+import static by.tms.project.controller.command.PagePath.SIGN_IN_PAGE;
 import static by.tms.project.controller.command.SessionAttribute.*;
 
 /**
@@ -33,7 +34,7 @@ public class LogOutCommand implements Command {
         session.removeAttribute(ADMIN);
         session.invalidate();
         logger.debug("Session has finished");
-        router.setPage(MAIN_PAGE);
+        router.setPage(SIGN_IN_PAGE);
 
         return router;
     }

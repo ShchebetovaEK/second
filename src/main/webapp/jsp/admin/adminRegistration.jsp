@@ -39,54 +39,54 @@
     <form action="${abs}/controller" method="post">
         <input type="hidden" name="command" value="admin_register_admin_command">
 
-        Login: <input type="text" id="login" class="form-control"  name="login" value="${valid_login}">
+        Login: <input type="text" id="login" class="form-control"  name="login" required pattern="(\w)[\w_-]{1,18}(\w)" value="${valid_login}">
         <c:choose>
             <c:when test="${invalid_login eq 'invalid_message'}">
                 <div id="message1"><b>${invalid_login_message}</b></div>
             </c:when>
         </c:choose>
         <br/><br/>
-        Password: <input type="password" id="password" class="form-control" name="password">
+        Password: <input type="password" id="password" class="form-control" required pattern="(.{4,40})" name="password">
         <c:if test="${invalid_passport eq 'invalid_message'}">
             <div id="message2"><b>${invalid_psw_message}</b></div>
         </c:if>
         <br/><br/>
-        First name: <input type="first_name" id="first_name" class="form-control" name="first_name" >
+        First name: <input type="first_name" id="first_name" class="form-control" required pattern="([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})" name="first_name" >
         <c:choose>
             <c:when test="${invalid_first_name eq 'invalid_message'}">
                 <div id="message4"><b><${invalid_first_name_message}></b></div>
             </c:when>
         </c:choose>
         <br/><br/>
-        Last name: <input type="last_name" id="last_name" class="form-control" name="last_name">
+        Last name: <input type="last_name" id="last_name" class="form-control"  required pattern="([А-Я]{1}[а-яё]{1,30}|[A-Z]{1}[a-z]{1,30})" name="last_name">
         <c:choose>
             <c:when test="${invalid_last_name eq 'invalid_message'}">
                 <div id="message5"><b><${invalid_last_name_message}></b></div>
             </c:when>
         </c:choose>
         <br/><br/>
-        Data birthday: <input type="date" id="data_birthday" class="form-control" name="data_birthday">
+        Data birthday: <input type="date" id="data_birthday" class="form-control" required pattern="\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])" name="data_birthday">
         <c:choose>
             <c:when test="${invalid_databirthday eq 'invalid_message'}">
                 <div id="message6"><b><${invalid_databirthday_message}></b></div>
             </c:when>
         </c:choose>
         <br/><br/>
-        Address: <input type="address" id="address" class="form-control" name="address">
+        Address: <input type="address" id="address" class="form-control" required pattern="([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})(\s)(\d{1,3})\-(\d{1,3})" name="address">
         <c:choose>
             <c:when test="${invalid_address eq 'invalid_message'}">
                 <div id="message7"><b><${invalid_address_message}></b></div>
             </c:when>
         </c:choose>
         <br/><br/>
-        Phone number: <input type="phone_number" id="phone_number" class="form-control" name="phone_number">
+        Phone number: <input type="phone_number" id="phone_number" class="form-control" required pattern="((\+375|80)(25|29|33|44)\d{7})" name="phone_number">
         <c:choose>
             <c:when test="${invalid_phone_number eq 'invalid_message'}">
                 <div id="message8"><b><${invalid_phone_number_message}></b></div>
             </c:when>
         </c:choose>
         <br/><br/>
-        Email: <input type="email" id="email-address" class="form-control" name="email" value="${valid_email}">
+        Email: <input type="email" id="email-address" class="form-control"  required pattern="((\w|[-+])+(\.(\w|[-+])*)*@[a-z]+\.[a-z]+)" name="email" value="${valid_email}">
         <c:choose>
             <c:when test="${invalid_email eq 'invalid_message'}">
                 <div id="message9"><b>${invalid_email_message}</b></div>

@@ -4,17 +4,19 @@ import by.tms.project.controller.command.Command;
 import by.tms.project.controller.command.Router;
 import by.tms.project.exception.CommandException;
 import by.tms.project.exception.ServiceException;
+import by.tms.project.model.entity.User;
 import by.tms.project.model.service.UserService;
 import by.tms.project.model.service.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.tms.project.controller.command.PagePath.REGISTRATION_PAGE;
-import static by.tms.project.controller.command.PagePath.WELCOME_PAGE;
+import static by.tms.project.controller.command.PagePath.*;
+import static by.tms.project.controller.command.RequestAttribute.SESSION_USER;
 import static by.tms.project.controller.command.RequestParameter.*;
 
 /**
@@ -24,6 +26,7 @@ import static by.tms.project.controller.command.RequestParameter.*;
  */
 public class RegistrationCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
+    private static final String SUBJECT = "REGISTRATION";
     private UserService userService = UserServiceImpl.getInstance();
 
     /**
@@ -46,11 +49,26 @@ public class RegistrationCommand implements Command {
 
         try {
             boolean registration = userService.registerNewUser(checkData);
-            router.setPage(registration ? WELCOME_PAGE : REGISTRATION_PAGE);
-            return router;
+            router.setPage(registration ? SIGN_IN_PAGE : REGISTRATION_PAGE);
+
+
+//            if (!registration) {
+//                for (String key : checkData.keySet()) {
+//                    String validationResult = checkData.get(key);
+//                    if (Boolean.parseBoolean(validationResult)) {
+//                        switch (key) {
+//                        }
+//                    }
+//                }
+//            }
+            if (registration) {
+                HttpSession session = request.getSession();
+                session.setAttribute(LOGIN,checkData.get(LOGIN));
+                userService.sendMessage(SUBJECT,checkData.get(LOGIN));
+            }
         } catch (ServiceException e) {
-            logger.error("Failed at RegistrationCommand", e);
             throw new CommandException("Failed at RegistrationCommand", e);
         }
+        return router;
     }
 }

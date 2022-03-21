@@ -19,7 +19,6 @@ import java.io.IOException;
 
 import static by.tms.project.controller.command.RequestParameter.COMMAND;
 
-
 /**
  * @author ShchebetovaEK
  * <p>
@@ -45,11 +44,7 @@ public class Controller extends HttpServlet {
      * @throws IOException      Signals that an I/O exception has occurred.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (CommandException e) {
-            logger.error("Failed at doGet method Controller", e);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -61,11 +56,7 @@ public class Controller extends HttpServlet {
      * @throws IOException      Signals that an I/O exception has occurred.
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (CommandException e) {
-            logger.error("Failed at doPost method Controller", e);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -76,7 +67,7 @@ public class Controller extends HttpServlet {
      * @throws ServletException the servlet exception
      * @throws IOException      Signals that an I/O exception has occurred.
      */
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, CommandException {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String commandStr = request.getParameter(COMMAND);
         Command command = CommandFactory.getCommand(commandStr);
         try {
@@ -91,6 +82,7 @@ public class Controller extends HttpServlet {
             }
         } catch (CommandException e) {
             logger.log(Level.ERROR, "Internal error has occurred:", e);
+           // response.sendError(500, "");
             response.sendRedirect(request.getContextPath() + PagePath.ERROR_500_PAGE);
 
         }

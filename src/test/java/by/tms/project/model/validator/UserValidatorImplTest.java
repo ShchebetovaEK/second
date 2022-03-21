@@ -1,4 +1,4 @@
-package by.tms.project.model.validator.impl;
+package by.tms.project.model.validator;
 
 import org.junit.jupiter.api.Test;
 import org.testng.annotations.DataProvider;

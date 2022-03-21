@@ -1,7 +1,8 @@
 package by.tms.project.model.dao;
 
 import by.tms.project.exception.DaoException;
-import by.tms.project.model.entity.AccessRole;
+import by.tms.project.exception.ServiceException;
+import by.tms.project.model.entity.Role;
 import by.tms.project.model.entity.User;
 
 import java.util.List;
@@ -17,13 +18,15 @@ public interface UserDao extends BaseDao<Long, User> {
 
      List<User> findByLastName(String lastName) throws DaoException;
 
+     List<User> findByDataBirthday(String dataBirthday) throws DaoException;
+
      List<User> searchByLastName(String lastName) throws DaoException;
 
-     List<User> findByRole(AccessRole role) throws DaoException;
+     List<User> findByRole(Role role) throws DaoException;
 
-     List<User> findByFirstNameAndRole(String firstName, AccessRole role) throws DaoException;
+     List<User> findByFirstNameAndRole(String firstName, Role role) throws DaoException;
 
-     List<User> findByLastNameAndRole(String lastName, AccessRole role) throws  DaoException;
+     List<User> findByLastNameAndRole(String lastName, Role role) throws  DaoException;
 
      Optional <User> findByEmail(String email) throws DaoException;
 
@@ -39,10 +42,6 @@ public interface UserDao extends BaseDao<Long, User> {
 
      boolean setPassword(User user, String password) throws DaoException;
 
-     boolean checkUserLogin(String login) throws DaoException;
-
-     Optional<User> findUserByLoginAndPassword(String login, String passwordSalt)  throws DaoException;
-
      boolean updateFirstNameById(long id, String firstName) throws DaoException;
 
      boolean updateLastNameById(long id, String lastName) throws DaoException;
@@ -51,9 +50,9 @@ public interface UserDao extends BaseDao<Long, User> {
 
      boolean updateAddressById(long id, String address) throws DaoException;
 
-     boolean  updateEmailById(long id, String email) throws DaoException;
+     boolean updateEmailById(long id, String email) throws DaoException;
 
-     boolean  updateDataBirthdayById(long id, String dataBirthday) throws DaoException;
+     boolean updateDataBirthdayById(long id, String dataBirthday) throws DaoException;
 
      boolean archivUser(long id) throws DaoException;
 }

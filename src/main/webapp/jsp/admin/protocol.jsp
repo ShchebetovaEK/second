@@ -51,21 +51,21 @@
 <form action="${abs}/controller" method="get">
     <label class="form-label"> ${message_3}</label>
     <input type="hidden" name="command" value="admin_take_protocol_by_patient_command">
-         <input type="text" name="id" required placeholder="patient id" >
+         <input type="text" name="id" required placeholder="patient id" pattern="[0-9]{1,10}">
     <input type="submit">
 </form>
 <br/>
 <form action="${abs}/controller" method="get">
     <label class="form-label"> ${message_4}</label>
     <input type="hidden" name="command" value="admin_take_protocol_by_payer_command">
-    <input type="text" name="protocol_payer" required placeholder="payer" >
+    <input type="text" name="protocol_payer" required placeholder="payer" pattern="(?i)(insurance)|(patient)">
     <input type="submit">
 </form>
 <br/>
 <form action="${abs}/controller" method="get">
     <label class="form-label"> ${message_5}</label>
     <input type="hidden" name="command" value="admin_take_protocol_by_data_command">
-    <input type="text" name="protocol_data"  required placeholder="YYYY-MM-DD" >
+    <input type="text" name="protocol_data"  required placeholder="YYYY-MM-DD" pattern="\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])">
     <input type="submit">
 </form>
 <br/>

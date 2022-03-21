@@ -4,34 +4,30 @@ import java.util.Date;
 import java.util.List;
 
 public class Doctor extends User {
-
     private Category category;
-    private Experience experience;
     private Speciality speciality;
     private List<Capability> capabilityList;
 
     public Doctor() {
     }
 
-    public Doctor(Category category, Experience experience, Speciality speciality) {
+    public Doctor(Category category,  Speciality speciality) {
         this.category = category;
-        this.experience = experience;
         this.speciality = speciality;
     }
 
-    public Doctor(AccessRole role, String login, String password, String firstName, String lastName, Date dataBirthday,
-                  String address, String phoneNumber, String email, Category category, Experience experience, Speciality speciality) {
+    public Doctor(Role role, String login, String password, String firstName, String lastName, Date dataBirthday,
+                  String address, String phoneNumber, String email, Category category, Speciality speciality) {
         super(role, login, password, firstName, lastName, dataBirthday, address, phoneNumber, email);
         this.category = category;
-        this.experience = experience;
+
         this.speciality = speciality;
     }
 
-    public Doctor(AccessRole role, String login, String password, String firstName, String lastName, Date dataBirthday, String address, String phoneNumber,
-                  String email, Archiv archiv, Category category, Experience experience, Speciality speciality) {
+    public Doctor(Role role, String login, String password, String firstName, String lastName, Date dataBirthday, String address, String phoneNumber,
+                  String email, Archiv archiv, Category category, Speciality speciality) {
         super(role, login, password, firstName, lastName, dataBirthday, address, phoneNumber, email, archiv);
         this.category = category;
-        this.experience = experience;
         this.speciality = speciality;
     }
 
@@ -41,14 +37,6 @@ public class Doctor extends User {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public Experience getExperience() {
-        return experience;
-    }
-
-    public void setExperience(Experience experience) {
-        this.experience = experience;
     }
 
     public Speciality getSpeciality() {
@@ -76,7 +64,6 @@ public class Doctor extends User {
         Doctor doctor = (Doctor) o;
 
         if (category != doctor.category) return false;
-        if (experience != doctor.experience) return false;
         if (speciality != doctor.speciality) return false;
         return capabilityList.equals(doctor.capabilityList);
     }
@@ -85,7 +72,6 @@ public class Doctor extends User {
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + category.hashCode();
-        result = 31 * result + experience.hashCode();
         result = 31 * result + speciality.hashCode();
         result = 31 * result + capabilityList.hashCode();
         return result;
@@ -95,7 +81,6 @@ public class Doctor extends User {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Doctor{");
         sb.append("category=").append(category);
-        sb.append(", experience=").append(experience);
         sb.append(", speciality=").append(speciality);
         sb.append(", capabilityList=").append(capabilityList);
         sb.append('}');
@@ -113,7 +98,7 @@ public class Doctor extends User {
             return this;
         }
 
-        public DoctorBuilder setRole(AccessRole role) {
+        public DoctorBuilder setRole(Role role) {
             doctor.setRole(role);
             return this;
         }
@@ -168,17 +153,10 @@ public class Doctor extends User {
             return this;
         }
 
-        public DoctorBuilder setExperience(Experience experience) {
-            doctor.setExperience(experience);
-            return this;
-        }
-
         public DoctorBuilder setSpeciality(Speciality speciality) {
             doctor.setSpeciality(speciality);
             return this;
         }
-
-
 
         public Doctor buildDoctor() {
             return doctor;

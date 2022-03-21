@@ -15,8 +15,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.tms.project.controller.command.PagePath.ADMIN_PAGE;
-import static by.tms.project.controller.command.PagePath.REGISTRATION_PAGE;
+import static by.tms.project.controller.command.PagePath.*;
 import static by.tms.project.controller.command.RequestParameter.*;
 
 /**
@@ -50,12 +49,11 @@ public class AdminRegisterDoctorCommand  implements Command {
         checkData.put(PHONE_NUMBER, request.getParameter(PHONE_NUMBER));
         checkData.put(EMAIL, request.getParameter(EMAIL));
         checkData.put(CATEGORY,request.getParameter(CATEGORY));
-        checkData.put(EXPERIENCE,request.getParameter(EXPERIENCE));
         checkData.put(SPECIALITY,request.getParameter(SPECIALITY));
 
         try {
             boolean registration = doctorService.registerNewDoctor(checkData);
-            router.setPage(registration ? ADMIN_PAGE : REGISTRATION_PAGE);
+            router.setPage(registration ? SUCCESS_PAGE : REGISTRATION_PAGE);
 
             return router;
         } catch (ServiceException e) {

@@ -1,5 +1,6 @@
 package by.tms.project.model.service;
 
+import by.tms.project.exception.DaoException;
 import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.User;
 
@@ -21,6 +22,8 @@ public interface UserService {
 
     List<User> findByLastName(String lastName) throws ServiceException;
 
+    List<User> findByDataBirthday(String dataBirthday) throws ServiceException;
+
     List<User> searchByLastName(String lastName) throws ServiceException;
 
     Optional <User> findByEmail(String email) throws ServiceException;
@@ -30,6 +33,12 @@ public interface UserService {
     boolean registerNewUser(Map<String, String> userCheck) throws ServiceException;
 
     boolean registerNewAdmin(Map<String, String> userCheck) throws ServiceException;
+
+    boolean setLogin(User user, String login) throws ServiceException;
+
+    void sendMessage(String subject,String login) throws ServiceException;
+
+    boolean setPassword(User user, String password) throws ServiceException;
 
     boolean updateFirstNameById(long id, String firstName) throws ServiceException;
 

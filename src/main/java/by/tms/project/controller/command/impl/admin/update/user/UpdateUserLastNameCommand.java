@@ -36,16 +36,22 @@ public class UpdateUserLastNameCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         String upLastName = request.getParameter(LAST_NAME);
-        String strId = request.getParameter(ID);
-        if (upLastName.isEmpty() && strId.isEmpty()) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(SESSION_USER);
+        Long userId = user.getId();
+//        String strId = request.getParameter(ID);
+//        if (upLastName.isEmpty() && strId.isEmpty()) {
+        if (upLastName.isEmpty() ) {
             router.setPage(FAIL_PAGE);
             return router;
         }
-        Long id = Long.valueOf(strId);
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(SESSION_USER);
+//        Long id = Long.valueOf(strId);
+        Long id = Long.valueOf(userId);
+//        HttpSession session = request.getSession();
+//        User user = (User) session.getAttribute(SESSION_USER);
         try {
-            if (upLastName != null && strId != null) {
+//            if (upLastName != null && strId != null) {
+            if (upLastName != null ) {
                 userService.updateLastNameById(id, upLastName);
                 router.setPage(SUCCESS_PAGE);
             } else {

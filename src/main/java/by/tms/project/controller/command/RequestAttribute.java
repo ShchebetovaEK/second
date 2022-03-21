@@ -16,6 +16,8 @@ public final class RequestAttribute {
 
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
+    public static final String NEW_PASSWORD = "new_password";
+    public static final String CONFIRM_PASSWORD = "confirm_password";
 
     public static final String SESSION_USER = "user";
     public static final String SESSION_DOCTOR = "doctor";
@@ -32,6 +34,19 @@ public final class RequestAttribute {
     public static final String ADDRESS_CHANGE = "address_change";
     public static final String PHONE_NUMBER_CHANGE = "phone_number_change";
     public static final String EMAIL_CHANGE = "email_change";
+
+    /* registration*/
+    public static final String INVALID_LOGIN = "invalid_login";
+    public static final String INVALID_PASSWORD = "invalid_password";
+    public static final String INVALID_FIRST_NAME = "invalid_firstName";
+    public static final String INVALID_LAST_NAME = "invalid_lastName";
+    public static final String INVALID_DATA_BIRTHDAY = "invalid_dataBirthday";
+    public static final String INVALID_ADDRESS = "invalid_address";
+    public static final String INVALID_PHONE_NUMBER = "invalid_phone_number";
+    public static final String INVALID_EMAIL = "invalid_email";
+    public static final String INVALID_CATEGORY = "invalid_category";
+    public static final String INVALID_SPECIALITY = "invalid_speciality";
+    public static final String INVALID_DISCOUNT = "invalid_discount";
 
     private RequestAttribute() {
     }

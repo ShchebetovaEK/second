@@ -46,7 +46,8 @@
 <br/>
 <form action="${abs}/controller" method="get">
     <input type="hidden" name="command" value="admin_take_all_patients_by_insurance_command">
-   <label>${message2}</label>  <input type="text" name="insurance" required pattern="(?i)(true|false)" >
+   <label>${message2}</label>
+    <input type="text" name="insurance" required pattern="(?i)(true|false)" >
     <input type="submit" >
 </form>
 <br/>
@@ -57,13 +58,14 @@
     <input type="submit" >
 </form>
 <br/>
-<form action="${abs}/controller" method="get">
-    <input type="hidden" name="command" value="admin_take_all_patients_by_login_command">
-    <label>${message4}</label>
-    <input type="text" name="login" required pattern="(\w)[\w_-]{1,18}(\w)">
-    <input type="submit" >
-</form>
-<br/>
+    <form action="${abs}/controller" method="get">
+        <input type="hidden" name="command" value="admin_take_patients_by_balance_range_command">
+        <label>${message3}</label>
+        <input type="text" name="first_range"  required pattern="[0-9]{1,5}" >
+        <input type="text" name="second_range"  required pattern="[0-9]{1,5}" >
+        <input type="submit" >
+    </form>
+
 <table class="table text-primary">
     <tr>
         <th scope="col">${id}</th>

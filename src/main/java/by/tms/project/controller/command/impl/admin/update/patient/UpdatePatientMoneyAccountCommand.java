@@ -7,6 +7,7 @@ import by.tms.project.exception.ServiceException;
 import by.tms.project.model.entity.Patient;
 import by.tms.project.model.service.PatientService;
 import by.tms.project.model.service.impl.PatientServiceImpl;
+import by.tms.project.model.validator.PatientValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
@@ -28,6 +29,7 @@ import static by.tms.project.controller.command.RequestParameter.USERS_ID;
 public class UpdatePatientMoneyAccountCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private PatientService patientService = PatientServiceImpl.getInstance();
+    private PatientValidator patientValidator = PatientValidator.getInstance();
 
     /**
      * @param request the request
@@ -49,7 +51,7 @@ public class UpdatePatientMoneyAccountCommand implements Command {
         HttpSession session = request.getSession();
         Patient patient = (Patient) session.getAttribute(SESSION_PATIENT);
         try {
-            if (moneyAccount != null) {
+            if (moneyAccount != null ) {
                 patientService.updateMoneyAccount(id, BigDecimal.valueOf(moneyAccount));
                 router.setPage(SUCCESS_PAGE);
             } else {

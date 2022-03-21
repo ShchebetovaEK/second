@@ -23,6 +23,11 @@ public final class RequestParameter {
     /*patient*/
     public static final String INSURANCE = "insurance";
     public static final String MONEY_ACCOUNT = "money_account";
+    public static final String BALANCE = "balance";
+    public static final String FIRST_RANGE = "first_range";
+    public static final String SECOND_RANGE = "second_range";
+
+
     public static final String DISCOUNT = "discount";
     /*protocol*/
     public static final String PROTOCOL_ID = "protocol_id";
@@ -39,18 +44,18 @@ public final class RequestParameter {
     public static final String TRUE = "true";
     public static final String FALSE = "false";
 
-    public static final String INVALID_LOGIN = "invalidLogin";
-    public static final String INVALID_PASSWORD = "invalidPassword";
-    public static final String INVALID_FIRST_NAME = "invalidFirstName";
-    public static final String INVALID_LAST_NAME = "invalidLastName";
-    public static final String INVALID_DATA_BIRTHDAY = "invalidDataBirthday";
-    public static final String INVALID_ADDRESS = "invalidAddress";
-    public static final String INVALID_PHONE_NUMBER = "invalidPhoneNumber";
-    public static final String INVALID_EMAIL = "invalidEmail";
-    public static final String INVALID_CATEGORY = "invalidCategory";
-    public static final String INVALID_EXPERIENCE = "invalidExperience";
-    public static final String INVALID_SPECIALITY = "invalidSpeciality";
-    public static final String INVALID_DISCOUNT = "invalidDiscount";
+    /* registration*/
+    public static final String INVALID_LOGIN = "invalid_login";
+    public static final String INVALID_PASSWORD = "invalid_password";
+    public static final String INVALID_FIRST_NAME = "invalid_firstName";
+    public static final String INVALID_LAST_NAME = "invalid_lastName";
+    public static final String INVALID_DATA_BIRTHDAY = "invalid_dataBirthday";
+    public static final String INVALID_ADDRESS = "invalid_address";
+    public static final String INVALID_PHONE_NUMBER = "invalid_phone_number";
+    public static final String INVALID_EMAIL = "invalid_email";
+    public static final String INVALID_CATEGORY = "invalid_category";
+    public static final String INVALID_SPECIALITY = "invalid_speciality";
+    public static final String INVALID_DISCOUNT = "invalid_discount";
 
     public static final String TYPE = "type";
     public static final String VALUE = "value";

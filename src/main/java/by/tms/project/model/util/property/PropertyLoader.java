@@ -9,14 +9,14 @@ import java.util.Properties;
 
 /**
  * @author ShchebetovaEK
- *
+ * <p>
  * final class PropertyLoader
- *
  */
 public final class PropertyLoader {
     private static final Logger logger = LogManager.getLogger();
 
-    private PropertyLoader(){}
+    private PropertyLoader() {
+    }
 
     /**
      * Get property.

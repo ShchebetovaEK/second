@@ -42,7 +42,11 @@ public class AdminUpdateProtocolApplicationCommand implements Command {
         Long protocolId = Long.valueOf(strProtocolId);
         try {
             if (protocolApplication != null) {
-                protocolService.updateProtocolApplication(protocolId, Application.valueOf(protocolApplication));
+           boolean application =  protocolService.updateProtocolApplication(protocolId, Application.valueOf(protocolApplication));
+           if (application){
+
+
+           }
                 router.setPage(SUCCESS_PAGE);
             } else {
                 router.setPage(FAIL_PAGE);
