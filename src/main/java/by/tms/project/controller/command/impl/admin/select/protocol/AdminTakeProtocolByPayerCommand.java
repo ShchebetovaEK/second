@@ -13,8 +13,10 @@ import by.tms.project.model.service.impl.ProtocolServiceImpl;
 import by.tms.project.model.service.impl.UserServiceImpl;
 import by.tms.project.model.validator.ProtocolValidator;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 
 import java.util.List;
 
@@ -40,6 +42,7 @@ public class AdminTakeProtocolByPayerCommand implements Command {
      */
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
+        HttpSession session = request.getSession();
         Router router = new Router();
         String strPayer = request.getParameter(RequestParameter.PROTOCOL_PAYER);
         if (strPayer.isEmpty()) {
@@ -53,6 +56,11 @@ public class AdminTakeProtocolByPayerCommand implements Command {
                 request.setAttribute(PROTOCOL_LIST, protocolList);
                 request.setAttribute(PROTOCOL, Boolean.TRUE);
                 router.setPage(PROTOCOL_PAGE);
+            }
+            else {
+                router.setPage(FAIL_PAGE);
+                request.setAttribute("failAtPayer",Boolean.TRUE);
+                session.setAttribute("failPayer",strPayer);
             }
         } catch (ServiceException e) {
             logger.error("Failed at AdminTakeProtocolByPayerCommand");

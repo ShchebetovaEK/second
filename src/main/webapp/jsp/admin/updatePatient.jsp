@@ -6,6 +6,7 @@
 <fmt:message key="updatepatient.message2" var="message2" />
 <fmt:message key="updatepatient.message3" var="message3" />
 <fmt:message key="updatepatient.message4" var="message4" />
+<fmt:message key="updatepatient.message5" var="message5" />
 <fmt:message key="updatepatient.back1" var="back1" />
 <html>
 <header id="header">
@@ -55,7 +56,7 @@
         <input type="hidden" name="command" value="update_patient_balance_command">
         <label class="form-label"> ${message1}</label>
         <input type="text" required pattern="([0-9]{1,10})" name="users_id">
-        <label class="form-label"> ${message4}</label>
+        <label class="form-label"> ${message5}</label>
         <input type="text" required  pattern="([0-9]{1,10})" name="balance">
         <input type="submit">
     </form>

@@ -33,17 +33,17 @@
     <title>${title}</title>
 </head>
 <body>
-<h1 class="text-center">${greeting}</h1>
+<%--<h1 class="text-center">${greeting}</h1>--%>
 
-<div class="text-center text-info">
-    <form  method="post" action="${abs}/controller">
-        <div class="row-cols-2">
+<div class="text-center ">
+    <form method="post" action="${abs}/controller">
+        <div class="row align-items-center">
             <input type="hidden" name="command" value="registration_command">
 
             <label class="form-label"> login </label>
             <input type="text" id="login" class="form-control" required name="login"
                    pattern="(\w)[\w_-]{1,18}(\w)"
-                   value="menistrelka">
+                   value="blinov">
 
 
 <%--            <c:choose>--%>
@@ -54,7 +54,7 @@
 
 
         <label class="form-label"> password </label>
-        <input type="password" id="password" class="form-control" value="menistrelka" required
+        <input type="password" id="password" class="form-control" value="blinov" required
                name="password" pattern="(.{4,40})">
 
 
@@ -65,7 +65,7 @@
 
 
         <label class="form-label"> first name </label>
-        <input type="first_name" id="first_name" class="form-control" value="Anna" required
+        <input type="first_name" id="first_name" class="form-control" value="Igor" required
                name="first_name"
                pattern="([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})">
 
@@ -79,7 +79,7 @@
 
 
         <label class="form-label"> last name </label>
-        <input type="last_name" id="last_name" class="form-control" value="Pliats" required
+        <input type="last_name" id="last_name" class="form-control" value="Blinov" required
                name="last_name"
                pattern="([А-Я]{1}[а-яё]{1,30}|[A-Z]{1}[a-z]{1,30})">
 
@@ -103,7 +103,7 @@
 
 
         <label class="form-label"> address </label>
-        <input type="address" id="address" class="form-control" value="Острошицкая 23-168" required
+        <input type="address" id="address" class="form-control" value="Левкова 36-168" required
                name="address"
                pattern="([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})(\s)(\d{1,3})\-(\d{1,3})">
 
@@ -116,7 +116,7 @@
 
 
         <label class="form-label"> phone number </label>
-        <input type="phone_number" id="phone_number" class="form-control" value="+375292561473"
+        <input type="phone_number" id="phone_number" class="form-control" value="+375297521594"
                required name="phone_number"
                pattern="((\+375|80)(25|29|33|44)\d{7})">
 
@@ -129,7 +129,7 @@
 
         <label class="form-label"> email </label>
         <input type="email" id="email-address" class="form-control" name="email"
-               placeholder="arbat413@gmail.com" value="ap.wiskiss@gmail.com"
+               placeholder="arbat413@gmail.com" value="blinov@gmail.com"
                required pattern="((\w|[-+])+(\.(\w|[-+])*)*@[a-z]+\.[a-z]+)">
 
 <%--        <c:choose>--%>
@@ -141,7 +141,8 @@
             <label class="form-label"> insurance </label>
             <input type="insurance" id="insurance" class="form-control" name="insurance"
                    placeholder="true" value="true"
-                   required pattern="i?(true)(false)">
+                   required >
+<%--                   pattern="(i?)(true)(false)">--%>
 
             <label class="form-label"> money account </label>
             <input type="money_account" id="money_account" class="form-control" name="money_account"

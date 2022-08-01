@@ -32,7 +32,8 @@ public class Mail {
             switch (subject) {
                 case "CHANGE PASSWORD" -> {
                     mimeMessage.setSubject(subject);
-                    mimeMessage.setContent("you change your password", "text/html");
+                    mimeMessage.setContent("you changed your password\n" +
+                            "If you haven't done so, contact your administrator", "text/html");
                     mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
                 }
@@ -64,7 +65,7 @@ public class Mail {
                 case "APPLICATION APPROVED" -> {
                     mimeMessage.setSubject(subject);
                     mimeMessage.setContent( firstName + " " + lastName +
-                            " Your application approved!"+" Your, Forestmed! ", "text/html");
+                            " Your application  was approved!"+" Your, Forestmed! ", "text/html");
                     mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
                 }
             }

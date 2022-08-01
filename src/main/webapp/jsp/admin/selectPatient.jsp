@@ -6,6 +6,7 @@
 <fmt:message key="selectpatient.message2" var="message2" />
 <fmt:message key="selectpatient.message3" var="message3" />
 <fmt:message key="selectpatient.message4" var="message4" />
+<fmt:message key="selectpatient.message5" var="message5" />
 <fmt:message key="selectpatient.back1" var="back1" />
 <fmt:message key="selectpatient.back2" var="back2" />
 <fmt:message key="selectpatient.back3" var="back3" />
@@ -60,7 +61,7 @@
 <br/>
     <form action="${abs}/controller" method="get">
         <input type="hidden" name="command" value="admin_take_patients_by_balance_range_command">
-        <label>${message3}</label>
+        <label>${message5}</label>
         <input type="text" name="first_range"  required pattern="[0-9]{1,5}" >
         <input type="text" name="second_range"  required pattern="[0-9]{1,5}" >
         <input type="submit" >

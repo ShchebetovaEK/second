@@ -15,19 +15,27 @@ public interface PatientService {
 
     Optional<Patient> findPatientByLogin(String login) throws ServiceException;
 
+    Optional<Patient> findBalance(long id) throws ServiceException;
+
     List<Patient> findByInsurance(Boolean insurance) throws ServiceException;
 
-    List<Patient> findByMoneyAccount(BigDecimal moneyAccount) throws ServiceException;
+    List<Patient> findByMoneyAccount(long firstRange, long secondRange) throws ServiceException;
+
+    List<Patient> findMinBalance(int minBalance) throws ServiceException;
 
     List<Patient> findByDiscount(Integer discount) throws ServiceException;
 
     boolean create(Map<String, String> userCheck) throws ServiceException;
+
+    boolean registerNewPatient(Map<String, String> userCheck) throws ServiceException;
 
     boolean updateInsurance(long id, Boolean insurance) throws ServiceException;
 
     boolean updateDiscount(long id, Integer discount) throws ServiceException;
 
     boolean updateMoneyAccount(long id, BigDecimal moneyAccount) throws ServiceException;
+
+    boolean updateBalance(long id, BigDecimal balance) throws ServiceException;
 
     boolean deletePatient(long id) throws ServiceException;
 

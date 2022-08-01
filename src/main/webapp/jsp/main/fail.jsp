@@ -27,6 +27,9 @@
             <h2 class="text-center text-black">
                 ${message}</h2>
             <br/>
+            <c:if test="${requestScope.failAtPayer}">failAtPayer</c:if>
+            <c:if test="${sessionScope.failPayer}">Payer was fail </c:if>
+<br/>
             <a class="btn btn-warning" href="${pageContext.request.contextPath}/jsp/move/main.jsp"
                role="button">${back}</a>
         </form>

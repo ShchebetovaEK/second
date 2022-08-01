@@ -51,6 +51,9 @@ public class AdminTakeProtocolByApplicationCommand implements Command {
                 request.setAttribute(PROTOCOL, Boolean.TRUE);
                 router.setPage(PROTOCOL_PAGE);
             }
+            else {
+                router.setPage(FAIL_PAGE);
+            }
         } catch (ServiceException e) {
             logger.error("Failed at AdminTakeProtocolByApplicationCommand");
             throw new CommandException("Failed at AdminTakeProtocolByApplicationCommand", e);

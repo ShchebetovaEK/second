@@ -66,7 +66,7 @@
         <input type="hidden" name="command" value="admin_register_doctors_command">
         <label class="form-label"> Login:</label>
 <%--        value="${valid_login}"--%>
-        <input type="text" id="login" class="form-control" name="login" value="petrov"  placeholder="login">
+        <input type="text" id="login" class="form-control" name="login" value="nikitin"  placeholder="login">
         <c:choose>
             <c:when test="${invalid_login eq 'invalid_message'}">
                 <div id="message1"><b>${invalid_login_message}</b></div>
@@ -74,7 +74,7 @@
         </c:choose>
         <br/><br/>
         <label class="form-label">  Password:</label>
-       <input type="password" id="password" class="form-control" name="password" value="petrov" placeholder="password">
+       <input type="password" id="password" class="form-control" name="password" value="nikitin" placeholder="password">
         <c:if test="${invalid_passport eq 'invalid_message'}">
             <div id="message2"><b>${invalid_psw_message}</b></div>
         </c:if>
@@ -85,7 +85,7 @@
         <%--        </c:if>--%>
         <br/><br/>
         <label class="form-label"> First name:</label>
-        <input type="first_name" id="first_name" class="form-control" name="first_name" value="Сергей" placeholder="Сергей">
+        <input type="first_name" id="first_name" class="form-control" name="first_name" value="Андрей" placeholder="Сергей">
         <c:choose>
             <c:when test="${invalid_first_name eq 'invalid_message'}">
                 <div id="message4"><b><${invalid_first_name_message}></b></div>
@@ -93,7 +93,7 @@
         </c:choose>
         <br/><br/>
         <label class="form-label"> Last name: </label>
-       <input type="last_name" id="last_name" class="form-control" name="last_name"  value="Петров" placeholder="Петров">
+       <input type="last_name" id="last_name" class="form-control" name="last_name"  value="Никитин" placeholder="Петров">
         <c:choose>
             <c:when test="${invalid_last_name eq 'invalid_message'}">
                 <div id="message5"><b><${invalid_last_name_message}></b></div>
@@ -109,7 +109,7 @@
         </c:choose>
         <br/><br/>
         <label class="form-label"> Address: </label>
-       <input type="address" id="address" class="form-control" name="address" value="Васнецова 17-23" placeholder="Карвата 12-15">
+       <input type="address" id="address" class="form-control" name="address" value="Основателей 17-23" placeholder="Карвата 12-15">
         <c:choose>
             <c:when test="${invalid_address eq 'invalid_message'}">
                 <div id="message7"><b><${invalid_address_message}></b></div>
@@ -117,7 +117,7 @@
         </c:choose>
         <br/><br/>
         <label class="form-label"> Phone number:</label>
-        <input type="phone_number" id="phone_number" class="form-control" name="phone_number" value="+375254141556" placeholder="+375(25/29/44/33)XXXXXXX">
+        <input type="phone_number" id="phone_number" class="form-control" name="phone_number" value="+375254141589" placeholder="+375(25/29/44/33)XXXXXXX">
         <c:choose>
             <c:when test="${invalid_phone_number eq 'invalid_message'}">
                 <div id="message8"><b><${invalid_phone_number_message}></b></div>
@@ -126,7 +126,7 @@
         <br/><br/>
         <label class="form-label"> Email:</label>
 <%--        value="${valid_email}"--%>
-        <input type="email" id="email-address" class="form-control" name="email" value="petrov@mail.ru" placeholder="petrov@mail.ru">
+        <input type="email" id="email-address" class="form-control" name="email" value="nikitin@mail.ru" placeholder="petrov@mail.ru">
         <c:choose>
             <c:when test="${invalid_email eq 'invalid_message'}">
                 <div id="message9"><b>${invalid_email_message}</b></div>

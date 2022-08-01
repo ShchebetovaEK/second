@@ -61,6 +61,10 @@ public class LogInCommand implements Command {
                 }
 
             } else {
+                session.setAttribute("authFailed", Boolean.TRUE);
+                request.setAttribute("loginFail",Boolean.TRUE);
+                //session
+                request.setAttribute("passwordFail",Boolean.TRUE);
                 router.setPage(SIGN_IN_PAGE);
             }
 

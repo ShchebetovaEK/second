@@ -53,7 +53,10 @@ public class AdminTakeProtocolByDataCommand implements Command {
                 request.setAttribute(PROTOCOL, Boolean.TRUE);
                 router.setPage(PROTOCOL_PAGE);
             }
-        } catch (ServiceException e) {
+            else {
+                router.setPage(FAIL_PAGE);
+
+            }        } catch (ServiceException e) {
             logger.error("Failed at AdminTakeProtocolByDataCommand");
             throw new CommandException("Failed at AdminTakeProtocolByDataCommand", e);
         }

@@ -27,6 +27,10 @@
 <br/>
 <div class="text-center">
     <div class="text-center ">
+        <c:if test="${sessionScope.authFailed}">Auth was failed </c:if>
+        <c:if test="${requestScope.loginFail}">login was fail</c:if>
+        <c:if test="${requestScope.passwordFail}">password was fail</c:if>
+
         <form method="POST" action="${abs}/controller">
             <h2 class="text-center"> ${greeting}</h2>
             <br/>
@@ -44,11 +48,14 @@
                 <br/>
                     <p><input type="submit" value="${LogIn}"></p>
             </div>
+
             <a class="btn btn-primary" href="${pageContext.request.contextPath}/jsp/main/registration.jsp"
                role="button">${registration}</a>
         </form>
     </div>
 </div>
+
+
 <footer>
     <div class="text-center"><ctg:footer/></div>
 </footer>
