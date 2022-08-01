@@ -48,7 +48,7 @@ public class Mail {
                 case "CONGRATULATIONS" -> {
                     mimeMessage.setSubject(subject);
                     mimeMessage.setContent(firstName + " " +
-                            " In honor of your birthday, we give you a discount ", "text/html");
+                            " In honor of your birthday, we give you a  30 % discount ", "text/html");
                     mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
                 }

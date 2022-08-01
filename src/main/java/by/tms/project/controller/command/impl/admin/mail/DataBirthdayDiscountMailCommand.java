@@ -40,6 +40,7 @@ public class DataBirthdayDiscountMailCommand implements Command {
                 router.setPage(NO_MATCH_PAGE);
             }
         } catch (ServiceException e) {
+            logger.error("Failed at DataBirthdayDiscountMailCommand ", e);
             throw new CommandException(e);
         }
         return router;

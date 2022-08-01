@@ -50,6 +50,7 @@ public class MinBalanceMailCommand implements Command {
                 router.setPage(NO_MATCH_PAGE);
             }
         } catch (ServiceException e) {
+            logger.error("Failed at MinBalanceMailCommand", e);
             throw new CommandException(e);
         }
         return router;

@@ -74,6 +74,9 @@
 
 
 </div>
+
+<a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/select.jsp"
+   role="button">${back2}</a>
 <a href="#header" class="btn-lg btn-danger">UP</a>
 <footer id="footer">
     <div class="text-center"> <ctg:footer/>

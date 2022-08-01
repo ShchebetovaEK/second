@@ -102,11 +102,11 @@
        role="button">${back3}</a>
     <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/selectPatient.jsp"
        role="button">${back4}</a>
-    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/dataMail.jsp"
+    <a class="btn btn-warning" href="${pageContext.request.contextPath}/jsp/admin/dataMail.jsp"
        role="button"> data mail</a>
-    <a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/minBalance.jsp"
+    <a class="btn btn-warning" href="${pageContext.request.contextPath}/jsp/admin/minBalance.jsp"
        role="button"> min  mail</a>
-</div>
+   </div>
 <a href="#header" class="btn-lg btn-danger">UP</a>
 <footer id="footer">
     <div class="text-center"> <ctg:footer/>

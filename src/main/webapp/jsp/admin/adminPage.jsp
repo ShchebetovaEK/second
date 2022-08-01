@@ -117,6 +117,8 @@
             </div>
         </div>
     </form>
+
+
 <%--    <a class="btn btn-danger" href="${pageContext.request.contextPath}/jsp/main/totalsumprotocol.jsp"--%>
 <%--       role="button"> totalcost</a>--%>
 </div>

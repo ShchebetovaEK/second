@@ -7,6 +7,7 @@
 <fmt:message key="select.message3" var="message3" />
 <fmt:message key="select.message4" var="message4" />
 <fmt:message key="select.message5" var="message5" />
+<fmt:message key="select.message6" var="message6" />
 <fmt:message key="select.back1" var="back1" />
 <fmt:message key="select.back2" var="back2" />
 <fmt:message key="select.back3" var="back3" />
@@ -37,43 +38,17 @@
 
 <div class="text-center">
     <form action="${abs}/controller" method="get">
-        <input type="hidden" name="command" value="databirthday_Discount_command">
-        <label class="form-label">введите дату рождения </label>
+        <input type="hidden" name="command" value="databirthday_discount_command">
+        <label class="form-label">${message6} </label>
         <input type="date"  name="data_birthday" required >
         <input type="submit">
     </form>
     <br/>
 
-
-    <br/>
-
-    <table class="table text-success">
-        <tr>
-            <th scope="col">${id}</th>
-            <th scope="col">${role}</th>
-            <th scope="col">${login}</th>
-            <th scope="col">${firstName} </th>
-            <th scope="col">${firstName} </th>
-            <th scope="col">${address}</th>
-            <th scope="col">${email}</th>
-            <th scope="col">${phoneNumber}</th>
-        </tr>
-        <c:forEach items="${users}" var="user">
-            <tr>
-                <td>${user.id}</td>
-                <td>${user.role}</td>
-                <td>${user.login}</td>
-                <td>${user.firstName}</td>
-                <td>${user.lastName}</td>
-                <td>${user.address}</td>
-                <td>${user.email}</td>
-                <td>${user.phoneNumber}</td>
-            </tr>
-        </c:forEach>
-    </table>
-
-
 </div>
+
+<a class="btn btn-success" href="${pageContext.request.contextPath}/jsp/admin/select.jsp"
+   role="button">${back2}</a>
 <a href="#header" class="btn-lg btn-danger">UP</a>
 <footer id="footer">
     <div class="text-center"> <ctg:footer/>
