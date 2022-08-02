@@ -6,7 +6,6 @@ Main Role project:
 #  _Admin role_
 ___
 * Go to the "main" page
-* Go to price page  
 * Go to our doctors page  
 * Go to about page  
 * Go to account page  
@@ -51,13 +50,13 @@ ___
 
 * Update doctor's  
   -category  
-  -experience  
   -speciality
 
 * Update patient's   
   -insurance  
   -discount  
   -money account
+  -to up balance
 
 * Update protocol's  
 -status  
@@ -67,15 +66,16 @@ ___
 * Take totalCost  
 * Archiv doctor  
 * Archiv patient  
-* Archiv admin  
-* Search by last name  
+* Delete admin
+* Search by last name 
+* Send message about min balance
+* Send message about discount for birthday
 ***    
 
 
 _Patient role_  
 ---   
-* Go to the "main" page  
-* Go to price page  
+* Go to the "main" page
 * Go to our doctors page  
 * Go to about page  
 * Change locale  
@@ -86,12 +86,11 @@ _Patient role_
 * Application protocol's  
 * View all doctor's  
 * View all patient's protocol  
-* Search by last name  
+* Search by speciality  
 
 _Doctor role_  
  --- 
-* Go to the "main" page  
-* Go to price page  
+* Go to the "main" page
 * Go to our doctors page  
 * Go to about page  
 * Change locale   
@@ -99,7 +98,7 @@ _Doctor role_
 * Log out  
 * View all patient's  
 * View all doctor's protocol  
-* Search by last name  
+* Search by speciality  
 ***    
 
 ![CLINIC SCHEME](forestmed.png)
