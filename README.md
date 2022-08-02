@@ -70,6 +70,7 @@ ___
 * Search by last name 
 * Send message about min balance
 * Send message about discount for birthday
+* Send message for registration
 ***    
 
 
